@@ -1,0 +1,93 @@
+<dialog id="search-dialog" class="m-auto w-[min(640px,92vw)] rounded-2xl border border-edge bg-surface p-0 text-ink backdrop:bg-black/60">
+  <div class="flex items-center gap-3 border-b border-edge px-4 py-3">
+    <svg class="size-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input
+      id="search-input"
+      type="search"
+      placeholder="ابحث في المسارات والموضوعات والمصادر…"
+      class="w-full bg-transparent text-sm outline-none placeholder:text-muted"
+      autocomplete="off"
+    />
+    <kbd class="rounded border border-edge px-1.5 font-mono text-[10px] text-muted">esc</kbd>
+  </div>
+  <div id="search-results" class="max-h-[60vh] overflow-y-auto p-2" dir="auto"></div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const resultsEl = document.getElementById('search-results')!;
+  const trigger = document.getElementById('search-trigger');
+
+  // Pagefind index is generated after `astro build` (pagefind --site dist),
+  // so it only exists in production builds — dev falls back to a hint.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let pagefind: any | null | undefined;
+
+  async function loadPagefind() {
+    if (pagefind !== undefined) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+      await pagefind.options({ excerptLength: 14 });
+    } catch {
+      pagefind = null;
+    }
+    return pagefind;
+  }
+
+  function emptyState(msg: string) {
+    resultsEl.innerHTML = `<p class="px-4 py-8 text-center text-sm text-muted">${msg}</p>`;
+  }
+
+  function open() {
+    dialog.showModal();
+    input.focus();
+    if (!resultsEl.childElementCount) emptyState('اكتب للبحث في كل المسارات…');
+    loadPagefind();
+  }
+
+  trigger?.addEventListener('click', open);
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !dialog.open && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  input.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(run, 120);
+  });
+
+  async function run() {
+    const q = input.value.trim();
+    const pf = await loadPagefind();
+    if (!pf) {
+      emptyState('فهرس البحث مش متولّد هنا — متاح في النسخة المبنيّة (npm run build).');
+      return;
+    }
+    if (!q) {
+      emptyState('اكتب للبحث في كل المسارات…');
+      return;
+    }
+    const search = await pf.search(q);
+    const results = await Promise.all(search.results.slice(0, 12).map((r: { data: () => Promise<any> }) => r.data()));
+    if (!results.length) {
+      emptyState(`مفيش نتايج لـ «${q}»`);
+      return;
+    }
+    resultsEl.innerHTML = results
+      .map(
+        (r: { url: string; meta?: { title?: string }; excerpt?: string }) => `
+        <a href="${r.url}" class="block rounded-xl px-4 py-2.5 transition hover:bg-panel/70">
+          <div class="text-sm font-semibold text-ink">${r.meta?.title ?? r.url}</div>
+          <div class="mt-0.5 line-clamp-2 text-xs leading-6 text-muted [&_mark]:bg-accent/25 [&_mark]:text-accent">${r.excerpt ?? ''}</div>
+        </a>`,
+      )
+      .join('');
+  }
+</script>
