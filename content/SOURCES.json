@@ -1,0 +1,77 @@
+{
+  "upstream": {
+    "repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
+    "branch": "main",
+    "commit": "d80fb293d83d51123071ead8a8151bc0e5d9686b",
+    "fetchedAt": "2026-10-24",
+    "note": "إذن CATReloaded مطلوب قبل أي نشر عام — upstream بلا ملف LICENSE."
+  },
+  "submodule": {
+    "path": "Cloud Computing & DevOps/Cloud-Computing-RoadMap",
+    "repo": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap",
+    "license": "MIT",
+    "state": "فاضي في الـ clone — بيتجاب يدويًا (npm run vendor بعد init)"
+  },
+  "vendored": {
+    "android": {
+      "mdFiles": 1,
+      "images": 0,
+      "upstreamDir": "Android"
+    },
+    "backend": {
+      "mdFiles": 5,
+      "images": 0,
+      "upstreamDir": "BackEnd"
+    },
+    "cloud": {
+      "mdFiles": 0,
+      "images": 0,
+      "upstreamDir": "Cloud Computing & DevOps"
+    },
+    "computer-science": {
+      "mdFiles": 1,
+      "images": 0,
+      "upstreamDir": "Computer Science"
+    },
+    "cybersecurity": {
+      "mdFiles": 1,
+      "images": 5,
+      "upstreamDir": "CyberSecurity"
+    },
+    "data-science": {
+      "mdFiles": 1,
+      "images": 0,
+      "upstreamDir": "Data Science"
+    },
+    "embedded": {
+      "mdFiles": 3,
+      "images": 0,
+      "upstreamDir": "Embedded Systems"
+    },
+    "english": {
+      "mdFiles": 1,
+      "images": 0,
+      "upstreamDir": "English"
+    },
+    "game-dev": {
+      "mdFiles": 3,
+      "images": 0,
+      "upstreamDir": "Game Development"
+    },
+    "ios": {
+      "mdFiles": 1,
+      "images": 0,
+      "upstreamDir": "IOS"
+    },
+    "media": {
+      "mdFiles": 1,
+      "images": 1,
+      "upstreamDir": "Media"
+    },
+    "ui": {
+      "mdFiles": 1,
+      "images": 1,
+      "upstreamDir": "UI"
+    }
+  }
+}
