@@ -1,0 +1,15 @@
+# dependencies / build
+node_modules/
+dist/
+.astro/
+
+# local tooling caches (npm default cache is read-only on this machine — we use workspace-local)
+.npm-cache/
+.npm-logs/
+
+# upstream clone consumed read-only during development; canonical content is vendored under content/
+.roadmap-repo/
+.roadmap-meta/
+
+# OS / editor noise
+.DS_Store
