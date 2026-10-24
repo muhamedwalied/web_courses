@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "ui",
+  "name": "UI/UX",
+  "tagline": "UI/UX من الأساسيات لمصمم واثق",
+  "description": "By [Mariam Elmetwally](https://www.linkedin.com/in/mariam-elmetwally-8a58852b7/) This roadmap gives you a clear, step-by-step path to learn UI/UX — from the basics to becoming a confident designer. Each level is organized to help you know what to learn, how to progress, and how to build real, valuab",
+  "color": "#2dd4bf",
+  "icon": "🖌️",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "UI/"
+  ],
+  "levels": []
+}

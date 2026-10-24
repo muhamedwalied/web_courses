@@ -1,0 +1,1444 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "flutter",
+  "name": "Flutter",
+  "tagline": "من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture",
+  "description": "مسار Flutter في CAT Reloaded: رحلة منظمة أسبوعًا بأسبوع من Dart والموبايل حتى Firestore والمدفوعات والـ CI/CD، مع مشروع تطبيقي في كل مرحلة.",
+  "color": "#38bdf8",
+  "icon": "🐦",
+  "prereqs": [],
+  "status": "structured",
+  "upstreamPaths": [
+    "Flutter/Readme.md",
+    "Flutter/1 - Beginner/",
+    "Flutter/2 - Intermediate/",
+    "Flutter/3 - Advanced/"
+  ],
+  "levels": [
+    {
+      "id": "beginner",
+      "name": "Beginner",
+      "order": 0,
+      "durationText": "5 أسابيع",
+      "modules": [
+        {
+          "id": "w01",
+          "name": "Introduction to Flutter & Dart Basics",
+          "order": 1,
+          "objectives": [
+            "Set up Dart and write your first program.",
+            "Learn how to handle user input, variables, data types, and operators.",
+            "Practice string operations and understand control flow using conditionals and loops.",
+            "Build a strong foundation in Dart before diving into Flutter."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "week-1-dart-fundamentals",
+              "title": "Week 1 – Dart Fundamentals",
+              "resources": [
+                {
+                  "title": "Week 1 – Dart Fundamentals",
+                  "url": "https://youtube.com/playlist?list=PL_l2aZqMK7Nkxadt183rfEU7jxPanp5OU&si=wKKIuDpIF_a97DRg",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Dart Language Tour",
+              "url": "https://dart.dev/guides/language/language-tour",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "DartPad (Online Compiler)",
+              "url": "https://dartpad.dev/",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Official Dart Documentation",
+              "url": "https://dart.dev/docs",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w02",
+          "name": "Dart Collections, Functions & Null Safety",
+          "order": 2,
+          "objectives": [
+            "Learn how to use Dart’s core collection types: List, Set, and Map.",
+            "Write reusable code using functions.",
+            "Understand null safety and how Dart prevents null-related errors.",
+            "Handle runtime issues gracefully through error handling techniques."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "week-2-dart-collections-functions-null-safety",
+              "title": "Week 2 – Dart Collections, Functions & Null Safety",
+              "resources": [
+                {
+                  "title": "Week 2 – Dart Collections, Functions & Null Safety",
+                  "url": "https://youtube.com/playlist?list=PL_l2aZqMK7Nn49PQWyVhO54I_EKoDzBJi&si=h1XXTsiZZC5OAtij",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Collections (List, Set, Map) – Dart language guide",
+              "url": "https://dart.dev/language/collections",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Functions – Dart language guide",
+              "url": "https://dart.dev/language/functions",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Null safety – Dart official guide",
+              "url": "https://dart.dev/null-safety",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Error handling – Dart language guide",
+              "url": "https://dart.dev/language/error-handling",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w03",
+          "name": "Object-Oriented Programming in Dart",
+          "order": 3,
+          "objectives": [
+            "Understand the fundamentals of OOP (object-oriented programming) and how it applies in Dart.",
+            "Create classes, constructors, and objects, and explore methods and attributes.",
+            "Apply encapsulation, abstraction (using abstract classes and interfaces), inheritance, polymorphism, mixins, and enums.",
+            "Write more organized and maintainable Dart code using OOP principles."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "week-3-oop-in-dart",
+              "title": "Week 3 – OOP in Dart",
+              "resources": [
+                {
+                  "title": "Week 3 – OOP in Dart",
+                  "url": "https://youtube.com/playlist?list=PL_l2aZqMK7Nm8byLlyy8ZoTVNM_A-biin&si=WG4qHIKj82i2EJ3a",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Classes – Dart language guide",
+              "url": "https://dart.dev/language/classes",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Mixins – Dart language guide",
+              "url": "https://dart.dev/language/mixins",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Interfaces in Dart",
+              "url": "https://dart-tutorial.com/object-oriented-programming/interface-in-dart/",
+              "kind": "other",
+              "lang": "en"
+            },
+            {
+              "title": "Enums – Dart language guide",
+              "url": "https://dart.dev/language/enums",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w04",
+          "name": "Continue OOP Concepts & Version Control with Git & GitHub",
+          "order": 4,
+          "objectives": [
+            "Deepen your understanding of OOP concepts through a practical series by Omar Ahmed.",
+            "Learn version control fundamentals: setting up Git, managing repositories, and collaborating with GitHub."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "oop-playlist-by-omar-ahmed",
+              "title": "OOP – بالعربي (Playlist by Omar Ahmed)",
+              "resources": [
+                {
+                  "title": "OOP – بالعربي (Playlist by Omar Ahmed)",
+                  "url": "https://www.youtube.com/playlist?list=PLwWuxCLlF_ue7GPvoG_Ko1x43tZw5cz9v",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "git-github",
+              "title": "Git & GitHub",
+              "resources": [
+                {
+                  "title": "Git & GitHub",
+                  "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAw4eOj58MZPakHjaO3frVMF&si=jismHLCvcK4QjClZ",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Git & GitHub – Big Data بالعربي",
+              "url": "https://youtu.be/Q6G-J54vgKc?si=15Yx1hqN9HaZLTcT",
+              "kind": "video",
+              "lang": "ar"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w05",
+          "name": "Final Project & Setting Up Flutter",
+          "order": 5,
+          "objectives": [
+            "Make sure to catch up on any topics you may have missed from previous weeks to ensure you're ready for the final project.",
+            "Make the final project of the level, which will apply the concepts learned throughout the beginner level. _(Details to be added later.)_",
+            "Install Flutter and set up your development environment.",
+            "Verify that everything is working properly by running your first Flutter app."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "installing-flutter-arabic",
+              "title": "Installing Flutter (Arabic)",
+              "resources": [
+                {
+                  "title": "Installing Flutter (Arabic)",
+                  "url": "https://youtu.be/m731JJgIj-w?si=bP0USj_KtvWOxrgy",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "installing-flutter-english",
+              "title": "Installing Flutter (English)",
+              "resources": [
+                {
+                  "title": "Installing Flutter (English)",
+                  "url": "https://youtu.be/VFDbZk2xhO4?si=rdx5_w-Z_IWeGp0B",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "official-flutter-setup",
+              "title": "Official Flutter Setup",
+              "resources": [
+                {
+                  "title": "Official Flutter Setup",
+                  "url": "https://docs.flutter.dev/get-started/install",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "Intermediate",
+      "order": 1,
+      "durationText": "8 أسابيع",
+      "modules": [
+        {
+          "id": "w01",
+          "name": "Flutter UI Basics & Layout Widgets",
+          "order": 1,
+          "objectives": [
+            "Set up and use a Virtual Device (Emulator) for testing Flutter apps.",
+            "Understand the difference between StatelessWidget and StatefulWidget.",
+            "Learn the structure of a Flutter app using runApp, MaterialApp, and Scaffold.",
+            "Explore common UI components such as AppBar, Drawer, Text, Container, Column, and Row."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-1-flutter-ui-basics",
+              "title": "Intermediate Week 1 – Flutter UI Basics",
+              "resources": [
+                {
+                  "title": "Intermediate Week 1 – Flutter UI Basics",
+                  "url": "https://youtube.com/playlist?list=PLKi5vUe5hkZiF0bQneuOo6OTsuV9cpyWA&si=0NWML8KpupX615Am",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Flutter Layout Overview",
+              "url": "https://docs.flutter.dev/ui/layout",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Stateless and Stateful Widgets",
+              "url": "https://docs.flutter.dev/development/ui/interactive",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "MaterialApp and Scaffold",
+              "url": "https://docs.flutter.dev/development/ui/widgets/material",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "AppBar Class",
+              "url": "https://api.flutter.dev/flutter/material/AppBar-class.html",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Drawer Widget",
+              "url": "https://api.flutter.dev/flutter/material/Drawer-class.html",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Container Widget",
+              "url": "https://api.flutter.dev/flutter/widgets/Container-class.html",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Column and Row Widgets",
+              "url": "https://api.flutter.dev/flutter/widgets/Column-class.html",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w02",
+          "name": "Images, Layouts & Positioning",
+          "order": 2,
+          "objectives": [
+            "Learn how to display and manage images from assets and gallery (using image_picker).",
+            "Understand and use CircleAvatar for profile images.",
+            "Master layout control widgets like Center, SizedBox, Card, Stack, Expanded, IndexedStack, Wrap, and Divider.",
+            "Build visually balanced UIs using positioning, overflow handling, and widget fitting."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-2-images-layout-widgets",
+              "title": "Intermediate Week 2 – Images & Layout Widgets",
+              "resources": [
+                {
+                  "title": "Intermediate Week 2 – Images & Layout Widgets",
+                  "url": "https://youtube.com/playlist?list=PLKi5vUe5hkZh6BhsGpDQBJYM_fFG9VWbL&si=epgFGP8tHTbAveKh",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Image Widget",
+              "url": "https://api.flutter.dev/flutter/widgets/Image-class.html",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Stack Widget",
+              "url": "https://api.flutter.dev/flutter/widgets/Stack-class.html",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Expanded & Flex Widgets",
+              "url": "https://docs.flutter.dev/ui/layout/constraints",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Wrap & Divider",
+              "url": "https://api.flutter.dev/flutter/widgets/Wrap-class.html",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w03",
+          "name": "Buttons, Forms & Themes",
+          "order": 3,
+          "objectives": [
+            "Learn how to use interactive buttons, gestures, and input fields in Flutter.",
+            "Work with forms, validation, and input decoration.",
+            "Customize your app’s theme and typography to achieve a custom look."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-3-buttons-forms-themes",
+              "title": "Intermediate Week 3 – Buttons, Forms & Themes",
+              "resources": [
+                {
+                  "title": "Intermediate Week 3 – Buttons, Forms & Themes",
+                  "url": "https://youtube.com/playlist?list=PLKi5vUe5hkZirFABVUTaWAyIU6mhYrNrU&si=oyhTwiMM0zW2BbgK",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Buttons – Flutter Docs",
+              "url": "https://docs.flutter.dev/ui/widgets/material#buttons",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Form and TextField Widgets",
+              "url": "https://docs.flutter.dev/ui/widgets/forms",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Themes and Styling",
+              "url": "https://docs.flutter.dev/cookbook/design/themes",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Using Custom Fonts",
+              "url": "https://docs.flutter.dev/cookbook/design/fonts",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w04",
+          "name": "Lists, Navigation & Page Management",
+          "order": 4,
+          "objectives": [
+            "Master the use of ListView and GridView widgets for building scrollable layouts.",
+            "Learn to work with tabs, navigation bars, and page views for better app structure.",
+            "Understand Flutter’s navigation system using routes and the Navigator class."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-4-lists-navigation-page-manage",
+              "title": "Intermediate Week 4 – Lists, Navigation & Page Management",
+              "resources": [
+                {
+                  "title": "Intermediate Week 4 – Lists, Navigation & Page Management",
+                  "url": "https://youtube.com/playlist?list=PLKi5vUe5hkZg-BWIUp3N0mOn_yXbUGHeh&si=fB60LVRXAkfNlZYV",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "ListView Widget – Flutter Docs",
+              "url": "https://docs.flutter.dev/ui/widgets/list-view",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "GridView Widget – Flutter Docs",
+              "url": "https://docs.flutter.dev/ui/widgets/grid",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Navigation and Routing",
+              "url": "https://docs.flutter.dev/cookbook/navigation/navigation-basics",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Tabs and TabBarView",
+              "url": "https://docs.flutter.dev/ui/widgets/tabs",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Bottom Navigation Bar",
+              "url": "https://docs.flutter.dev/ui/widgets/bottom-navigation-bar",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w05",
+          "name": "Advanced UI Components & App Polish",
+          "order": 5,
+          "objectives": [
+            "Work with advanced UI widgets like sliders, dropdowns, and dialogs.",
+            "Learn to use SearchDelegate for in-app searching.",
+            "Add custom launch icons and native splash screens to make your app production-ready."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-5-advanced-ui-app-polish",
+              "title": "Intermediate Week 5 – Advanced UI & App Polish",
+              "resources": [
+                {
+                  "title": "Intermediate Week 5 – Advanced UI & App Polish",
+                  "url": "https://youtube.com/playlist?list=PLKi5vUe5hkZhvs0bxTuMqclUPgFS7gozu&si=Oh9pexFdIAZxCPzU",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Slider Widget – Flutter Docs",
+              "url": "https://docs.flutter.dev/ui/widgets/slider",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Modal Bottom Sheet",
+              "url": "https://docs.flutter.dev/cookbook/design/snackbars",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Dialogs – Flutter Docs",
+              "url": "https://docs.flutter.dev/cookbook/design/dialogs",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Adding a Splash Screen",
+              "url": "https://docs.flutter.dev/cookbook/effects/splash-screen",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Custom Launcher Icons",
+              "url": "https://docs.flutter.dev/deployment/android#updating-your-apps-launcher-icon",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Search UI with SearchDelegate",
+              "url": "https://docs.flutter.dev/cookbook/lists/floating-app-bar#adding-a-search-to-the-app-bar",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w06",
+          "name": "Local Database with Sqflite",
+          "order": 6,
+          "objectives": [
+            "Understand how to store, retrieve, and manage data locally in Flutter using the sqflite package.",
+            "Learn the full workflow of creating, updating, and deleting records.",
+            "Build a small Notes App to practice basic database operations."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-6-sqflite-database-in-flutter",
+              "title": "Intermediate Week 6 – Sqflite Database in Flutter",
+              "resources": [
+                {
+                  "title": "Intermediate Week 6 – Sqflite Database in Flutter",
+                  "url": "https://youtube.com/playlist?list=PL93xoMrxRJIvPg3nW8WG0HDDgpMQtUkag&si=lld_nWv2NpjtYmDt",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Using SQLite in Flutter with sqflite",
+              "url": "https://docs.flutter.dev/cookbook/persistence/sqlite",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Path Package (for local file paths)",
+              "url": "https://pub.dev/packages/path",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "sqflite Plugin on pub.dev",
+              "url": "https://pub.dev/packages/sqflite",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w07",
+          "name": "Networking & API Integration",
+          "order": 7,
+          "objectives": [
+            "Learn how to fetch and send data over the internet using the http package.",
+            "Understand GET, POST, PUT, and DELETE requests.",
+            "Build and display data from a remote API in your Flutter app."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-7-flutter-networking-api-integ",
+              "title": "Intermediate Week 7 – Flutter Networking & API Integration",
+              "resources": [
+                {
+                  "title": "Intermediate Week 7 – Flutter Networking & API Integration",
+                  "url": "https://youtube.com/playlist?list=PL3aG1K3LWCre6DIC2amKlXjn_kd2P6zE9&si=o3bl1lsM4NI_eClD",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Fetch Data from the Internet",
+              "url": "https://docs.flutter.dev/cookbook/networking/fetch-data",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Send Data to the Internet",
+              "url": "https://docs.flutter.dev/cookbook/networking/send-data",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Working with JSON",
+              "url": "https://docs.flutter.dev/cookbook/networking/background-parsing",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "http Package on pub.dev",
+              "url": "https://pub.dev/packages/http",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w08",
+          "name": "State Management with Provider",
+          "order": 8,
+          "objectives": [
+            "Understand why state management is essential for scalable Flutter apps — how state represents your app’s data and UI, and why managing it efficiently improves p",
+            "Learn the fundamentals of Flutter’s reactive model and how widgets rebuild when state changes.",
+            "Master the Provider package, including ChangeNotifier, Consumer, Selector, and context methods."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "intermediate-week-8-state-management-with-provid",
+              "title": "Intermediate Week 8 – State Management with Provider",
+              "resources": [
+                {
+                  "title": "Intermediate Week 8 – State Management with Provider",
+                  "url": "https://youtube.com/playlist?list=PL93xoMrxRJIviJiC76oO5aV8bDp2s3OrA&si=1boaSVE0lA5IHy5V",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Understanding State Management in Flutter – Official Docs",
+              "url": "https://docs.flutter.dev/development/data-and-backend/state-mgmt/intro",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Simple App State Management with Provider",
+              "url": "https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Provider Package on pub.dev",
+              "url": "https://pub.dev/packages/provider",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "order": 2,
+      "durationText": "11 أسبوعًا",
+      "modules": [
+        {
+          "id": "w01",
+          "name": "Advanced State Management with BLoC",
+          "order": 1,
+          "objectives": [
+            "Understand why large apps need structured architecture, predictable data flow, and separation of concerns.",
+            "Learn the core principles behind the BLoC (Business Logic Component) pattern, including streams, events, and states.",
+            "Apply Cubit and BLoC to real scenarios such as theming, connectivity monitoring, API fetching, and infinite scrolling.",
+            "Learn how to use Freezed for immutable state classes and code generation.",
+            "Build a foundation that prepares you for clean architecture, layered design, and large-scale applications."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-bloc-cubit-series",
+              "title": "Flutter BLoC & Cubit Series",
+              "resources": [
+                {
+                  "title": "Flutter BLoC & Cubit Series",
+                  "url": "https://youtube.com/playlist?list=PLwJ4sQ79Ehm4TECBpsvzOWCL91Q9bj8Ce&si=U5PbLAzySvriCRRb",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Official BLoC Documentation",
+              "url": "https://bloclibrary.dev/#/",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "State Management Options (Flutter Docs)",
+              "url": "https://docs.flutter.dev/data-and-backend/state-mgmt/options",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Streams & Asynchronous Programming (Dart Docs)",
+              "url": "https://dart.dev/tutorials/language/streams",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Freezed Package (pub.dev)",
+              "url": "https://pub.dev/packages/freezed",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Architectural Overview (Flutter Docs)",
+              "url": "https://docs.flutter.dev/resources/architectural-overview",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w02",
+          "name": "Firebase Authentication & Firestore CRUD",
+          "order": 2,
+          "objectives": [
+            "Understand Firebase setup in Flutter projects.",
+            "Implement user authentication with email/password and Google Sign-In.",
+            "Learn basic and advanced Firestore operations: add, read, delete, update, set, subcollections, filtering, transactions, and batch operations.",
+            "Handle loading states effectively in your Flutter apps."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-firebase-2023-wael-abo-hamza",
+              "title": "Flutter Firebase 2023 – Wael abo hamza",
+              "resources": [
+                {
+                  "title": "Flutter Firebase 2023 – Wael abo hamza",
+                  "url": "https://www.youtube.com/playlist?list=PL93xoMrxRJIvHhxhB21YzzeimEEzzAz6g",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Firebase Authentication – Flutter Docs",
+              "url": "https://firebase.google.com/docs/auth",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Cloud Firestore – Flutter Docs",
+              "url": "https://firebase.google.com/docs/firestore",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Loading Widgets Guide",
+              "url": "https://docs.flutter.dev/development/ui/widgets",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w03",
+          "name": "File Upload & Cloud Messaging",
+          "order": 3,
+          "objectives": [
+            "Implement real-time data streams with StreamBuilder.",
+            "Learn file upload and image handling using Firebase Storage.",
+            "Integrate Cloud Messaging for push notifications, handling foreground, background, and terminated states.",
+            "Handle notification interactions with onMessageOpenedApp and getInitialMessage."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-firebase-2023-wael-abo-hamza-2",
+              "title": "Flutter Firebase 2023 – Wael abo hamza",
+              "resources": [
+                {
+                  "title": "Flutter Firebase 2023 – Wael abo hamza",
+                  "url": "https://www.youtube.com/playlist?list=PL93xoMrxRJIvHhxhB21YzzeimEEzzAz6g",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Firebase Storage – Flutter Docs",
+              "url": "https://firebase.google.com/docs/storage",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Firebase Cloud Messaging – Flutter Docs",
+              "url": "https://firebase.google.com/docs/cloud-messaging",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "StreamBuilder Widget – Flutter Docs",
+              "url": "https://docs.flutter.dev/ui/widgets/streambuilder",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w04",
+          "name": "Animation Basics",
+          "order": 4,
+          "objectives": [
+            "Understand the role of animations in improving user experience.",
+            "Learn the difference between:",
+            "Implicit animations (simple, built-in transitions).",
+            "Explicit animations using animation controllers.",
+            "Work with common Flutter animation widgets such as:",
+            "AnimatedContainer",
+            "AnimatedOpacity",
+            "TweenAnimationBuilder",
+            "Use AnimationController, Tween, and Curves to build custom animations.",
+            "Apply animations to page transitions, lists, and UI interactions in real apps."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-animation-tutorial",
+              "title": "Flutter Animation Tutorial",
+              "resources": [
+                {
+                  "title": "Flutter Animation Tutorial",
+                  "url": "https://youtube.com/playlist?list=PL4cUxeGkcC9gP1qg8yj-Jokef29VRCLt1&si=8VgAN0l5axtcUiaY",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "making-animations-in-flutter",
+              "title": "Making Animations in Flutter",
+              "resources": [
+                {
+                  "title": "Making Animations in Flutter",
+                  "url": "https://youtube.com/playlist?list=PLjxrf2q8roU2v6UqYlt_KPaXlnjbYySua&si=cX6gJoOxHVr1LUkv",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Flutter Animation Overview",
+              "url": "https://docs.flutter.dev/ui/animations",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Implicit Animations in Flutter",
+              "url": "https://docs.flutter.dev/ui/animations/implicit-animations",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Animation and Motion Widgets Catalog",
+              "url": "https://docs.flutter.dev/ui/widgets/animation",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Hero Animations Guide",
+              "url": "https://docs.flutter.dev/ui/animations/hero-animations",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w05",
+          "name": "SOLID Principles & Clean Code",
+          "order": 5,
+          "objectives": [
+            "Understand the SOLID principles and how to apply them in Flutter development:",
+            "Single Responsibility Principle (SRP)",
+            "Open-Closed Principle (OCP)",
+            "Liskov Substitution Principle (LSP)",
+            "Interface Segregation Principle (ISP)",
+            "Dependency Inversion Principle (DIP)",
+            "Learn the core concepts of clean code to write readable, maintainable, and scalable Flutter applications:",
+            "Writing meaningful names",
+            "Organizing functions and classes",
+            "Proper use of comments",
+            "Code formatting and structure",
+            "Handling errors and boundaries",
+            "Using objects and data structures effectively"
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "solid-principles-in-arabic-omar-ahmed",
+              "title": "SOLID Principles in Arabic – Omar Ahmed",
+              "resources": [
+                {
+                  "title": "SOLID Principles in Arabic – Omar Ahmed",
+                  "url": "https://youtube.com/playlist?list=PLwWuxCLlF_uevri_OpofVLXkRRFnZ7TSV&si=zUSrHJ2HdtTqClwD",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "clean-code-book-omar-ahmed",
+              "title": "Clean Code Book – Omar Ahmed",
+              "resources": [
+                {
+                  "title": "Clean Code Book – Omar Ahmed",
+                  "url": "https://youtube.com/playlist?list=PLwWuxCLlF_ufTMlXoJlQvImqz9wIfcWsX&si=Qt2tP0B6T-P7Ohfi",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "SOLID Principles – Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/SOLID",
+              "kind": "other",
+              "lang": "en"
+            },
+            {
+              "title": "Clean Code Book – Official Summary",
+              "url": "https://www.oreilly.com/library/view/clean-code/9780136083238/",
+              "kind": "other",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Best Practices & Code Style",
+              "url": "https://docs.flutter.dev/development/tools/formatting",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w06",
+          "name": "MVVM & Clean Architecture",
+          "order": 6,
+          "objectives": [
+            "Understand MVVM architecture in Flutter and how to separate concerns:",
+            "View – UI layer",
+            "ViewModel – Business logic and state management",
+            "Model – Data layer",
+            "Implement Repository pattern and Dependency Injection (DI) for scalable apps",
+            "Connect MVVM with API projects for real-world applications",
+            "Learn Clean Architecture principles in Flutter:",
+            "Structure projects into Domain, Data, and Presentation layers",
+            "Implement Entities, Repositories, and Use Cases",
+            "Connect Blocs or State Management with the presentation layer",
+            "Apply Dependency Injection and maintain separation of concerns",
+            "Build UI pages for posts, add/update, and detail views"
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-mvvm-mohamed-fathy-taha",
+              "title": "Flutter MVVM – Mohamed Fathy Taha",
+              "resources": [
+                {
+                  "title": "Flutter MVVM – Mohamed Fathy Taha",
+                  "url": "https://www.youtube.com/playlist?list=PL3aG1K3LWCrfvjEBkx3ujAtg7yK0zzTiY&si=5cmqLU0QJksfEH2C",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "flutter-clean-architecture-rabee-omran",
+              "title": "Flutter Clean Architecture – Rabee Omran",
+              "resources": [
+                {
+                  "title": "Flutter Clean Architecture – Rabee Omran",
+                  "url": "https://youtube.com/playlist?list=PLwJ4sQ79Ehm69Bmed-XrRCc-_H1R3nWhd&si=uH8-X7nezokaHFJP",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "MVVM Design Pattern – Flutter Docs",
+              "url": "https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Clean Architecture – Uncle Bob Summary",
+              "url": "https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html",
+              "kind": "article",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Best Practices – Project Structure",
+              "url": "https://docs.flutter.dev/development/tools/project-structure",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w07",
+          "name": "Maps & Google Map Integration",
+          "order": 7,
+          "objectives": [
+            "Understand the basics of maps in Flutter and how they work.",
+            "Learn about map service providers and map tiles.",
+            "Configure Google Maps for Flutter, including API keys and integration steps.",
+            "Handle permissions required for location services using Flutter.",
+            "Build interactive Google Maps in your Flutter projects."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "introduction-to-maps-google-map-integration",
+              "title": "Introduction to Maps & Google Map Integration",
+              "resources": [
+                {
+                  "title": "Introduction to Maps & Google Map Integration",
+                  "url": "https://www.youtube.com/playlist?list=PL5jcF-FcaT8BJbn_DYo_5BEkPgwN80rBE",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Google Maps Flutter Plugin",
+              "url": "https://pub.dev/packages/google_maps_flutter",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Permission Handler",
+              "url": "https://pub.dev/packages/permission_handler",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Location Package",
+              "url": "https://pub.dev/packages/location",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Google Maps Platform Documentation",
+              "url": "https://developers.google.com/maps/documentation",
+              "kind": "other",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w08",
+          "name": "Payment Integration with Paymob",
+          "order": 8,
+          "objectives": [
+            "Understand the basics of electronic payment gateways.",
+            "Integrate Paymob payment gateway in Flutter applications.",
+            "Handle payment requests, responses, and transactions.",
+            "Build a complete payment flow from initiation to confirmation in your app.",
+            "Learn best practices for secure payment handling in Flutter."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "paymob-payment-integration-in-flutter",
+              "title": "Paymob Payment Integration in Flutter",
+              "resources": [
+                {
+                  "title": "Paymob Payment Integration in Flutter",
+                  "url": "https://youtube.com/playlist?list=PL41hvuiq3bcnlfsKcQ7vwf4pjModyV0F8&si=R8Ql9aB2aqrd36Dc",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Paymob Developer Documentation",
+              "url": "https://docs.paymob.com/",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter HTTP Package",
+              "url": "https://pub.dev/packages/http",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Secure Storage",
+              "url": "https://pub.dev/packages/flutter_secure_storage",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Handling Transactions & Payment States in Flutter",
+              "url": "https://docs.flutter.dev/development/data-and-backend/networking",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w09",
+          "name": "Open-Source Contribution & Package Publishing",
+          "order": 9,
+          "objectives": [
+            "Understand the importance of open-source contributions in Flutter and Dart.",
+            "Learn how to create, structure, and publish Flutter/Dart packages to pub.dev.",
+            "Gain practical experience with forking, cloning, and contributing to open-source projects.",
+            "Follow best practices for documentation, testing, and versioning in packages.",
+            "Improve collaboration skills through pull requests, code reviews, and issue tracking."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "create-flutter-package-and-publish",
+              "title": "Create Flutter Package and Publish",
+              "resources": [
+                {
+                  "title": "Create Flutter Package and Publish",
+                  "url": "https://www.youtube.com/watch?v=5qqi7ma8EOc",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "freecodecamp",
+              "title": "FreeCodeCamp",
+              "resources": [
+                {
+                  "title": "FreeCodeCamp",
+                  "url": "https://www.youtube.com/watch?v=yzeVMecydCE",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Publishing Packages – Dart Dev",
+              "url": "https://dart.dev/tools/pub/publishing",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Creating Packages – Flutter Docs",
+              "url": "https://docs.flutter.dev/development/packages-and-plugins/developing-packages",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "GitHub Open Source Contribution Guide",
+              "url": "https://opensource.guide/how-to-contribute/",
+              "kind": "other",
+              "lang": "en"
+            },
+            {
+              "title": "Effective Dart – Style Guide",
+              "url": "https://dart.dev/guides/language/effective-dart",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w10",
+          "name": "Testing in Flutter",
+          "order": 10,
+          "objectives": [
+            "Understand the importance of testing in Flutter applications.",
+            "Learn the different types of tests:",
+            "Unit Tests – Test individual functions, classes, or methods.",
+            "Widget Tests – Test UI components and widget behavior.",
+            "Use Flutter’s testing framework and tools effectively.",
+            "Run tests and interpret test results to ensure code quality."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-unit-widget-testing-mohamed-waleed",
+              "title": "Flutter Unit & Widget Testing - Mohamed Waleed",
+              "resources": [
+                {
+                  "title": "Flutter Unit & Widget Testing - Mohamed Waleed",
+                  "url": "https://www.youtube.com/playlist?list=PLlRZKWfoX1JsTRZqCwVM9dNsyWKZ1BOg8",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Integration Testing with Flutter",
+              "url": "https://docs.flutter.dev/testing/integration-tests",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Mockito – Dart Mocking Library",
+              "url": "https://pub.dev/packages/mockito",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Effective Dart – Testing Guidelines",
+              "url": "https://dart.dev/guides/testing",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "w11",
+          "name": "CI/CD, Flavors & App Distribution",
+          "order": 11,
+          "objectives": [
+            "Understand the CI/CD workflow in mobile and Flutter development.",
+            "Learn how to configure Flutter build flavors for:",
+            "Development",
+            "Production",
+            "Automate builds using GitHub Actions.",
+            "Distribute pre-release builds to testers using Firebase App Distribution.",
+            "Explore Fastlane to automate Android and iOS release processes."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "flutter-advanced-complete-course",
+              "title": "Flutter Advanced Complete Course",
+              "resources": [
+                {
+                  "title": "Flutter Advanced Complete Course",
+                  "url": "https://www.youtube.com/playlist?list=PLwWuxCLlF_ucnfkI-_yNRCOTI-yJa5N-a",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [
+            {
+              "title": "Flutter Continuous Delivery Documentation",
+              "url": "https://docs.flutter.dev/deployment/cd",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Flutter Flavors Guide",
+              "url": "https://docs.flutter.dev/deployment/flavors",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "kind": "repo",
+              "lang": "en"
+            },
+            {
+              "title": "Firebase App Distribution",
+              "url": "https://firebase.google.com/docs/app-distribution",
+              "kind": "docs",
+              "lang": "en"
+            },
+            {
+              "title": "Fastlane Documentation",
+              "url": "https://docs.fastlane.tools/",
+              "kind": "docs",
+              "lang": "en"
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "titan",
+      "name": "Titan",
+      "order": 3,
+      "goal": "مستوى إضافي بعد الـ Advanced — Data Structures & Algorithms.",
+      "modules": [
+        {
+          "id": "data-structure-and-algorithms",
+          "name": "Data structure and algorithms",
+          "order": 0,
+          "objectives": [],
+          "practice": [],
+          "topics": [
+            {
+              "id": "dsa-playlist",
+              "title": "Data structure and algorithms",
+              "resources": [
+                {
+                  "title": "Data structure and algorithms",
+                  "url": "https://youtube.com/playlist?list=PLMDrOnfT8EAjT0lBMcmTiRWeaVqKXH5WC&si=Frbu1qLDx0AL4Fqi",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    }
+  ]
+}

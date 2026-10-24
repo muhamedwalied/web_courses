@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "backend",
+  "name": "Back End",
+  "tagline": "Back-End بأربع تتبّعات: DotNet / Laravel / NodeJS / Spring",
+  "description": "Hey folks, we've got four roadmaps for four cool sub-circles (Programming Language). Each of them has three levels, and each level will take you on a fascinating journey through its programming language. Feel free to check out the roadmap at your own pace! - [Laravel](https://github.com/RedaMa7mood/",
+  "color": "#34d399",
+  "icon": "🛠️",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "BackEnd/"
+  ],
+  "levels": []
+}

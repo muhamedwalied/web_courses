@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "embedded",
+  "name": "Embedded Systems",
+  "tagline": "أنظمة مدمجة وميكروكنترولر",
+  "description": "Welcome to the Cat Reloaded Embedded Systems Roadmap! This guide will help you navigate your journey into the world of Embedded Systems with all the resources you need. An embedded system is a microprocessor-based computer hardware system with software that is designed to perform a dedicated functio",
+  "color": "#a3e635",
+  "icon": "🔩",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "Embedded Systems/"
+  ],
+  "levels": []
+}

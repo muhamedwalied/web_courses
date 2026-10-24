@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "android",
+  "name": "Android",
+  "tagline": "تطبيقات أندرويد من الصفر",
+  "description": "Why choose Android Development? over 3 billion Android devices all over the world including: ( 📱 Smartphones, 📺 TVs, ⌚ Smartwatches, 🚗 Cars and more) in the hands of 2.5 billion users, it has become essential for companies to develop Android apps for their services. In this roadmap we will guide ",
+  "color": "#4ade80",
+  "icon": "📱",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "Android/"
+  ],
+  "levels": []
+}

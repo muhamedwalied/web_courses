@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "ios",
+  "name": "iOS",
+  "tagline": "تطبيقات iOS بسويفيت",
+  "description": "تطبيقات iOS بسويفيت",
+  "color": "#60a5fa",
+  "icon": "🍎",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "IOS/"
+  ],
+  "levels": []
+}

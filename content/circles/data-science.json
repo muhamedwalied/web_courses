@@ -1,0 +1,16 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "data-science",
+  "name": "Data Science",
+  "tagline": "تحليل بيانات و ML",
+  "description": "<h1 align=\"center\">Data Science Roadmap 2025</h1> It's a multidisciplinary field that looks at raw and structured data sets and provides potentially actionable insights. The field of data science looks at ensuring that we are asking the right questions as opposed to finding exact answers. Data Scien",
+  "color": "#fb923c",
+  "icon": "📊",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "Data Science/"
+  ],
+  "levels": []
+}

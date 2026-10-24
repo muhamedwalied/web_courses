@@ -1,0 +1,17 @@
+{
+  "$schema": "../circles.schema.json",
+
+  "id": "cloud",
+  "name": "Cloud Computing & DevOps",
+  "tagline": "الحوسبة السحابية و DevOps",
+  "description": "الحوسبة السحابية و DevOps",
+  "color": "#93c5fd",
+  "icon": "☁️",
+  "prereqs": [],
+  "status": "raw",
+  "upstreamPaths": [
+    "Cloud Computing & DevOps/",
+    "submodule: KareemEl-Giushy/Cloud-Computing-RoadMap (MIT) — يُجلب يدويًا بأذن"
+  ],
+  "levels": []
+}
