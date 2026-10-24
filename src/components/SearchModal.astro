@@ -21,13 +21,17 @@
 
   // Pagefind index is generated after `astro build` (pagefind --site dist),
   // so it only exists in production builds — dev falls back to a hint.
+  // The specifier must be a runtime-computed value (NOT a literal path):
+  // Vite dev resolves literal imports at transform time and 500s the whole
+  // page because /pagefind/* doesn't exist until the post-build index step.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let pagefind: any | null | undefined;
 
   async function loadPagefind() {
     if (pagefind !== undefined) return pagefind;
     try {
-      pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+      const pfUrl = new URL('/pagefind/pagefind.js', window.location.origin).href;
+      pagefind = await import(/* @vite-ignore */ pfUrl);
       await pagefind.options({ excerptLength: 14 });
     } catch {
       pagefind = null;
