@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Background,
   BackgroundVariant,
@@ -10,6 +10,7 @@ import {
   type Node,
   type NodeProps,
 } from '@xyflow/react';
+import { progressStore, tkey } from '../../lib/progress';
 import '@xyflow/react/dist/style.css';
 
 // ---------- shapes (mirrors the Zod schema, serialized) ----------
@@ -164,7 +165,27 @@ function ResourceChip({ r }: { r: SerResource }) {
 
 export default function CircleMap({ circle }: { circle: SerCircle }) {
   const [sel, setSel] = useState<{ lid: string; mid: string } | null>(null);
-  const [done, setDone] = useState<Set<string>>(new Set());
+  const [doneMap, setDoneMap] = useState<Record<string, 1>>({});
+
+  useEffect(() => {
+    setDoneMap(progressStore.snapshot());
+    return progressStore.subscribe(setDoneMap);
+  }, []);
+
+  const doneIn = (lid: string, mid: string): number => {
+    let n = 0;
+    for (const k in doneMap) if (k.startsWith(`${circle.id}/${lid}/${mid}/`)) n++;
+    return n;
+  };
+  const doneTotal = useMemo(() => {
+    let n = 0;
+    for (const k in doneMap) if (k.startsWith(`${circle.id}/`)) n++;
+    return n;
+  }, [doneMap, circle.id]);
+  const allTotal = useMemo(
+    () => circle.levels.reduce((a, l) => a + l.modules.reduce((b, m) => b + m.topics.length, 0), 0),
+    [circle],
+  );
 
   const flat = useMemo(
     () => circle.levels.flatMap((l) => l.modules.map((m) => ({ l, m }))),
@@ -184,14 +205,14 @@ export default function CircleMap({ circle }: { circle: SerCircle }) {
         position: { x: li * 320, y: 0 },
         data: { label: l.name, sub: l.durationText, color: circle.color },
       });
-      l.modules.forEach((m, mi) => {
+      l.modules.forEach((m) => {
         nodes.push({
           id: `${l.id}/${m.id}`,
           type: 'module',
-          position: { x: li * 320 + 22, y: 110 + mi * 86 },
+          position: { x: li * 320 + 22, y: 110 + m.order * 86 },
           data: {
             label: m.name,
-            sub: m.topics.length ? `${m.topics.length} topic${m.topics.length > 1 ? 's' : ''}` : undefined,
+            sub: m.topics.length ? `${doneIn(l.id, m.id)}/${m.topics.length} ✓` : undefined,
             color: circle.color,
             optional: m.optional,
             mid: m.id,
@@ -202,7 +223,8 @@ export default function CircleMap({ circle }: { circle: SerCircle }) {
       });
     });
     return nodes;
-  }, [circle]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [circle, doneMap]);
 
   const edges = useMemo<Edge[]>(
     () =>
@@ -218,33 +240,38 @@ export default function CircleMap({ circle }: { circle: SerCircle }) {
   );
 
   const toggle = (lid: string, mid: string, tid: string) => {
-    setDone((prev) => {
-      const next = new Set(prev);
-      const key = `${lid}/${mid}/${tid}`;
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
+    progressStore.toggle(tkey(circle.id, lid, mid, tid)); // store drives state via subscription
   };
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
       {/* graph — hidden on small screens (module chips below act as fallback) */}
-      <div className="hidden h-[620px] overflow-hidden rounded-2xl border border-edge lg:block" dir="ltr">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          fitView
-          fitViewOptions={{ padding: 0.12, maxZoom: 0.95 }}
-          minZoom={0.35}
-          proOptions={{ hideAttribution: true }}
-          nodesDraggable={false}
-          nodesConnectable={false}
-        >
-          <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="#2a3750" />
-          <Controls showInteractive={false} />
-        </ReactFlow>
+      <div className="relative hidden lg:block">
+        <div className="h-[560px] overflow-hidden rounded-t-2xl border border-b-0 border-edge" dir="ltr">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.12, maxZoom: 0.95 }}
+            minZoom={0.35}
+            proOptions={{ hideAttribution: true }}
+            nodesDraggable={false}
+            nodesConnectable={false}
+          >
+            <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="#2a3750" />
+            <Controls showInteractive={false} />
+          </ReactFlow>
+        </div>
+        {/* circle progress strip */}
+        <div dir="rtl" className="flex items-center gap-3 rounded-b-2xl border border-edge bg-panel/60 px-4 py-2.5">
+          <span className="font-mono text-[11px] text-muted">
+            تقدّم المسار: <b className="text-ink">{doneTotal}</b>/{allTotal}
+          </span>
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-edge">
+            <div className="h-full rounded-full transition-all" style={{ width: `${allTotal ? (doneTotal / allTotal) * 100 : 0}%`, background: circle.color }} />
+          </div>
+        </div>
       </div>
 
       {/* details panel */}
@@ -285,8 +312,8 @@ export default function CircleMap({ circle }: { circle: SerCircle }) {
             {current.m.topics.length > 0 && (
               <ul className="mt-5 space-y-3">
                 {current.m.topics.map((t) => {
-                  const key = `${current.l.id}/${current.m.id}/${t.id}`;
-                  const isDone = done.has(key);
+                  const key = `${circle.id}/${current.l.id}/${current.m.id}/${t.id}`;
+                  const isDone = doneMap[key] === 1;
                   return (
                     <li key={t.id} className="rounded-xl border border-edge bg-bg/40 p-3">
                       <label className="flex cursor-pointer items-start gap-2.5">

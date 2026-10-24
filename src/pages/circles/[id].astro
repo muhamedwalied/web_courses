@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CircleMap from '../../components/graph/CircleMap';
-import { getCircle, countAllTopics, circles as all } from '../../lib/content';
+import { getCircle, countAllTopics, circleTopics, circles as all } from '../../lib/content';
 
 export function getStaticPaths() {
   return all.map((c) => ({ params: { id: c.id } }));
@@ -36,6 +36,8 @@ const sortedRaw = rawFiles.sort(([a], [b]) => {
 const upstreamUrl = circle.upstreamPaths.length
   ? `https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/${encodeURIComponent(circle.upstreamPaths[0].replace(/\/$/, ''))}`
   : 'https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps';
+
+const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
 ---
 <Layout title={`${circle.name} — مسارات CAT Reloaded`} description={circle.tagline ?? circle.description}>
   <nav class="pt-5 text-sm text-muted" aria-label="مسار التنقل">
@@ -82,6 +84,22 @@ const upstreamUrl = circle.upstreamPaths.length
           </div>
         ))}
       </dl>
+    )
+  }
+
+  {
+    structured && (
+      <div data-topic-keys={JSON.stringify(allTopicKeys)} class="mb-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/50 px-4 py-3">
+        <span class="font-mono text-xs text-muted">
+          تقدّمك هنا: <b id="circle-done" class="text-ink">0</b>/{allTopicKeys.length}
+        </span>
+        <div class="h-2 flex-1 overflow-hidden rounded-full bg-edge/70">
+          <div id="circle-bar" class="h-full rounded-full transition-all duration-300" style={`width:0%;background:${circle.color}`}></div>
+        </div>
+        <span id="circle-pct" class="w-12 text-end font-mono text-xs" style={`color:${circle.color}`}>
+          0%
+        </span>
+      </div>
     )
   }
 
@@ -141,3 +159,24 @@ const upstreamUrl = circle.upstreamPaths.length
   .prose-raw :global(img) { max-width: 100%; border-radius: 10px; margin: 1rem 0; }
   .prose-raw :global(hr) { border-color: var(--color-edge); margin: 1.5rem 0; }
 </style>
+
+<script>
+  import { progressStore } from '../../lib/progress';
+
+  const holder = document.querySelector<HTMLElement>('[data-topic-keys]');
+  if (holder) {
+    const keys: string[] = JSON.parse(holder.dataset.topicKeys ?? '[]');
+    const doneEl = document.getElementById('circle-done')!;
+    const barEl = document.getElementById('circle-bar')!;
+    const pctEl = document.getElementById('circle-pct')!;
+    const render = () => {
+      const done = progressStore.countDone(keys);
+      const pct = keys.length ? Math.round((done / keys.length) * 100) : 0;
+      doneEl.textContent = String(done);
+      barEl.style.width = `${pct}%`;
+      pctEl.textContent = `${pct}%`;
+    };
+    render();
+    progressStore.subscribe(render);
+  }
+</script>
