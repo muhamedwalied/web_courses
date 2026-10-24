@@ -9,6 +9,12 @@ const { circle } = Astro.props;
 
 const levelCount = circle.levels.length;
 const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m) => a + m.topics.length, 0), 0);
+const resourceCount = circle.levels.reduce(
+  (acc, l) =>
+    acc + l.modules.reduce((a, m) => a + m.resources.length + m.topics.reduce((t, topic) => t + topic.resources.length, 0), 0),
+  0,
+);
+const contextChip = circle.overview?.highlights?.[0];
 
 const coverTint = `${circle.color}22`;
 const coverTintSoft = `${circle.color}05`;
@@ -46,29 +52,71 @@ const collapsed = restParagraphs.length > 0 || levelCount > 3;
       )
     }
 
-    <div class="space-y-3 p-4">
-      <div class="flex items-center gap-3 font-mono text-xs text-muted">
-        <span>{levelCount} مستويات</span>
-        <span class="text-edge">•</span>
-        <span>{topicCount} موضوع</span>
+    <div class="space-y-4 p-5">
+      <!-- price-like row: big "free" + context chip -->
+      <div class="flex items-baseline gap-3">
+        <span class="text-3xl font-black text-ink">مجاني</span>
+        {contextChip && <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-xs text-muted">{contextChip}</span>}
       </div>
 
+      <!-- primary CTA -->
       <a
         href="#curriculum"
-        class="block w-full rounded-xl bg-accent py-2.5 text-center font-bold text-slate-900 transition hover:brightness-110"
+        class="block w-full text-center rounded-lg bg-ink py-3 font-bold text-bg transition hover:opacity-85"
       >
         ابدأ المسار
       </a>
 
-      <div class="text-center">
-        <a
-          href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-xs text-muted transition hover:text-ink"
+      <!-- secondary CTA -->
+      <a
+        href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block w-full text-center rounded-lg border border-ink py-3 font-bold text-ink transition hover:bg-panel"
+      >
+        المصدر على GitHub ↗
+      </a>
+
+      <p class="text-center text-xs text-muted">بدون تسجيل — تقدّمك محفوظ على جهازك</p>
+
+      <hr class="border-edge/70" />
+
+      <div class="space-y-2">
+        <p class="text-sm font-bold">المسار ده يشمل:</p>
+        <ul class="space-y-2 text-sm text-muted">
+          <li class="flex items-center gap-2">
+            <span aria-hidden="true">🔣</span>
+            <span>{levelCount} مستويات</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span aria-hidden="true">📝</span>
+            <span>{topicCount} موضوع</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span aria-hidden="true">📚</span>
+            <span>{resourceCount} مصادر</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span aria-hidden="true">♾️</span>
+            <span>وصول مجاني دائم</span>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="border-edge/70" />
+
+      <!-- small action row -->
+      <div class="flex items-center justify-center gap-2 text-xs">
+        <button
+          type="button"
+          id="copy-link-btn"
+          data-label="انسخ اللينك"
+          class="text-muted transition hover:text-ink"
         >
-          المصدر على GitHub ↗
-        </a>
+          انسخ اللينك
+        </button>
+        <span class="text-edge">•</span>
+        <a href="/" class="text-muted transition hover:text-ink">الصفحة الرئيسية ↗</a>
       </div>
     </div>
   </aside>
@@ -128,3 +176,21 @@ const collapsed = restParagraphs.length > 0 || levelCount > 3;
     }
   </article>
 </section>
+
+<script>
+  const btn = document.getElementById('copy-link-btn');
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      const label = btn.dataset.label ?? btn.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => {
+          btn.textContent = label;
+        }, 1500);
+      } catch {
+        /* clipboard unavailable — leave the label untouched */
+      }
+    });
+  }
+</script>

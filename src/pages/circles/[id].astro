@@ -1,8 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CircleMap from '../../components/graph/CircleMap';
 import CircleIntro from '../../components/CircleIntro.astro';
-import { getCircle, countAllTopics, circleTopics, circles as all } from '../../lib/content';
+import { getCircle, circles as all } from '../../lib/content';
 
 export function getStaticPaths() {
   return all.map((c) => ({ params: { id: c.id } }));
@@ -13,17 +12,6 @@ const circle = getCircle(id as string);
 if (!circle) throw new Error(`unknown circle: ${id}`);
 
 const structured = circle.status === 'structured';
-const counts = countAllTopics(circle);
-const modulesCount = circle.levels.reduce((a, l) => a + l.modules.length, 0);
-
-const stats = structured
-  ? [
-      { v: circle.levels.length, l: 'مستويات' },
-      { v: modulesCount, l: 'موديولات' },
-      { v: counts.required + counts.optional, l: 'موضوعات' },
-      { v: counts.resources, l: 'مصادر' },
-    ]
-  : null;
 
 // raw markdown files vendored under content/raw/<id>/ (populated by commit 10)
 const rawFiles = Object.entries(
@@ -37,8 +25,6 @@ const sortedRaw = rawFiles.sort(([a], [b]) => {
 const upstreamUrl = circle.upstreamPaths.length
   ? `https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/${encodeURIComponent(circle.upstreamPaths[0].replace(/\/$/, ''))}`
   : 'https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps';
-
-const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
 ---
 <Layout title={`${circle.name} — مسارات CAT Reloaded`} description={circle.tagline ?? circle.description}>
   <nav class="pt-5 text-sm text-muted" aria-label="مسار التنقل">
@@ -75,45 +61,9 @@ const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
 
   <CircleIntro circle={circle} />
 
-  {
-    stats && (
-      <dl class="grid grid-cols-2 gap-3 pb-6 sm:grid-cols-4">
-        {stats.map((s) => (
-          <div class="rounded-xl border border-edge bg-panel/50 px-4 py-3">
-            <dd class="font-mono text-2xl font-semibold" style={`color:${circle.color}`}>
-              {s.v}
-            </dd>
-            <dt class="mt-0.5 text-xs text-muted">{s.l}</dt>
-          </div>
-        ))}
-      </dl>
-    )
-  }
-
-  {
-    structured && (
-      <div data-topic-keys={JSON.stringify(allTopicKeys)} class="mb-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/50 px-4 py-3">
-        <span class="font-mono text-xs text-muted">
-          تقدّمك هنا: <b id="circle-done" class="text-ink">0</b>/{allTopicKeys.length}
-        </span>
-        <div class="h-2 flex-1 overflow-hidden rounded-full bg-edge/70">
-          <div id="circle-bar" class="h-full rounded-full transition-all duration-300" style={`width:0%;background:${circle.color}`}></div>
-        </div>
-        <span id="circle-pct" class="w-12 text-end font-mono text-xs" style={`color:${circle.color}`}>
-          0%
-        </span>
-      </div>
-    )
-  }
-
   <section id="curriculum" class="scroll-mt-20">
     {
-      structured ? (
-        <CircleMap
-          client:visible
-          circle={{ id: circle.id, name: circle.name, color: circle.color, icon: circle.icon ?? '📚', levels: circle.levels }}
-        />
-      ) : (
+      structured ? null : (
         <div>
           <div class="mb-5 flex items-start gap-3 rounded-2xl border border-dashed border-edge bg-panel/40 p-4">
             <span class="mt-0.5 text-lg">🚧</span>
@@ -164,24 +114,3 @@ const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
   .prose-raw :global(img) { max-width: 100%; border-radius: 10px; margin: 1rem 0; }
   .prose-raw :global(hr) { border-color: var(--color-edge); margin: 1.5rem 0; }
 </style>
-
-<script>
-  import { progressStore } from '../../lib/progress';
-
-  const holder = document.querySelector<HTMLElement>('[data-topic-keys]');
-  if (holder) {
-    const keys: string[] = JSON.parse(holder.dataset.topicKeys ?? '[]');
-    const doneEl = document.getElementById('circle-done')!;
-    const barEl = document.getElementById('circle-bar')!;
-    const pctEl = document.getElementById('circle-pct')!;
-    const render = () => {
-      const done = progressStore.countDone(keys);
-      const pct = keys.length ? Math.round((done / keys.length) * 100) : 0;
-      doneEl.textContent = String(done);
-      barEl.style.width = `${pct}%`;
-      pctEl.textContent = `${pct}%`;
-    };
-    render();
-    progressStore.subscribe(render);
-  }
-</script>
