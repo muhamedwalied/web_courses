@@ -6,8 +6,11 @@ dist/
 # local tooling caches (npm default cache is read-only on this machine — we use workspace-local)
 .npm-cache/
 .npm-logs/
+.xdg-config/
+.chromium-tmp/
+.home.png
 
-# upstream clone consumed read-only during development; canonical content is vendored under content/
+# upstream clone consumed read-only during development; canonical content is vendored under src/content/raw/
 .roadmap-repo/
 .roadmap-meta/
 

@@ -40,7 +40,7 @@ Resource{ title, url, kind: video|article|docs|book|repo|other,
 ```
 
 - `structured`: للصفحة الافتراضية الموحّدة (graph + تقدّم).
-- `raw`: يعرض من الـ Markdown الجاي من `content/raw/<circle>/` مع banner «قيد الإعداد».
+- `raw`: يعرض من الـ Markdown الجاي من `src/content/raw/<circle>/` (ملاحظة تنفيذية: لازم يكون جوه `src/` — Astro 7 مبيعملش glob لملفات `.md` برّه `src/`) مع banner «قيد الإعداد».
 - `prereqs` بتغذّي edges شبكة الرئيسية.
 
 ## حقائق عن المصدر (من التحقيق)
