@@ -1,10 +1,69 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CirclesGraph from '../components/graph/CirclesGraph';
+import CircleCard from '../components/CircleCard.astro';
+import { circles, structuredCircles } from '../lib/content';
+
+const graphCircles = circles.map((c) => ({
+  id: c.id,
+  name: c.name,
+  icon: c.icon ?? '📚',
+  color: c.color,
+  status: c.status,
+  prereqs: c.prereqs,
+  topics: c.levels.reduce((a, l) => a + l.modules.reduce((b, m) => b + m.topics.length, 0), 0),
+}));
+
+const totalTopics = circles.reduce((a, c) => a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.topics.length, 0), 0), 0);
+const totalResources = circles.reduce((a, c) =>
+  a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.resources.length + m.topics.reduce((y, t) => y + t.resources.length, 0), 0), 0),
+  0,
+);
+
+const stats = [
+  { v: circles.length, l: 'مسار' },
+  { v: structuredCircles.length, l: 'مسارات منظّمة بالكامل' },
+  { v: totalTopics, l: 'موضوع' },
+  { v: totalResources, l: 'مصدر تعلّم' },
+];
 ---
-<Layout title="CAT Roadmaps — قيد الإنشاء">
-  <main class="mx-auto max-w-3xl px-6 py-24">
-    <p class="font-mono text-accent">scaffold v0.1.0</p>
-    <h1 class="mt-4 text-3xl font-bold">موقع مسارات CAT Reloaded</h1>
-    <p class="mt-3 text-muted">الصفحة الكاملة جاي في الـ commits الجاية — شوف PLAN.md.</p>
-  </main>
+<Layout title="مسارات CAT Reloaded — ابدأ من هنا">
+  <!-- hero -->
+  <section class="pb-8 pt-14">
+    <p class="font-mono text-xs tracking-widest text-accent">CAT RELOADED · CIRCLES ROADMAPS</p>
+    <h1 class="mt-3 max-w-2xl text-4xl font-bold leading-snug sm:text-5xl">
+      رحلتك التعليمية كاملة
+      <span class="bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent">في شبكة واحدة</span>
+    </h1>
+    <p class="mt-4 max-w-2xl leading-8 text-muted">
+      ١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوع بموضوع
+      (محفوظ على جهازك)، وابدأ من أي نقطة.
+    </p>
+    <dl class="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+      {stats.map((s) => (
+        <div class="rounded-xl border border-edge bg-panel/50 px-4 py-3">
+          <dt class="sr-only">{s.l}</dt>
+          <dd class="font-mono text-2xl font-semibold text-ink">{s.v}</dd>
+          <dd class="mt-0.5 text-xs text-muted">{s.l}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- network graph -->
+  <section class="pb-14" aria-label="شبكة المسارات">
+    <div class="mb-4 flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">شبكة المسارات</h2>
+      <span class="font-mono text-xs text-muted">zoom / pan — تدوير بالموس</span>
+    </div>
+    <CirclesGraph client:load circles={graphCircles} />
+  </section>
+
+  <!-- cards -->
+  <section aria-label="كل المسارات">
+    <h2 class="mb-4 text-xl font-bold">كل المسارات</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {circles.map((c) => <CircleCard circle={c} />)}
+    </div>
+  </section>
 </Layout>
