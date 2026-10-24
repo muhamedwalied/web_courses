@@ -1,6 +1,5 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "flutter",
   "name": "Flutter",
   "tagline": "من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture",
@@ -15,6 +14,17 @@
     "Flutter/2 - Intermediate/",
     "Flutter/3 - Advanced/"
   ],
+  "overview": {
+    "paragraphs": [
+      "A structured, end-to-end learning roadmap for Dart, Flutter, Git, and advanced mobile development - from fundamentals to production-ready apps with clean architecture.",
+      "Beginner (5 weeks) covers Dart basics, OOP and Git. Intermediate (8 weeks) covers UI, navigation, APIs, Sqflite and Provider. Advanced (11 weeks) covers Bloc, Firebase, animations, clean architecture, maps, payments and CI/CD - plus a Titan level for Data Structures & Algorithms."
+    ],
+    "highlights": [
+      "24 أسبوعًا منظمين",
+      "3 مستويات + Titan",
+      "مشروع تطبيقي في كل مرحلة"
+    ]
+  },
   "levels": [
     {
       "id": "beginner",
@@ -1440,5 +1450,6 @@
         }
       ]
     }
-  ]
+  ],
+  "cover": "/upstream/flutter/Banner.png"
 }

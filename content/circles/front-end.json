@@ -1,6 +1,5 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "front-end",
   "name": "Front End",
   "tagline": "Phase 1 → Core Engineering → إطار عمل تخصصي",
@@ -17,6 +16,17 @@
     "Front End/roadmap-03-angular.md",
     "Front End/roadmap-03-vue.md"
   ],
+  "overview": {
+    "paragraphs": [
+      "This roadmap is divided into 3 phases across ~26 weeks, covering everything from HTML basics to production-grade fullstack applications.",
+      "Phase 1 gives you a week-by-week foundation schedule with full Elzero assignment tables and Git resources (Arabic + English). Phase 2 is a 13-week JavaScript intensive sprint with practice projects, problem-solving and interview prep. Phase 3 lets you pick React, Vue or Angular with an 8-week specialist schedule."
+    ],
+    "highlights": [
+      "~26 weeks",
+      "15+ hands-on projects",
+      "3 framework tracks (React / Vue / Angular)"
+    ]
+  },
   "levels": [
     {
       "id": "phase-1-foundation",
@@ -2005,5 +2015,6 @@
         }
       ]
     }
-  ]
+  ],
+  "cover": "/upstream/front-end/roadmap_bg.png"
 }

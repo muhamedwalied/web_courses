@@ -1,0 +1,130 @@
+---
+import type { Circle } from '../schemas/roadmap';
+
+interface Props {
+  circle: Circle;
+}
+
+const { circle } = Astro.props;
+
+const levelCount = circle.levels.length;
+const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m) => a + m.topics.length, 0), 0);
+
+const coverTint = `${circle.color}22`;
+const coverTintSoft = `${circle.color}05`;
+
+const paragraphs = (circle.overview?.paragraphs?.length ? circle.overview.paragraphs : [circle.description]).filter(
+  (p) => p.trim().length > 0,
+);
+const highlights = circle.overview?.highlights ?? [];
+
+const toTopicsCount = (level: Circle['levels'][number]) => level.modules.reduce((a, m) => a + m.topics.length, 0);
+
+// the first paragraph stays visible; the rest of the article collapses behind a pure-CSS "show more"
+const [leadParagraph, ...restParagraphs] = paragraphs;
+const collapsed = restParagraphs.length > 0 || levelCount > 3;
+---
+
+<section class="grid grid-cols-1 gap-6 pb-8 lg:grid-cols-[1fr_1.55fr]">
+  <!-- first grid child renders on the RIGHT in RTL: the sticky cover box -->
+  <aside class="self-start rounded-2xl border border-edge bg-panel/60 overflow-hidden lg:sticky lg:top-20">
+    {
+      circle.cover ? (
+        <img src={circle.cover} alt={circle.name} loading="lazy" class="aspect-video w-full object-cover" />
+      ) : (
+        <div
+          class="aspect-video w-full grid place-items-center"
+          style={`background:linear-gradient(135deg, ${coverTint}, ${coverTintSoft}), var(--color-panel)`}
+        >
+          <div class="flex flex-col items-center gap-2">
+            {circle.icon && <span class="text-5xl">{circle.icon}</span>}
+            <span dir="ltr" class="font-mono text-sm text-ink">
+              {circle.name}
+            </span>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="space-y-3 p-4">
+      <div class="flex items-center gap-3 font-mono text-xs text-muted">
+        <span>{levelCount} مستويات</span>
+        <span class="text-edge">•</span>
+        <span>{topicCount} موضوع</span>
+      </div>
+
+      <a
+        href="#curriculum"
+        class="block w-full rounded-xl bg-accent py-2.5 text-center font-bold text-slate-900 transition hover:brightness-110"
+      >
+        ابدأ المسار
+      </a>
+
+      <div class="text-center">
+        <a
+          href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-xs text-muted transition hover:text-ink"
+        >
+          المصدر على GitHub ↗
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- second grid child renders on the LEFT in RTL: the article -->
+  <article>
+    <h2 class="text-xl font-bold">هتاخد إيه في المسار ده؟</h2>
+
+    <div class="mt-3 space-y-2">
+      {leadParagraph && <p class="text-sm leading-7 text-muted">{leadParagraph}</p>}
+    </div>
+
+    {/* rest of the article: collapsible when long — always RENDERED (open) when short so the
+        level rows never disappear for simple circles */}
+    <details class="group" open={collapsed ? undefined : true}>
+      <summary class:list={["cursor-pointer select-none py-1 font-mono text-xs text-accent marker:content-none [&::-webkit-details-marker]:hidden", ...[collapsed ? [] : ['hidden']]]}>
+        <span class="block group-open:hidden">عرض المزيد ↓</span>
+        <span class="hidden group-open:block">إخفاء ↑</span>
+      </summary>
+
+      <div class="space-y-2">
+        {restParagraphs.map((p) => (
+          <p class="text-sm leading-7 text-muted">{p}</p>
+        ))}
+      </div>
+
+      {
+        levelCount > 0 && (
+          <ul class="mt-3 space-y-2">
+            {circle.levels.map((level) => (
+              <li class="rounded-xl border border-edge bg-bg/40 p-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span dir="ltr" class="text-sm font-bold text-ink">
+                    {level.name}
+                  </span>
+                  {level.durationText && (
+                    <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
+                  )}
+                </div>
+                {level.goal && <p class="mt-1 text-xs text-muted">{level.goal}</p>}
+                <p class="mt-1 font-mono text-[10px] text-muted">{toTopicsCount(level)} موضوع</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </details>
+
+    {
+      highlights.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {highlights.map((h) => (
+            <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[11px] text-accent">{h}</span>
+          ))}
+        </div>
+      )
+    }
+  </article>
+</section>

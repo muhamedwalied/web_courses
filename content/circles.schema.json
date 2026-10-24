@@ -50,6 +50,30 @@
     "cover": {
       "type": "string"
     },
+    "overview": {
+      "type": "object",
+      "properties": {
+        "paragraphs": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "highlights": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "paragraphs",
+        "highlights"
+      ],
+      "additionalProperties": false
+    },
     "levels": {
       "default": [],
       "type": "array",

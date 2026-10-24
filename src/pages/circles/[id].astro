@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CircleMap from '../../components/graph/CircleMap';
+import CircleIntro from '../../components/CircleIntro.astro';
 import { getCircle, countAllTopics, circleTopics, circles as all } from '../../lib/content';
 
 export function getStaticPaths() {
@@ -72,6 +73,8 @@ const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
     </a>
   </header>
 
+  <CircleIntro circle={circle} />
+
   {
     stats && (
       <dl class="grid grid-cols-2 gap-3 pb-6 sm:grid-cols-4">
@@ -103,38 +106,40 @@ const allTopicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
     )
   }
 
-  {
-    structured ? (
-      <CircleMap
-        client:visible
-        circle={{ id: circle.id, name: circle.name, color: circle.color, icon: circle.icon ?? '📚', levels: circle.levels }}
-      />
-    ) : (
-      <div>
-        <div class="mb-5 flex items-start gap-3 rounded-2xl border border-dashed border-edge bg-panel/40 p-4">
-          <span class="mt-0.5 text-lg">🚧</span>
-          <p class="text-sm leading-7 text-muted">
-            المحتوى ده لسه <b class="text-ink">مش منظّم</b> — معروض زي ما هو من الـ upstream.
-            التقدّم والتتبّع بيتفعّلوا أول ما نعمل structured data للمسار ده.
-          </p>
-        </div>
-        {sortedRaw.length > 0 ? (
-          sortedRaw.map(([path, mod]) => {
-            const Content = mod.default;
-            return (
-              <section class="prose-raw rounded-2xl border border-edge bg-panel/40 p-6">
-                <Content />
-              </section>
-            );
-          })
-        ) : (
-          <div class="rounded-2xl border border-edge bg-panel/40 p-10 text-center">
-            <p class="text-muted">المحتوى بتاع المسار ده مستضاف عند مصدر خارجي بيتجاب يدويًا — لسه ما اتسجّلش هنا.</p>
+  <section id="curriculum" class="scroll-mt-20">
+    {
+      structured ? (
+        <CircleMap
+          client:visible
+          circle={{ id: circle.id, name: circle.name, color: circle.color, icon: circle.icon ?? '📚', levels: circle.levels }}
+        />
+      ) : (
+        <div>
+          <div class="mb-5 flex items-start gap-3 rounded-2xl border border-dashed border-edge bg-panel/40 p-4">
+            <span class="mt-0.5 text-lg">🚧</span>
+            <p class="text-sm leading-7 text-muted">
+              المحتوى ده لسه <b class="text-ink">مش منظّم</b> — معروض زي ما هو من الـ upstream.
+              التقدّم والتتبّع بيتفعّلوا أول ما نعمل structured data للمسار ده.
+            </p>
           </div>
-        )}
-      </div>
-    )
-  }
+          {sortedRaw.length > 0 ? (
+            sortedRaw.map(([path, mod]) => {
+              const Content = mod.default;
+              return (
+                <section class="prose-raw rounded-2xl border border-edge bg-panel/40 p-6">
+                  <Content />
+                </section>
+              );
+            })
+          ) : (
+            <div class="rounded-2xl border border-edge bg-panel/40 p-10 text-center">
+              <p class="text-muted">المحتوى بتاع المسار ده مستضاف عند مصدر خارجي بيتجاب يدويًا — لسه ما اتسجّلش هنا.</p>
+            </div>
+          )}
+        </div>
+      )
+    }
+  </section>
 </Layout>
 
 <style>
