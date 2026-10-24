@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  /* dark technical palette */
+  --color-bg: #0a0e14;
+  --color-surface: #10161f;
+  --color-panel: #141c28;
+  --color-edge: #202b3b;
+  --color-ink: #e6edf3;
+  --color-muted: #8b98a9;
+  --color-accent: #22d3ee; /* cyan — primary actions / active state */
+  --color-accent-2: #a78bfa; /* violet — graph edges / secondary */
+
+  --font-sans: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scrollbar-color: var(--color-edge) transparent;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+}
