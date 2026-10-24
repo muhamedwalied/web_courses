@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "circles.schema.json",
+  "title": "CAT Roadmaps — circle content",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "type": "string"
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "prereqs": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "structured",
+        "raw"
+      ]
+    },
+    "upstreamPaths": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cover": {
+      "type": "string"
+    },
+    "levels": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "durationText": {
+            "type": "string"
+          },
+          "goal": {
+            "type": "string"
+          },
+          "modules": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "goal": {
+                  "type": "string"
+                },
+                "objectives": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "practice": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "topics": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      "title": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "resources": {
+                        "default": [],
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "playlist",
+                                "video",
+                                "docs",
+                                "article",
+                                "book",
+                                "repo",
+                                "interactive",
+                                "other"
+                              ]
+                            },
+                            "lang": {
+                              "type": "string",
+                              "enum": [
+                                "ar",
+                                "en"
+                              ]
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "title",
+                            "url",
+                            "kind",
+                            "lang"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "optional": {
+                        "default": false,
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "resources",
+                      "optional"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "resources": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "playlist",
+                          "video",
+                          "docs",
+                          "article",
+                          "book",
+                          "repo",
+                          "interactive",
+                          "other"
+                        ]
+                      },
+                      "lang": {
+                        "type": "string",
+                        "enum": [
+                          "ar",
+                          "en"
+                        ]
+                      },
+                      "note": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "url",
+                      "kind",
+                      "lang"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "optional": {
+                  "default": false,
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "order",
+                "objectives",
+                "practice",
+                "topics",
+                "resources",
+                "optional"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "order",
+          "modules"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "color",
+    "prereqs",
+    "status",
+    "upstreamPaths",
+    "levels"
+  ],
+  "additionalProperties": false
+}
