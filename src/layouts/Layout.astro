@@ -1,6 +1,6 @@
 ---
 import '@fontsource/noto-sans-arabic/400.css';
-import '@fontsource/noto-sans-arabic/600.css';
+import '@fontsource/noto-sans-arabic/500.css';
 import '@fontsource/noto-sans-arabic/700.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/600.css';
@@ -11,6 +11,7 @@ interface Props {
   description?: string;
 }
 const { title, description = 'مسارات تعلّم مجتمع CAT Reloaded — خطة واضحة لكل مسار وتتبّع تقدّمك.' } = Astro.props;
+const path = Astro.url.pathname;
 ---
 <!doctype html>
 <html lang="ar" dir="rtl">
@@ -19,9 +20,59 @@ const { title, description = 'مسارات تعلّم مجتمع CAT Reloaded �
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <title>{title}</title>
   </head>
-  <body class="antialiased">
-    <slot />
+  <body class="min-h-dvh antialiased">
+    <header class="sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur">
+      <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <a href="/" class="group flex items-center gap-2.5">
+          <span class="grid size-8 place-items-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent ring-1 ring-accent/30 transition group-hover:bg-accent/20">CR</span>
+          <span class="flex flex-col leading-tight">
+            <span class="text-[15px] font-bold">مسارات <span class="text-accent">CAT</span></span>
+            <span class="font-mono text-[10px] tracking-wide text-muted">circles roadmaps</span>
+          </span>
+        </a>
+        <nav class="flex items-center gap-1 text-sm" aria-label="التنقل الرئيسي">
+          <a
+            href="/"
+            class={`rounded-lg px-3 py-1.5 transition ${path === '/' ? 'bg-panel font-semibold text-ink' : 'text-muted hover:bg-panel/60 hover:text-ink'}`}
+          >
+            المسارات
+          </a>
+          <button
+            id="search-trigger"
+            type="button"
+            class="ms-2 flex items-center gap-2 rounded-lg border border-edge px-3 py-1.5 text-muted transition hover:border-accent/40 hover:text-ink"
+            aria-label="بحث"
+          >
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="hidden sm:inline">بحث</span>
+            <kbd class="hidden rounded border border-edge bg-panel px-1.5 font-mono text-[10px] text-muted sm:inline">/</kbd>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+      <slot />
+    </main>
+
+    <footer class="border-t border-edge/60">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:px-6">
+        <p>
+          بُني على محتوى
+          <a class="text-ink underline decoration-edge underline-offset-4 transition hover:decoration-accent" href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps" rel="noopener noreferrer" target="_blank">CATReloaded-Circles-Roadmaps</a>
+          — مجتمع CAT Reloaded.
+        </p>
+        <p class="font-mono text-xs">
+          static · astro · react-flow · <span class="text-accent/80">localStorage</span> progress
+        </p>
+      </div>
+    </footer>
+
+    <slot name="scripts" />
   </body>
 </html>
