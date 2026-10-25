@@ -1,5 +1,7 @@
 ---
 import type { Circle } from '../schemas/roadmap';
+import { Icon } from "astro-icon/components";
+import { circleIcon } from "../lib/circle-icons";
 
 interface Props {
   circle: Circle;
@@ -26,9 +28,9 @@ const highlights = circle.overview?.highlights ?? [];
 
 const toTopicsCount = (level: Circle['levels'][number]) => level.modules.reduce((a, m) => a + m.topics.length, 0);
 
-// the first paragraph stays visible; the rest of the article collapses behind a pure-CSS "show more"
+// first paragraph leads the article; the rest renders expanded (the Show-more collapse
+// was intentionally removed from the working tree) — the split still separates lead from body
 const [leadParagraph, ...restParagraphs] = paragraphs;
-const collapsed = restParagraphs.length > 0 || levelCount > 3;
 
 const structured = circle.status === 'structured';
 const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => s.trim()).filter((s) => s.length > 0) : [];
@@ -46,7 +48,9 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
           style={`background:linear-gradient(135deg, ${coverTint}, ${coverTintSoft}), var(--color-panel)`}
         >
           <div class="flex flex-col items-center gap-2">
-            {circle.icon && <span class="text-5xl">{circle.icon}</span>}
+            <span class="text-ink">
+              <Icon name={circleIcon(circle.id)} class="size-8" />
+            </span>
             <span dir="ltr" class="font-mono text-sm text-ink">
               {circle.name}
             </span>
@@ -75,12 +79,17 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
         href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps"
         target="_blank"
         rel="noopener noreferrer"
-        class="block w-full text-center rounded-lg border border-ink py-3 font-bold text-ink transition hover:bg-panel"
+        class="flex w-full items-center justify-center gap-2 rounded-lg border border-ink py-3 font-bold text-ink transition hover:bg-panel"
       >
-        المصدر على GitHub ↗
+        <Icon name="simple-icons:github" class="size-4" />
+        <span>المصدر على GitHub</span>
+        <Icon name="lucide:arrow-up-left" class="size-3.5" />
       </a>
 
-      <p class="text-center text-xs text-muted">بدون تسجيل — تقدّمك محفوظ على جهازك</p>
+      <p class="inline-flex w-full items-center justify-center gap-1.5 text-center text-xs text-muted">
+        <Icon name="lucide:shield-check" class="size-3.5" />
+        بدون تسجيل — تقدّمك محفوظ على جهازك
+      </p>
 
       <hr class="border-edge/70" />
 
@@ -88,19 +97,19 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
         <p class="text-sm font-bold">المسار ده يشمل:</p>
         <ul class="space-y-2 text-sm text-muted">
           <li class="flex items-center gap-2">
-            <span aria-hidden="true">🔣</span>
+            <Icon name="lucide:list-tree" class="size-4 shrink-0 text-muted" />
             <span>{levelCount} مستويات</span>
           </li>
           <li class="flex items-center gap-2">
-            <span aria-hidden="true">📝</span>
+            <Icon name="lucide:file-text" class="size-4 shrink-0 text-muted" />
             <span>{topicCount} موضوع</span>
           </li>
           <li class="flex items-center gap-2">
-            <span aria-hidden="true">📚</span>
+            <Icon name="lucide:library" class="size-4 shrink-0 text-muted" />
             <span>{resourceCount} مصادر</span>
           </li>
           <li class="flex items-center gap-2">
-            <span aria-hidden="true">♾️</span>
+            <Icon name="lucide:infinity" class="size-4 shrink-0 text-muted" />
             <span>وصول مجاني دائم</span>
           </li>
         </ul>
@@ -114,12 +123,16 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
           type="button"
           id="copy-link-btn"
           data-label="انسخ اللينك"
-          class="text-muted transition hover:text-ink"
+          class="inline-flex items-center gap-1 text-muted transition hover:text-ink"
         >
-          انسخ اللينك
+          <Icon name="lucide:copy" class="size-3.5" />
+          <span data-label>انسخ اللينك</span>
         </button>
         <span class="text-edge">•</span>
-        <a href="/" class="text-muted transition hover:text-ink">الصفحة الرئيسية ↗</a>
+        <a href="/" class="inline-flex items-center gap-1.5 text-muted transition hover:text-ink">
+          <span>الصفحة الرئيسية</span>
+          <Icon name="lucide:arrow-up-left" class="size-3.5" />
+        </a>
       </div>
     </div>
   </aside>
@@ -127,8 +140,8 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
   <!-- second grid child renders on the LEFT in RTL: the article -->
   <article class="max-lg:order-1">
     <div class="flex items-start gap-4">
-      <span class="grid size-14 shrink-0 place-items-center rounded-2xl text-2xl" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
-        {circle.icon ?? '📚'}
+      <span class="grid size-14 shrink-0 place-items-center rounded-2xl" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
+        <Icon name={circleIcon(circle.id)} class="size-7" />
       </span>
       <div>
         <div class="flex flex-wrap items-center gap-2.5">
@@ -158,13 +171,7 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
       {leadParagraph && <p class="text-sm leading-7 text-muted">{leadParagraph}</p>}
     </div>
 
-    {/* rest of the article: collapsible when long — always RENDERED (open) when short so the
-        level rows never disappear for simple circles */}
-    <details class="group" open={collapsed ? undefined : true}>
-      <summary class:list={["cursor-pointer select-none py-1 font-mono text-xs text-accent marker:content-none [&::-webkit-details-marker]:hidden", ...[collapsed ? [] : ['hidden']]]}>
-        <span class="block group-open:hidden">عرض المزيد ↓</span>
-        <span class="hidden group-open:block">إخفاء ↑</span>
-      </summary>
+    {/* body of the article: renders expanded (the Show-more collapse was intentionally removed) */}
 
       <div class="space-y-2">
         {restParagraphs.map((p) => (
@@ -192,7 +199,6 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
           </ul>
         )
       }
-    </details>
 
     {
       highlights.length > 0 && (
@@ -210,12 +216,13 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
   const btn = document.getElementById('copy-link-btn');
   if (btn) {
     btn.addEventListener('click', async () => {
-      const label = btn.dataset.label ?? btn.textContent ?? '';
+      const labelEl = btn.querySelector('[data-label]');
+      const label = btn.dataset.label ?? labelEl?.textContent ?? '';
       try {
         await navigator.clipboard.writeText(window.location.href);
-        btn.textContent = 'تم النسخ ✓';
+        if (labelEl) labelEl.textContent = 'تم النسخ';
         setTimeout(() => {
-          btn.textContent = label;
+          if (labelEl) labelEl.textContent = label;
         }, 1500);
       } catch {
         /* clipboard unavailable — leave the label untouched */

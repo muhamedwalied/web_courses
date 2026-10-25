@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import icon from "astro-icon";
 import tailwindcss from '@tailwindcss/vite';
 
 // Static-first: `astro build` produces a fully static site in ./dist,
@@ -8,7 +9,10 @@ import tailwindcss from '@tailwindcss/vite';
 // the build (npm run build:search) to index it — no runtime fetching.
 export default defineConfig({
   site: 'https://cat-roadmaps.pages.dev',
-  integrations: [react()],
+  server: {
+    allowedHosts: true
+  },
+  integrations: [react(), icon()],
   vite: {
     plugins: [tailwindcss()],
   },

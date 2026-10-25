@@ -54,3 +54,8 @@ body {
     }
   }
 }
+
+/* directional icons: mirror inside RTL when needed (applied via .icon-flip on LTR-designed arrows) */
+[dir="rtl"] .icon-flip {
+  transform: scaleX(-1);
+}

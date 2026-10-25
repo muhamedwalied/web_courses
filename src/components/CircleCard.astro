@@ -1,6 +1,8 @@
 ---
 import type { Circle } from '../schemas/roadmap';
 import { circleTopics, countAllTopics } from '../lib/content';
+import { Icon } from "astro-icon/components";
+import { circleIcon } from "../lib/circle-icons";
 
 interface Props {
   circle: Circle;
@@ -17,7 +19,7 @@ const topicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
 >
   <div class="flex items-start justify-between">
     <span class="grid size-11 place-items-center rounded-xl text-xl transition" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
-      {circle.icon}
+      <Icon name={circleIcon(circle.id)} class="size-5" />
     </span>
     <span class={`rounded-full px-2 py-0.5 font-mono text-[10px] ${structured ? 'bg-accent/10 text-accent ring-1 ring-accent/30' : 'bg-edge/40 text-muted ring-1 ring-edge'}`}>
       {structured ? `${counts?.required ?? 0} موضوع` : 'قيد الإعداد'}

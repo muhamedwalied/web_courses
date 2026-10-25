@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CircleIntro from '../../components/CircleIntro.astro';
+import { Icon } from "astro-icon/components";
 import { getCircle, structuredCircles } from '../../lib/content';
 
 export function getStaticPaths() {
@@ -39,7 +40,7 @@ const sortedRaw = rawFiles.sort(([a], [b]) => {
       structured ? null : (
         <div>
           <div class="mb-5 flex items-start gap-3 rounded-2xl border border-dashed border-edge bg-panel/40 p-4">
-            <span class="mt-0.5 text-lg">🚧</span>
+            <Icon name="lucide:construction" class="size-5 shrink-0 text-muted" />
             <p class="text-sm leading-7 text-muted">
               المحتوى ده لسه <b class="text-ink">مش منظّم</b> — معروض زي ما هو من الـ upstream.
               التقدّم والتتبّع بيتفعّلوا أول ما نعمل structured data للمسار ده.
