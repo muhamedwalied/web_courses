@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import CirclesGraph from '../components/graph/CirclesGraph';
 import CircleCard from '../components/CircleCard.astro';
-import { circles, structuredCircles } from '../lib/content';
+import { structuredCircles } from '../lib/content';
 
-const graphCircles = circles.map((c) => ({
+const graphCircles = structuredCircles.map((c) => ({
   id: c.id,
   name: c.name,
   icon: c.icon ?? '📚',
@@ -14,15 +14,17 @@ const graphCircles = circles.map((c) => ({
   topics: c.levels.reduce((a, l) => a + l.modules.reduce((b, m) => b + m.topics.length, 0), 0),
 }));
 
-const totalTopics = circles.reduce((a, c) => a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.topics.length, 0), 0), 0);
-const totalResources = circles.reduce((a, c) =>
+const totalTopics = structuredCircles.reduce((a, c) => a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.topics.length, 0), 0), 0);
+const totalResources = structuredCircles.reduce((a, c) =>
   a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.resources.length + m.topics.reduce((y, t) => y + t.resources.length, 0), 0), 0),
   0,
 );
 
+const totalLevels = structuredCircles.reduce((a, c) => a + c.levels.length, 0);
+
 const stats = [
-  { v: circles.length, l: 'مسار' },
-  { v: structuredCircles.length, l: 'مسارات منظّمة بالكامل' },
+  { v: structuredCircles.length, l: 'مسار' },
+  { v: totalLevels, l: 'مستوى تعلّم' },
   { v: totalTopics, l: 'موضوع' },
   { v: totalResources, l: 'مصدر تعلّم' },
 ];
@@ -63,7 +65,7 @@ const stats = [
   <section aria-label="كل المسارات">
     <h2 class="mb-4 text-xl font-bold">كل المسارات</h2>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {circles.map((c) => <CircleCard circle={c} />)}
+      {structuredCircles.map((c) => <CircleCard circle={c} />)}
     </div>
   </section>
 </Layout>

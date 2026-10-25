@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CircleIntro from '../../components/CircleIntro.astro';
-import { getCircle, circles as all } from '../../lib/content';
+import { getCircle, structuredCircles } from '../../lib/content';
 
 export function getStaticPaths() {
-  return all.map((c) => ({ params: { id: c.id } }));
+  // only structured circles get a route — raw circles are hidden from the site
+  return structuredCircles.map((c) => ({ params: { id: c.id } }));
 }
 
 const { id } = Astro.params;
