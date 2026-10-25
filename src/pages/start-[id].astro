@@ -608,8 +608,15 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       });
 
       loadYT().then((YT) => {
+        // playlist-only links (videoseries) have no video id, but the widgetapi
+        // validates a videoId at construction time — "Invalid video id" otherwise —
+        // so we construct with a documented placeholder id and load the real
+        // playlist in onReady (loadPlaylist replaces the placeholder before it
+        // is ever visible: no autoplay during construction in playlist mode)
+        const isPlaylist = !videoId;
+        if (isPlaylist && !listParam) return;
         ytPlayer = new YT.Player(frameId, {
-          videoId: videoId || undefined,
+          videoId: videoId || 'M7lc1UVf-VE',
           playerVars: {
             controls: 0,
             disablekb: 1,
@@ -617,13 +624,17 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
             iv_load_policy: 3,
             rel: 0,
             playsinline: 1,
-            autoplay: 1,
+            autoplay: isPlaylist ? 0 : 1,
             origin: location.origin,
-            ...(videoId ? {} : { list: listParam, listType: 'playlist' }),
+            ...(isPlaylist ? { list: listParam, listType: 'playlist' } : {}),
           },
           events: {
             onReady: (e) => {
-              e.target.playVideo();
+              if (isPlaylist) {
+                e.target.loadPlaylist({ list: listParam, listType: 'playlist', index: 0 });
+              } else {
+                e.target.playVideo();
+              }
               const d = e.target.getDuration() || 0;
               timeEl.textContent = '0:00 / ' + fmtTime(d);
             },
