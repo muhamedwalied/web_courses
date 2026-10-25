@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { Icon } from "astro-icon/components";
 import { circleIcon } from "../lib/circle-icons";
 import { getCircle, structuredCircles } from '../lib/content';
+import { progressStore, tkey } from "../lib/progress";
 
 export function getStaticPaths() {
   // only structured circles get a watch page — raw circles stay hidden from the site
@@ -20,6 +21,48 @@ const resourceCount = circle.levels.reduce(
     acc + l.modules.reduce((a, m) => a + m.resources.length + m.topics.reduce((t, topic) => t + topic.resources.length, 0), 0),
   0,
 );
+
+const toModules = (level: (typeof circle.levels)[number]) => [...level.modules].sort((a, b) => a.order - b.order);
+
+// flattened topic order — powers prev/next and the default lecture
+const flatTopics = circle.levels.flatMap((l) =>
+  toModules(l).flatMap((m) => m.topics.map((t) => ({ l: l.id, m: m.id, t: t.id, title: t.title }))),
+);
+const firstTopic = flatTopics[0];
+const prevTopic = null;
+const nextTopic = flatTopics[1] ?? null;
+
+// one resource glyph per sidebar row: youtube > file-text > link (build-time, no network)
+const topicGlyph = (topic: (typeof circle.levels)[number]['modules'][number]['topics'][number]) => {
+  if (topic.resources.some((r) => r.kind === 'video' || r.kind === 'playlist' || /youtube\.com|youtu\.be/.test(r.url)))
+    return 'lucide:youtube';
+  if (topic.resources.some((r) => r.kind === 'docs' || r.kind === 'article' || r.kind === 'book' || r.kind === 'repo'))
+    return 'lucide:file-text';
+  return 'lucide:link';
+};
+
+const payload = {
+  levels: circle.levels.map((l) => ({
+    id: l.id,
+    name: l.name,
+    durationText: l.durationText ?? null,
+    modules: l.modules.map((m) => ({
+      id: m.id,
+      name: m.name,
+      objectives: m.objectives,
+      practice: m.practice,
+      topics: m.topics.map((t) => ({
+        id: t.id,
+        title: t.title,
+        note: t.note ?? null,
+        resources: t.resources.map((r) => ({ title: r.title, url: r.url, kind: r.kind })),
+      })),
+    })),
+  })),
+  flat: flatTopics,
+};
+// "/" inside "</" is escaped so the JSON island can never contain a script end tag
+const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
 ---
 
 <Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description}>
@@ -45,36 +88,412 @@ const resourceCount = circle.levels.reduce(
       </span>
     </div>
 
-    <div class="mt-10 flex flex-col items-center pb-16">
-      <div class="grid aspect-video w-full max-w-3xl place-items-center rounded-2xl border border-edge bg-panel/60">
-        <div class="flex flex-col items-center">
-          <span
-            class="grid size-14 place-items-center rounded-full bg-accent/10 text-2xl text-accent ring-1 ring-accent/30"
-            aria-hidden="true"
+    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[1.7fr_1fr]" data-circle={circle.id}>
+      <!-- first grid child renders on the RIGHT in RTL: the player -->
+      <div class="max-lg:order-1">
+        <div class="mt-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-3">
+          <Icon name="lucide:circle-play" class="size-5 shrink-0 text-accent" />
+          <div class="min-w-0">
+            <p id="watch-crumb" class="truncate font-mono text-[10px] text-muted" dir="ltr">
+              {firstTopic ? `${firstTopic.l} / ${firstTopic.m}` : ''}
+            </p>
+            <h1 id="watch-title" class="truncate text-lg font-bold">
+              {firstTopic?.title ?? circle.name}
+            </h1>
+          </div>
+        </div>
+
+        <div
+          id="watch-stage"
+          class="relative mt-3 grid aspect-video place-items-center overflow-hidden rounded-2xl border border-edge bg-black/60"
+        >
+          <button
+            type="button"
+            id="watch-facade"
+            class="grid size-16 place-items-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/40 transition hover:bg-accent/20"
+            aria-label="شغّل المحاضرة"
           >
-            <Icon name="lucide:play" class="size-7" />
-          </span>
-          <p class="mt-5 text-center text-lg font-bold">جلسة المشاهدة</p>
-          <p class="mt-1 text-center text-sm text-muted">هنا بتتابع محتوى المسار من جوّه الموقع — بدون خروج.</p>
+            <Icon name="lucide:play" class="size-8" />
+          </button>
+        </div>
+
+        <hr class="mt-4 border-edge/70" />
+
+        <label class="mt-3 flex items-center gap-2 text-xs text-muted">
+          <input type="checkbox" id="watch-done" class="size-3.5 accent-[var(--color-accent)]" />
+          <span>خلصت المحاضرة دي؟</span>
+        </label>
+
+        <div class="mt-4 flex justify-between">
+          <a
+            href={prevTopic ? `#${prevTopic.l}/${prevTopic.m}/${prevTopic.t}` : firstTopic ? `#${firstTopic.l}/${firstTopic.m}/${firstTopic.t}` : '#'}
+            id="watch-prev"
+            data-edge={prevTopic ? '0' : '1'}
+            aria-disabled={prevTopic ? undefined : 'true'}
+            class="flex items-center gap-1.5 rounded-lg border border-edge px-4 py-2 text-xs text-ink transition hover:bg-panel/60 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          >
+            <Icon name="lucide:arrow-right" class="size-3.5" />
+            <span>السابق</span>
+          </a>
+
+          <a
+            href={nextTopic ? `#${nextTopic.l}/${nextTopic.m}/${nextTopic.t}` : firstTopic ? `#${firstTopic.l}/${firstTopic.m}/${firstTopic.t}` : '#'}
+            id="watch-next"
+            data-edge={nextTopic ? '0' : '1'}
+            aria-disabled={nextTopic ? undefined : 'true'}
+            class="flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-xs font-bold text-bg transition hover:opacity-85 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          >
+            <span>التالي</span>
+            <Icon name="lucide:arrow-left" class="size-3.5" />
+          </a>
         </div>
       </div>
 
-      <p class="mt-4 flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs text-muted">
-        <span class="inline-flex items-center gap-1">
-          <Icon name="lucide:list-tree" class="size-3.5" />
-          <span>{levelCount} مستويات</span>
-        </span>
-        <span>·</span>
-        <span class="inline-flex items-center gap-1">
-          <Icon name="lucide:file-text" class="size-3.5" />
-          <span>{topicCount} موضوع</span>
-        </span>
-        <span>·</span>
-        <span class="inline-flex items-center gap-1">
-          <Icon name="lucide:library" class="size-3.5" />
-          <span>{resourceCount} مصادر</span>
-        </span>
-      </p>
+      <!-- second grid child renders on the LEFT in RTL: the content sidebar -->
+      <aside class="self-start rounded-2xl border border-edge bg-panel/60 p-4 max-lg:order-2 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-auto">
+        <div class="flex items-baseline justify-between gap-2">
+          <h2 class="text-sm font-bold">محتوى المسار</h2>
+          <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
+        </div>
+
+        <div class="mt-3 space-y-2">
+          {circle.levels.map((level) => (
+            <details class="level-acc group" data-level={level.id} open>
+              <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center gap-2">
+                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
+                  <span dir="ltr" class="text-sm font-bold text-ink">{level.name}</span>
+                </span>
+                <span class="flex shrink-0 items-center gap-2">
+                  {level.durationText && (
+                    <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
+                  )}
+                  <span class="font-mono text-[10px] text-muted">
+                    {level.modules.reduce((a, m) => a + m.topics.length, 0)} موضوع
+                  </span>
+                </span>
+              </summary>
+
+              <div class="mt-2 space-y-3 pb-1">
+                {toModules(level).map((module) => (
+                  <div>
+                    <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
+                      <span>{module.name}</span>
+                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">module</span>
+                    </p>
+                    <div class="mt-1 space-y-0.5">
+                      {module.topics.map((topic) => (
+                        <a
+                          href={`#${level.id}/${module.id}/${topic.id}`}
+                          data-key={`${level.id}/${module.id}/${topic.id}`}
+                          data-tkey={tkey(circle.id, level.id, module.id, topic.id)}
+                          class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
+                        >
+                          <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
+                          <span dir="auto" class="truncate text-xs text-ink/90">{topic.title}</span>
+                          <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
+                          <Icon name="lucide:check" class="hidden size-3.5 shrink-0 text-accent-2" data-done />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+      </aside>
     </div>
   </div>
+
+  <script type="application/json" id="watch-data" data-circle={circle.id} set:html={escaped}></script>
+
+  <script>
+    // runs in the browser — this import must live INSIDE the client script
+    // (frontmatter imports never reach the bundled client code)
+    import { progressStore, tkey } from "../lib/progress";
+
+    // --- Iconify path data (lucide) ---
+    const LUCIDE = {
+      play: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
+      'external-link':
+        'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
+      check: 'M20 6 9 17l-5-5',
+    };
+
+    function svgIcon(name, cls, extra = '') {
+      const d = LUCIDE[name];
+      if (!d) return null;
+      const NS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      if (cls) svg.setAttribute('class', cls);
+      if (extra) for (const chunk of extra.split(',')) {
+        const [k, ...rest] = chunk.split('=');
+        svg.setAttribute(k, rest.join('='));
+      }
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', d);
+      svg.appendChild(path);
+      return svg;
+    }
+
+    const dataEl = document.getElementById('watch-data');
+    const payload = dataEl ? JSON.parse(dataEl.textContent || '{}') : {};
+    const levels = payload.levels || [];
+    const flat = payload.flat || [];
+    const CIRCLE_ID = dataEl?.dataset.circle || document.querySelector('[data-circle]')?.dataset.circle || '';
+
+    const stage = document.getElementById('watch-stage');
+    const titleEl = document.getElementById('watch-title');
+    const crumbEl = document.getElementById('watch-crumb');
+    const doneEl = document.getElementById('watch-done');
+    const prevEl = document.getElementById('watch-prev');
+    const nextEl = document.getElementById('watch-next');
+    const rows = Array.from(document.querySelectorAll('a[data-key]'));
+
+    const keyOf = (l, m, t) => l + '/' + m + '/' + t;
+
+    function findTopic(l, m, t) {
+      const level = levels.find((x) => x.id === l);
+      if (!level) return null;
+      const mod = level.modules.find((x) => x.id === m);
+      if (!mod) return null;
+      const topic = mod.topics.find((x) => x.id === t);
+      if (!topic) return null;
+      return { level, module: mod, topic };
+    }
+
+    /** youtube nocookie embed src for single videos AND playlists (videoseries); null = not embeddable */
+    function embedSrc(url) {
+      try {
+        const u = new URL(url, location.href);
+        const host = u.hostname.replace(/^www\./, '').replace(/^m\./, '');
+        const list = u.searchParams.get('list');
+        let videoId = null;
+        if (host === 'youtu.be') {
+          videoId = u.pathname.split('/').filter(Boolean)[0] || null;
+        } else if (host === 'youtube.com' || host === 'youtube-nocookie.com' || host === 'music.youtube.com') {
+          if (u.pathname === '/watch') videoId = u.searchParams.get('v') || null;
+          else {
+            const parts = u.pathname.split('/').filter(Boolean);
+            if (parts[0] === 'embed' || parts[0] === 'shorts' || parts[0] === 'live' || parts[0] === 'v') videoId = parts[1] || null;
+          }
+        }
+        const q = new URLSearchParams({ autoplay: '1', rel: '0' });
+        if (videoId) {
+          if (list) q.set('list', list);
+          return 'https://www.youtube-nocookie.com/embed/' + videoId + '?' + q.toString();
+        }
+        // playlist-only link (e.g. Elzero course playlists) -> videoseries embed, stays on-site
+        if (host === 'youtube.com' && u.pathname === '/playlist' && list) {
+          return 'https://www.youtube-nocookie.com/embed/videoseries?' + q.toString() + '&list=' + encodeURIComponent(list);
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    const isEmbeddableResource = (r) => {
+      if (!r || (r.kind !== 'video' && r.kind !== 'playlist')) return false;
+      return embedSrc(r.url) !== null;
+    };
+
+    function plain(tag, cls, text) {
+      const el = document.createElement(tag);
+      if (cls) el.className = cls;
+      if (text != null) el.textContent = text;
+      return el;
+    }
+
+    function outboundButton(r, cls) {
+      const a = document.createElement('a');
+      a.href = r.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = cls;
+      a.appendChild(svgIcon('external-link', 'size-3.5 shrink-0'));
+      const label = plain('span', 'truncate', r.title || 'افتح المصدر');
+      a.appendChild(label);
+      return a;
+    }
+
+    function renderFacade(entry) {
+      const film = plain('div', 'flex aspect-video w-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-panel to-bg');
+      const btn = plain('button', 'grid size-20 place-items-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/40 transition hover:bg-accent/20');
+      btn.type = 'button';
+      const big = svgIcon('play', 'size-9');
+      if (big) btn.appendChild(big);
+      btn.setAttribute('aria-label', 'شغّل الفيديو: ' + (entry.topic.title || ''));
+      btn.addEventListener('click', () => {
+        const src = embedSrc(entry.video.url);
+        if (!src) return;
+        const frame = document.createElement('iframe');
+        frame.src = src;
+        frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture');
+        frame.setAttribute('allowfullscreen', '');
+        frame.setAttribute('loading', 'lazy');
+        frame.className = 'absolute inset-0 h-full w-full';
+        stage.replaceChildren(frame);
+      });
+      film.appendChild(btn);
+      film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.topic.title || ''));
+      const host = plain('p', 'font-mono text-[10px] text-muted', 'youtube · داخل الموقع');
+      film.appendChild(host);
+      return film;
+    }
+
+    function chipRow(entry) {
+      const chips = entry.topic.resources.filter((r) => !isEmbeddableResource(r));
+      if (!chips.length) return null;
+      const wrap = plain('div', 'mt-3 flex flex-wrap gap-2');
+      for (const r of chips) {
+        wrap.appendChild(outboundButton(r, 'inline-flex max-w-full items-center gap-1.5 rounded-lg border border-edge px-3 py-1.5 text-xs text-ink transition hover:border-accent/40'));
+      }
+      return wrap;
+    }
+
+    function renderArticle(entry) {
+      const panel = plain('div', 'flex aspect-video w-full flex-col justify-center overflow-y-auto bg-panel/70 px-6 py-5');
+      if (entry.topic.note) panel.appendChild(plain('p', 'text-sm leading-7 text-muted', entry.topic.note));
+
+      const objectives = entry.module.objectives || [];
+      if (objectives.length) {
+        panel.appendChild(plain('p', 'mt-3 text-xs font-bold text-ink', 'أهداف الوحدة'));
+        const list = plain('ul', 'mt-2 space-y-1');
+        for (const text of objectives.slice(0, 6)) {
+          const li = plain('li', 'flex items-start gap-2 text-xs leading-6 text-muted');
+          const tick = svgIcon('check', 'mt-0.5 size-3.5 shrink-0 text-accent-2');
+          if (tick) li.appendChild(tick);
+          li.appendChild(plain('span', 'text-ink/90', text));
+          list.appendChild(li);
+        }
+        panel.appendChild(list);
+      }
+
+      const chips = chipRow(entry);
+      if (chips) panel.appendChild(chips);
+      else panel.appendChild(plain('p', 'mt-3 text-xs text-muted', 'مفيش مصادر مرفقة بالموضوع ده.'));
+      return panel;
+    }
+
+    function renderSidebar() {
+      const snapshot = progressStore.snapshot();
+      for (const row of rows) {
+        const tkeyValue = row.dataset.tkey;
+        const done = !!(tkeyValue && snapshot[tkeyValue] === 1);
+        const mark = row.querySelector('[data-done]');
+        if (mark) mark.classList.toggle('hidden', !done);
+        row.classList.toggle('opacity-60', done);
+      }
+    }
+
+    function setCurrentRow(currentKey) {
+      for (const row of rows) {
+        const isCurrent = row.dataset.key === currentKey;
+        if (isCurrent) row.dataset.current = '';
+        else delete row.dataset.current;
+        row.classList.toggle('bg-accent/10', isCurrent);
+        row.classList.toggle('text-accent', isCurrent);
+        row.classList.toggle('ring-1', isCurrent);
+        row.classList.toggle('ring-accent/30', isCurrent);
+        if (isCurrent) {
+          const details = row.closest('details');
+          // property, not setAttribute: setting the attribute twice silently closes it
+          if (details) details.open = true;
+        }
+      }
+    }
+
+    function renderEdges(index) {
+      const edges = [
+        { el: prevEl, target: index > 0 ? flat[index - 1] : null, self: flat[index] },
+        { el: nextEl, target: index + 1 < flat.length ? flat[index + 1] : null, self: flat[index] },
+      ];
+      for (const { el, target, self } of edges) {
+        if (!el) continue;
+        const dest = target || self;
+        el.setAttribute('href', dest ? '#' + keyOf(dest.l, dest.m, dest.t) : '#');
+        if (target) {
+          el.removeAttribute('aria-disabled');
+          el.dataset.edge = '0';
+        } else {
+          el.setAttribute('aria-disabled', 'true');
+          el.dataset.edge = '1';
+        }
+      }
+    }
+
+    function render(key) {
+      let index = flat.findIndex((f) => keyOf(f.l, f.m, f.t) === key);
+      if (index < 0) index = 0;
+      const entry = flat[index];
+      if (!entry) return;
+      const found = findTopic(entry.l, entry.m, entry.t);
+      if (!found) return;
+
+      entry.topic = found.topic;
+      entry.module = found.module;
+      entry.level = found.level;
+      entry.video = (found.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
+
+      const currentKey = keyOf(entry.l, entry.m, entry.t);
+      window.__watchCurrentKey = currentKey;
+
+      if (titleEl) titleEl.textContent = found.topic.title || '';
+      if (crumbEl) crumbEl.textContent = found.level.name + ' / ' + found.module.name;
+
+      setCurrentRow(currentKey);
+
+      if (stage) {
+        stage.replaceChildren(entry.video ? renderFacade(entry) : renderArticle(entry));
+      }
+
+      if (doneEl) {
+        // always the key of the topic on screen — never a cached one from a previous render
+        const tkeyValue = tkey(CIRCLE_ID, entry.l, entry.m, entry.t);
+        doneEl.dataset.tkey = tkeyValue;
+        doneEl.checked = progressStore.snapshot()[tkeyValue] === 1;
+      }
+
+      renderSidebar();
+      renderEdges(index);
+    }
+
+    /** "#l/m/t" -> ["l","m","t"] */
+    function parseHash(hash) {
+      return (hash || '').replace(/^#/, '').split('/').filter(Boolean);
+    }
+
+    function keyFromLocation() {
+      const parts = parseHash(location.hash);
+      if (parts.length < 3) return '';
+      return keyOf(parts[0], parts[1], parts[2]);
+    }
+
+    if (rows.length) {
+      render(keyFromLocation() || keyOf(flat[0]?.l, flat[0]?.m, flat[0]?.t));
+    }
+
+    if (doneEl) {
+      doneEl.addEventListener('change', () => {
+        const key = doneEl.dataset.tkey;
+        if (key) progressStore.toggle(key);
+        renderSidebar();
+      });
+    }
+
+    addEventListener('hashchange', () => {
+      const key = keyFromLocation();
+      if (!key || key === window.__watchCurrentKey) return;
+      render(key);
+    });
+  </script>
 </Layout>

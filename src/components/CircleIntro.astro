@@ -27,6 +27,16 @@ const paragraphs = (circle.overview?.paragraphs?.length ? circle.overview.paragr
 const highlights = circle.overview?.highlights ?? [];
 
 const toTopicsCount = (level: Circle['levels'][number]) => level.modules.reduce((a, m) => a + m.topics.length, 0);
+const toModules = (level: Circle['levels'][number]) => [...level.modules].sort((a, b) => a.order - b.order);
+
+// one resource glyph per topic row: youtube > file-text > link (build-time, no network)
+const topicGlyph = (topic: Circle['levels'][number]['modules'][number]['topics'][number]) => {
+  if (topic.resources.some((r) => r.kind === 'video' || r.kind === 'playlist' || /youtube\.com|youtu\.be/.test(r.url)))
+    return 'lucide:youtube';
+  if (topic.resources.some((r) => r.kind === 'docs' || r.kind === 'article' || r.kind === 'book' || r.kind === 'repo'))
+    return 'lucide:file-text';
+  return 'lucide:link';
+};
 
 // first paragraph leads the article; the rest renders expanded (the Show-more collapse
 // was intentionally removed from the working tree) — the split still separates lead from body
@@ -181,22 +191,51 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
 
       {
         levelCount > 0 && (
-          <ul class="mt-3 space-y-2">
+          <div class="mt-4 space-y-2">
             {circle.levels.map((level) => (
-              <li class="rounded-xl border border-edge bg-bg/40 p-3">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span dir="ltr" class="text-sm font-bold text-ink">
-                    {level.name}
+              <details class="level-acc group" open>
+                <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
+                  <span class="flex items-center gap-2">
+                    <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
+                    <span dir="ltr" class="text-sm font-bold text-ink">
+                      {level.name}
+                    </span>
                   </span>
-                  {level.durationText && (
-                    <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
-                  )}
+                  <span class="flex shrink-0 items-center gap-2">
+                    {level.durationText && (
+                      <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
+                    )}
+                    <span class="font-mono text-[10px] text-muted">{toTopicsCount(level)} موضوع</span>
+                  </span>
+                </summary>
+
+                <div class="mt-2 space-y-3 pb-1">
+                  {toModules(level).map((module) => (
+                    <div>
+                      <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
+                        <span>{module.name}</span>
+                        <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">module</span>
+                      </p>
+                      <div class="mt-1 space-y-0.5">
+                        {module.topics.map((topic) => (
+                          <a
+                            href={`/start-${circle.id}/#${level.id}/${module.id}/${topic.id}`}
+                            class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
+                          >
+                            <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
+                            <span dir="auto" class="truncate text-xs text-ink/90">
+                              {topic.title}
+                            </span>
+                            <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                {level.goal && <p class="mt-1 text-xs text-muted">{level.goal}</p>}
-                <p class="mt-1 font-mono text-[10px] text-muted">{toTopicsCount(level)} موضوع</p>
-              </li>
+              </details>
             ))}
-          </ul>
+          </div>
         )
       }
 
