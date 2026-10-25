@@ -89,15 +89,31 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       </span>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[1fr_1.7fr]" data-circle={circle.id}>
-      <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical) -->
-      <aside class="self-start rounded-2xl border border-edge bg-panel/60 p-4 max-lg:order-2 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-auto">
-        <div class="flex items-baseline justify-between gap-2">
+    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[20rem_1fr]" data-circle={circle.id}>
+      <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical).
+           Desktop: docked, full-height, independently-scrolling column.
+           Below lg: off-canvas drawer (fixed+right-0) — stays in the grid so RTL order is untouched. -->
+      <aside
+        id="content-sidebar"
+        aria-label="محتوى المسار"
+        class="max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:max-h-[calc(100vh-5rem)] lg:flex-col lg:self-start lg:overflow-x-hidden rounded-2xl border border-edge bg-panel/60 p-4"
+      >
+        <div class="flex shrink-0 items-baseline justify-between gap-2">
           <h2 class="text-sm font-bold">محتوى المسار</h2>
-          <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
+          <span class="flex items-center gap-2">
+            <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
+            <button
+              type="button"
+              id="content-close"
+              class="grid size-6 shrink-0 place-items-center rounded-md text-muted transition hover:bg-panel/70 hover:text-ink lg:hidden"
+              aria-label="إغلاق"
+            >
+              <Icon name="lucide:x" class="size-4" />
+            </button>
+          </span>
         </div>
 
-        <div class="mt-3 space-y-2">
+        <div class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto lg:pe-1">
           {circle.levels.map((level) => (
             <details class="level-acc group" data-level={level.id} open>
               <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
@@ -145,6 +161,9 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         </div>
       </aside>
 
+      <!-- mobile drawer backdrop — below lg only, toggled by JS -->
+      <div id="content-backdrop" class="fixed inset-0 z-40 hidden bg-black/50" aria-hidden="true"></div>
+
       <!-- second grid child renders on the LEFT in RTL: the player -->
       <div class="max-lg:order-1">
         <div class="mt-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-3">
@@ -157,6 +176,17 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
               {firstTopic?.title ?? circle.name}
             </h1>
           </div>
+
+          <button
+            type="button"
+            id="content-toggle"
+            aria-expanded="false"
+            aria-controls="content-sidebar"
+            class="ms-auto inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-edge px-2.5 py-1.5 text-xs text-muted transition hover:border-accent/40 hover:text-ink lg:hidden"
+          >
+            <Icon name="lucide:list-tree" class="size-4 shrink-0" />
+            <span>المحتوى</span>
+          </button>
         </div>
 
         <div
@@ -607,5 +637,56 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       if (!key || key === window.__watchCurrentKey) return;
       render(key);
     });
+
+    // --- mobile content drawer (below lg only) ---
+    const sidebarEl = document.getElementById('content-sidebar');
+    const backdropEl = document.getElementById('content-backdrop');
+    const toggleEl = document.getElementById('content-toggle');
+    const closeEl = document.getElementById('content-close');
+    const belowLg = matchMedia('(max-width: 1023px)');
+
+    function setDrawer(open) {
+      if (!sidebarEl || !backdropEl || !toggleEl) return;
+      sidebarEl.classList.toggle('max-lg:translate-x-full', !open);
+      sidebarEl.classList.toggle('max-lg:translate-x-0', open);
+      backdropEl.classList.toggle('hidden', !open);
+      backdropEl.classList.toggle('block', open);
+      toggleEl.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    /** called on lg+ (and on load): never leave stale drawer state behind */
+    function resetDrawer() {
+      if (!sidebarEl || !backdropEl || !toggleEl) return;
+      sidebarEl.classList.remove('max-lg:translate-x-0');
+      sidebarEl.classList.remove('max-lg:translate-x-full');
+      backdropEl.classList.add('hidden');
+      backdropEl.classList.remove('block');
+      toggleEl.setAttribute('aria-expanded', 'false');
+    }
+
+    if (sidebarEl && backdropEl && toggleEl) {
+      toggleEl.addEventListener('click', () => {
+        if (!belowLg.matches) return;
+        setDrawer(toggleEl.getAttribute('aria-expanded') !== 'true');
+      });
+      const closeDrawer = () => setDrawer(false);
+      closeEl?.addEventListener('click', closeDrawer);
+      backdropEl.addEventListener('click', closeDrawer);
+      addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && belowLg.matches) closeDrawer();
+      });
+      // picking a lecture closes the drawer (mobile only matters)
+      for (const row of rows) {
+        row.addEventListener('click', () => {
+          if (belowLg.matches) setDrawer(false);
+        });
+      }
+      const onBreakpoint = () => {
+        if (belowLg.matches) setDrawer(false);
+        else resetDrawer();
+      };
+      belowLg.addEventListener('change', onBreakpoint);
+      onBreakpoint();
+    }
   </script>
 </Layout>
