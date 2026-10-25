@@ -219,6 +219,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       play: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
       'external-link':
         'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
+      'file-text': 'M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm-1 0v6h6',
       check: 'M20 6 9 17l-5-5',
     };
 
@@ -346,14 +347,27 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       });
       film.appendChild(btn);
       film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
-      const host = plain(
-        'p',
-        'font-mono text-[10px] text-muted',
-        entry.videoIsModuleFallback ? 'مصدر فيديو المحاضرة — جوه الموقع' : 'youtube · داخل الموقع',
-      );
-      film.appendChild(host);
+      film.appendChild(plain('p', 'font-mono text-[10px] text-muted', 'youtube · داخل الموقع'));
       return film;
     }
+
+    // stage sizing: video mode keeps the 16:9 player box, article mode becomes a readable column
+    const VIDEO_STAGE_CLASSES = ['relative', 'overflow-hidden', 'rounded-2xl', 'border', 'border-edge', 'mt-3', 'grid', 'aspect-video', 'place-items-center', 'bg-black/60'];
+    const ARTICLE_STAGE_CLASSES = ['relative', 'overflow-hidden', 'rounded-2xl', 'border', 'border-edge', 'mt-3', 'block', 'bg-panel/60'];
+
+    function setStageMode(isArticle) {
+      if (!stage) return;
+      stage.classList.remove(...VIDEO_STAGE_CLASSES, ...ARTICLE_STAGE_CLASSES);
+      stage.classList.add(...(isArticle ? ARTICLE_STAGE_CLASSES : VIDEO_STAGE_CLASSES));
+    }
+
+    const hostOf = (url) => {
+      try {
+        return new URL(url, location.href).hostname.replace(/^www\./, '');
+      } catch {
+        return url;
+      }
+    };
 
     function chipRow(entry) {
       const chips = entry.topic.resources.filter((r) => !isEmbeddableResource(r));
@@ -399,14 +413,50 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       return box;
     }
 
+    /** one "source site" row for the resources list — full row, not a chip */
+    function sourceRow(r) {
+      const a = document.createElement('a');
+      a.href = r.url;
+      a.target = '_blank';
+      a.rel = 'nofollow noopener';
+      a.className = 'flex items-center gap-3 rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:border-accent/40';
+
+      const lead = svgIcon('external-link', 'size-4 shrink-0 text-muted');
+      if (lead) a.appendChild(lead);
+
+      const col = plain('span', 'flex min-w-0 flex-col');
+      const name = plain('span', 'truncate text-xs font-bold text-ink', r.title || 'افتح المصدر');
+      name.dir = 'auto';
+      col.appendChild(name);
+      col.appendChild(plain('span', 'font-mono text-[10px] text-muted', hostOf(r.url)));
+      a.appendChild(col);
+
+      const tail = svgIcon('external-link', 'ms-auto size-3.5 shrink-0 text-muted');
+      if (tail) a.appendChild(tail);
+
+      return a;
+    }
+
+    /** video-less topics are READING LECTURES: a full-width article column inside the stage */
     function renderArticle(entry) {
-      const panel = plain('div', 'flex aspect-video w-full flex-col justify-center overflow-y-auto bg-panel/70 px-6 py-5');
-      if (entry.topic.note) panel.appendChild(plain('p', 'text-sm leading-7 text-muted', entry.topic.note));
+      const article = plain('div', 'w-full px-6 py-6');
+      const inner = plain('div', 'mx-auto max-w-[62ch] space-y-4 text-right');
+
+      const kicker = plain('p', 'flex items-center gap-2 font-mono text-[10px] text-accent');
+      const glyph = svgIcon('file-text', 'size-3.5 shrink-0');
+      if (glyph) kicker.appendChild(glyph);
+      kicker.appendChild(plain('span', null, 'مقالة — محاضرة قراءة'));
+      inner.appendChild(kicker);
+
+      const lead = entry.topic.note
+        ? entry.topic.note
+        : 'محاضرة قراءة — بتتناول: ' + (entry.topic.title || '') + '. المحتوى الكامل على المصادر المرتبطة بالأسفل.';
+      inner.appendChild(plain('p', 'text-sm leading-7 text-muted', lead));
 
       const objectives = entry.module.objectives || [];
       if (objectives.length) {
-        panel.appendChild(plain('p', 'mt-3 text-xs font-bold text-ink', 'أهداف الوحدة'));
-        const list = plain('ul', 'mt-2 space-y-1');
+        inner.appendChild(plain('p', 'text-xs font-bold text-ink', 'أهداف الوحدة'));
+        const list = plain('ul', 'space-y-1');
         for (const text of objectives.slice(0, 6)) {
           const li = plain('li', 'flex items-start gap-2 text-xs leading-6 text-muted');
           const tick = svgIcon('check', 'mt-0.5 size-3.5 shrink-0 text-accent-2');
@@ -414,13 +464,21 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
           li.appendChild(plain('span', 'text-ink/90', text));
           list.appendChild(li);
         }
-        panel.appendChild(list);
+        inner.appendChild(list);
       }
 
-      const chips = chipRow(entry);
-      if (chips) panel.appendChild(chips);
-      else panel.appendChild(plain('p', 'mt-3 text-xs text-muted', 'مفيش مصادر مرفقة بالموضوع ده.'));
-      return panel;
+      inner.appendChild(plain('p', 'text-xs font-bold text-ink', 'مصادر المحاضرة'));
+      const resources = entry.topic.resources || [];
+      if (resources.length) {
+        const list = plain('div', 'space-y-2');
+        for (const r of resources) list.appendChild(sourceRow(r));
+        inner.appendChild(list);
+      } else {
+        inner.appendChild(plain('p', 'text-xs text-muted', 'مفيش مصادر مرفقة بالموضوع ده.'));
+      }
+
+      article.appendChild(inner);
+      return article;
     }
 
     function renderSidebar() {
@@ -482,21 +540,9 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       entry.module = found.module;
       entry.level = found.level;
 
-      // video fallback chain: topic's own resource -> module resource -> the first
-      // embeddable resource found among the module's OTHER topics (Elzero-style
-      // playlists are authored as their own topic, but they are the video source
-      // for every other lecture in that module)
-      const topicVideo = (entry.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
-      let moduleVideo = topicVideo ? null : (entry.module.resources || []).find((r) => isEmbeddableResource(r)) || null;
-      if (!topicVideo && !moduleVideo) {
-        const siblings = (entry.module.topics || []).filter((x) => x.id !== entry.topic.id);
-        for (const sib of siblings) {
-          const pick = (sib.resources || []).find((r) => isEmbeddableResource(r));
-          if (pick) { moduleVideo = pick; break; }
-        }
-      }
-      entry.video = topicVideo || moduleVideo || null;
-      entry.videoIsModuleFallback = !topicVideo && !!moduleVideo;
+      // playback resolves ONLY from the topic's own embeddable resources —
+      // no module/sibling fallback: a lecture without its own video is a reading lecture
+      entry.video = (entry.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
 
       const currentKey = keyOf(entry.l, entry.m, entry.t);
       window.__watchCurrentKey = currentKey;
@@ -511,7 +557,9 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       if (oldExtras) oldExtras.remove();
 
       if (stage) {
-        if (entry.video) {
+        const hasVideo = !!entry.video;
+        setStageMode(!hasVideo);
+        if (hasVideo) {
           stage.replaceChildren(renderFacade(entry));
           const extras = renderExtras(entry);
           stage.insertAdjacentElement('afterend', extras);
