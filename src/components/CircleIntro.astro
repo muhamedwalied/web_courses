@@ -192,8 +192,9 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
       {
         levelCount > 0 && (
           <div class="mt-4 space-y-2">
-            {circle.levels.map((level) => (
-              <details class="level-acc group" open>
+            {circle.levels.map((level, levelIndex) => (
+              // only the first level (Phase 1) starts open; the rest stay collapsed
+              <details class="level-acc group" open={levelIndex === 0 || undefined}>
                 <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
                   <span class="flex items-center gap-2">
                     <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
