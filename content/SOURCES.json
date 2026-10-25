@@ -1,6 +1,6 @@
 {
   "upstream": {
-    "repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
+    "repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026",
     "branch": "main",
     "commit": "d80fb293d83d51123071ead8a8151bc0e5d9686b",
     "fetchedAt": "2026-10-24",

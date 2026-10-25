@@ -120,7 +120,8 @@ const upstreamCommit = execSync('git -C .roadmap-repo rev-parse HEAD', { encodin
 const sources = {
   upstream: {
     repo: 'https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps',
-    branch: 'main',
+    // upstream main is stale — the live roadmap lives on the 2026 branch
+    branch: '2026',
     commit: upstreamCommit,
     fetchedAt: new Date().toISOString().slice(0, 10),
     note: 'إذن CATReloaded مطلوب قبل أي نشر عام — upstream بلا ملف LICENSE.',
