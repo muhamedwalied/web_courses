@@ -21,42 +21,14 @@ const sortedRaw = rawFiles.sort(([a], [b]) => {
   const main = (p: string) => (p.endsWith('/README.md') || p.endsWith('/Readme.md') ? 0 : 1);
   return main(a) - main(b) || a.localeCompare(b);
 });
-
-const upstreamUrl = circle.upstreamPaths.length
-  ? `https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/${encodeURIComponent(circle.upstreamPaths[0].replace(/\/$/, ''))}`
-  : 'https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps';
 ---
 <Layout title={`${circle.name} — مسارات CAT Reloaded`} description={circle.tagline ?? circle.description}>
-  <nav class="pt-5 text-sm text-muted" aria-label="مسار التنقل">
-    <a href="/" class="transition hover:text-ink">المسارات</a>
-    <span class="mx-2 text-edge">/</span>
-    <span class="text-ink">{circle.name}</span>
-  </nav>
-
-  <header class="flex flex-wrap items-start justify-between gap-4 pb-6 pt-4">
-    <div class="flex items-start gap-4">
-      <span class="grid size-14 shrink-0 place-items-center rounded-2xl text-2xl" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
-        {circle.icon}
-      </span>
-      <div>
-        <div class="flex flex-wrap items-center gap-2.5">
-          <h1 dir="ltr" class="text-3xl font-bold">{circle.name}</h1>
-          <span class={`rounded-full px-2.5 py-0.5 font-mono text-[10px] ${structured ? 'bg-accent/10 text-accent ring-1 ring-accent/30' : 'bg-edge/40 text-muted ring-1 ring-edge'}`}>
-            {structured ? 'منظّم — تقدّم قابل للتتبّع' : 'قيد الإعداد'}
-          </span>
-        </div>
-        {circle.tagline && <p class="mt-1 text-muted">{circle.tagline}</p>}
-        {circle.description && <p class="mt-2 max-w-2xl text-sm leading-7 text-muted">{circle.description}</p>}
-      </div>
-    </div>
-    <a
-      href={upstreamUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="rounded-lg border border-edge px-3 py-1.5 text-xs text-muted transition hover:border-accent/40 hover:text-ink"
-    >
-      المصدر الأصلي على GitHub ↗
-    </a>
+  <header>
+    <nav class="pt-5 text-sm text-muted" aria-label="مسار التنقل">
+      <a href="/" class="transition hover:text-ink">المسارات</a>
+      <span class="mx-2 text-edge">/</span>
+      <span class="text-ink">{circle.name}</span>
+    </nav>
   </header>
 
   <CircleIntro circle={circle} />
