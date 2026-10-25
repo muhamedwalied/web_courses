@@ -7,11 +7,11 @@
   "description": "Welcome to the Cat Reloaded Embedded Systems Roadmap! This guide will help you navigate your journey into the world of Embedded Systems with all the resources you need. An embedded system is a microprocessor-based computer hardware system with software that is designed to perform a dedicated functio",
   "color": "#a3e635",
   "icon": "🔩",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Embedded%20Systems",
   "prereqs": [],
   "status": "raw",
   "upstreamPaths": [
     "Embedded Systems/"
   ],
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Embedded%20Systems",
   "levels": []
 }

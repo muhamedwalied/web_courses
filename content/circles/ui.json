@@ -4,14 +4,14 @@
   "id": "ui",
   "name": "UI/UX",
   "tagline": "UI/UX من الأساسيات لمصمم واثق",
-  "description": "By [Mariam Elmetwally](https://www.linkedin.com/in/mariam-elmetwally-8a58852b7/) This roadmap gives you a clear, step-by-step path to learn UI/UX — from the basics to becoming a confident designer. Each level is organized to help you know what to learn, how to progress, and how to build real, valuab",
+  "description": "This roadmap will guide you step by step. No prior knowledge? No problem! You can start from the basics. Already familiar with some concepts? Feel free to skip ahead. First, understand the **difference between UI and UX design** to decide which suits you best—or if you want to master both!",
   "color": "#2dd4bf",
   "icon": "🖌️",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/UI",
   "prereqs": [],
   "status": "raw",
   "upstreamPaths": [
     "UI/"
   ],
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/UI",
   "levels": []
 }

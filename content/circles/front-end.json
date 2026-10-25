@@ -1,12 +1,12 @@
 {
   "$schema": "../circles.schema.json",
+
   "id": "front-end",
   "name": "Front End",
   "tagline": "Phase 1 → Core Engineering → إطار عمل تخصصي",
   "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.",
   "color": "#f59e0b",
   "icon": "⚛️",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Front%20End",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [
@@ -17,18 +17,7 @@
     "Front End/roadmap-03-angular.md",
     "Front End/roadmap-03-vue.md"
   ],
-  "overview": {
-    "paragraphs": [
-      "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.",
-      "This roadmap is divided into 3 phases across ~26 weeks, covering everything from HTML basics to production-grade fullstack applications.",
-      "Phase 1 gives you a week-by-week foundation schedule with full Elzero assignment tables and Git resources (Arabic + English). Phase 2 is a 13-week JavaScript intensive sprint with practice projects, problem-solving and interview prep. Phase 3 lets you pick React, Vue or Angular with an 8-week specialist schedule."
-    ],
-    "highlights": [
-      "~26 weeks",
-      "15+ hands-on projects",
-      "3 framework tracks (React / Vue / Angular)"
-    ]
-  },
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Front%20End",
   "levels": [
     {
       "id": "phase-1-foundation",
@@ -1323,7 +1312,7 @@
                   "title": "Code Zone (Arabic Course)",
                   "url": "https://youtube.com/playlist?list=PLQtNtS-WfRa9LbmD8ON7rWhn-AtKTGdkn",
                   "kind": "playlist",
-                  "lang": "ar"
+                  "lang": "en"
                 },
                 {
                   "title": "FreeCodeCamp React Course (2022)",
@@ -2017,6 +2006,5 @@
         }
       ]
     }
-  ],
-  "cover": "/upstream/front-end/roadmap_bg.png"
+  ]
 }

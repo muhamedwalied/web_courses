@@ -1,9 +1,9 @@
 {
   "upstream": {
-    "repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026",
-    "branch": "main",
-    "commit": "d80fb293d83d51123071ead8a8151bc0e5d9686b",
-    "fetchedAt": "2026-10-24",
+    "repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
+    "branch": "2026",
+    "commit": "6a1c6a2c3a203d8a8383c7e6a8f527aad19f75b8",
+    "fetchedAt": "2026-10-25",
     "note": "إذن CATReloaded مطلوب قبل أي نشر عام — upstream بلا ملف LICENSE."
   },
   "submodule": {
@@ -19,7 +19,7 @@
       "upstreamDir": "Android"
     },
     "backend": {
-      "mdFiles": 5,
+      "mdFiles": 0,
       "images": 0,
       "upstreamDir": "BackEnd"
     },
@@ -70,7 +70,7 @@
     },
     "ui": {
       "mdFiles": 1,
-      "images": 1,
+      "images": 2,
       "upstreamDir": "UI"
     }
   }

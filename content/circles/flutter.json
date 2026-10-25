@@ -1,13 +1,12 @@
 {
   "$schema": "../circles.schema.json",
+
   "id": "flutter",
   "name": "Flutter",
   "tagline": "من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture",
   "description": "مسار Flutter في CAT Reloaded: رحلة منظمة أسبوعًا بأسبوع من Dart والموبايل حتى Firestore والمدفوعات والـ CI/CD، مع مشروع تطبيقي في كل مرحلة.",
   "color": "#38bdf8",
   "icon": "🐦",
-  "cover": "/upstream/flutter/Banner.png",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Flutter",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [
@@ -16,17 +15,7 @@
     "Flutter/2 - Intermediate/",
     "Flutter/3 - Advanced/"
   ],
-  "overview": {
-    "paragraphs": [
-      "A structured, end-to-end learning roadmap for Dart, Flutter, Git, and advanced mobile development - from fundamentals to production-ready apps with clean architecture.",
-      "Beginner (5 weeks) covers Dart basics, OOP and Git. Intermediate (8 weeks) covers UI, navigation, APIs, Sqflite and Provider. Advanced (11 weeks) covers Bloc, Firebase, animations, clean architecture, maps, payments and CI/CD - plus a Titan level for Data Structures & Algorithms."
-    ],
-    "highlights": [
-      "24 أسبوعًا منظمين",
-      "3 مستويات + Titan",
-      "مشروع تطبيقي في كل مرحلة"
-    ]
-  },
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Flutter",
   "levels": [
     {
       "id": "beginner",
