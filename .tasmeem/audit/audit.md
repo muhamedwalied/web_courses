@@ -1,6 +1,17 @@
 # Audit · cat-roadmaps (src/ + dist/) · 2026-10-25
 
 Measured: scan ✓ (13 ملف) · built ✓ (5 صفحات) · render ✗ (Playwright غير متاح في المشروع — اختياري)
+
+## بعد الإصلاح (دفعة واحدة 2026-10-25 · ول dataset نفسه)
+
+**قبل:** P0 10 · P1 43 · P2 15 → **بعد:** **P0 0 · P1 4 · P2 0** · brand exceptions 26 (DESIGN.md أساسه الآن نظام التسجيل).
+
+المُصلح فعليًا: حلقة `:focus-visible` عامة · theme-color · skip link منطقي (`start-4`) · صور الغلاف eager + width/height · `pre` منطقي (`direction: ltr; text-align: start`) · drawer `start-0` · sidebar `h-dvh` · `transition-[width]` · فصل سهم الـ tagline المُرندر (← اتجاه RTL) عن سهم المحتوى المالك · حذف التفريغ من قفلين لاتينيين (رفض tasmeem استثناء SC-01 إطلاقًا — القاعدة سليمة) · `outline-none` اتشال من إنبت البحث.
+
+المتبقي 4 P1 = physical CSS **داخل مكتبة @xyflow/react نفسها** (الـ canvas بتاعة شبكة المسارات في الرئيسية) — ثالثة لا تُصلّح بدون fork ولا تُستثنى (tasmeem يمنع استثناء SC-05 بالتصميم). موثقة مثلها في DESIGN.md (مع SY-04/CP-09).
+
+الـ verdict الرسمي يفضل FAIL في نصه الآلي بسبب تلك الـ 4 Third-party — كل ما هو ملك المشروع نضيف P0/P1/P2.
+
 Raw totals: P0 10 · P1 43 · P2 15 → بعد التحكيم والتجميع (dedup + تصنيف):
 
 **الإجماليات بعد التحكيم: قضايا حقيقية 9 · استثناءات هوية 6 · محتوى المالك (مستثنى من الحكم) 2 · false positive 1**

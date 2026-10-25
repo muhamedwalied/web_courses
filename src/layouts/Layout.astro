@@ -20,6 +20,7 @@ const path = Astro.url.pathname;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0e14" />
     <meta name="generator" content={Astro.generator} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -27,13 +28,19 @@ const path = Astro.url.pathname;
     <title>{title}</title>
   </head>
   <body class="min-h-dvh antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-panel focus:px-3 focus:py-2 focus:text-sm focus:font-bold focus:text-ink focus:ring-1 focus:ring-accent/40"
+    >
+      تجاوز إلى المحتوى
+    </a>
     <header class="sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur">
       <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <a href="/" class="group flex items-center gap-2.5">
           <span class="grid size-8 place-items-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent ring-1 ring-accent/30 transition group-hover:bg-accent/20">CR</span>
           <span class="flex flex-col leading-tight">
             <span class="text-[15px] font-bold">مسارات <span class="text-accent">CAT</span></span>
-            <span class="font-mono text-[10px] tracking-wide text-muted">circles roadmaps</span>
+            <span class="font-mono text-[10px] text-muted">circles roadmaps</span>
           </span>
         </a>
         <nav class="flex items-center gap-1 text-sm" aria-label="التنقل الرئيسي">
@@ -57,7 +64,7 @@ const path = Astro.url.pathname;
       </div>
     </header>
 
-    <main class="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+    <main id="main" class="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
       <slot />
     </main>
 

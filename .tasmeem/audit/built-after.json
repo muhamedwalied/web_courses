@@ -1,0 +1,317 @@
+{
+  "tool": "built",
+  "scanned": 5,
+  "findings": [
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 5,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "built",
+      "evidence": "sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 1,
+      "message": "4 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CP-10",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "right-pointing arrow in Arabic text (forward is ←)",
+      "channel": "built",
+      "evidence": "Phase 1 → Core Engineering → إطار عمل تخصصي",
+      "count": 2,
+      "lines": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "9 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SY-04",
+      "severity": "P2",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "z-index 1001",
+      "channel": "built",
+      "evidence": "svg.react-flow__connectionline",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical left in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__handle-bottom",
+      "count": 8,
+      "lines": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-right in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__controls.horizontal .react-flow__controls-button",
+      "count": 2,
+      "lines": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-left-width in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__resize-control.line.left",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-right-width in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__resize-control.line.right",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "TY-04",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "one word styled differently inside the headline",
+      "channel": "built",
+      "evidence": "رحلتك التعليمية كاملة<span class=\"bg-gradient-to-l from-accent to-accent-2 bg-clip-text te",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "CO-05",
+      "severity": "P0",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "gradient text (Tailwind)",
+      "channel": "built",
+      "evidence": "bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "CP-10",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "right-pointing arrow in Arabic text (forward is ←)",
+      "channel": "built",
+      "evidence": "Phase 1 → Core Engineering → إطار عمل تخصصي",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 1,
+      "message": "6 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CP-09",
+      "severity": "P2",
+      "file": "dist/start-flutter/index.html",
+      "line": 6,
+      "message": "\"oops\"",
+      "channel": "built",
+      "evidence": "Practice string operations and understand control flow using conditionals and lo",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 1,
+      "message": "3 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CP-02",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 6,
+      "message": "\"the ultimate\"",
+      "channel": "built",
+      "evidence": "The Ultimate React Course — Jonas Schmedtmann",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 1,
+      "message": "101 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CO-16",
+      "severity": "P1",
+      "message": "6 non-token file(s) with many raw colour literals",
+      "channel": "built",
+      "count": 1,
+      "lines": []
+    }
+  ],
+  "meta": {
+    "pages": 5,
+    "signals": {
+      "arabic": true,
+      "rtl": true,
+      "reducedMotion": true,
+      "focusVisible": true,
+      "motion": true,
+      "tokens": true,
+      "langScopedReset": false
+    },
+    "fontFamilies": []
+  }
+}

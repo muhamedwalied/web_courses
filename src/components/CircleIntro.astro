@@ -51,7 +51,16 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
   <aside class="self-start rounded-2xl border border-edge bg-panel/60 overflow-hidden max-lg:order-2 lg:sticky lg:top-20 lg:-mt-4">
     {
       circle.cover ? (
-        <img src={circle.cover} alt={circle.name} loading="lazy" class="aspect-video w-full object-cover" />
+        <img
+          src={circle.cover}
+          alt={circle.name}
+          width="1280"
+          height="720"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-video w-full object-cover"
+        />
       ) : (
         <div
           class="aspect-video w-full grid place-items-center"
@@ -165,7 +174,7 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
             {taglineSegments.length > 1
               ? taglineSegments.map((seg, i) => (
                   <>
-                    {i > 0 && <span class="mx-1 text-accent-2">→</span>}
+                    {i > 0 && <span class="mx-1 text-accent-2">←</span>}
                     <span>{seg}</span>
                   </>
                 ))

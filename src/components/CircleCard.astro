@@ -39,7 +39,7 @@ const topicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
           <span data-pct>0/{topicKeys.length}</span>
         </div>
         <div class="h-1.5 overflow-hidden rounded-full bg-edge/70">
-          <div data-bar class="h-full rounded-full transition-all duration-300" style={`width:0%;background:${circle.color}`}></div>
+          <div data-bar class="h-full rounded-full transition-[width] duration-300" style={`width:0%;background:${circle.color}`}></div>
         </div>
       </div>
     )

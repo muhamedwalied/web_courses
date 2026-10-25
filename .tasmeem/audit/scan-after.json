@@ -1,0 +1,109 @@
+{
+  "tool": "scan",
+  "scanned": 13,
+  "findings": [
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "src/components/graph/CirclesGraph.tsx",
+      "line": 41,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "scan",
+      "evidence": "group w-48 cursor-pointer rounded-xl border bg-panel/95 p-3 text-start shadow-lg backdrop-blur transition hover:scale-[1.03] hover:shadow-xl",
+      "count": 2,
+      "lines": [
+        41,
+        144
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "src/layouts/Layout.astro",
+      "line": 24,
+      "message": "generator fingerprint",
+      "channel": "scan",
+      "evidence": "<meta name=\"generator\" content={Astro.generator} />",
+      "count": 1,
+      "lines": [
+        24
+      ]
+    },
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "src/layouts/Layout.astro",
+      "line": 37,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "scan",
+      "evidence": "sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur",
+      "count": 1,
+      "lines": [
+        37
+      ]
+    },
+    {
+      "id": "TY-04",
+      "severity": "P1",
+      "file": "src/pages/index.astro",
+      "line": 36,
+      "message": "one word styled differently inside the headline",
+      "channel": "scan",
+      "evidence": " رحلتك التعليمية كاملة <span class=\"bg-gradient-to-l from-accent to-accent-2 bg-clip-text ",
+      "count": 1,
+      "lines": [
+        36
+      ]
+    },
+    {
+      "id": "CO-05",
+      "severity": "P0",
+      "file": "src/pages/index.astro",
+      "line": 38,
+      "message": "gradient text (Tailwind)",
+      "channel": "scan",
+      "evidence": "bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent",
+      "count": 1,
+      "lines": [
+        38
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "src/pages/index.astro",
+      "line": 59,
+      "message": "3 em dashes in interface strings",
+      "channel": "scan",
+      "count": 1,
+      "lines": [
+        59
+      ]
+    },
+    {
+      "id": "CO-07",
+      "severity": "P2",
+      "file": "src/styles/global.css",
+      "line": 23,
+      "message": "radial halo or spotlight background",
+      "channel": "scan",
+      "evidence": "radial-gradient(1200px 500px at 85% -10%, color-mix(in oklab, var(--color-accent) 7%, transparent), transparent 60%),\n    radial-gradient(900px 420px at 10% 110%, color-mix(in oklab, var(--color-accent-2) 6%, transparent), transparent 60%),\n    var(--color-bg)",
+      "count": 1,
+      "lines": [
+        23
+      ]
+    }
+  ],
+  "meta": {
+    "signals": {
+      "arabic": true,
+      "rtl": true,
+      "reducedMotion": true,
+      "focusVisible": true,
+      "motion": true,
+      "tokens": true,
+      "langScopedReset": false
+    },
+    "fontFamilies": []
+  }
+}
