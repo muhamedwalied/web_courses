@@ -1,0 +1,208 @@
+{
+  "tool": "scan",
+  "scanned": 13,
+  "findings": [
+    {
+      "id": "MO-03",
+      "severity": "P1",
+      "file": "src/components/CircleCard.astro",
+      "line": 42,
+      "message": "transition-all",
+      "channel": "scan",
+      "evidence": "h-full rounded-full transition-all duration-300",
+      "count": 1,
+      "lines": [
+        42
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "src/components/SearchModal.astro",
+      "line": 8,
+      "message": "outline-none without focus-visible here",
+      "channel": "scan",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        8
+      ]
+    },
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "src/components/graph/CirclesGraph.tsx",
+      "line": 41,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "scan",
+      "evidence": "group w-48 cursor-pointer rounded-xl border bg-panel/95 p-3 text-start shadow-lg backdrop-blur transition hover:scale-[1.03] hover:shadow-xl",
+      "count": 2,
+      "lines": [
+        41,
+        144
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "src/layouts/Layout.astro",
+      "line": 23,
+      "message": "generator fingerprint",
+      "channel": "scan",
+      "evidence": "<meta name=\"generator\" content={Astro.generator} />",
+      "count": 1,
+      "lines": [
+        23
+      ]
+    },
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "src/layouts/Layout.astro",
+      "line": 30,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "scan",
+      "evidence": "sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur",
+      "count": 1,
+      "lines": [
+        30
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "src/layouts/Layout.astro",
+      "line": 36,
+      "message": "tracking utility next to Arabic text",
+      "channel": "scan",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 1,
+      "lines": [
+        36
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "src/pages/circles/[id].astro",
+      "line": 83,
+      "message": "text-align: left in an RTL project (use start/end)",
+      "channel": "scan",
+      "evidence": ".prose-raw :global(pre)",
+      "count": 1,
+      "lines": [
+        83
+      ]
+    },
+    {
+      "id": "TY-04",
+      "severity": "P1",
+      "file": "src/pages/index.astro",
+      "line": 36,
+      "message": "one word styled differently inside the headline",
+      "channel": "scan",
+      "evidence": " رحلتك التعليمية كاملة <span class=\"bg-gradient-to-l from-accent to-accent-2 bg-clip-text ",
+      "count": 1,
+      "lines": [
+        36
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "src/pages/index.astro",
+      "line": 35,
+      "message": "tracking utility next to Arabic text",
+      "channel": "scan",
+      "evidence": "font-mono text-xs tracking-widest text-accent",
+      "count": 1,
+      "lines": [
+        35
+      ]
+    },
+    {
+      "id": "CO-05",
+      "severity": "P0",
+      "file": "src/pages/index.astro",
+      "line": 38,
+      "message": "gradient text (Tailwind)",
+      "channel": "scan",
+      "evidence": "bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent",
+      "count": 1,
+      "lines": [
+        38
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "src/pages/index.astro",
+      "line": 59,
+      "message": "3 em dashes in interface strings",
+      "channel": "scan",
+      "count": 1,
+      "lines": [
+        59
+      ]
+    },
+    {
+      "id": "LA-20",
+      "severity": "P1",
+      "file": "src/pages/start-[id].astro",
+      "line": 99,
+      "message": "h-screen (use svh/dvh)",
+      "channel": "scan",
+      "evidence": "max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4",
+      "count": 1,
+      "lines": [
+        99
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "src/pages/start-[id].astro",
+      "line": 99,
+      "message": "physical utilities in an RTL project: max-lg:right-0",
+      "channel": "scan",
+      "evidence": "max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4",
+      "count": 1,
+      "lines": [
+        99
+      ]
+    },
+    {
+      "id": "CO-07",
+      "severity": "P2",
+      "file": "src/styles/global.css",
+      "line": 23,
+      "message": "radial halo or spotlight background",
+      "channel": "scan",
+      "evidence": "radial-gradient(1200px 500px at 85% -10%, color-mix(in oklab, var(--color-accent) 7%, transparent), transparent 60%),\n    radial-gradient(900px 420px at 10% 110%, color-mix(in oklab, var(--color-accent-2) 6%, transparent), transparent 60%),\n    var(--color-bg)",
+      "count": 1,
+      "lines": [
+        23
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P0",
+      "message": "outline removed and no :focus-visible replacement anywhere",
+      "channel": "scan",
+      "count": 1,
+      "lines": []
+    }
+  ],
+  "meta": {
+    "signals": {
+      "arabic": true,
+      "rtl": true,
+      "reducedMotion": true,
+      "focusVisible": false,
+      "motion": true,
+      "tokens": true,
+      "langScopedReset": false
+    },
+    "fontFamilies": []
+  }
+}

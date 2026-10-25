@@ -1,0 +1,629 @@
+{
+  "tool": "built",
+  "scanned": 5,
+  "findings": [
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 4,
+      "message": "text-align: left in an RTL project (use start/end)",
+      "channel": "built",
+      "evidence": ".prose-raw[data-astro-cid-w5oi4ovb] pre",
+      "count": 1,
+      "lines": [
+        4
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CM-03",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 5,
+      "message": "backdrop blur (Tailwind)",
+      "channel": "built",
+      "evidence": "sticky top-0 z-40 border-b border-edge/60 bg-bg/80 backdrop-blur",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "dist/circles/flutter/index.html",
+      "line": 5,
+      "message": "tracking utility next to Arabic text",
+      "channel": "built",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 5,
+      "message": "outline-none without focus-visible here",
+      "channel": "built",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "line": 1,
+      "message": "5 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 4,
+      "message": "text-align: left in an RTL project (use start/end)",
+      "channel": "built",
+      "evidence": ".prose-raw[data-astro-cid-w5oi4ovb] pre",
+      "count": 1,
+      "lines": [
+        4
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "dist/circles/front-end/index.html",
+      "line": 5,
+      "message": "tracking utility next to Arabic text",
+      "channel": "built",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 5,
+      "message": "outline-none without focus-visible here",
+      "channel": "built",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "CP-10",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "right-pointing arrow in Arabic text (forward is ←)",
+      "channel": "built",
+      "evidence": "Phase 1 → Core Engineering → إطار عمل تخصصي",
+      "count": 2,
+      "lines": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "line": 1,
+      "message": "10 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SY-04",
+      "severity": "P2",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "z-index 1001",
+      "channel": "built",
+      "evidence": "svg.react-flow__connectionline",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical left in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__handle-bottom",
+      "count": 8,
+      "lines": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-right in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__controls.horizontal .react-flow__controls-button",
+      "count": 2,
+      "lines": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-left-width in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__resize-control.line.left",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 5,
+      "message": "physical border-right-width in an RTL project (use the logical property)",
+      "channel": "built",
+      "evidence": ".react-flow__resize-control.line.right",
+      "count": 1,
+      "lines": [
+        5
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "TY-04",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "one word styled differently inside the headline",
+      "channel": "built",
+      "evidence": "رحلتك التعليمية كاملة<span class=\"bg-gradient-to-l from-accent to-accent-2 bg-clip-text te",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "tracking utility next to Arabic text",
+      "channel": "built",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 2,
+      "lines": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "CO-05",
+      "severity": "P0",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "gradient text (Tailwind)",
+      "channel": "built",
+      "evidence": "bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "MO-03",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "transition-all",
+      "channel": "built",
+      "evidence": "h-full rounded-full transition-all duration-300",
+      "count": 2,
+      "lines": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "outline-none without focus-visible here",
+      "channel": "built",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "CP-10",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 7,
+      "message": "right-pointing arrow in Arabic text (forward is ←)",
+      "channel": "built",
+      "evidence": "Phase 1 → Core Engineering → إطار عمل تخصصي",
+      "count": 1,
+      "lines": [
+        7
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/index.html",
+      "line": 1,
+      "message": "7 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "dist/start-flutter/index.html",
+      "line": 4,
+      "message": "tracking utility next to Arabic text",
+      "channel": "built",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 1,
+      "lines": [
+        4
+      ]
+    },
+    {
+      "id": "LA-20",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 6,
+      "message": "h-screen (use svh/dvh)",
+      "channel": "built",
+      "evidence": "max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 6,
+      "message": "physical utilities in an RTL project: max-lg:right-0",
+      "channel": "built",
+      "evidence": "max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 6,
+      "message": "outline-none without focus-visible here",
+      "channel": "built",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-09",
+      "severity": "P2",
+      "file": "dist/start-flutter/index.html",
+      "line": 6,
+      "message": "\"oops\"",
+      "channel": "built",
+      "evidence": "Practice string operations and understand control flow using conditionals and lo",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/start-flutter/index.html",
+      "line": 1,
+      "message": "4 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "IG-11",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 1,
+      "message": "generator fingerprint",
+      "channel": "built",
+      "evidence": "<meta name=\"generator\" content=\"Astro v7.4.2\">",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "SC-01",
+      "severity": "P0",
+      "file": "dist/start-front-end/index.html",
+      "line": 4,
+      "message": "tracking utility next to Arabic text",
+      "channel": "built",
+      "evidence": "font-mono text-[10px] tracking-wide text-muted",
+      "count": 1,
+      "lines": [
+        4
+      ]
+    },
+    {
+      "id": "SC-05",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 6,
+      "message": "physical utilities in an RTL project: max-lg:right-0",
+      "channel": "built",
+      "evidence": "max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "QA-02",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 6,
+      "message": "outline-none without focus-visible here",
+      "channel": "built",
+      "evidence": "w-full bg-transparent text-sm outline-none placeholder:text-muted",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-02",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 6,
+      "message": "\"the ultimate\"",
+      "channel": "built",
+      "evidence": "The Ultimate React Course — Jonas Schmedtmann",
+      "count": 1,
+      "lines": [
+        6
+      ]
+    },
+    {
+      "id": "CP-05",
+      "severity": "P1",
+      "file": "dist/start-front-end/index.html",
+      "line": 1,
+      "message": "102 em dashes in interface strings",
+      "channel": "built",
+      "count": 1,
+      "lines": [
+        1
+      ]
+    },
+    {
+      "id": "CO-16",
+      "severity": "P1",
+      "message": "6 non-token file(s) with many raw colour literals",
+      "channel": "built",
+      "count": 1,
+      "lines": []
+    },
+    {
+      "id": "QA-12",
+      "severity": "P2",
+      "file": "dist/circles/flutter/index.html",
+      "message": "no skip link to the main content",
+      "channel": "built"
+    },
+    {
+      "id": "QA-14",
+      "severity": "P2",
+      "file": "dist/circles/flutter/index.html",
+      "message": "no <meta name=\"theme-color\">",
+      "channel": "built"
+    },
+    {
+      "id": "IG-09",
+      "severity": "P1",
+      "file": "dist/circles/flutter/index.html",
+      "message": "first image is lazy-loaded (a likely LCP image)",
+      "channel": "built",
+      "evidence": "<img src=\"/upstream/flutter/Banner.png\" alt=\"Flutter\" loading=\"lazy\" class=\"aspect-video w-full obje"
+    },
+    {
+      "id": "IG-09",
+      "severity": "P2",
+      "file": "dist/circles/flutter/index.html",
+      "message": "1 <img> without width/height",
+      "channel": "built",
+      "evidence": "<img src=\"/upstream/flutter/Banner.png\" alt=\"Flutter\" loading=\"lazy\" class=\"aspect-video w-full obje"
+    },
+    {
+      "id": "QA-12",
+      "severity": "P2",
+      "file": "dist/circles/front-end/index.html",
+      "message": "no skip link to the main content",
+      "channel": "built"
+    },
+    {
+      "id": "QA-14",
+      "severity": "P2",
+      "file": "dist/circles/front-end/index.html",
+      "message": "no <meta name=\"theme-color\">",
+      "channel": "built"
+    },
+    {
+      "id": "IG-09",
+      "severity": "P1",
+      "file": "dist/circles/front-end/index.html",
+      "message": "first image is lazy-loaded (a likely LCP image)",
+      "channel": "built",
+      "evidence": "<img src=\"/upstream/front-end/roadmap_bg.png\" alt=\"Front End\" loading=\"lazy\" class=\"aspect-video w-f"
+    },
+    {
+      "id": "IG-09",
+      "severity": "P2",
+      "file": "dist/circles/front-end/index.html",
+      "message": "1 <img> without width/height",
+      "channel": "built",
+      "evidence": "<img src=\"/upstream/front-end/roadmap_bg.png\" alt=\"Front End\" loading=\"lazy\" class=\"aspect-video w-f"
+    },
+    {
+      "id": "QA-12",
+      "severity": "P2",
+      "file": "dist/index.html",
+      "message": "no skip link to the main content",
+      "channel": "built"
+    },
+    {
+      "id": "QA-14",
+      "severity": "P2",
+      "file": "dist/index.html",
+      "message": "no <meta name=\"theme-color\">",
+      "channel": "built"
+    },
+    {
+      "id": "QA-12",
+      "severity": "P2",
+      "file": "dist/start-flutter/index.html",
+      "message": "no skip link to the main content",
+      "channel": "built"
+    },
+    {
+      "id": "QA-14",
+      "severity": "P2",
+      "file": "dist/start-flutter/index.html",
+      "message": "no <meta name=\"theme-color\">",
+      "channel": "built"
+    },
+    {
+      "id": "QA-12",
+      "severity": "P2",
+      "file": "dist/start-front-end/index.html",
+      "message": "no skip link to the main content",
+      "channel": "built"
+    },
+    {
+      "id": "QA-14",
+      "severity": "P2",
+      "file": "dist/start-front-end/index.html",
+      "message": "no <meta name=\"theme-color\">",
+      "channel": "built"
+    }
+  ],
+  "meta": {
+    "pages": 5,
+    "signals": {
+      "arabic": true,
+      "rtl": true,
+      "reducedMotion": true,
+      "focusVisible": true,
+      "motion": true,
+      "tokens": true,
+      "langScopedReset": false
+    },
+    "fontFamilies": []
+  }
+}
