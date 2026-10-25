@@ -251,20 +251,6 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
       'file-text': 'M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm-1 0v6h6',
       check: 'M20 6 9 17l-5-5',
-      // our own bottom bar + YT-icon patch glyphs
-      youtube:
-        'M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17',
-      // second shape of lucide youtube (the play notch) is drawn by the same path attr below
-      pause: 'M6 4h4v16H6zM14 4h4v16h-4z',
-      clock: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 6v6l4 2',
-      copy: 'M8 8h12v12H8zM16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8h2',
-      maximize: 'M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3',
-      minimize: 'M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3',
-    };
-
-    // lucide icons that need a SECOND path segment rendered as its own <path>
-    const LUCIDE_EXTRA = {
-      youtube: 'm10 15 5-3-5-3z',
     };
 
     function svgIcon(name, cls, extra = '') {
@@ -287,12 +273,6 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       const path = document.createElementNS(NS, 'path');
       path.setAttribute('d', d);
       svg.appendChild(path);
-      // multi-shape lucide glyphs (youtube logo) render their second shape as its own path
-      if (LUCIDE_EXTRA[name]) {
-        const extra = document.createElementNS(NS, 'path');
-        extra.setAttribute('d', LUCIDE_EXTRA[name]);
-        svg.appendChild(extra);
-      }
       return svg;
     }
 
@@ -377,281 +357,6 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       return a;
     }
 
-    /* ---------------------------------------------------------------------
-       CHROME-SUPPRESSION OVERLAY STRATEGY (why we build our own player chrome)
-       ---------------------------------------------------------------------
-       The YouTube embed lives in a cross-origin iframe: its overlay chrome — the
-       title header next to the channel avatar, the three top-right icons
-       (share / watch-later / clipboard) and the "Watch on YouTube" lockup — is
-       painted INSIDE that iframe and cannot be styled, hidden or repositioned
-       from here. The only reliable approach is:
-
-         1) instantiate the player with chrome-suppressing playerVars
-            (controls:0, disablekb:1, fs:0, iv_load_policy:3, rel:0, playsinline:1)
-            so the native control bar / annotations / fullscreen button never render;
-         2) keep an INVISIBLE full-cover div above the iframe so the iframe NEVER
-            receives pointer or focus events. YT only paints the title header
-            overlay on hover / focus / pause-through-UI — with our cover in the
-            way that trigger never fires, so the header overlay never appears.
-            Play/pause is wired through the IFrame Player API instead;
-         3) place OUR OWN elements exactly where the YT chrome would be: a small
-            bottom-end icon patch (YouTube glyph only, links out to YouTube) and
-            our own bottom control bar with the progress strip + the three
-            action icons.
-
-       The API is loaded lazily, once, only when the user actually plays. */
-
-    let ytPlayer = null;
-    let ytTimeTimer = null;
-    let ytStageSeq = 0;
-
-    /** lazy-load the IFrame Player API exactly once; resolves with window.YT */
-    function loadYT() {
-      if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
-      if (!loadYT.p) {
-        loadYT.p = new Promise((res) => {
-          window.onYouTubeIframeAPIReady = () => res(window.YT);
-          const s = document.createElement('script');
-          s.src = 'https://www.youtube.com/iframe_api';
-          document.head.appendChild(s);
-        });
-      }
-      return loadYT.p;
-    }
-
-    /** destroy the live player (hashchange to another lecture / article mode) */
-    function destroyPlayer() {
-      if (ytTimeTimer) {
-        clearInterval(ytTimeTimer);
-        ytTimeTimer = null;
-      }
-      if (ytPlayer) {
-        try {
-          ytPlayer.destroy();
-        } catch {}
-        ytPlayer = null;
-      }
-    }
-
-    /** "0:07:03" / "7:03" — compact clock for the time readout */
-    function fmtTime(sec) {
-      const s = Math.max(0, Math.floor(sec || 0));
-      const h = Math.floor(s / 3600);
-      const m = Math.floor((s % 3600) / 60);
-      const r = s % 60;
-      const mm = h ? String(m).padStart(2, '0') : String(m);
-      return (h ? h + ':' : '') + mm + ':' + String(r).padStart(2, '0');
-    }
-
-    /** the lecture AFTER this one in flat order — powers ENDED auto-advance */
-    function nextFlatEntry(entry) {
-      const i = flat.findIndex((f) => keyOf(f.l, f.m, f.t) === keyOf(entry.l, entry.m, entry.t));
-      return i >= 0 && i + 1 < flat.length ? flat[i + 1] : null;
-    }
-
-    /**
-     * API player mount — replaces the old facade iframe swap.
-     * stage content = iframe layer (z-0) + invisible cover (z-10) +
-     * YT-icon patch (z-20, bottom-end) + our bottom bar (z-20, bottom-0).
-     */
-    function mountPlayer(entry) {
-      const embedded = embedSrc(entry.video.url);
-      if (!embedded || !stage) return;
-      destroyPlayer();
-
-      const embedUrl = new URL(embedded, location.href);
-      // /embed/<id> — a playlist-only link uses videoseries, so the id comes from ?list=
-      const seg = embedUrl.pathname.split('/').filter(Boolean).pop() || '';
-      const listParam = embedUrl.searchParams.get('list');
-      const videoId = seg === 'videoseries' ? null : seg;
-
-      ytStageSeq += 1;
-      const frameId = 'watch-yt-frame-' + ytStageSeq;
-
-      const layer = plain('div', 'absolute inset-0');
-      layer.id = frameId;
-      const cover = plain('div', 'absolute inset-0 z-10 cursor-pointer');
-      cover.setAttribute('aria-hidden', 'true');
-
-      const patch = document.createElement('a');
-      patch.href = entry.video.url;
-      patch.target = '_blank';
-      patch.rel = 'noopener';
-      patch.className =
-        'absolute bottom-2 end-2 z-20 grid size-8 place-items-center rounded-md bg-black/50 text-white transition hover:bg-black/70';
-      patch.setAttribute('aria-label', 'افتح على يوتيوب');
-      const patchIcon = svgIcon('youtube', 'size-4');
-      if (patchIcon) patch.appendChild(patchIcon);
-
-      // ---- our chrome: gradient bottom bar, progress strip + action row ----
-      const bar = plain(
-        'div',
-        'absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-10',
-      );
-
-      const range = document.createElement('input');
-      range.type = 'range';
-      range.min = '0';
-      range.max = '1000';
-      range.step = '1';
-      range.value = '0';
-      range.className = 'h-1.5 w-full cursor-pointer accent-[#22d3ee]';
-      range.setAttribute('aria-label', 'شريط التقدم');
-
-      const btnRow = plain('div', 'mt-1 flex items-center gap-1');
-      const ghostBtn = (name, label) => {
-        const b = plain('button', 'grid size-8 place-items-center rounded-md text-white/90 transition hover:bg-white/15 hover:text-white');
-        b.type = 'button';
-        b.setAttribute('aria-label', label);
-        b.title = label;
-        const g = svgIcon(name, 'size-4');
-        if (g) b.appendChild(g);
-        return b;
-      };
-
-      const shareBtn = ghostBtn('external-link', 'مشاركة');
-      const laterBtn = ghostBtn('clock', 'المشاهدة لاحقًا');
-      const copyBtn = ghostBtn('copy', 'انسخ الرابط');
-
-      // share -> Web Share API, clipboard fallback (brief title swap, no toast)
-      shareBtn.addEventListener('click', async () => {
-        const shareData = { title: entry.topic.title || document.title, url: location.href };
-        try {
-          if (navigator.share) await navigator.share(shareData);
-          else await navigator.clipboard.writeText(location.href);
-          shareBtn.title = 'تم النسخ';
-        } catch {
-          /* user dismissed the share sheet — nothing to report */
-        }
-        setTimeout(() => (shareBtn.title = 'مشاركة'), 1500);
-      });
-      // watch-later -> open the ORIGINAL YouTube url (YouTube keeps the list)
-      laterBtn.addEventListener('click', () => window.open(entry.video.url, '_blank', 'noopener'));
-      // copy link -> clean permalink of this lecture on our own site
-      copyBtn.addEventListener('click', async () => {
-        const clean = location.href.split('#')[0] + '#' + keyOf(entry.l, entry.m, entry.t);
-        try {
-          await navigator.clipboard.writeText(clean);
-          copyBtn.title = 'تم النسخ';
-        } catch {
-          copyBtn.title = 'تعذّر النسخ';
-        }
-        setTimeout(() => (copyBtn.title = 'انسخ الرابط'), 1500);
-      });
-
-      const playBtn = ghostBtn('play', 'تشغيل');
-      const timeEl = plain('span', 'font-mono text-[10px] text-white/90', '0:00 / 0:00');
-      const timeGroup = plain('div', 'ms-auto flex items-center gap-1.5');
-      timeGroup.appendChild(playBtn);
-      timeGroup.appendChild(timeEl);
-
-      const fsBtn = ghostBtn('maximize', 'ملء الشاشة');
-      fsBtn.addEventListener('click', async () => {
-        try {
-          if (document.fullscreenElement) await document.exitFullscreen();
-          else await stage.requestFullscreen();
-        } catch {}
-      });
-      document.addEventListener('fullscreenchange', () => {
-        const on = !!document.fullscreenElement;
-        fsBtn.className = on
-          ? 'grid size-8 place-items-center rounded-md bg-white/15 text-white transition hover:bg-white/25'
-          : 'grid size-8 place-items-center rounded-md text-white/90 transition hover:bg-white/15 hover:text-white';
-      });
-
-      btnRow.appendChild(shareBtn);
-      btnRow.appendChild(laterBtn);
-      btnRow.appendChild(copyBtn);
-      btnRow.appendChild(timeGroup);
-      btnRow.appendChild(fsBtn);
-
-      bar.appendChild(range);
-      bar.appendChild(btnRow);
-      stage.replaceChildren(layer, cover, patch, bar);
-
-      // --- our play/pause + time + progress wiring (the cover eats all iframe input) ---
-      const setPlaying = (playing) => {
-        playBtn.replaceChildren();
-        const g = svgIcon(playing ? 'pause' : 'play', 'size-4');
-        if (g) playBtn.appendChild(g);
-        playBtn.setAttribute('aria-label', playing ? 'إيقاف مؤقت' : 'تشغيل');
-        playBtn.title = playing ? 'إيقاف مؤقت' : 'تشغيل';
-        if (playing && !ytTimeTimer) {
-          ytTimeTimer = setInterval(() => {
-            if (!ytPlayer) return;
-            const d = ytPlayer.getDuration() || 0;
-            const t = ytPlayer.getCurrentTime() || 0;
-            timeEl.textContent = fmtTime(t) + ' / ' + fmtTime(d);
-            if (d) range.value = String(Math.round((t / d) * 1000));
-          }, 500);
-        }
-        if (!playing && ytTimeTimer) {
-          clearInterval(ytTimeTimer);
-          ytTimeTimer = null;
-        }
-      };
-
-      const togglePlay = () => {
-        if (!ytPlayer) return;
-        const st = ytPlayer.getPlayerState();
-        if (st === 1) ytPlayer.pauseVideo();
-        else ytPlayer.playVideo();
-      };
-      // the cover swallows pointer events, so a click anywhere on the video toggles playback
-      cover.addEventListener('click', togglePlay);
-      playBtn.addEventListener('click', togglePlay);
-
-      range.addEventListener('input', () => {
-        if (!ytPlayer) return;
-        const d = ytPlayer.getDuration() || 0;
-        if (d) ytPlayer.seekTo((Number(range.value) / 1000) * d, true);
-      });
-
-      loadYT().then((YT) => {
-        // playlist-only links (videoseries) have no video id, but the widgetapi
-        // validates a videoId at construction time — "Invalid video id" otherwise —
-        // so we construct with a documented placeholder id and load the real
-        // playlist in onReady (loadPlaylist replaces the placeholder before it
-        // is ever visible: no autoplay during construction in playlist mode)
-        const isPlaylist = !videoId;
-        if (isPlaylist && !listParam) return;
-        ytPlayer = new YT.Player(frameId, {
-          videoId: videoId || 'M7lc1UVf-VE',
-          playerVars: {
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            iv_load_policy: 3,
-            rel: 0,
-            playsinline: 1,
-            autoplay: isPlaylist ? 0 : 1,
-            origin: location.origin,
-            ...(isPlaylist ? { list: listParam, listType: 'playlist' } : {}),
-          },
-          events: {
-            onReady: (e) => {
-              if (isPlaylist) {
-                e.target.loadPlaylist({ list: listParam, listType: 'playlist', index: 0 });
-              } else {
-                e.target.playVideo();
-              }
-              const d = e.target.getDuration() || 0;
-              timeEl.textContent = '0:00 / ' + fmtTime(d);
-            },
-            onStateChange: (e) => {
-              const st = e.data;
-              setPlaying(st === 1);
-              if (st === 0) {
-                // ENDED -> advance along the same flat order as prev/next
-                const next = nextFlatEntry(entry);
-                if (next) location.hash = '#' + keyOf(next.l, next.m, next.t);
-              }
-            },
-          },
-        });
-      });
-    }
-
     function renderFacade(entry) {
       const film = plain('div', 'flex aspect-video w-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-panel to-bg');
       const btn = plain('button', 'grid size-20 place-items-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/40 transition hover:bg-accent/20');
@@ -660,8 +365,15 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       if (big) btn.appendChild(big);
       btn.setAttribute('aria-label', 'شغّل الفيديو: ' + (entry.topic.title || ''));
       btn.addEventListener('click', () => {
-        // facade stays exactly as it is; playing it now boots our own player chrome
-        loadYT().then(() => mountPlayer(entry));
+        const src = embedSrc(entry.video.url);
+        if (!src) return;
+        const frame = document.createElement('iframe');
+        frame.src = src;
+        frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture');
+        frame.setAttribute('allowfullscreen', '');
+        frame.setAttribute('loading', 'lazy');
+        frame.className = 'absolute inset-0 h-full w-full';
+        stage.replaceChildren(frame);
       });
       film.appendChild(btn);
       film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
@@ -873,10 +585,6 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       // extras live right after the stage: rebuilt every render so they never duplicate
       const oldExtras = document.getElementById('watch-extras');
       if (oldExtras) oldExtras.remove();
-
-      // every render tears the live player down: switching lecture OR landing on
-      // an article topic must not leave the old cross-origin player running.
-      destroyPlayer();
 
       if (stage) {
         const hasVideo = !!entry.video;
