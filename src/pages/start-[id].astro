@@ -89,14 +89,14 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       </span>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[20rem_1fr]" data-circle={circle.id}>
+    <div class="grid grid-cols-1 gap-8 pb-10 lg:grid-cols-[20rem_1fr]" data-circle={circle.id}>
       <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical).
            Desktop: docked, full-height, independently-scrolling column.
            Below lg: off-canvas drawer (fixed+right-0) — stays in the grid so RTL order is untouched. -->
       <aside
         id="content-sidebar"
         aria-label="محتوى المسار"
-        class="max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:max-h-[calc(100vh-5rem)] lg:flex-col lg:self-start lg:overflow-x-hidden rounded-2xl border border-edge bg-panel/60 p-4"
+        class="max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4"
       >
         <div class="flex shrink-0 items-baseline justify-between gap-2">
           <h2 class="text-sm font-bold">محتوى المسار</h2>
@@ -182,7 +182,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
             id="content-toggle"
             aria-expanded="false"
             aria-controls="content-sidebar"
-            class="ms-auto inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-edge px-2.5 py-1.5 text-xs text-muted transition hover:border-accent/40 hover:text-ink lg:hidden"
+            class="ms-auto inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-bg shadow-lg shadow-accent/25 transition hover:opacity-90 lg:hidden"
           >
             <Icon name="lucide:list-tree" class="size-4 shrink-0" />
             <span>المحتوى</span>
