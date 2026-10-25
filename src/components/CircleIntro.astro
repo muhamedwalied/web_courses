@@ -36,7 +36,7 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
 
 <section class="grid grid-cols-1 gap-6 pb-8 lg:grid-cols-[1fr_1.55fr]">
   <!-- first grid child renders on the RIGHT in RTL: the sticky cover box -->
-  <aside class="self-start rounded-2xl border border-edge bg-panel/60 overflow-hidden lg:sticky lg:top-20 lg:-mt-4">
+  <aside class="self-start rounded-2xl border border-edge bg-panel/60 overflow-hidden max-lg:order-2 lg:sticky lg:top-20 lg:-mt-4">
     {
       circle.cover ? (
         <img src={circle.cover} alt={circle.name} loading="lazy" class="aspect-video w-full object-cover" />
@@ -125,7 +125,7 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
   </aside>
 
   <!-- second grid child renders on the LEFT in RTL: the article -->
-  <article>
+  <article class="max-lg:order-1">
     <div class="flex items-start gap-4">
       <span class="grid size-14 shrink-0 place-items-center rounded-2xl text-2xl" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
         {circle.icon ?? '📚'}
