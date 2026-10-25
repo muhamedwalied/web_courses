@@ -51,6 +51,7 @@ const payload = {
       name: m.name,
       objectives: m.objectives,
       practice: m.practice,
+      resources: m.resources.map((r) => ({ title: r.title, url: r.url, kind: r.kind })),
       topics: m.topics.map((t) => ({
         id: t.id,
         title: t.title,
@@ -88,8 +89,63 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       </span>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[1.7fr_1fr]" data-circle={circle.id}>
-      <!-- first grid child renders on the RIGHT in RTL: the player -->
+    <div class="grid grid-cols-1 gap-6 pb-10 lg:grid-cols-[1fr_1.7fr]" data-circle={circle.id}>
+      <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical) -->
+      <aside class="self-start rounded-2xl border border-edge bg-panel/60 p-4 max-lg:order-2 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-auto">
+        <div class="flex items-baseline justify-between gap-2">
+          <h2 class="text-sm font-bold">محتوى المسار</h2>
+          <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
+        </div>
+
+        <div class="mt-3 space-y-2">
+          {circle.levels.map((level) => (
+            <details class="level-acc group" data-level={level.id} open>
+              <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center gap-2">
+                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
+                  <span dir="ltr" class="text-sm font-bold text-ink">{level.name}</span>
+                </span>
+                <span class="flex shrink-0 items-center gap-2">
+                  {level.durationText && (
+                    <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
+                  )}
+                  <span class="font-mono text-[10px] text-muted">
+                    {level.modules.reduce((a, m) => a + m.topics.length, 0)} موضوع
+                  </span>
+                </span>
+              </summary>
+
+              <div class="mt-2 space-y-3 pb-1">
+                {toModules(level).map((module) => (
+                  <div>
+                    <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
+                      <span>{module.name}</span>
+                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">module</span>
+                    </p>
+                    <div class="mt-1 space-y-0.5">
+                      {module.topics.map((topic) => (
+                        <a
+                          href={`#${level.id}/${module.id}/${topic.id}`}
+                          data-key={`${level.id}/${module.id}/${topic.id}`}
+                          data-tkey={tkey(circle.id, level.id, module.id, topic.id)}
+                          class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
+                        >
+                          <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
+                          <span dir="auto" class="truncate text-xs text-ink/90">{topic.title}</span>
+                          <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
+                          <Icon name="lucide:check" class="hidden size-3.5 shrink-0 text-accent-2" data-done />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+      </aside>
+
+      <!-- second grid child renders on the LEFT in RTL: the player -->
       <div class="max-lg:order-1">
         <div class="mt-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-3">
           <Icon name="lucide:circle-play" class="size-5 shrink-0 text-accent" />
@@ -148,61 +204,6 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
           </a>
         </div>
       </div>
-
-      <!-- second grid child renders on the LEFT in RTL: the content sidebar -->
-      <aside class="self-start rounded-2xl border border-edge bg-panel/60 p-4 max-lg:order-2 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-auto">
-        <div class="flex items-baseline justify-between gap-2">
-          <h2 class="text-sm font-bold">محتوى المسار</h2>
-          <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
-        </div>
-
-        <div class="mt-3 space-y-2">
-          {circle.levels.map((level) => (
-            <details class="level-acc group" data-level={level.id} open>
-              <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
-                <span class="flex items-center gap-2">
-                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
-                  <span dir="ltr" class="text-sm font-bold text-ink">{level.name}</span>
-                </span>
-                <span class="flex shrink-0 items-center gap-2">
-                  {level.durationText && (
-                    <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
-                  )}
-                  <span class="font-mono text-[10px] text-muted">
-                    {level.modules.reduce((a, m) => a + m.topics.length, 0)} موضوع
-                  </span>
-                </span>
-              </summary>
-
-              <div class="mt-2 space-y-3 pb-1">
-                {toModules(level).map((module) => (
-                  <div>
-                    <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
-                      <span>{module.name}</span>
-                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">module</span>
-                    </p>
-                    <div class="mt-1 space-y-0.5">
-                      {module.topics.map((topic) => (
-                        <a
-                          href={`#${level.id}/${module.id}/${topic.id}`}
-                          data-key={`${level.id}/${module.id}/${topic.id}`}
-                          data-tkey={tkey(circle.id, level.id, module.id, topic.id)}
-                          class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
-                        >
-                          <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
-                          <span dir="auto" class="truncate text-xs text-ink/90">{topic.title}</span>
-                          <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
-                          <Icon name="lucide:check" class="hidden size-3.5 shrink-0 text-accent-2" data-done />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
-          ))}
-        </div>
-      </aside>
     </div>
   </div>
 
@@ -344,8 +345,12 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         stage.replaceChildren(frame);
       });
       film.appendChild(btn);
-      film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.topic.title || ''));
-      const host = plain('p', 'font-mono text-[10px] text-muted', 'youtube · داخل الموقع');
+      film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
+      const host = plain(
+        'p',
+        'font-mono text-[10px] text-muted',
+        entry.videoIsModuleFallback ? 'مصدر فيديو المحاضرة — جوه الموقع' : 'youtube · داخل الموقع',
+      );
       film.appendChild(host);
       return film;
     }
@@ -358,6 +363,40 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         wrap.appendChild(outboundButton(r, 'inline-flex max-w-full items-center gap-1.5 rounded-lg border border-edge px-3 py-1.5 text-xs text-ink transition hover:border-accent/40'));
       }
       return wrap;
+    }
+
+    /** note + objectives + outbound chips rendered UNDER the stage while a video plays */
+    function renderExtras(entry) {
+      const box = plain('div', 'mt-4 rounded-2xl border border-edge bg-panel/60 p-4 space-y-2');
+      box.id = 'watch-extras';
+
+      if (entry.topic.note) box.appendChild(plain('p', 'text-sm leading-7 text-muted', entry.topic.note));
+
+      const objectives = entry.module.objectives || [];
+      if (objectives.length) {
+        box.appendChild(plain('p', 'text-xs font-bold text-ink', 'أهداف الوحدة'));
+        const list = plain('ul', 'space-y-1');
+        for (const text of objectives.slice(0, 6)) {
+          const li = plain('li', 'flex items-start gap-2 text-xs leading-6 text-muted');
+          const tick = svgIcon('check', 'mt-0.5 size-3.5 shrink-0 text-accent-2');
+          if (tick) li.appendChild(tick);
+          li.appendChild(plain('span', 'text-ink/90', text));
+          list.appendChild(li);
+        }
+        box.appendChild(list);
+      }
+
+      const chips = entry.topic.resources.filter((r) => !isEmbeddableResource(r));
+      if (chips.length) {
+        box.appendChild(plain('p', 'text-xs font-bold', 'مصادر المحاضرة'));
+        const wrap = plain('div', 'flex flex-wrap gap-2');
+        for (const r of chips) {
+          wrap.appendChild(outboundButton(r, 'inline-flex max-w-full items-center gap-1.5 rounded-lg border border-edge px-3 py-1.5 text-xs text-ink transition hover:border-accent/40'));
+        }
+        box.appendChild(wrap);
+      }
+
+      return box;
     }
 
     function renderArticle(entry) {
@@ -442,7 +481,22 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       entry.topic = found.topic;
       entry.module = found.module;
       entry.level = found.level;
-      entry.video = (found.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
+
+      // video fallback chain: topic's own resource -> module resource -> the first
+      // embeddable resource found among the module's OTHER topics (Elzero-style
+      // playlists are authored as their own topic, but they are the video source
+      // for every other lecture in that module)
+      const topicVideo = (entry.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
+      let moduleVideo = topicVideo ? null : (entry.module.resources || []).find((r) => isEmbeddableResource(r)) || null;
+      if (!topicVideo && !moduleVideo) {
+        const siblings = (entry.module.topics || []).filter((x) => x.id !== entry.topic.id);
+        for (const sib of siblings) {
+          const pick = (sib.resources || []).find((r) => isEmbeddableResource(r));
+          if (pick) { moduleVideo = pick; break; }
+        }
+      }
+      entry.video = topicVideo || moduleVideo || null;
+      entry.videoIsModuleFallback = !topicVideo && !!moduleVideo;
 
       const currentKey = keyOf(entry.l, entry.m, entry.t);
       window.__watchCurrentKey = currentKey;
@@ -452,8 +506,18 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
 
       setCurrentRow(currentKey);
 
+      // extras live right after the stage: rebuilt every render so they never duplicate
+      const oldExtras = document.getElementById('watch-extras');
+      if (oldExtras) oldExtras.remove();
+
       if (stage) {
-        stage.replaceChildren(entry.video ? renderFacade(entry) : renderArticle(entry));
+        if (entry.video) {
+          stage.replaceChildren(renderFacade(entry));
+          const extras = renderExtras(entry);
+          stage.insertAdjacentElement('afterend', extras);
+        } else {
+          stage.replaceChildren(renderArticle(entry));
+        }
       }
 
       if (doneEl) {
