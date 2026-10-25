@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCircle, structuredCircles } from '../lib/content';
+
+export function getStaticPaths() {
+  // only structured circles get a watch page — raw circles stay hidden from the site
+  return structuredCircles.map((c) => ({ params: { id: c.id } }));
+}
+
+const { id } = Astro.params;
+const circle = getCircle(id as string);
+if (!circle || circle.status !== 'structured') return Astro.redirect('/');
+
+const levelCount = circle.levels.length;
+const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m) => a + m.topics.length, 0), 0);
+const resourceCount = circle.levels.reduce(
+  (acc, l) =>
+    acc + l.modules.reduce((a, m) => a + m.resources.length + m.topics.reduce((t, topic) => t + topic.resources.length, 0), 0),
+  0,
+);
+---
+
+<Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description}>
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex flex-wrap items-center gap-3 pt-6">
+      <a href={`/circles/${circle.id}/`} class="text-sm text-muted transition hover:text-ink">← رجوع للمسار</a>
+
+      <span
+        class="grid size-10 shrink-0 place-items-center text-lg"
+        style={`border-radius:0.75rem;background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}
+      >
+        {circle.icon ?? '📚'}
+      </span>
+
+      <span dir="ltr" class="font-bold">{circle.name}</span>
+
+      <span class="rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[10px] text-accent ring-1 ring-accent/30">
+        جلسة مشاهدة
+      </span>
+    </div>
+
+    <div class="mt-10 flex flex-col items-center pb-16">
+      <div class="grid aspect-video w-full max-w-3xl place-items-center rounded-2xl border border-edge bg-panel/60">
+        <div class="flex flex-col items-center">
+          <span
+            class="grid size-14 place-items-center rounded-full bg-accent/10 text-2xl text-accent ring-1 ring-accent/30"
+            aria-hidden="true"
+          >
+            ▶
+          </span>
+          <p class="mt-5 text-center text-lg font-bold">جلسة المشاهدة</p>
+          <p class="mt-1 text-center text-sm text-muted">هنا بتتابع محتوى المسار من جوّه الموقع — بدون خروج.</p>
+        </div>
+      </div>
+
+      <p class="mt-4 font-mono text-xs text-muted">
+        {levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر
+      </p>
+    </div>
+  </div>
+</Layout>
