@@ -69,6 +69,8 @@ export const CircleSchema = z.object({
   upstreamPaths: z.array(z.string()).default([]),
   /** cover/thumbnail path under /public (optional) */
   cover: z.string().optional(),
+  /** per-circle GitHub repository link (optional — falls back to the community repo in the UI) */
+  github: z.url().optional(),
   /** intro copy for the circle page hero (optional — legacy JSONs omit it) */
   overview: z
     .object({

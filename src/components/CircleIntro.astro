@@ -93,9 +93,9 @@ const taglineSegments = circle.tagline ? circle.tagline.split('→').map((s) => 
         ابدأ المسار
       </a>
 
-      <!-- secondary CTA -->
+      <!-- secondary CTA — per-circle GitHub link from content, falls back to the community repo -->
       <a
-        href="https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps"
+        href={circle.github ?? 'https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps'}
         target="_blank"
         rel="noopener noreferrer"
         class="flex w-full items-center justify-center gap-2 rounded-lg border border-ink py-3 font-bold text-ink transition hover:bg-panel"

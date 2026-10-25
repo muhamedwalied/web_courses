@@ -6,6 +6,7 @@
   "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.",
   "color": "#f59e0b",
   "icon": "⚛️",
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [

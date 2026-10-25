@@ -50,6 +50,10 @@
     "cover": {
       "type": "string"
     },
+    "github": {
+      "type": "string",
+      "format": "uri"
+    },
     "overview": {
       "type": "object",
       "properties": {

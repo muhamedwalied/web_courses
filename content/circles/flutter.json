@@ -6,6 +6,8 @@
   "description": "مسار Flutter في CAT Reloaded: رحلة منظمة أسبوعًا بأسبوع من Dart والموبايل حتى Firestore والمدفوعات والـ CI/CD، مع مشروع تطبيقي في كل مرحلة.",
   "color": "#38bdf8",
   "icon": "🐦",
+  "cover": "/upstream/flutter/Banner.png",
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [
@@ -1450,6 +1452,5 @@
         }
       ]
     }
-  ],
-  "cover": "/upstream/flutter/Banner.png"
+  ]
 }

@@ -727,5 +727,12 @@ function stubs(): Circle[] {
 // ---------- run ----------
 
 const all: Circle[] = [flutter(), frontEnd(), ...stubs()];
-for (const c of all) writeFile(c);
+for (const c of all) {
+  // hand-authored fields survive regeneration: an existing JSON's github wins
+  const prevPath = join(OUT, `${c.id}.json`);
+  const prevGithub = existsSync(prevPath)
+    ? (JSON.parse(readFileSync(prevPath, 'utf8')) as { github?: string }).github
+    : undefined;
+  writeFile({ ...c, github: prevGithub ?? c.github });
+}
 console.log(`\nwrote ${all.length} circles → content/circles/`);
