@@ -148,6 +148,9 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
                         >
                           <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
                           <span dir="auto" class="truncate text-xs text-ink/90">{topic.title}</span>
+                          {topic.resources.some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar') && (
+                            <span class="shrink-0 rounded bg-accent/10 px-1.5 py-0.5 font-mono text-[9px] font-bold text-accent/80">عربي</span>
+                          )}
                           <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
                           <Icon name="lucide:check" class="hidden size-3.5 shrink-0 text-accent-2" data-done />
                         </a>
@@ -364,21 +367,104 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       const big = svgIcon('play', 'size-9');
       if (big) btn.appendChild(big);
       btn.setAttribute('aria-label', 'شغّل الفيديو: ' + (entry.topic.title || ''));
-      btn.addEventListener('click', () => {
-        const src = embedSrc(entry.video.url);
-        if (!src) return;
-        const frame = document.createElement('iframe');
-        frame.src = src;
-        frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture');
-        frame.setAttribute('allowfullscreen', '');
-        frame.setAttribute('loading', 'lazy');
-        frame.className = 'absolute inset-0 h-full w-full';
-        stage.replaceChildren(frame);
-      });
+      btn.addEventListener('click', () => startPlayback(entry));
       film.appendChild(btn);
       film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
       film.appendChild(plain('p', 'font-mono text-[10px] text-muted', 'youtube · داخل الموقع'));
       return film;
+    }
+
+    // ---- language of playback: the site is Arabic-first -----------------------
+    // a lecture that ships an Arabic version never defaults to the English one;
+    // when both exist, a small switcher shows above the extras.
+    const langPref = () => {
+      try {
+        return localStorage.getItem('cr-video-lang') || 'ar';
+      } catch {
+        return 'ar';
+      }
+    };
+
+    const videoScore = (r, pref) => (r.lang === pref ? 2 : 0) + (r.lang ? 1 : 0);
+
+    function pickPreferredVideo(videos) {
+      if (!videos || !videos.length) return null;
+      const pref = langPref();
+      return [...videos].sort((a, b) => videoScore(b, pref) - videoScore(a, pref))[0];
+    }
+
+    function startPlayback(entry) {
+      const src = embedSrc(entry.video && entry.video.url);
+      if (!src || !stage) return;
+      const frame = document.createElement('iframe');
+      frame.src = src;
+      frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture');
+      frame.setAttribute('allowfullscreen', '');
+      frame.setAttribute('loading', 'lazy');
+      frame.className = 'absolute inset-0 h-full w-full';
+      stage.replaceChildren(frame);
+      stage.dataset.playing = '1';
+    }
+
+    function selectVideoLanguage(entry, url) {
+      const chosen = (entry.videos || []).find((r) => r.url === url);
+      if (!chosen) return;
+      try {
+        localStorage.setItem('cr-video-lang', chosen.lang || 'en');
+      } catch {}
+      entry.video = chosen;
+      if (!stage) return;
+      if (stage.dataset.playing === '1') {
+        startPlayback(entry); // keep watching — swap the source in place
+      } else {
+        stage.replaceChildren(renderFacade(entry));
+      }
+      const oldBar = document.getElementById('watch-lang');
+      if (oldBar) {
+        const fresh = renderLanguageSwitch(entry);
+        if (fresh) oldBar.replaceWith(fresh);
+      }
+    }
+
+    // «Vue for Beginners» vs «Vue for Beginners (Arabic)» → same lecture, two takes.
+    // Different stems (study playlist + project video) are NOT versions of one lecture.
+    const titleStem = (t) => (t || '').toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z\u0600-\u06FF]+/g, '');
+
+    function sameLecture(videos) {
+      if (videos.length < 2) return true;
+      const stem = titleStem(videos[0].title).slice(0, 14);
+      return videos.every((r) => titleStem(r.title).slice(0, 14) === stem);
+    }
+
+    /** rendered when a topic ships more than one playable video: twin titles show as
+        language versions («النسخة: عربي · English»), different videos as a source list */
+    function renderLanguageSwitch(entry) {
+      const videos = entry.videos || [];
+      if (videos.length < 2) return null;
+      const bar = plain('div', 'mt-2 flex flex-wrap items-center gap-2 text-xs');
+      bar.id = 'watch-lang';
+      const twin = sameLecture(videos);
+      bar.appendChild(plain('span', 'font-mono text-[10px] text-muted', twin ? 'النسخة:' : 'مصادر فيديو المحاضرة:'));
+      const labels = { ar: 'عربي', en: 'English' };
+      const langBadge = (lang) =>
+        plain('span', 'rounded bg-accent/10 px-1 font-mono text-[9px] font-bold text-accent/80', labels[lang] || lang);
+      for (const r of videos) {
+        const lang = r.lang || 'en';
+        const active = entry.video && entry.video.url === r.url;
+        const b = plain(
+          'button',
+          active
+            ? 'inline-flex items-center gap-1 rounded-md bg-accent/15 px-2.5 py-1 font-bold text-accent ring-1 ring-accent/40'
+            : 'inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-muted ring-1 ring-edge transition hover:text-ink',
+        );
+        b.type = 'button';
+        b.setAttribute('aria-pressed', String(!!active));
+        b.appendChild(plain('span', null, twin ? labels[lang] || lang : (r.title || '').slice(0, 34)));
+        if (!twin) b.appendChild(langBadge(lang));
+        b.addEventListener('click', () => selectVideoLanguage(entry, r.url));
+        bar.appendChild(b);
+      }
+      return bar;
     }
 
     // stage sizing: video mode keeps the 16:9 player box, article mode becomes a readable column
@@ -571,8 +657,10 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       entry.level = found.level;
 
       // playback resolves ONLY from the topic's own embeddable resources —
-      // no module/sibling fallback: a lecture without its own video is a reading lecture
-      entry.video = (entry.topic.resources || []).find((r) => isEmbeddableResource(r)) || null;
+      // no module/sibling fallback: a lecture without its own video is a reading lecture.
+      // Arabic-first: when the same lecture ships both versions, the Arabic one plays.
+      entry.videos = (entry.topic.resources || []).filter((r) => isEmbeddableResource(r));
+      entry.video = pickPreferredVideo(entry.videos);
 
       const currentKey = keyOf(entry.l, entry.m, entry.t);
       window.__watchCurrentKey = currentKey;
@@ -582,9 +670,12 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
 
       setCurrentRow(currentKey);
 
-      // extras live right after the stage: rebuilt every render so they never duplicate
+      // extras + language switcher live right after the stage: rebuilt every render so they never duplicate
       const oldExtras = document.getElementById('watch-extras');
       if (oldExtras) oldExtras.remove();
+      const oldLangBar = document.getElementById('watch-lang');
+      if (oldLangBar) oldLangBar.remove();
+      if (stage) delete stage.dataset.playing;
 
       if (stage) {
         const hasVideo = !!entry.video;
@@ -592,7 +683,9 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         if (hasVideo) {
           stage.replaceChildren(renderFacade(entry));
           const extras = renderExtras(entry);
-          stage.insertAdjacentElement('afterend', extras);
+          if (extras) stage.insertAdjacentElement('afterend', extras);
+          const langBar = renderLanguageSwitch(entry);
+          if (langBar) stage.insertAdjacentElement('afterend', langBar);
         } else {
           stage.replaceChildren(renderArticle(entry));
         }

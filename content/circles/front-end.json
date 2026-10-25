@@ -6,7 +6,7 @@
   "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.",
   "color": "#f59e0b",
   "icon": "⚛️",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Front%20End",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [
@@ -153,7 +153,7 @@
                   "title": "HTML Playlist — Elzero Web School",
                   "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAw_t_XWUFbBX-c9MafPk9ji",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -244,7 +244,7 @@
                   "title": "CSS Playlist — Elzero Web School (Lessons 1–53)",
                   "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -556,7 +556,7 @@
                   "title": "JS Study — Elzero JS (Videos 1–30)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Visual Task — HTML/CSS Template 3",
@@ -605,7 +605,7 @@
                   "title": "JS Study — Elzero JS (Videos 31–56)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Visual Task — Starbucks Landing Page Clone",
@@ -660,7 +660,7 @@
                   "title": "JS Study — Elzero JS (Videos 57–70)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Visual Task 1 — Pluralsight Login Page Clone",
@@ -697,7 +697,7 @@
                   "title": "JS Study — Elzero JS (Videos 71–85)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Assignments 071–078",
@@ -734,7 +734,7 @@
                   "title": "JS Study — Elzero JS (Videos 86–101)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Framework — Bootstrap 5 Documentation",
@@ -746,13 +746,13 @@
                   "title": "Abdelrahman Gamal — Bootstrap 4",
                   "url": "https://www.youtube.com/watch?v=EzHbZjXDdKc",
                   "kind": "video",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Elzero — Bootstrap 5 Bondi Design",
                   "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAyvm7f--dc6XqkpfDcen_vQ",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Assignments 086–093",
@@ -802,7 +802,7 @@
                   "title": "JS Study — Elzero JS (Videos 102–114)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Project — Todo List V2 (Persistent)",
@@ -833,7 +833,7 @@
                   "title": "JS Study — Elzero JS (Videos 115–133)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Project 1 — Countdown Timer",
@@ -881,7 +881,7 @@
                   "title": "JS Study — Elzero JS (Videos 134–146)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Assignments 134–146",
@@ -901,7 +901,7 @@
                   "title": "JS Study — Elzero JS (Videos 147–168)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Project 1 — Quiz App (OOP)",
@@ -944,7 +944,7 @@
                   "title": "JS Study — Elzero JS (Videos 169–188)",
                   "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 },
                 {
                   "title": "Project — GitHub Repo Fetcher",
@@ -1207,7 +1207,7 @@
               "title": "[Elzero Web School](https://www.youtube.com/@ElzeroWebSchool)",
               "url": "https://www.youtube.com/@ElzeroWebSchool",
               "kind": "video",
-              "lang": "en"
+              "lang": "ar"
             },
             {
               "title": "[FreeCodeCamp](https://www.youtube.com/@freecodecamp)",

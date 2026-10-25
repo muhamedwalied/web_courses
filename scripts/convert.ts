@@ -42,8 +42,20 @@ const clean = (s: string) =>
 const stripMd = (s: string) => clean(s.replace(/\*\*/g, '').replace(/`/g, ''));
 
 const AR = /[\u0600-\u06FF]/;
-const langOf = (title: string): 'ar' | 'en' =>
-  AR.test(title) || /arabic|بالعربي|عربي/i.test(title) ? 'ar' : 'en';
+// title language is NOT video language: "Elzero Web School" and similar Arabic
+// producers ship Arabic content under Latin titles. Keep in sync with
+// scripts/annotate-lang.ts (same rules, both directions).
+const AR_TITLE = /(\(arabic\)|in arabic|arabic playlist|بالعربي|شرح)/i;
+const AR_AUTHORS = ['elzero', 'wael abo hamza', 'omar ahmed', 'mohamed fathy taha', 'rabee omran', 'mohamed waleed', 'abdelrahman gamal'];
+const EN_TITLE = /\(english\)/i;
+const EN_PRODUCERS = ['freecodecamp', 'net ninja', 'traversy media', 'kevin powell', 'web dev simplified', 'fireship', 'javascript mastery', 'monsterlessons', 'pluralsight'];
+const langOf = (title: string): 'ar' | 'en' => {
+  const t = title.toLowerCase();
+  if (AR_TITLE.test(title) || AR.test(title)) return 'ar';
+  if (AR_AUTHORS.some((a) => t.includes(a))) return 'ar';
+  if (EN_TITLE.test(title) || EN_PRODUCERS.some((a) => t.includes(a))) return 'en';
+  return 'en';
+};
 
 function kindOf(url: string, title: string): ResourceKind {
   const u = url.toLowerCase();

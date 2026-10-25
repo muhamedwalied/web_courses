@@ -7,7 +7,7 @@
   "color": "#38bdf8",
   "icon": "🐦",
   "cover": "/upstream/flutter/Banner.png",
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps",
+  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Flutter",
   "prereqs": [],
   "status": "structured",
   "upstreamPaths": [
@@ -839,7 +839,7 @@
                   "title": "Flutter Firebase 2023 – Wael abo hamza",
                   "url": "https://www.youtube.com/playlist?list=PL93xoMrxRJIvHhxhB21YzzeimEEzzAz6g",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -887,7 +887,7 @@
                   "title": "Flutter Firebase 2023 – Wael abo hamza",
                   "url": "https://www.youtube.com/playlist?list=PL93xoMrxRJIvHhxhB21YzzeimEEzzAz6g",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -1030,7 +1030,7 @@
                   "title": "Clean Code Book – Omar Ahmed",
                   "url": "https://youtube.com/playlist?list=PLwWuxCLlF_ufTMlXoJlQvImqz9wIfcWsX&si=Qt2tP0B6T-P7Ohfi",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -1086,7 +1086,7 @@
                   "title": "Flutter MVVM – Mohamed Fathy Taha",
                   "url": "https://www.youtube.com/playlist?list=PL3aG1K3LWCrfvjEBkx3ujAtg7yK0zzTiY&si=5cmqLU0QJksfEH2C",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -1099,7 +1099,7 @@
                   "title": "Flutter Clean Architecture – Rabee Omran",
                   "url": "https://youtube.com/playlist?list=PLwJ4sQ79Ehm69Bmed-XrRCc-_H1R3nWhd&si=uH8-X7nezokaHFJP",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
@@ -1327,7 +1327,7 @@
                   "title": "Flutter Unit & Widget Testing - Mohamed Waleed",
                   "url": "https://www.youtube.com/playlist?list=PLlRZKWfoX1JsTRZqCwVM9dNsyWKZ1BOg8",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false
