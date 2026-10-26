@@ -1,0 +1,147 @@
+---
+import type { Circle } from '../schemas/roadmap';
+import { Icon } from 'astro-icon/components';
+
+/**
+ * Main column of the circle page: course overview copy + the curriculum as
+ * numbered chapter cards (one per level). Data comes only from the circle
+ * JSON — no invented durations, no invented highlights.
+ */
+interface Props {
+  circle: Circle;
+}
+
+const { circle } = Astro.props;
+
+const paragraphs = (circle.overview?.paragraphs?.length ? circle.overview.paragraphs : [circle.description]).filter(
+  (p) => p.trim().length > 0,
+);
+const [leadParagraph, ...restParagraphs] = paragraphs;
+const highlights = circle.overview?.highlights ?? [];
+
+const toTopicsCount = (level: Circle['levels'][number]) => level.modules.reduce((a, m) => a + m.topics.length, 0);
+const toModules = (level: Circle['levels'][number]) => [...level.modules].sort((a, b) => a.order - b.order);
+
+// one resource glyph per topic row: youtube > file-text > link (build-time, no network)
+const topicGlyph = (topic: Circle['levels'][number]['modules'][number]['topics'][number]) => {
+  if (topic.resources.some((r) => r.kind === 'video' || r.kind === 'playlist' || /youtube\.com|youtu\.be/.test(r.url)))
+    return 'lucide:youtube';
+  if (topic.resources.some((r) => r.kind === 'docs' || r.kind === 'article' || r.kind === 'book' || r.kind === 'repo'))
+    return 'lucide:file-text';
+  return 'lucide:link';
+};
+
+const hasArabicVideo = (topic: Circle['levels'][number]['modules'][number]['topics'][number]) =>
+  topic.resources.some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar');
+
+const levelCount = circle.levels.length;
+const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m) => a + m.topics.length, 0), 0);
+---
+
+<p class="font-mono text-[10px] uppercase text-accent">Course Overview</p>
+<h2 class="mt-1 text-xl font-bold">نظرة عامة على المسار</h2>
+
+<div class="mt-3 space-y-2">
+  {leadParagraph && <p class="text-sm leading-7 text-muted">{leadParagraph}</p>}
+  {restParagraphs.map((p) => (
+    <p class="text-sm leading-7 text-muted">{p}</p>
+  ))}
+</div>
+
+{
+  levelCount > 0 && (
+    <section id="curriculum" class="mt-10 scroll-mt-20" aria-labelledby="curriculum-title">
+      <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="font-mono text-[10px] uppercase text-accent">Course Curriculum</p>
+          <h2 id="curriculum-title" class="mt-1 text-xl font-bold">منهج المسار</h2>
+        </div>
+        <span class="shrink-0 rounded-full border border-edge bg-panel/70 px-2.5 py-1 font-mono text-[10px] text-muted">
+          {levelCount} مراحل · {topicCount} موضوع
+        </span>
+      </div>
+
+      <div class="space-y-4">
+        {circle.levels.map((level, levelIndex) => (
+          <details class="curriculum-card group" open={levelIndex === 0 || undefined}>
+            <summary class="flex w-full cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 transition hover:bg-panel/70 [&::-webkit-details-marker]:hidden group-open:border-b group-open:border-edge/70">
+              <span class="flex min-w-0 items-center gap-4">
+                <span aria-hidden="true" class="font-mono text-2xl font-black leading-none text-accent/70">
+                  {String(levelIndex + 1).padStart(2, '0')}
+                </span>
+                <span class="min-w-0">
+                  <span dir="ltr" class="block truncate text-end text-sm font-bold text-ink sm:text-base">
+                    {level.name}
+                  </span>
+                  <span class="mt-0.5 block font-mono text-[10px] text-muted">
+                    {level.modules.length} وحدات · {toTopicsCount(level)} درس
+                  </span>
+                </span>
+              </span>
+              <span class="flex shrink-0 items-center gap-2">
+                {level.durationText && (
+                  <span class="rounded border border-edge/70 bg-panel/60 px-2.5 py-1 font-mono text-[10px] text-muted">
+                    {level.durationText}
+                  </span>
+                )}
+                <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
+              </span>
+            </summary>
+
+            <div class="space-y-4 p-3 sm:p-5">
+              {toModules(level).map((module) => (
+                <div class="space-y-1.5">
+                  <p class="flex flex-wrap items-center gap-2 px-1 pb-0.5 text-xs font-bold text-ink">
+                    <span>{module.name}</span>
+                    <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">
+                      {module.topics.length} دروس
+                    </span>
+                  </p>
+                  <div class="space-y-1">
+                    {module.topics.map((topic) => (
+                      <a
+                        href={`/start-${circle.id}/#${level.id}/${module.id}/${topic.id}`}
+                        class="group/row flex min-h-10 items-center gap-2.5 rounded-lg border border-edge/60 bg-panel/55 px-3 py-2 transition hover:border-accent/30 hover:bg-panel"
+                      >
+                        <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent/80" />
+                        <span dir="auto" class="min-w-0 flex-1 truncate text-xs leading-5 text-ink/90">
+                          {topic.title}
+                        </span>
+                        <span class="flex shrink-0 items-center gap-1.5 text-[10px] text-muted">
+                          {hasArabicVideo(topic) && (
+                            <span class="rounded bg-accent/10 px-1.5 py-0.5 font-mono font-bold text-accent/80">عربي</span>
+                          )}
+                          <Icon name={topicGlyph(topic)} class="size-3.5" />
+                          <span class="hidden sm:inline">{topic.resources.length > 0 ? `${topic.resources.length} مصادر` : 'درس'}</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+{
+  highlights.length > 0 && (
+    <div class="mt-4 flex flex-wrap gap-2">
+      {highlights.map((h) => (
+        <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[11px] text-accent">{h}</span>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .curriculum-card {
+    overflow: hidden;
+    border: 1px solid var(--color-edge);
+    border-radius: 1rem;
+    background: color-mix(in oklab, var(--color-surface) 72%, transparent);
+  }
+</style>

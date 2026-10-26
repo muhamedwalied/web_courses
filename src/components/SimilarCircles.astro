@@ -1,0 +1,109 @@
+---
+import { circles } from '../lib/content';
+import { Icon } from 'astro-icon/components';
+import CircleCard from './CircleCard.astro';
+
+/**
+ * Explore-similar strip under the curriculum: every other circle as a card
+ * inside a horizontal snap carousel. Prev/next buttons scroll visually
+ * (arrow glyphs are physical), direction-aware for RTL, and the track is
+ * natively touch-scrollable; keyboard focus follows the global focus ring.
+ */
+interface Props {
+  currentId: string;
+}
+
+const { currentId } = Astro.props;
+
+// keep a stable order: structured circles first, then the rest, skipping ourselves
+const order = (c: (typeof circles)[number]) => (c.status === 'structured' ? 0 : 1);
+const others = [...circles].filter((c) => c.id !== currentId).sort((a, b) => order(a) - order(b));
+---
+
+{
+  others.length > 0 && (
+    <section class="mt-12" aria-labelledby="similar-title">
+      <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="font-mono text-[10px] uppercase text-accent">Explore Similar Courses</p>
+          <h2 id="similar-title" class="mt-1 text-xl font-bold">
+            مسارات تانية ممكن تبدأ بيها
+          </h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            data-carousel-prev
+            class="grid size-9 place-items-center rounded-full border border-edge bg-panel/60 text-muted transition hover:border-accent/40 hover:text-ink"
+            aria-label="اشوف المسارات اللي على اليمين"
+          >
+            <Icon name="lucide:chevron-right" class="size-4" />
+          </button>
+          <button
+            type="button"
+            data-carousel-next
+            class="grid size-9 place-items-center rounded-full border border-edge bg-panel/60 text-muted transition hover:border-accent/40 hover:text-ink"
+            aria-label="اشوف المسارات اللي على اليسار"
+          >
+            <Icon name="lucide:chevron-left" class="size-4" />
+          </button>
+        </div>
+      </div>
+
+      <div data-carousel tabindex="0" aria-label="قائمة مسارات قابلة للتمرير أفقيًا" class="carousel">
+        <div data-carousel-track class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1">
+          {others.map((circle) => (
+            <div class="w-72 max-w-[78vw] shrink-0 snap-start">
+              <CircleCard circle={circle} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+    if (!track) return;
+
+    // in RTL the scroll origin is the right edge, so "advance" scrolls negative
+    const isRtl = getComputedStyle(track).direction === 'rtl';
+    const advance = isRtl ? -1 : 1;
+
+    const step = () => Math.max(track.clientWidth * 0.7, 240);
+    const scrollAdvance = (sign: 1 | -1) => track.scrollBy({ left: sign * advance * step(), behavior: 'smooth' });
+
+    const section = root.closest('section');
+    const prevBtn = section?.querySelector<HTMLButtonElement>('[data-carousel-prev]') ?? null;
+    const nextBtn = section?.querySelector<HTMLButtonElement>('[data-carousel-next]') ?? null;
+    prevBtn?.addEventListener('click', () => scrollAdvance(-1));
+    nextBtn?.addEventListener('click', () => scrollAdvance(1));
+
+    // physical arrow keys scroll the strip when it is focused
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+<style>
+  .carousel:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 0.75rem;
+  }
+  [data-carousel-track] {
+    scrollbar-width: none;
+  }
+  [data-carousel-track]::-webkit-scrollbar {
+    display: none;
+  }
+</style>
