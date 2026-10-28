@@ -1,0 +1,91 @@
+---
+/**
+ * جيت الاسم الإلزامي — أي دخول لأي صفحة داخل الداشبورد بدون اسم محفوظ
+ * يوقف المستخدم هنا أولًا. مفيش زر تخطي ومفيش إغلاق: متفق عليه 2026-10-29.
+ */
+import { Icon } from 'astro-icon/components';
+---
+
+<dialog
+  id="name-gate"
+  aria-labelledby="name-gate-title"
+  class="m-auto w-88 max-w-[90vw] rounded-2xl border border-edge bg-surface p-6 backdrop:bg-black/60"
+>
+  <div class="flex items-center gap-3">
+    <span
+      data-gate-avatar
+      class="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-base font-bold text-bg"
+      aria-hidden="true"
+    >؟</span>
+    <div class="min-w-0">
+      <h2 id="name-gate-title" class="text-base font-bold text-ink">يلا نتعرّف!</h2>
+      <p class="mt-0.5 text-xs leading-5 text-muted">
+        اكتب اسمك مرة واحدة — بنحفظه على جهازك فقط، ومن غير سيرفر.
+      </p>
+    </div>
+  </div>
+
+  <form data-gate-form class="mt-5 space-y-3" novalidate={false}>
+    <div>
+      <label for="name-gate-input" class="mb-1.5 block text-xs font-bold text-ink">الاسم</label>
+      <input
+        id="name-gate-input"
+        data-gate-input
+        dir="auto"
+        required
+        maxlength="40"
+        autocomplete="nickname"
+        placeholder="مثال: Medo"
+        class="w-full rounded-xl border border-edge bg-bg/70 px-3 py-2.5 text-sm outline-none transition focus:border-accent"
+      />
+      <p data-gate-error hidden class="mt-1.5 text-[11px] font-bold text-red-600">
+        لازم تكتب اسمك الأول — الجيت ده إلزامي.
+      </p>
+    </div>
+    <button
+      type="submit"
+      class="flex w-full items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-sm font-bold text-bg transition hover:opacity-90"
+    >
+      <Icon name="lucide:graduation-cap" class="size-4 shrink-0" />
+      يلا نبدأ
+    </button>
+  </form>
+</dialog>
+
+<script>
+  import { getProfile, setName, initialOf } from '../../lib/profile';
+
+  const dlg = document.getElementById('name-gate') as HTMLDialogElement | null;
+  if (dlg && !getProfile().name) {
+    const form = dlg.querySelector<HTMLFormElement>('[data-gate-form]')!;
+    const input = dlg.querySelector<HTMLInputElement>('[data-gate-input]')!;
+    const avatar = dlg.querySelector<HTMLElement>('[data-gate-avatar]')!;
+    const error = dlg.querySelector<HTMLElement>('[data-gate-error]')!;
+
+    // الحوار غير قابل للإغلاق: no skip، no خارج-النقر، no Escape
+    dlg.addEventListener('cancel', (e) => e.preventDefault());
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) e.preventDefault();
+    });
+
+    // معاينة حرف الأفاتار أثناء الكتابة
+    input.addEventListener('input', () => {
+      avatar.textContent = initialOf(input.value) || '؟';
+      error.hidden = true;
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = input.value.trim();
+      if (!value) {
+        error.hidden = false;
+        input.focus();
+        return;
+      }
+      setName(value);
+      dlg.close();
+    });
+
+    dlg.showModal();
+  }
+</script>

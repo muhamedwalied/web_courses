@@ -106,7 +106,7 @@ const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m
                   <div class="space-y-1">
                     {module.topics.map((topic) => (
                       <a
-                        href={`/start-${circle.id}/#${level.id}/${module.id}/${topic.id}`}
+                        href={`/dashboard/${circle.id}/#${level.id}/${module.id}/${topic.id}`}
                         class="group/row flex min-h-10 items-center gap-2.5 rounded-lg border border-edge/60 bg-panel/55 px-3 py-2 transition hover:border-accent/30 hover:bg-panel"
                       >
                         <Icon name={topicGlyph(topic)} class="size-3.5 shrink-0 text-accent/80" />

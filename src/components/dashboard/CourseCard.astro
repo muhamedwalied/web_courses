@@ -1,0 +1,68 @@
+---
+import type { Circle } from '../../schemas/roadmap';
+import { circleTopics, countAllTopics } from '../../lib/content';
+import { Icon } from 'astro-icon/components';
+import { circleIcon } from '../../lib/circle-icons';
+
+interface Props {
+  circle: Circle;
+  /** تُخفى افتراضيًا (صفحة الرئيسية تظهرها جس؟ JavaScript حسب حالة التقدّم) */
+  hidden?: boolean;
+}
+
+const { circle, hidden: startHidden = false } = Astro.props;
+const counts = countAllTopics(circle);
+const topicKeys = circleTopics(circle).map((t) => t.key);
+---
+
+<!-- كارت مسار داخل الداشبورد: الدخول للكورس مباشرة + لينك «تفاصيل المسار» ثانوي (اتفقنا 2026-10-29).
+     جذر المقالة مش رابط — علشان الرابطين يفضلوا منفصلين بلا <a> داخل <a>. -->
+<article
+  data-circle-stats={circle.id}
+  data-topic-keys={JSON.stringify(topicKeys)}
+  class:list={[
+    'group relative flex flex-col gap-3 rounded-2xl border border-edge bg-panel/60 p-5 transition',
+    startHidden && 'hidden',
+  ]}
+>
+  <div class="flex items-start justify-between">
+    <span
+      class="grid size-11 place-items-center rounded-xl text-xl"
+      style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}
+    >
+      <Icon name={circleIcon(circle.id)} class="size-5" />
+    </span>
+    <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[11px] text-accent ring-1 ring-accent/30">
+      {counts.required} موضوع
+    </span>
+  </div>
+
+  <div>
+    <h3 dir="auto" class="text-start text-lg font-bold text-ink group-hover:text-accent transition">{circle.name}</h3>
+    <p class="mt-1 line-clamp-2 text-sm text-muted">{circle.tagline ?? circle.description}</p>
+  </div>
+
+  <div class="mt-auto space-y-2 border-t border-edge/70 pt-3">
+    <div class="flex items-center justify-between text-[11px] text-muted">
+      <span>{circle.levels.length} مستويات · {counts.resources} مصدر</span>
+      <span data-pct>0/{topicKeys.length}</span>
+    </div>
+    <div class="h-1.5 overflow-hidden rounded-full bg-edge/70">
+      <div data-bar class="h-full rounded-full transition-[width] duration-300" style={`width:0%;background:${circle.color}`}></div>
+    </div>
+  </div>
+
+  <a
+    href={`/dashboard/${circle.id}/`}
+    class="flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-center text-xs font-bold text-bg transition hover:opacity-90"
+  >
+    <span data-cta>ابدأ المسار</span>
+    <Icon name="lucide:chevron-left" class="size-3.5 shrink-0" />
+  </a>
+  <a
+    href={`/circles/${circle.id}/`}
+    class="text-center text-[11px] text-muted underline decoration-edge underline-offset-4 transition hover:text-accent"
+  >
+    تفاصيل المسار
+  </a>
+</article>

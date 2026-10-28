@@ -36,13 +36,13 @@
           "topics": [
             {
               "id": "week-1-dart-fundamentals",
-              "title": "الأسبوع الأول — أساسيات Dart",
+              "title": "أساسيات Dart",
               "resources": [
                 {
-                  "title": "Week 1 – Dart Fundamentals",
+                  "title": " Dart Fundamentals",
                   "url": "https://youtube.com/playlist?list=PL_l2aZqMK7Nkxadt183rfEU7jxPanp5OU&si=wKKIuDpIF_a97DRg",
                   "kind": "playlist",
-                  "lang": "en"
+                  "lang": "ar"
                 }
               ],
               "optional": false

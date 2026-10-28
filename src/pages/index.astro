@@ -4,7 +4,7 @@ import TrackExploreMap from '../components/graph/TrackExploreMap.astro';
 import CircleCard from '../components/CircleCard.astro';
 import { circles, structuredCircles } from '../lib/content';
 
-// الرسم والبطاقات يعرضان المسارات الـ١٤ كلها — النص في الهيرو يقول ١٤ مسار
+// الرسم والبطاقات يعرضان المسارات الـ14 كلها — النص في الهيرو يقول 14 مسار
 // والكومبوننتين يدعمان حالة «قيد الإعداد» (raw) أصلًا.
 const graphCircles = circles.map((c) => ({
   id: c.id,
@@ -34,17 +34,26 @@ const stats = [
   { v: totalResources, l: 'مصدر تعلّم' },
 ];
 
-// أرقام الهيرو بالأرقام الهندية مثل صيغة المحتوى (١٤ مسار) — قرار الهيرو المعتمد من المعاينة
-const ar = (n: number) => n.toLocaleString('ar-EG');
+// أرقام الهيرو بأرقام غربية 0-9 — طلب المستخدم 2026-10-28 (ألغى قرار الأرقام الهندية السابق)
+const ar = (n: number) => String(n);
+
+// شركاء المجتمع — مصدرهم قسم «Parteners» في catreloaded.org (اللوجوهات في public/partners)
+const partners = [
+  { name: 'DarkEntry', url: 'https://darkentry.net/', logo: 'DarkEntry.png' },
+  { name: 'OffSec', url: 'https://www.offsec.com/', logo: 'OffSec.png' },
+  { name: 'HackerOne', url: 'https://www.hackerone.com', logo: 'Hackerone.png' },
+  { name: 'FahemSec', url: 'https://fahemsec.com/', logo: 'FahemSec.png' },
+  { name: 'CyEagle', url: 'https://www.cyeagle.io/', logo: 'CyEagle.png' },
+  { name: 'ICPC Mansoura', url: 'https://www.facebook.com/ICPC.Mansoura', logo: 'ICPC_AfSNqqX2F.png' },
+];
 ---
 <Layout title="مسارات CAT Reloaded — ابدأ من هنا">
   <!-- hero — الاتجاه «تحريري» من design-explorations/hero-options.html (اعتماده 2026-10-27) -->
   <section class="hero-ed" aria-labelledby="hero-title">
     <div class="col-text">
-      <p class="kicker"><span dir="ltr">CAT Reloaded · Circles Roadmaps</span></p>
       <h1 id="hero-title" class="h-display">رحلتك التعليمية كاملة في شبكة واحدة</h1>
       <p class="lede">
-        ١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوعًا بموضوع
+        14 مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوعًا بموضوع
         (محفوظ على جهازك)، وابدأ من أي نقطة.
       </p>
 
@@ -61,6 +70,10 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
         </button>
         <button type="button" class="go" data-open-search>بحث</button>
       </div>
+      <button type="button" class="tour-start" data-start-tour>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        جولة سريعة على الموقع
+      </button>
     </div>
 
     <div class="col-art">
@@ -91,6 +104,31 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
     </div>
   </section>
 
+  <!-- partners — Logos من قسم Parteners في catreloaded.org — كل لوجو يدخل من اليمين ويختفي يسارًا في تدفّق لا نهائي -->
+  <section class="ptn pb-14" aria-label="شركاؤنا">
+    <h2 class="mb-2 text-center text-xl font-bold">شركاؤنا</h2>
+    <div class="ptn-track">
+      {partners.map((p, i) => (
+        <a
+          href={p.url}
+          target="_blank"
+          rel="noopener"
+          class="ptn-card group flex h-20 w-52 items-center justify-center px-4"
+          style={`animation-delay: ${-i * 4}s;`}
+        >
+          <img
+            src={`/partners/${p.logo}`}
+            alt={`لوجو ${p.name}`}
+            loading="lazy"
+            width="320"
+            height="160"
+            class="max-h-10 max-w-full object-contain opacity-80 grayscale transition group-hover:scale-[1.03] group-hover:opacity-100 group-hover:grayscale-0"
+          />
+        </a>
+      ))}
+    </div>
+  </section>
+
   <!-- network graph -->
   <section class="pb-14" aria-label="شبكة المسارات">
     <div class="mb-4 flex items-baseline justify-between">
@@ -111,6 +149,8 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
 
 <script>
   import { progressStore } from '../lib/progress';
+  import { driver } from 'driver.js';
+  import 'driver.js/dist/driver.css';
 
   const cards = document.querySelectorAll<HTMLElement>('[data-topic-keys]');
   const render = () => {
@@ -131,6 +171,89 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
   for (const btn of document.querySelectorAll('[data-open-search]')) {
     btn.addEventListener('click', () => window.dispatchEvent(new CustomEvent('open-search')));
   }
+
+  // ============ جولة Driver.js — تعريف أول زيارة بالصفحة الرئيسية ============
+  const TOUR_DONE_KEY = 'cat.tour.v1';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const tour = driver({
+    popoverClass: 'cat-tour',
+    showProgress: true,
+    progressText: '{{current}} من {{total}}',
+    showButtons: ['next', 'previous', 'close'],
+    nextBtnText: 'التالي',
+    prevBtnText: 'السابق',
+    doneBtnText: 'يلا نبدأ',
+    overlayOpacity: 0.65,
+    stageRadius: 14,
+    disableActiveInteraction: true,
+    smoothScroll: !reducedMotion,
+    // إنهاء الترتيب أو الإغلاق مبكرًا كلاهما يعتبر «شاهدها» — لا نزعج الزائر بها ثانية
+    onDestroyed: () => {
+      try {
+        localStorage.setItem(TOUR_DONE_KEY, '1');
+      } catch {
+        /* وضع التصفح الخاص — الجولة ستعرض مرة أخرى فقط في نفس الجلسة */
+      }
+    },
+    steps: [
+      {
+        popover: {
+          title: 'أهلًا بك في مسارات CAT 👋',
+          description: 'جولة سريعة بأقل من دقيقة تعرّفك على أهم أماكن الصفحة. تنقّل بمفتاح Enter، واخرج متى شئت بمفتاح Escape.',
+        },
+      },
+      {
+        element: '.search-row',
+        popover: {
+          title: 'ابحث عن أي شيء',
+          description: 'مسار، موضوع، أو مصدر تعلّم — اكتب واضغط Enter لفتح نافذة البحث فورًا.',
+          side: 'bottom',
+          align: 'start',
+        },
+      },
+      {
+        element: 'section[aria-label="شبكة المسارات"]',
+        popover: {
+          title: 'شبكة المسارات',
+          description: 'كل مسار عقدة في شبكة مترابطة: انقر أي عقدة لتمييز مسارها ومتطلباته، واسحب للتحريك والتكبير.',
+          side: 'top',
+          align: 'start',
+        },
+      },
+      {
+        element: 'section[aria-label="كل المسارات"]',
+        popover: {
+          title: 'كل المسارات',
+          description: 'بطاقة لكل مسار مستوياته ومصادره، وشريط يتابع تقدّمك داخله — محفوظ على جهازك.',
+          side: 'top',
+          align: 'start',
+        },
+      },
+      {
+        popover: {
+          title: 'جاهز؟',
+          description: 'اختر مسارًا وابدأ من أي نقطة — رحلتك محفوظة تلقائيًا على جهازك.',
+        },
+      },
+    ],
+  });
+
+  const beginTour = () => {
+    if (!tour.getState().isActive) tour.drive();
+  };
+
+  // أول زيارة: نؤخر الجولة قليلًا حتى تستقر التخطيطات والشبكة المرسومة برمجيًا
+  let tourSeen = false;
+  try {
+    tourSeen = localStorage.getItem(TOUR_DONE_KEY) === '1';
+  } catch {
+    /* وضع التصفح الخاص */
+  }
+  if (!tourSeen) window.setTimeout(beginTour, 800);
+
+  // زر «جولة سريعة على الموقع» يعيد تشغيلها في أي وقت
+  document.querySelector<HTMLButtonElement>('[data-start-tour]')?.addEventListener('click', beginTour);
 </script>
 
 <style>
@@ -149,7 +272,7 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
   }
   .h-display {
     margin: 14px 0 0;
-    max-width: 15ch;
+    max-width: 22ch;
     font-family: var(--font-header);
     font-size: clamp(2.1rem, 4.2vw, 3.1rem);
     font-weight: 700;
@@ -242,6 +365,26 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
   .go:hover {
     background: color-mix(in oklab, var(--color-accent) 88%, black);
   }
+  /* زر جولة Driver.js — نص هادئ يندسّ في تحريرية الهيرو */
+  .tour-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    padding: 4px 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .tour-start svg {
+    width: 15px;
+    height: 15px;
+  }
+  .tour-start:hover,
+  .tour-start:focus-visible {
+    color: var(--color-accent);
+  }
   .col-art {
     display: grid;
     place-items: center;
@@ -290,6 +433,61 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
     stroke-dasharray: 4 3;
   }
 
+  /* ============ partners — تدفّق لا نهائي: كل لوجو يدخل من اليمين ويختفي يسارًا ============ */
+  .ptn-track {
+    position: relative;
+    overflow: hidden;
+    height: 6rem; /* يتسع للكارت h-20 وارتفاع الظل */
+    /* تلاشي إضافي على الحافتين مع أوباسيتي الأنيميشن */
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+  /* إحداثيات فيزيائية (right) لأن العنصر absolute والكومبوننت ثابت RTL — قرار مقصود */
+  .ptn-card {
+    position: absolute;
+    top: 0.5rem;
+    right: -12rem; /* مختفي خارج الحافة اليمين قبل بدء الدورة */
+    /* background: var(--color-surface); */
+    /* border: 1px solid var(--color-edge); */
+    /* border-radius: 12px; */
+    animation: ptn-cross 24s linear infinite;
+  }
+  .ptn-track:hover .ptn-card {
+    animation-play-state: paused; /* القف على الماوس يوقف الحركة */
+  }
+  .ptn-card:hover {
+    /* border-color: var(--color-control-edge); */
+    box-shadow: 0 1px 0 0 color-mix(in oklab, var(--color-edge) 60%, transparent);
+  }
+  /* المرور الكامل: من خارج اليمين إلى خارج اليسار مع اختفاء عند الطرفين */
+  @keyframes ptn-cross {
+    0% { right: -12rem; opacity: 0; }
+    8% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { right: calc(100% + 12rem); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ptn-track {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      height: auto;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+    .ptn-card {
+      position: static;
+      animation: none;
+      opacity: 1;
+    }
+  }
+  @media (max-width: 640px) {
+    .ptn-card {
+      width: 9rem; /* مساحة أقل على الموبايل */
+      animation-duration: 16s; /* إيقاع يتجاوز عرض الكارت فلا يتداخل التدفّق */
+    }
+  }
   @media (max-width: 880px) {
     .hero-ed {
       grid-template-columns: 1fr;
@@ -303,6 +501,82 @@ const ar = (n: number) => n.toLocaleString('ar-EG');
     }
     .go {
       padding: 0 14px;
+    }
+  }
+</style>
+
+<style is:global>
+  /* ============ popover جولة Driver.js — بهوية الموقع وباتجاه RTL ============
+     المحدّد المزدوج .cat-tour.driver-popover يتجاوز وزن خصائص driver.css الرسمي */
+  .cat-tour.driver-popover {
+    --driver-popover-font-family: inherit;
+    direction: rtl;
+    text-align: right;
+    background: var(--color-surface);
+    border: 1px solid var(--color-edge);
+    border-radius: 14px;
+    color: var(--color-ink);
+    max-width: 340px;
+    padding: 20px 22px 14px;
+    box-shadow: 0 14px 40px rgb(38 49 58 / 0.16);
+  }
+  .cat-tour .driver-popover-title {
+    font-family: var(--font-header);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  .cat-tour .driver-popover-description {
+    margin-top: 4px;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    line-height: 1.85;
+  }
+  /* زر الإغلاق يرث left/right فيزيائيين من css المكتبة — نعكسه للـ RTL */
+  .cat-tour .driver-popover-close-btn {
+    right: auto;
+    left: 0;
+  }
+  .cat-tour .driver-popover-progress-text {
+    font-family: var(--font-header);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+  .cat-tour .driver-popover-footer-btn {
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .cat-tour .driver-popover-footer-btn:hover,
+  .cat-tour .driver-popover-footer-btn:focus {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  /* زر «التالي» هو الأساسي — بلون العلامة مثل زر بحث الهيرو */
+  .cat-tour .driver-popover-next-btn {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+  .cat-tour .driver-popover-next-btn:hover,
+  .cat-tour .driver-popover-next-btn:focus {
+    background: color-mix(in oklab, var(--color-accent) 88%, black);
+    color: var(--color-surface);
+  }
+  /* هوامش أزرار التنقل ترث اليمين الفيزيائي — نعكسها للـ RTL */
+  .cat-tour .driver-popover-navigation-btns button + button {
+    margin-left: 0;
+    margin-right: 4px;
+  }
+  /* احترام تفضيل تقليل الحركة في ظهور الطبقة والـ popover */
+  @media (prefers-reduced-motion: reduce) {
+    .driver-popover,
+    .driver-overlay {
+      animation-duration: 0.01ms !important;
     }
   }
 </style>

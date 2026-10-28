@@ -1,0 +1,67 @@
+---
+import '@fontsource/noto-sans-arabic/400.css';
+import '@fontsource/noto-sans-arabic/500.css';
+import '@fontsource/noto-sans-arabic/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/600.css';
+import '../styles/global.css';
+import { Icon } from 'astro-icon/components';
+import Sidebar from '../components/dashboard/Sidebar.astro';
+import NameGate from '../components/dashboard/NameGate.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  wide?: boolean;
+}
+
+// شل الداشبورد v1 — بدون هيدر على الديسكتوب نهائيًا (اتفقنا 2026-10-29):
+// sidebar الشمال هو الواجهة الوحيدة، وعلى الموبايل شريط مصغر وظيفته إظهار الـ drawer فقط.
+const { title, description = 'لوحة التعلّم — تابع مساراتك وتقدّمك موضوعًا بموضوع.', wide = false } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F8F6EE" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-dvh antialiased">
+    <!-- شريط الموبايل المصغر — hamburger + شعار مصغر فقط -->
+    <header class="max-lg:fixed max-lg:inset-x-0 max-lg:top-0 max-lg:z-40 max-lg:flex max-lg:h-14 max-lg:items-center max-lg:gap-2 max-lg:border-b max-lg:border-edge/60 max-lg:bg-bg/90 max-lg:px-3 max-lg:backdrop-blur lg:hidden">
+      <button
+        type="button"
+        data-dash-menu
+        aria-expanded="false"
+        aria-controls="app-sidebar"
+        class="grid size-9 place-items-center rounded-lg text-ink transition hover:bg-panel"
+        aria-label="فتح القائمة"
+      >
+        <Icon name="lucide:menu" class="size-5" />
+      </button>
+      <a href="/dashboard/" class="text-sm font-bold">مسارات <span class="text-accent">CAT</span></a>
+      <span class="ms-auto size-9" aria-hidden="true"></span>
+    </header>
+
+    <!-- الشل: sidebar شمال + محتوى RTL — الحاوية ltr لتثبيت sidebar على اليسار فيزيائيًا -->
+    <div class="flex min-h-dvh" dir="ltr">
+      <Sidebar path={path} />
+      <main
+        dir="rtl"
+        class:list={[
+          'min-w-0 flex-1 border-l border-edge/40 px-4 pb-20 pt-16 sm:px-6 lg:pt-8 print:border-0',
+          wide ? '' : 'mx-auto w-full max-w-7xl',
+        ]}
+      >
+        <slot />
+      </main>
+    </div>
+
+    <NameGate />
+  </body>
+</html>

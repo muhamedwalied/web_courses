@@ -1,0 +1,30 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import CourseCard from '../../components/dashboard/CourseCard.astro';
+import { structuredCircles } from '../../lib/content';
+
+// صفحة «الكورسات المتاحة»: عرض المسارات الكاملة المُجهّزة (structured) — قرار 2026-10-29.
+// الكروت الكلها ظاهرة مع شريط تقدّم لمَن بدأ؛ الكليك يدخل الكورس مباشرة داخل الداشبورد.
+const circles = structuredCircles;
+---
+<DashboardLayout title={`الكورسات المتاحة — مسارات CAT Reloaded`} wide>
+  <h1 class="text-2xl font-bold text-ink">الكورسات المتاحة</h1>
+  <p class="mt-1 text-sm text-muted">{circles.length} مسار جاهز — اضغط على أي كارت للدخول للكورس مباشرة.</p>
+
+  <div class="mt-5 grid gap-4 pb-10 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    {circles.map((circle) => <CourseCard circle={circle} />)}
+  </div>
+</DashboardLayout>
+
+<script>
+  import { progressStore } from '../../lib/progress';
+  import { paintCircleCard } from '../../lib/dash-cards';
+
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
+
+  function render() {
+    for (const el of cards) paintCircleCard(el);
+  }
+  render();
+  progressStore.subscribe(render);
+</script>

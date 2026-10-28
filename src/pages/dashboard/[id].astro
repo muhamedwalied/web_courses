@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
 import { Icon } from "astro-icon/components";
-import { circleIcon } from "../lib/circle-icons";
-import { getCircle, structuredCircles } from '../lib/content';
-import { progressStore, tkey } from "../lib/progress";
+import { circleIcon } from "../../lib/circle-icons";
+import { getCircle, structuredCircles } from '../../lib/content';
+import { progressStore, tkey } from "../../lib/progress";
 
 export function getStaticPaths() {
   // only structured circles get a watch page — raw circles stay hidden from the site
@@ -80,24 +80,19 @@ const giscusConfig = {
 const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 ---
 
-<Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description} wide>
+<DashboardLayout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description} wide>
   <div class="watch-page">
-    <div class="watch-heading">
-      <a href="/" class="text-muted transition hover:text-accent">المسارات</a>
-      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
-      <a href={`/circles/${circle.id}/`} dir="auto" class="truncate text-muted transition hover:text-accent">{circle.name}</a>
-      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
-      <span class="font-semibold text-ink">التعلّم</span>
-    </div>
+    
 
-    <div class="watch-grid grid grid-cols-1 gap-5 pb-10 lg:grid-cols-[19rem_minmax(0,1fr)] 2xl:grid-cols-[19rem_minmax(0,1fr)_12rem]" data-circle={circle.id}>
+    <!-- عمود الـ sidebar بتاع الداشبورد بقى في الشل (DashboardLayout) — الجريد هنا عمودين: محتوى المسار + الساحة -->
+    <div class="watch-grid grid grid-cols-1 gap-5 pb-10 lg:grid-cols-[19rem_minmax(0,1fr)]" data-circle={circle.id}>
       <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical).
            Desktop: docked, full-height, independently-scrolling column.
            Below lg: off-canvas drawer (fixed+right-0) — stays in the grid so RTL order is untouched. -->
       <aside
         id="content-sidebar"
         aria-label="محتوى المسار"
-        class="max-lg:fixed max-lg:inset-y-0 max-lg:start-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-14 lg:flex lg:h-[calc(100dvh-3.5rem)] lg:max-h-[calc(100dvh-3.5rem)] lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-2xl lg:border lg:border-edge lg:bg-panel/70 lg:p-4"
+        class="max-lg:fixed max-lg:inset-y-0 max-lg:start-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-8 lg:flex lg:h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-4rem)] lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-2xl lg:border lg:border-edge lg:bg-panel/70 lg:p-4"
       >
         <div class="shrink-0 border-b border-edge/70 pb-3">
           <div class="flex items-center justify-between gap-2">
@@ -159,7 +154,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                       <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open/module:rotate-180" />
                       <span dir="auto" class="min-w-0 flex-1 text-xs font-bold leading-5 text-ink">{module.name}</span>
                       <span class="shrink-0 rounded-md bg-edge/50 px-1.5 py-1 font-mono text-[9px] text-muted">وحدة</span>
-                      <span class="shrink-0 font-mono text-[10px] text-muted">{module.topics.length} درس</span>
+                     
                     </summary>
                     <div class="space-y-0.5 border-t border-edge/70 px-2 pb-2 pt-1.5">
                       {module.topics.map((topic) => (
@@ -195,17 +190,26 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
       <!-- Center column: the current lesson and its learning controls. -->
       <div class="watch-main min-w-0">
+        <div class="watch-heading">
+      <a href="/" class="text-muted transition hover:text-accent">المسارات</a>
+      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
+      <a href={`/circles/${circle.id}/`} dir="auto" class="truncate text-muted transition hover:text-accent">{circle.name}</a>
+      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
+      <span class="font-semibold text-ink">التعلّم</span>
+     </div>
+
+
+
         <div class="watch-titlebar mt-1 flex items-center gap-3 px-1 py-3">
-          <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20">
-            <Icon name="lucide:book-open" class="size-5" />
-          </span>
+          
           <div class="min-w-0">
+              <h1 id="watch-title" class="mt-1 line-clamp-2 text-xl font-bold leading-relaxed text-ink sm:text-2xl">
+              {firstTopic?.title ?? circle.name}
+            </h1>
             <p id="watch-crumb" class="truncate text-xs text-muted" dir="auto">
               {firstTopic ? `${firstTopic.l} / ${firstTopic.m}` : ''}
             </p>
-            <h1 id="watch-title" class="mt-1 line-clamp-2 text-xl font-bold leading-relaxed text-ink sm:text-2xl">
-              {firstTopic?.title ?? circle.name}
-            </h1>
+          
           </div>
 
           <button
@@ -287,8 +291,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
           </div>
         </details>
       </div>
-
-      <!-- A compact course rail appears only on wide screens; the site header remains the primary global navigation. -->
+ <!-- A compact course rail appears only on wide screens; the site header remains the primary global navigation. -->
       <aside class="watch-rail hidden 2xl:flex 2xl:flex-col" aria-label="تنقّل التعلّم">
         <a href="/" class="watch-brand flex items-center gap-2.5 rounded-xl px-2 py-3 text-ink transition hover:bg-panel">
           <span class="grid size-9 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent ring-1 ring-accent/20">CR</span>
@@ -316,7 +319,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
   <script>
     // runs in the browser — this import must live INSIDE the client script
     // (frontmatter imports never reach the bundled client code)
-    import { progressStore, tkey } from "../lib/progress";
+    import { progressStore, tkey } from "../../lib/progress";
 
     // --- Iconify path data (lucide) ---
     const LUCIDE = {
@@ -816,7 +819,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       for (const step of [
         'فعّل Discussions في مستودع ' + (giscusConfig?.repo || 'المشروع') + ' من الإعدادات، ثم General، ثم Features.',
         'ثبّت التطبيق github.com/apps/giscus على المستودع.',
-        'افتح giscus.app واكتب اسم المستودع، ثم انسخ قيمة data-category-id للتصنيف الذي تختاره وضَعها في giscusConfig.categoryId داخل src/pages/start-[id].astro.',
+        'افتح giscus.app واكتب اسم المستودع، ثم انسخ قيمة data-category-id للتصنيف الذي تختاره وضَعها في giscusConfig.categoryId داخل src/pages/dashboard/[id].astro.',
       ]) {
         list.appendChild(plain('li', null, step));
       }
@@ -854,8 +857,18 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       giscusMount.appendChild(s);
     }
 
+    // «استكمال» (سلوك الداشبورد 2026-10-29): من غير hash في اللينك نفتح على أول درس مش مكتمل
+    function defaultTopicKey(): string {
+      const snap = progressStore.snapshot();
+      for (const row of rows) {
+        const tk = row.dataset.tkey;
+        if (tk && snap[tk] !== 1) return row.dataset.key || keyOf(flat[0]?.l, flat[0]?.m, flat[0]?.t);
+      }
+      return keyOf(flat[0]?.l, flat[0]?.m, flat[0]?.t);
+    }
+
     if (rows.length) {
-      render(keyFromLocation() || keyOf(flat[0]?.l, flat[0]?.m, flat[0]?.t));
+      render(keyFromLocation() || defaultTopicKey());
     }
 
     // progress strip — countDone over every sidebar row key; subscribe covers the
@@ -975,32 +988,6 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       padding-inline-start: 0.7rem;
       border-inline-start: 2px solid color-mix(in oklab, var(--color-accent) 28%, var(--color-edge));
     }
-    .watch-rail {
-      position: sticky;
-      top: 4.5rem;
-      min-height: calc(100dvh - 5.5rem);
-      padding-inline-start: 0.35rem;
-    }
-    .watch-rail-link {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      min-height: 2.65rem;
-      padding-inline: 0.65rem;
-      border-radius: 0.7rem;
-      color: var(--color-muted);
-      font-size: 0.7rem;
-      transition: color 150ms, background-color 150ms;
-    }
-    .watch-rail-link:hover {
-      color: var(--color-ink);
-      background: color-mix(in oklab, var(--color-panel) 72%, transparent);
-    }
-    .watch-rail-link.is-current {
-      color: var(--color-accent);
-      background: color-mix(in oklab, var(--color-accent) 9%, var(--color-panel));
-      font-weight: 700;
-    }
     .watch-tab {
       position: relative;
       display: inline-flex;
@@ -1089,4 +1076,4 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       transition: transform 0.25s;
     }
   </style>
-</Layout>
+</DashboardLayout>

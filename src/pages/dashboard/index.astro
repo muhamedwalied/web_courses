@@ -1,0 +1,99 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import CourseCard from '../../components/dashboard/CourseCard.astro';
+import { structuredCircles, circleTopics } from '../../lib/content';
+
+// الاقتحام: الكروت تُرسم كلها مخفية — جافاسكربت يظهر «أكمل» فقط (المسارات المبتدأة)
+// ويرتبها بنسبة الإكمال تنازليًا ويحدّث العدادات (اتفقنا 2026-10-29).
+const circles = structuredCircles.map((c) => ({ circle: c }));
+---
+<DashboardLayout title={`لوحة التعلّم — مسارات CAT Reloaded`} wide>
+  <p class="text-xs font-bold text-accent">لوحة التعلّم</p>
+  <h1 class="mt-1 text-2xl font-bold text-ink">
+    أهلًا، <span data-greet>صديقنا</span> 👋
+  </h1>
+
+  <!-- الافتتاحية: العدادات أول ما تدخل — عدد المسارات المبتدأة والمنتهية -->
+  <section aria-label="إحصائياتك" class="mt-5 grid max-w-md grid-cols-2 gap-4">
+    <div class="rounded-2xl border border-edge bg-panel/60 p-4">
+      <p class="font-mono text-3xl font-bold text-ink" id="stat-started">0</p>
+      <p class="mt-1 text-xs text-muted">مسار بدأته</p>
+    </div>
+    <div class="rounded-2xl border border-edge bg-panel/60 p-4">
+      <p class="font-mono text-3xl font-bold text-ink" id="stat-finished">0</p>
+      <p class="mt-1 text-xs text-muted">مسار أنهيته</p>
+    </div>
+  </section>
+
+  <!-- قسم «أكمل»: كروت المسارات الجارية، الأقرب للاكتمال أولًا -->
+  <section class="mt-10 pb-10" aria-label="أكمل من حيث توقفت">
+    <h2 class="text-lg font-bold text-ink">أكمل من حيث توقفت</h2>
+    <div id="continue-grid" class="mt-3 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {circles.map(({ circle }) => <CourseCard circle={circle} hidden />)}
+    </div>
+
+    <!-- الحالة الفاضية: أول دخول قبل أي درس مكتمل — بلا بيانات وهمية -->
+    <div
+      id="continue-empty"
+      hidden
+      class="mt-3 rounded-2xl border border-dashed border-edge bg-panel/40 p-10 text-center"
+    >
+      <p class="text-sm font-bold text-ink">لسه مفيش أي مسار بدأته</p>
+      <p class="mx-auto mt-1.5 max-w-sm text-xs leading-6 text-muted">
+        اختار من المسارات المتاحة وابدأ من أي نقطة — كل درس بتعلّم عليه بيتحفظ على جهازك تلقائيًا.
+      </p>
+      <a
+        href="/dashboard/circles/"
+        class="mt-5 inline-block rounded-xl bg-accent px-5 py-2.5 text-xs font-bold text-bg transition hover:opacity-90"
+      >
+        ابدأ أول مسار
+      </a>
+    </div>
+  </section>
+</DashboardLayout>
+
+<script>
+  import { progressStore } from '../../lib/progress';
+  import { getProfile } from '../../lib/profile';
+  import { paintCircleCard } from '../../lib/dash-cards';
+
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
+  const grid = document.getElementById('continue-grid')!;
+  const emptyEl = document.getElementById('continue-empty')!;
+
+  function render() {
+    let started = 0;
+    let finished = 0;
+    const shown: { el: HTMLElement; pct: number }[] = [];
+
+    for (const el of cards) {
+      const { done, total } = paintCircleCard(el);
+      if (done === 0) {
+        el.classList.add('hidden');
+        continue;
+      }
+      el.classList.remove('hidden');
+      started++;
+      if (total > 0 && done === total) finished++;
+      shown.push({ el, pct: total ? done / total : 0 });
+    }
+
+    // الأقرب للاكتمال أولًا — بدون timestamps في v1
+    shown.sort((a, b) => b.pct - a.pct);
+    for (const { el } of shown) grid.appendChild(el);
+
+    document.getElementById('stat-started')!.textContent = String(started);
+    document.getElementById('stat-finished')!.textContent = String(finished);
+    emptyEl.hidden = shown.length > 0;
+  }
+
+  // التحية بالاسم المحلي — الجيت بيكفله موجود أول ما تدخل
+  function paintGreeting() {
+    document.querySelector<HTMLElement>('[data-greet]')!.textContent = getProfile().name || 'صديقنا';
+  }
+  paintGreeting();
+  window.addEventListener('dash:profile', paintGreeting);
+
+  render();
+  progressStore.subscribe(render);
+</script>
