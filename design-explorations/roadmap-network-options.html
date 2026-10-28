@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>معاينة: ثلاثة اتجاهات لقسم شبكة المسارات · مسارات CAT Reloaded</title>
+
+<!--
+  ملف معاينة مستقل — لا يطبّق أي شيء على الموقع.
+  الاتجاه: ألوان DESIGN.md المعتمدة (نظام فاتح) — خلفية ورقية، حبر، أزرق حبر للتفاعل.
+  البيانات: كل الأسماء والحالات والألوان والمستويات من content/circles/*.json حرفيًا.
+  حقيقة بيانات مهمة: كل المسارات الـ١٤ «prereqs: []» في المحتوى — لا توجد متطلبات
+  سابقة مسجّلة بين المسارات، فلا تُرسم أسهم تبعية اختراعًا؛ الخطوط هنا تجميع فهرسي
+  أو تفرعات مستويات حقيقية، وموضّحة في مفتاح كل تصميم.
+  الخطوط: نسخ للعناوين + Noto Sans Arabic للواجهة، من المشروع نفسه (node_modules).
+-->
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/400.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/500.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/700.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-naskh-arabic/500.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-naskh-arabic/700.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/jetbrains-mono/400.css" />
+
+<style>
+:root {
+  --color-bg: #F8F6EE;
+  --color-surface: #FFFEF9;
+  --color-panel: #F0EEE5;
+  --color-edge: #DEDACB;
+  --color-control-edge: #8C887C;
+  --color-ink: #26313A;
+  --color-muted: #5F6A70;
+  --color-accent: #2E536B;
+  --color-accent-soft: #E8EEF0;
+
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif;
+  --font-ui: "Noto Sans Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
+  --font-key: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--color-ink);
+  background: #ECEAE0; /* شاشة المقارنة — ليست جزءًا من المقترح */
+  line-height: 1.7;
+}
+
+/* ===== واجهة المقارنة ===== */
+.compare-bar { max-width: 1120px; margin-inline: auto; padding: 20px 20px 0; }
+.compare-bar h1 {
+  font-family: var(--font-header);
+  font-size: 1.35rem; font-weight: 700;
+  margin: 0 0 .35rem; line-height: 1.6;
+}
+.compare-bar p { margin: 0; font-size: .8125rem; color: var(--color-muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 12px; }
+.tabs [role="tab"] {
+  font-family: var(--font-ui); font-size: .9375rem; font-weight: 500;
+  padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--color-control-edge);
+  background: transparent; color: var(--color-ink);
+  cursor: pointer; transition: background-color .15s, border-color .15s, color .15s;
+}
+.tabs [role="tab"] .n { color: var(--color-muted); font-size: .8125rem; }
+.tabs [role="tab"]:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.tabs [role="tab"][aria-selected="true"] {
+  background: var(--color-accent); border-color: var(--color-accent); color: var(--color-surface);
+}
+.tabs [role="tab"][aria-selected="true"] .n { color: color-mix(in oklab, var(--color-surface) 75%, var(--color-accent)); }
+:where(button, a, input, [tabindex]):focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+/* ===== مسرح موحّد ===== */
+.stage { max-width: 1120px; margin: 0 auto 12px; padding-inline: 16px; }
+.design {
+  background: var(--color-bg);
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+  padding: clamp(18px, 3vw, 30px);
+}
+.design .head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 8px 24px; margin-bottom: 12px;
+}
+.design .head h2 { font-family: var(--font-header); font-size: 1.45rem; font-weight: 700; margin: 0; line-height: 1.6; }
+.design .head p { margin: 0; font-size: .8125rem; color: var(--color-muted); }
+
+.variant-note {
+  max-width: 1120px; margin: 0 auto 36px; padding-inline: 20px;
+  font-size: .8125rem; color: var(--color-muted); line-height: 1.7;
+}
+.variant-note b { color: var(--color-ink); }
+.preview-meta { color: var(--color-muted); }
+.preview-meta::before { content: "ملاحظة المعاينة: "; font-weight: 700; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* ===== لوحة الشبكة والتحكم ===== */
+.canvas-wrap { position: relative; }
+.canvas {
+  position: relative;
+  height: 560px;
+  border: 1px solid var(--color-edge);
+  border-radius: 12px;
+  background: var(--color-surface);
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+}
+.canvas.dragging { cursor: grabbing; }
+.plane { position: absolute; inset-inline-start: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.plane svg { display: block; }
+
+.controls {
+  position: absolute; top: 10px; inset-inline-start: 10px; z-index: 5;
+  display: flex; gap: 6px;
+}
+.controls button {
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border: 1px solid var(--color-control-edge);
+  border-radius: 9px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.legend {
+  position: absolute; top: 10px; inset-inline-end: 10px; z-index: 5;
+  display: flex; flex-direction: column; gap: 3px;
+  font-size: .75rem; color: var(--color-muted);
+  background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+  border: 1px solid var(--color-edge);
+  border-radius: 9px;
+  padding: 7px 12px;
+  pointer-events: none;
+  line-height: 1.6;
+}
+.legend i { display: inline-block; inline-size: 10px; block-size: 10px; border-radius: 50%; vertical-align: -1px; margin-inline-end: 7px; }
+.legend .full { background: color-mix(in oklab, var(--color-accent) 30%, var(--color-surface)); border: 2px solid var(--color-accent); }
+.legend .wip { background: var(--color-surface); border: 2px dashed var(--color-control-edge); }
+
+/* عقد قابلة للنقر داخل SVG (نمط أزرار) */
+.plane button.node {
+  all: unset; cursor: pointer;
+}
+.plane button.node:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.plane .node-box { transition: opacity .15s, stroke .15s; }
+.plane .has-sel .node-g:not(.sel):not(.rel) { opacity: .22; }
+.plane .has-sel .edge:not(.rel) { opacity: .08; }
+.plane .edge { transition: opacity .15s; }
+.plane .node-g.sel .node-box { stroke: var(--color-accent); stroke-width: 2.5; }
+.plane .node-g .selring { opacity: 0; transition: opacity .15s; }
+.plane .node-g.sel .selring { opacity: 1; }
+
+/* لوحة معلومات المختار */
+.info {
+  margin-top: 12px;
+  border: 1px solid var(--color-edge);
+  border-radius: 12px;
+  background: var(--color-surface);
+  padding: 12px 16px;
+  min-height: 96px;
+  font-size: .875rem;
+}
+.info .who { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.info .who b { font-size: 1rem; }
+.info .who i { inline-size: 10px; block-size: 10px; border-radius: 50%; }
+.info .chip { font-size: .75rem; border-radius: 999px; padding: 1px 10px; border: 1px solid var(--color-edge); color: var(--color-muted); }
+.info .chip.full { color: var(--color-accent); border-color: color-mix(in oklab, var(--color-accent) 40%, var(--color-edge)); background: var(--color-accent-soft); }
+.info .tagline { color: var(--color-muted); margin-top: 2px; }
+.info .facts { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; color: var(--color-muted); font-size: .8125rem; }
+.info .levels { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.info .levels span { font-size: .75rem; color: var(--color-ink); background: var(--color-panel); border: 1px solid var(--color-edge); border-radius: 8px; padding: 2px 9px; }
+.info .clear { margin-top: 8px; font-size: .8125rem; color: var(--color-accent); background: none; border: 1px solid color-mix(in oklab, var(--color-accent) 40%, var(--color-edge)); border-radius: 8px; padding: 3px 12px; cursor: pointer; }
+.info .clear:hover { background: var(--color-accent-soft); }
+
+@media (max-width: 700px) {
+  .canvas { height: 440px; }
+  .legend { font-size: .6875rem; padding: 5px 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="compare-bar">
+  <h1>ثلاثة اتجاهات لقسم شبكة المسارات</h1>
+  <p>نفس بيانات <span dir="ltr">content/circles</span> في الثلاثة: ١٤ مسارًا، حالتاهما، ومستوياتهما الحقيقية — والمحتوى لا يسجّل متطلبات سابقة بين المسارات، فلا أسهم تبعية اختراعًا.</p>
+  <div class="tabs" role="tablist" aria-label="اختيار اتجاه شبكة المسارات">
+    <button role="tab" id="tab-d1" aria-selected="true" aria-controls="design-notebook" data-target="design-notebook" data-hash="notebook">
+      خريطة دفتر <span class="n">١</span>
+    </button>
+    <button role="tab" id="tab-d2" aria-selected="false" aria-controls="design-tree" data-target="design-tree" data-hash="tree" tabindex="-1">
+      شجرة المتطلبات <span class="n">٢</span>
+    </button>
+    <button role="tab" id="tab-d3" aria-selected="false" aria-controls="design-explore" data-target="design-explore" data-hash="explore" tabindex="-1">
+      خريطة استكشاف <span class="n">٣</span>
+    </button>
+  </div>
+</header>
+
+<div class="stage">
+  <section class="design" id="design-notebook" role="tabpanel" aria-labelledby="tab-d1">
+    <div class="head">
+      <h2>خريطة دفتر</h2>
+      <p>بطاقات المسارات متدلية من «عمود فهرس» واحد — الخطوط تجميع فهرسي، وليست علاقات متطلبات</p>
+    </div>
+    <div class="canvas-wrap">
+      <div class="controls" data-controls></div>
+      <div class="legend"><span><i class="full"></i> منهج كامل (٢ من ١٤)</span><span><i class="wip"></i> قيد الإعداد (١٢ من ١٤)</span></div>
+      <div class="canvas" data-canvas><div class="plane" data-plane></div></div>
+    </div>
+    <div class="info" data-info aria-live="polite"></div>
+  </section>
+
+  <section class="design" id="design-tree" role="tabpanel" aria-labelledby="tab-d2" hidden>
+    <div class="head">
+      <h2>شجرة المتطلبات</h2>
+      <p>لا متطلبات سابقة مسجّلة بين المسارات — أيّها يمكن البدء به الآن؟ كلها. التفرعات المعروضة هي مستويات المسارين المكتملين بأسمائها الحقيقية</p>
+    </div>
+    <div class="canvas-wrap">
+      <div class="controls" data-controls></div>
+      <div class="legend"><span><i class="full"></i> منهج كامل — له مستويات فعلية (٢)</span><span><i class="wip"></i> قيد الإعداد — بلا تفرعات بعد (١٢)</span></div>
+      <div class="canvas" data-canvas><div class="plane" data-plane></div></div>
+    </div>
+    <div class="info" data-info aria-live="polite"></div>
+  </section>
+
+  <section class="design" id="design-explore" role="tabpanel" aria-labelledby="tab-d3" hidden>
+    <div class="head">
+      <h2>خريطة استكشاف</h2>
+      <p>توزيع أوسع وأكثر حرية لعُقد المسارات مع تكبير وتحريك — زوايا تفرّع المصغّرة هي مستويات المسارين الحقيقية</p>
+    </div>
+    <div class="canvas-wrap">
+      <div class="controls" data-controls></div>
+      <div class="legend"><span><i class="full"></i> منهج كامل (٢ من ١٤)</span><span><i class="wip"></i> قيد الإعداد (١٢ من ١٤)</span></div>
+      <div class="canvas" data-canvas><div class="plane" data-plane></div></div>
+    </div>
+    <div class="info" data-info aria-live="polite"></div>
+  </section>
+</div>
+
+<p class="variant-note" id="note-notebook">
+  <b>١ · خريطة دفتر:</b> كل مسار هو بطاقة فهرس كاملة — الأيقونة والاسم الإنجليزي كامل والوصف من المحتوى، والعمود الأيمن الأقرب «الصفحة الأولى» للقراءة RTL. الخطوط تمتد من عمود الفهرس إلى كل بطاقة لتجميعها في فهرس واحد، ومكتوب صراحةً إنها ليست متطلبات.
+</p>
+<p class="variant-note" id="note-tree" hidden>
+  <b>٢ · شجرة المتطلبات:</b> العمود الأيمن شجرتا المسارين المكتملين بتفرعاتهم الحقيقية (مستويات Front End الأربعة ومستويات Flutter الأربعة بأسمائها من المحتوى)، والعمود الأيسر جذور المسارات الاثني عشر قيد الإعداد بلا تفرعات بعد. الشارات تجيب السؤال نفسه في كل عقدة: قابل للبدء الآن.
+</p>
+<p class="variant-note" id="note-explore" hidden>
+  <b>٣ · خريطة استكشاف:</b> مساحة أوسع بانتشار حرّ للعقد مع سحب وتكبير مريح لأستكشاف العُقد والأسماء كاملة دون قطع؛ أبنية التفرع الصغيرة تحت المسارين المكتملين هي مستوياتهما الأربعة الحقيقية.
+</p>
+
+<script>
+// ═══════════════ البيانات الفعلية من content/circles/*.json ═══════════════
+const DATA = [
+  { id:'android', name:'Android', status:'raw', color:'#4ade80', icon:'📱', tagline:'تطبيقات أندرويد من الصفر', prereqs:[], levels:[] },
+  { id:'backend', name:'Back End', status:'raw', color:'#34d399', icon:'🛠️', tagline:'Back-End بأربع تتبّعات: DotNet / Laravel / NodeJS / Spring', prereqs:[], levels:[] },
+  { id:'cloud', name:'Cloud Computing & DevOps', status:'raw', color:'#93c5fd', icon:'☁️', tagline:'الحوسبة السحابية و DevOps', prereqs:[], levels:[] },
+  { id:'computer-science', name:'Computer Science', status:'raw', color:'#c084fc', icon:'🧮', tagline:'أساسيات علوم الحاسب', prereqs:[], levels:[] },
+  { id:'cybersecurity', name:'CyberSecurity', status:'raw', color:'#f87171', icon:'🔐', tagline:'أمن سيبراني من الأساسيات للـ SOC', prereqs:[], levels:[] },
+  { id:'data-science', name:'Data Science', status:'raw', color:'#fb923c', icon:'📊', tagline:'تحليل بيانات و ML', prereqs:[], levels:[] },
+  { id:'embedded', name:'Embedded Systems', status:'raw', color:'#a3e635', icon:'🔩', tagline:'أنظمة مدمجة وميكروكنترولر', prereqs:[], levels:[] },
+  { id:'english', name:'English', status:'raw', color:'#f472b6', icon:'🔤', tagline:'إنجليزي خطوة بخطوة', prereqs:[], levels:[] },
+  { id:'flutter', name:'Flutter', status:'structured', color:'#38bdf8', icon:'🐦', tagline:'من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture', prereqs:[], topics:32, levels:['Beginner','Intermediate','Advanced','Titan'] },
+  { id:'front-end', name:'Front End', status:'structured', color:'#f59e0b', icon:'⚛️', tagline:'Phase 1 → Core Engineering → إطار عمل تخصصي', prereqs:[], topics:45, levels:['Phase 1 — The Foundation','Phase 2 — Core Engineering','Phase 3 — React & Next.js','Alternative Tracks (Angular / Vue)'] },
+  { id:'game-dev', name:'Game Development', status:'raw', color:'#e879f9', icon:'🎮', tagline:'تطوير ألعاب بـ Unity & C#', prereqs:[], levels:[] },
+  { id:'ios', name:'iOS', status:'raw', color:'#60a5fa', icon:'🍎', tagline:'تطبيقات iOS بسويفيت', prereqs:[], levels:[] },
+  { id:'media', name:'Media', status:'raw', color:'#facc15', icon:'🎬', tagline:'Content Writing / Motion Graphics / Photography', prereqs:[], levels:[] },
+  { id:'ui', name:'UI/UX', status:'raw', color:'#2dd4bf', icon:'🖌️', tagline:'UI/UX من الأساسيات لمصمم واثق', prereqs:[], levels:[] },
+];
+const AR = (n) => n.toLocaleString('ar-EG');
+const esc = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+// ═══════════════ بناة الثلاثة تصاميم (كلها من DATA وحدها) ═══════════════
+
+// أبسط: نستخدم <g role="button" tabindex=0> مع معالجة لوحة مفاتيح موحّدة
+function nodeWrap(id, inner, x, y, w, h) {
+  return `<g class="node-g" data-node="${id}" data-x="${x}" data-y="${y}" data-w="${w}" data-h="${h}" role="button" tabindex="0" aria-label="تمييز مسار ${esc(DATA.find(d=>d.id===id).name)}">${inner}</g>`;
+}
+
+function edgeLine(cls, from, to, x1, y1, x2, y2, extra='') {
+  return `<line class="edge ${cls}" data-from="${from}" data-to="${to}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${extra} />`;
+}
+
+// ─── ١) خريطة دفتر: عمود فهرس + بطاقتان عموديتان ───
+function buildNotebook() {
+  const W = 980, H = 780;
+  const spineX = 700;
+  const rows = 7, rowH = 104, top = 44;
+  const cardW = 250, cardH = 92;
+  const colRightX = 724; // العمود الأيمن (يبدأ القراءة)
+  const colLeftMax = 676; // العمود الأيسر ينتهي عند 676 ليمتد يسارًا
+  let g = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="خريطة دفتر: ١٤ بطاقة مسار متدلية من عمود فهرس">`;
+  g += `<defs><style>
+    .nb-card { fill: var(--color-surface); stroke: var(--color-edge); stroke-width: 1.2; rx: 10; }
+    .nb-card.full { stroke: color-mix(in oklab, var(--color-accent) 45%, var(--color-edge)); }
+    .nb-name { font: 700 13.5px var(--font-ui); fill: var(--color-ink); }
+    .nb-tag { font: 400 11px var(--font-ui); fill: var(--color-muted); }
+    .nb-meta { font: 500 10.5px var(--font-ui); }
+    .nb-chip-full { fill: var(--color-accent-soft); }
+    .nb-chip-full-t { font: 700 10px var(--font-ui); fill: var(--color-accent); }
+    .nb-chip-wip { fill: none; stroke: var(--color-control-edge); stroke-width: 1; stroke-dasharray: 3 2; }
+    .nb-chip-wip-t { font: 500 10px var(--font-ui); fill: var(--color-muted); }
+    .nb-spine { stroke: var(--color-edge); stroke-width: 2.5; }
+    .nb-spine-cap { fill: var(--color-accent); }
+    .nb-link { stroke: var(--color-edge); stroke-width: 1.2; }
+    .nb-icon { font-size: 17px; }
+    .nb-dot { }
+  </style></defs>`;
+
+  // عمود الفهرس المزدوج (كطية كتاب)
+  g += `<line class="nb-spine" x1="${spineX}" y1="${top - 14}" x2="${spineX}" y2="${H - 24}" />`;
+  g += `<line x1="${spineX + 3.5}" y1="${top - 14}" x2="${spineX + 3.5}" y2="${H - 24}" stroke="var(--color-edge)" stroke-width="1" opacity=".7" />`;
+  g += `<circle class="nb-spine-cap" cx="${spineX + 1.75}" cy="${top - 22}" r="4" />`;
+
+  DATA.forEach((c, i) => {
+    const rightCol = i < 7;
+    const row = rightCol ? i : i - 7;
+    const y = top + row * rowH;
+    const x = rightCol ? colRightX : colLeftMax - cardW;
+    // خيط التجميع من عمود الفهرس إلى البطاقة
+    const tickY = top + row * rowH + cardH / 2;
+    if (rightCol) {
+      g += edgeLine('nb-link', c.id, c.id, spineX + 4, tickY, x, tickY);
+    } else {
+      const srcY = top + (i - 7) * rowH + cardH / 2;
+      g += `<path class="edge nb-link" data-from="${c.id}" data-to="${c.id}" d="M ${spineX + 4} ${srcY} C ${spineX - 40} ${srcY}, ${spineX - 40} ${tickY}, ${x + cardW} ${tickY}" fill="none" />`;
+    }
+    const full = c.status === 'structured';
+    const chipW = 74;
+    // البطاقة: الإطار أيمن أولاً: أيقونة ثم الاسم ثم الوصف، وشريط الحالة أعلى اليسار
+    const inner = `
+      <rect class="node-box nb-card ${full ? 'full' : ''}" x="${x}" y="${y}" width="${cardW}" height="${cardH}" rx="10" />
+      <rect x="${rightCol ? x : x}" y="${y}" width="3.5" height="${cardH}" fill="${c.color}" opacity=".8" />
+      <text class="nb-icon" x="${x + cardW - 20}" y="${y + 29}" text-anchor="middle" style="font-size:15px">${c.icon}</text>
+      <text class="nb-name" style="direction:ltr" x="${x + cardW - 42}" y="${y + 30}" text-anchor="end">${esc(c.name)}</text>
+      <text class="nb-tag" x="${x + cardW - 14}" y="${y + 54}" text-anchor="start">${esc(c.tagline.length > 34 ? c.tagline.slice(0, 33) + '…' : c.tagline)}</text>
+      ${rightCol ? '' : ''}
+      <rect class="${full ? 'nb-chip-full' : 'nb-chip-wip'}" x="${x + cardW - chipW - 14}" y="${y + 63}" width="${chipW}" height="18" rx="9" />
+      <text class="${full ? 'nb-chip-full-t' : 'nb-chip-wip-t'}" x="${x + cardW - 14 - chipW / 2}" y="${y + 75.5}" text-anchor="middle">${full ? 'منهج كامل' : 'قيد الإعداد'}</text>
+      ${full ? `<text class="nb-meta" x="${x + 14}" y="${y + 75.5}" text-anchor="end" fill="var(--color-accent)">${AR(c.levels.length)} مستويات · ${AR(c.topics)} موضوع</text>`
+             : `<text class="nb-meta" x="${x + 14}" y="${y + 75.5}" text-anchor="end" fill="var(--color-control-edge)">بلا تفرعات بعد</text>`}
+    `;
+    g += nodeWrap(c.id, inner, x, y, cardW, cardH);
+  });
+  g += '</svg>';
+  return { svg: g, W, H };
+}
+
+// ─── ٢) شجرة المتطلبات: جذور قابلة للبدء + تفرعات المستويات الحقيقية ───
+function buildTree() {
+  const W = 1020, H = 700;
+  let g = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="شجرة: المسارات الـ١٤ كلها قابلة للبدء؛ المساران المكتملان لهما تفرعات مستويات حقيقية">`;
+  g += `<defs><style>
+    .tr-name { font: 700 14px var(--font-ui); fill: var(--color-ink); }
+    .tr-trunk { stroke: var(--color-control-edge); stroke-width: 2; }
+    .tr-branch { stroke: var(--color-edge); stroke-width: 1.5; fill: none; }
+    .tr-level { font: 500 11.5px var(--font-ui); fill: var(--color-ink); }
+    .tr-level-sub { font: 400 10px var(--font-ui); fill: var(--color-muted); }
+    .tr-root-name { font: 500 12px var(--font-ui); fill: var(--color-muted); }
+    .tr-badge { font: 700 10px var(--font-ui); fill: var(--color-accent); }
+    .tr-badge-bg { fill: var(--color-accent-soft); }
+    .tr-badge-wip { fill: none; stroke: var(--color-control-edge); stroke-dasharray: 3 2; }
+    .tr-badge-wip-t { font: 500 9.5px var(--font-ui); fill: var(--color-muted); }
+    .tr-zone { font: 700 11.5px var(--font-ui); fill: var(--color-muted); }
+  </style></defs>`;
+
+  // شارة عامة أعلى الوسط: كلها قابلة للبدء (المتطلبات غير مسجّلة)
+  g += `<rect class="tr-badge-bg" x="${W / 2 - 168}" y="18" width="336" height="26" rx="13" />`;
+  g += `<text class="tr-badge" x="${W / 2}" y="35" text-anchor="middle">لا متطلبات سابقة مسجّلة — كل المسارات قابلة للبدء</text>`;
+
+  // شجرتا المسارين المكتملين (تفرعات حقيقية من المحتوى)
+  const tree = (c, trunkX, topY) => {
+    let t = `<line class="tr-trunk" x1="${trunkX}" y1="${topY + 40}" x2="${trunkX}" y2="${topY + 40 + 4 * 92}" />`;
+    t += `<circle cx="${trunkX}" cy="${topY + 22}" r="9" fill="${c.color}" />`;
+    t += `<text class="tr-name" style="direction:ltr" x="${trunkX - 20}" y="${topY + 27}" text-anchor="end">${esc(c.name)}</text>`;
+    c.levels.forEach((lv, i) => {
+      const y = topY + 74 + i * 92;
+      t += `<path class="edge tr-branch" data-from="${c.id}" data-to="${c.id}" d="M ${trunkX} ${topY + 48 + i * 92} C ${trunkX - 14} ${y}, ${trunkX - 14} ${y}, ${trunkX - 26} ${y}" fill="none" />`;
+      t += `<circle cx="${trunkX}" cy="${topY + 48 + i * 92}" r="4.5" fill="${c.color}" />`;
+      t += `<text class="tr-level" style="direction:ltr" x="${trunkX - 34}" y="${y - 5}" text-anchor="end">${esc(lv)}</text>`;
+      t += `<text class="tr-level-sub" x="${trunkX - 34}" y="${y + 15}" text-anchor="start">مستوى ${AR(i + 1)} من ${AR(c.levels.length)}</text>`;
+    });
+    return t;
+  };
+  const fe = DATA.find(d => d.id === 'front-end');
+  const fl = DATA.find(d => d.id === 'flutter');
+  g += nodeWrap('front-end', tree(fe, 900, 62), 560, 40, 420, 420);
+  g += nodeWrap('flutter', tree(fl, 545, 62), 250, 40, 290, 420); // أقصر: أسماء أقصر
+
+  // جذور قيد الإعداد — ١٢ جذرًا بلا تفرعات (شبكة ٢×٦ يمين يسار الشجرة الثانية)
+  const raws = DATA.filter(d => d.status === 'raw');
+  raws.forEach((c, i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = col === 0 ? 228 : 88;
+    const y = 110 + row * 88;
+    const inner = `
+      <line class="tr-trunk" x1="${x + 8}" y1="${y + 6}" x2="${x + 8}" y2="${y + 44}" stroke="var(--color-edge)" stroke-width="1.6" />
+      <circle cx="${x + 8}" cy="${y + 6}" r="7" fill="${c.color}" opacity=".85" />
+      <text class="tr-root-name" style="direction:ltr" x="${x + 24}" y="${y + 10}" text-anchor="start">${esc(c.name)}</text>
+      <rect class="tr-badge-wip" x="${x - 6}" y="${y + 50}" width="118" height="17" rx="8.5" />
+      <text class="tr-badge-wip-t" x="${x + 53}" y="${y + 62.5}" text-anchor="middle">قابلة للبدء · قيد الإعداد</text>
+    `;
+    g += nodeWrap(c.id, inner, x - 10, y - 14, 150, 88);
+  });
+  g += '</svg>';
+  return { svg: g, W, H };
+}
+
+// ─── ٣) خريطة استكشاف: انتشار حرّ مع تفرعات مصغّرة للمسارين المكتملين ───
+function buildExplore() {
+  const W = 1180, H = 690;
+  // مواقع مضبوطة يدويًا — فراغات مريحة للأسماء الإنجليزية كاملة
+  const POS = {
+    'computer-science': [110, 80], 'english': [400, 75], 'media': [655, 80], 'ios': [930, 70],
+    'game-dev': [110, 220], 'ui': [350, 190], 'cybersecurity': [560, 205], 'flutter': [880, 250],
+    'android': [1105, 210], 'backend': [150, 380], 'cloud': [365, 400], 'front-end': [640, 430],
+    'data-science': [930, 430], 'embedded': [1085, 570],
+  };
+  let g = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="خريطة استكشاف: انتشار حر لعقد المسارات الـ١٤">`;
+  g += `<defs><style>
+    .ex-name { font: 500 12.5px var(--font-ui); fill: var(--color-muted); }
+    .ex-name.on { font: 700 13.5px var(--font-ui); fill: var(--color-ink); }
+    .ex-count { font: 500 10.5px var(--font-ui); fill: var(--color-accent); }
+    .ex-branch { stroke: var(--color-edge); stroke-width: 1.4; fill: none; }
+    .ex-tick { stroke-width: 2; }
+    .ex-icon { font-size: 15px; }
+    .ex-box { fill: var(--color-surface); stroke-width: 2; }
+    .ex-box.wip { stroke-dasharray: 5 4; stroke-width: 1.6; }
+  </style></defs>`;
+
+  DATA.forEach((c) => {
+    const [x, y] = POS[c.id];
+    const full = c.status === 'structured';
+    if (!full) {
+      const inner = `
+        <circle class="node-box ex-box wip" cx="${x}" cy="${y}" r="17" stroke="${c.color}" fill="var(--color-surface)" />
+        <text class="ex-icon" x="${x}" y="${y + 5}" text-anchor="middle">${c.icon}</text>
+        <text class="ex-name" style="direction:ltr" x="${x}" y="${y + 37}" text-anchor="middle">${esc(c.name)}</text>
+        <text x="${x}" y="${y + 58}" text-anchor="middle" style="font:500 9.5px var(--font-ui);fill:var(--color-control-edge)">قابلة للبدء · قيد الإعداد</text>
+      `;
+      g += nodeWrap(c.id, inner, x - 90, y - 20, 180, 80);
+    } else {
+      // عقدة كبيرة + تفرعات المستويات الأربعة الحقيقية أسفلها
+      const branchR = 46;
+      const ticks = c.levels.map((lv, i) => {
+        const ang = (-90 + (i * (180 / (c.levels.length - 1)))) * Math.PI / 180; // مروحة لأعلى ونصف دائرة سفلية صغيرة? نستخدم مروحة سفلية عريضة
+        const a = (200 + i * (140 / (c.levels.length - 1))) * Math.PI / 180;
+        const tx = x + Math.cos(a) * branchR, ty = y + Math.sin(a) * branchR + 18;
+        return `<line class="edge ex-branch" data-from="${c.id}" data-to="${c.id}" x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" /><circle class="ex-tick" cx="${tx}" cy="${ty}" r="4.5" fill="${c.color}" stroke="var(--color-surface)" />`;
+      }).join('');
+      const inner = `
+        <circle class="selring" cx="${x}" cy="${y}" r="33" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-dasharray="4 4" />
+        ${ticks}
+        <circle class="node-box ex-box" cx="${x}" cy="${y}" r="27" fill="${c.color}" fill-opacity=".16" stroke="${c.color}" />
+        <text class="ex-icon" x="${x}" y="${y + 6}" text-anchor="middle" style="font-size:20px">${c.icon}</text>
+        <text class="ex-name on" style="direction:ltr" x="${x}" y="${y + 46}" text-anchor="middle">${esc(c.name)}</text>
+        <text class="ex-count" x="${x}" y="${y + 67}" text-anchor="middle">${AR(c.levels.length)} مستويات · ${AR(c.topics)} موضوع</text>
+      `;
+      // أوسع للنقر: مساحة نقر مستطيلة غير مرئية
+      g += nodeWrap(c.id, inner + `<rect x="${x - 95}" y="${y - 33}" width="190" height="115" fill="transparent" stroke="none" />`, x - 95, y - 33, 190, 115);
+    }
+  });
+  g += '</svg>';
+  return { svg: g, W, H };
+}
+
+// ═══════════════ تحكم السحب والتكبير + التحديد + اللوحة ═══════════════
+const ICONS = {
+  in: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6"/><path d="m20 20-3.5-3.5"/></svg>',
+  out: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6"/><path d="m20 20-3.5-3.5"/></svg>',
+  fit: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>',
+};
+
+class Widget {
+  constructor(root, build) {
+    const canvas = root.querySelector('[data-canvas]');
+    const plane = root.querySelector('[data-plane]');
+    const info = root.querySelector('[data-info]');
+    const { svg, W, H } = build();
+    plane.innerHTML = svg;
+    plane.style.width = W + 'px'; plane.style.height = H + 'px';
+    const st = { x: 0, y: 0, s: 1 };
+    const apply = () => { plane.style.transform = `translate(${st.x}px, ${st.y}px) scale(${st.s})`; };
+    const fit = () => {
+      const cw = canvas.clientWidth, ch = canvas.clientHeight;
+      const s = Math.min(cw / W, ch / H, 1.15);
+      st.s = s;
+      st.x = (cw - W * s) / 2;
+      st.y = (ch - H * s) / 2;
+      apply();
+    };
+    // أزرار التحكم المطلوبة: تكبير، تصغير، إعادة ملاءمة
+    const controls = root.querySelector('[data-controls]');
+    controls.innerHTML = `
+      <button type="button" data-z="in" aria-label="تكبير">${ICONS.in}</button>
+      <button type="button" data-z="out" aria-label="تصغير">${ICONS.out}</button>
+      <button type="button" data-z="fit" aria-label="إعادة الملاءمة">${ICONS.fit}</button>
+    `;
+    controls.querySelector('[data-z="in"]').addEventListener('click', () => { st.s = Math.min(st.s * 1.25, 3); apply(); });
+    controls.querySelector('[data-z="out"]').addEventListener('click', () => { st.s = Math.max(st.s / 1.25, 0.35); apply(); });
+    controls.querySelector('[data-z="fit"]').addEventListener('click', fit);
+    // السحب للتحريك
+    let drag = null;
+    canvas.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button.node, [role="button"][data-node]') && e.button === 0) return; // النقر على عقدة لا يسحب
+      drag = { x: e.clientX - st.x, y: e.clientY - st.y };
+      canvas.classList.add('dragging');
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', (e) => { if (drag) { st.x = e.clientX - drag.x; st.y = e.clientY - drag.y; apply(); } });
+    canvas.addEventListener('pointerup', () => { drag = null; canvas.classList.remove('dragging'); });
+    canvas.addEventListener('pointercancel', () => { drag = null; canvas.classList.remove('dragging'); });
+    window.addEventListener('resize', () => { if (!this.touched) fit(); });
+    // التحديد
+    const setSel = (id) => {
+      const g = plane.querySelector('.node-g.sel');
+      if (g) g.classList.remove('sel');
+      plane.classList.remove('has-sel');
+      plane.querySelectorAll('.node-g.rel').forEach(n => n.classList.remove('rel'));
+      plane.querySelectorAll('.edge.rel').forEach(n => n.classList.remove('rel'));
+      if (!id) { renderInfo(root, info, null); return; }
+      const node = plane.querySelector(`.node-g[data-node="${id}"]`);
+      if (node) { node.classList.add('sel'); plane.classList.add('has-sel'); }
+      plane.querySelectorAll(`.edge[data-from="${id}"], .edge[data-to="${id}"]`).forEach(n => n.classList.add('rel'));
+      renderInfo(root, info, id === undefined ? null : id);
+      this.touched = true;
+    };
+    plane.addEventListener('click', (e) => {
+      const n = e.target.closest('[data-node]');
+      if (!n) return;
+      const id = n.getAttribute('data-node');
+      setSel(plane.querySelector(`.node-g.sel`)?.getAttribute('data-node') === id ? null : id);
+    });
+    plane.addEventListener('keydown', (e) => {
+      const n = e.target.closest?.('[data-node]');
+      if (!n) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); n.dispatchEvent(new Event('click', { bubbles: true })); }
+    });
+    renderInfo(root, info, null);
+    this.fitOnce = fit;
+    this.setSel = setSel;
+    fit();
+    requestAnimationFrame(fit);
+  }
+}
+
+function renderInfo(root, info, id) {
+  if (!id) {
+    info.innerHTML = `<div class="who"><b>دوس على أي مسار لتمييزه</b></div><div class="tagline">التمييز يُظهر علاقاته المرسومة (تجميع الفهرس أو تفرعات المستويات)، ويمكن السحب والتكبير والتصغير وإعادة الملاءمة</div>`;
+    return;
+  }
+  const c = DATA.find(d => d.id === id);
+  const full = c.status === 'structured';
+  info.innerHTML = `
+    <div class="who">
+      <i style="background:${c.color}"></i><b class="ltr">${esc(c.name)}</b>
+      <span class="chip ${full ? 'full' : ''}">${full ? 'منهج كامل' : 'قيد الإعداد'}</span>
+      <span class="chip">قابل للبدء الآن</span>
+      <button class="clear" type="button">مسح التحديد</button>
+    </div>
+    <div class="tagline">${esc(c.tagline)}</div>
+    <div class="facts">
+      <span>المستويات: ${full ? AR(c.levels.length) : '—'}</span>
+      <span>الموضوعات: ${full ? AR(c.topics) : '—'}</span>
+      <span>متطلبات سابقة في المحتوى: لا شيء مسجّل</span>
+      <span>تفرعات معروضة هنا: ${full ? 'مستويات المسار نفسه' : 'لا يوجد'}</span>
+    </div>
+    ${full ? `<div class="levels">${c.levels.map(l => `<span class="ltr">${esc(l)}</span>`).join('')}</div>` : ''}
+  `;
+  info.querySelector('.clear').addEventListener('click', () => root.__widget.setSel(null));
+}
+
+// تشغيل الثلاثة
+const roots = {
+  'design-notebook': buildNotebook,
+  'design-tree': buildTree,
+  'design-explore': buildExplore,
+};
+for (const [id, build] of Object.entries(roots)) {
+  const root = document.getElementById(id);
+  root.__widget = new Widget(root, build);
+}
+
+// تبديل التبويبات + hash
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function select(tab, focus = false) {
+  for (const t of tabs) {
+    const on = t === tab;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.dataset.target).hidden = !on;
+    document.getElementById('note-' + t.dataset.hash).hidden = !on;
+  }
+  history.replaceState(null, '', '#' + tab.dataset.hash);
+  if (focus) tab.focus();
+  const widget = document.getElementById(tab.dataset.target).__widget;
+  requestAnimationFrame(() => widget.fitOnce());
+}
+tabs.forEach(t => t.addEventListener('click', () => select(t)));
+document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+  const i = tabs.indexOf(document.activeElement);
+  if (i < 0) return;
+  if (e.key === 'ArrowLeft') select(tabs[(i + 1) % tabs.length], true);
+  else if (e.key === 'ArrowRight') select(tabs[(i + tabs.length - 1) % tabs.length], true);
+  else if (e.key === 'Home') select(tabs[0], true);
+  else if (e.key === 'End') select(tabs[tabs.length - 1], true);
+  else return;
+  e.preventDefault();
+});
+const initial = tabs.find(t => '#' + t.dataset.hash === location.hash);
+if (initial) select(initial);
+</script>
+</body>
+</html>

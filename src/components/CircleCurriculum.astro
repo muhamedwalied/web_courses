@@ -18,6 +18,9 @@ const paragraphs = (circle.overview?.paragraphs?.length ? circle.overview.paragr
 );
 const [leadParagraph, ...restParagraphs] = paragraphs;
 const highlights = circle.overview?.highlights ?? [];
+// صحة تحريرية: الوصف يُعرض بارزًا في رأس الصفحة؛ قسم «نظرة عامة» يظهر فقط
+// عندما تكون هناك فقرات overview حقيقية إضافية في المحتوى — لا تكرار لنفس النص.
+const hasOwnOverview = (circle.overview?.paragraphs?.length ?? 0) > 0;
 
 const toTopicsCount = (level: Circle['levels'][number]) => level.modules.reduce((a, m) => a + m.topics.length, 0);
 const toModules = (level: Circle['levels'][number]) => [...level.modules].sort((a, b) => a.order - b.order);
@@ -38,23 +41,26 @@ const levelCount = circle.levels.length;
 const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m) => a + m.topics.length, 0), 0);
 ---
 
-<p class="font-mono text-[10px] uppercase text-accent">Course Overview</p>
-<h2 class="mt-1 text-xl font-bold">نظرة عامة على المسار</h2>
-
-<div class="mt-3 space-y-2">
-  {leadParagraph && <p class="text-sm leading-7 text-muted">{leadParagraph}</p>}
-  {restParagraphs.map((p) => (
-    <p class="text-sm leading-7 text-muted">{p}</p>
-  ))}
-</div>
+{
+  hasOwnOverview && (
+    <div class="mb-2">
+      <h2 class="text-xl font-bold">نظرة عامة على المسار</h2>
+      <div class="mt-3 space-y-2">
+        {leadParagraph && <p class="max-w-[70ch] text-sm leading-[1.9] text-muted">{leadParagraph}</p>}
+        {restParagraphs.map((p) => (
+          <p class="max-w-[70ch] text-sm leading-[1.9] text-muted">{p}</p>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 {
   levelCount > 0 && (
     <section id="curriculum" class="mt-10 scroll-mt-20" aria-labelledby="curriculum-title">
       <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p class="font-mono text-[10px] uppercase text-accent">Course Curriculum</p>
-          <h2 id="curriculum-title" class="mt-1 text-xl font-bold">منهج المسار</h2>
+          <h2 id="curriculum-title" class="text-xl font-bold">منهج المسار</h2>
         </div>
         <span class="shrink-0 rounded-full border border-edge bg-panel/70 px-2.5 py-1 font-mono text-[10px] text-muted">
           {levelCount} مراحل · {topicCount} موضوع
@@ -103,7 +109,7 @@ const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m
                         href={`/start-${circle.id}/#${level.id}/${module.id}/${topic.id}`}
                         class="group/row flex min-h-10 items-center gap-2.5 rounded-lg border border-edge/60 bg-panel/55 px-3 py-2 transition hover:border-accent/30 hover:bg-panel"
                       >
-                        <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent/80" />
+                        <Icon name={topicGlyph(topic)} class="size-3.5 shrink-0 text-accent/80" />
                         <span dir="auto" class="min-w-0 flex-1 truncate text-xs leading-5 text-ink/90">
                           {topic.title}
                         </span>
@@ -111,8 +117,7 @@ const topicCount = circle.levels.reduce((acc, l) => acc + l.modules.reduce((a, m
                           {hasArabicVideo(topic) && (
                             <span class="rounded bg-accent/10 px-1.5 py-0.5 font-mono font-bold text-accent/80">عربي</span>
                           )}
-                          <Icon name={topicGlyph(topic)} class="size-3.5" />
-                          <span class="hidden sm:inline">{topic.resources.length > 0 ? `${topic.resources.length} مصادر` : 'درس'}</span>
+                          <span>{topic.resources.length > 0 ? `${topic.resources.length} مصادر` : 'درس'}</span>
                         </span>
                       </a>
                     ))}

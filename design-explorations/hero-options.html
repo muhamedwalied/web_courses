@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>معاينة: ثلاثة اتجاهات لقسم الـ Hero · مسارات CAT Reloaded</title>
+
+<!--
+  ملف معاينة مستقل — لا يطبّق أي شيء على الموقع.
+  - الألوان والاتجاه: قيم DESIGN.md المقترحة (قيد المراجعة) — للمعاينة فقط.
+  - الواجهة: Noto Sans Arabic من المشروع نفسه (node_modules/@fontsource) مع fallback للنظام.
+  - العناوين: Noto Naskh Arabic — متوفر مانعًا على جهاز المتصفح (تثبت بـ fc-list)، متبقّي
+    احتياطي إلى Noto Kufi Arabic ثم Noto Sans Arabic. لو فتحت الملف على جهاز آخر بلا Naskh
+    هيسترن البديل ولا ينزّل أي شيء.
+  - كل النصوص والأرقام من المحتوى الفعلي: index.astro و content/circles/*.json حرفيًا.
+-->
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/400.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/500.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/700.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/jetbrains-mono/400.css" />
+
+<style>
+:root {
+  /* قيم DESIGN.md المقترحة — قيد المراجعة، غير مطبقة على الموقع */
+  --color-bg: #F8F6EE;
+  --color-surface: #FFFEF9;
+  --color-panel: #F0EEE5;
+  --color-edge: #DEDACB;
+  --color-control-edge: #8C887C;
+  --color-ink: #26313A;
+  --color-muted: #5F6A70;
+  --color-accent: #2E536B;
+  --color-accent-soft: #E8EEF0;
+
+  /* ألوان المسارات الفعلية من content/circles — علامات ثانوية فقط */
+  --c-front-end: #f59e0b;
+  --c-flutter: #38bdf8;
+
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif;
+  --font-ui: "Noto Sans Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
+  --font-key: "JetBrains Mono", ui-monospace, monospace; /* للـ kbd فقط */
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--color-ink);
+  background: #ECEAE0; /* لون شاشة المقارنة حول الـ Hero — ليس جزءًا من المقترح */
+  line-height: 1.7;
+}
+
+/* ============ واجهة المقارنة (خارج الهيرو) ============ */
+.compare-bar {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 20px 20px 0;
+}
+.compare-bar h1 {
+  font-family: var(--font-header);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 .35rem;
+  line-height: 1.6;
+}
+.compare-bar p { margin: 0; font-size: .8125rem; color: var(--color-muted); }
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 12px;
+}
+.tabs [role="tab"] {
+  font-family: var(--font-ui);
+  font-size: .9375rem;
+  font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-control-edge);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.tabs [role="tab"] .n { color: var(--color-muted); font-size: .8125rem; }
+.tabs [role="tab"]:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.tabs [role="tab"][aria-selected="true"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-surface);
+}
+.tabs [role="tab"][aria-selected="true"] .n { color: color-mix(in oklab, var(--color-surface) 75%, var(--color-accent)); }
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============ المسرح: هندسة واحدة لكل التصاميم ============ */
+.stage {
+  max-width: 1120px;
+  margin: 0 auto 16px;
+  padding-inline: 16px;
+}
+.hero {
+  background: var(--color-bg);
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+  min-height: 540px;
+  padding: clamp(28px, 5vw, 56px);
+  display: grid;
+  align-content: start;
+}
+/* سطح المكتب: مثلث مقارنة، معدات متساوية للاتجاهات الثلاثة لتبقى المقارنة بلا انحياز للحجم */
+@media (min-width: 881px) {
+  .hero { min-height: 780px; }
+}
+.variant-note {
+  max-width: 1120px;
+  margin: 0 auto 40px;
+  padding-inline: 20px;
+  font-size: .8125rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+.variant-note b { color: var(--color-ink); font-weight: 700; }
+.preview-meta { color: var(--color-muted); }
+.preview-meta::before { content: "ملاحظة المعاينة: "; font-weight: 700; }
+[hidden] { display: none !important; }
+
+/* عناصر مشتركة داخل الهيرو */
+.kicker { font-size: .8125rem; color: var(--color-muted); margin: 0; }
+.h-display {
+  font-family: var(--font-header);
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--color-ink);
+}
+.lede { color: var(--color-muted); line-height: 1.7; margin: 0; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* ================= الاتجاه ١ — تحريري ================= */
+.v-editorial { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: clamp(24px, 4vw, 56px); align-items: stretch; }
+.v-editorial .col-text { padding-inline-end: 0; }
+.v-editorial .h-display { font-size: clamp(2.1rem, 4.2vw, 3.1rem); margin-top: 14px; max-width: 15ch; }
+.v-editorial .lede { margin-top: 18px; max-width: 46ch; }
+
+.v-editorial .rule-double {
+  margin-top: 22px;
+  border-top: 3px double var(--color-edge);
+}
+.v-editorial .stats-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 26px;
+  padding-top: 14px;
+  margin: 0;
+}
+.v-editorial .stat { display: flex; align-items: baseline; gap: 8px; }
+.v-editorial .stat b { font-family: var(--font-header); font-size: 1.5rem; font-weight: 700; line-height: 1.5; }
+.v-editorial .stat span { font-size: .8125rem; color: var(--color-muted); }
+
+.search-row { margin-top: 26px; display: flex; max-width: 46ch; }
+.search-row .field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-control-edge);
+  /* RTL: الحقل في جهة البداية (يمين) — تنعيم الصدر الأيمن فقط وتسطيح الطرف المتصل بالزر */
+  border-start-start-radius: 10px;
+  border-end-start-radius: 10px;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  padding: 10px 14px;
+}
+.search-row input {
+  all: unset;
+  flex: 1;
+  font-size: .9375rem;
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+.search-row input::placeholder { color: var(--color-muted); }
+.search-row kbd {
+  font-family: var(--font-key);
+  font-size: .6875rem;
+  color: var(--color-muted);
+  border: 1px solid var(--color-edge);
+  border-radius: 5px;
+  padding: 1px 7px;
+  background: var(--color-panel);
+}
+.search-row .go {
+  font-family: var(--font-ui);
+  font-size: .9375rem;
+  font-weight: 500;
+  border: 1px solid var(--color-accent);
+  border-start-start-radius: 0; border-end-start-radius: 0;
+  border-start-end-radius: 10px; border-end-end-radius: 10px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: 0 22px;
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.search-row .go:hover { background: color-mix(in oklab, var(--color-accent) 88%, black); }
+
+.v-editorial .col-art { position: relative; display: grid; place-items: center; }
+.v-editorial .col-art svg { width: 100%; max-width: 380px; height: auto; }
+
+/* ================= الاتجاه ٢ — خريطة تعلّم ================= */
+.v-map { grid-template-rows: auto 1fr auto; gap: clamp(16px, 2.5vw, 28px); }
+.v-map .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 40px; }
+.v-map .h-display { font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin-top: 12px; }
+.v-map .lede { margin-top: 10px; max-width: 52ch; }
+.v-map .legend { display: flex; flex-direction: column; gap: 4px; font-size: .8125rem; color: var(--color-muted); min-width: 190px; }
+.v-map .legend i { display: inline-block; inline-size: 12px; block-size: 12px; border-radius: 50%; vertical-align: -1px; margin-inline-end: 8px; }
+.v-map .legend .full { background: var(--color-accent-soft); border: 2px solid var(--color-accent); }
+.v-map .legend .wip { background: var(--color-surface); border: 2px dashed var(--color-muted); }
+
+.v-map .map-box { display: grid; place-items: center; }
+.v-map .map-box svg { width: 100%; height: auto; max-height: 340px; }
+.v-map svg text { font-family: var(--font-ui); }
+.v-map .node-name { font-size: 11px; fill: var(--color-muted); }
+.v-map .node-name.on { font-size: 12.5px; font-weight: 700; fill: var(--color-ink); }
+.v-map .node-count { font-size: 10.5px; fill: var(--color-accent); }
+
+.v-map .picked {
+  background: var(--color-surface);
+  border: 1px solid var(--color-edge);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 10px;
+  font-size: .8438rem;
+}
+.v-map .picked .who { font-weight: 700; font-size: .9375rem; }
+.v-map .picked .who i { display: inline-block; inline-size: 10px; block-size: 10px; border-radius: 50%; margin-inline-start: 8px; background: var(--c-front-end); }
+.v-map .picked .phase { color: var(--color-muted); padding-inline-start: 12px; border-inline-start: 2px solid var(--color-edge); }
+.v-map .picked .phase b { color: var(--color-ink); font-weight: 700; }
+.v-map .picked .priv { margin-inline-start: auto; color: var(--color-muted); font-size: .7813rem; display: flex; align-items: center; gap: 6px; }
+.v-map .picked .priv svg { inline-size: 14px; block-size: 14px; flex: none; }
+
+/* ================= الاتجاه ٣ — دفتر منظّم ================= */
+.v-toc { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); }
+.v-toc .h-display { font-size: clamp(2rem, 3.8vw, 2.8rem); margin-top: 14px; }
+.v-toc .lede { margin-top: 16px; max-width: 40ch; }
+.v-toc .footnote { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--color-edge); font-size: .8125rem; color: var(--color-muted); display: flex; align-items: center; gap: 8px; }
+.v-toc .footnote svg { inline-size: 15px; block-size: 15px; flex: none; }
+
+.v-toc .book-tabset { display: flex; gap: 2px; }
+.v-toc .book-tabset button {
+  all: unset;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: .8125rem;
+  padding: 8px 16px 6px;
+  background: var(--color-panel);
+  color: var(--color-muted);
+  border: 1px solid var(--color-edge);
+  border-bottom: none;
+  border-start-start-radius: 10px;
+  border-start-end-radius: 10px;
+  transition: color .15s, background-color .15s;
+}
+.v-toc .book-tabset button:hover { color: var(--color-ink); }
+.v-toc .book-tabset button[aria-pressed="true"] {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: 700;
+  box-shadow: 0 -2px 0 var(--color-accent) inset;
+}
+.v-toc .sheet {
+  background: var(--color-surface);
+  border: 1px solid var(--color-edge);
+  border-start-start-radius: 0; border-start-end-radius: 0;
+  border-end-start-radius: 12px; border-end-end-radius: 12px;
+  padding: 6px 22px 14px;
+}
+.v-toc ol { list-style: none; margin: 0; padding: 0; font-size: .9375rem; }
+.v-toc li { border-bottom: 1px solid color-mix(in oklab, var(--color-edge) 55%, transparent); }
+.v-toc li:last-child { border-bottom: none; }
+.v-toc .row { display: flex; align-items: center; gap: 12px; padding: 7px 2px; }
+.v-toc .dot { inline-size: 9px; block-size: 9px; border-radius: 50%; flex: none; }
+.v-toc .row .name { font-weight: 500; white-space: nowrap; }
+.v-toc .leader { flex: 1; border-bottom: 2px dotted color-mix(in oklab, var(--color-control-edge) 55%, transparent); transform: translateY(-4px); min-width: 24px; }
+.v-toc .meta { font-size: .8125rem; color: var(--color-muted); white-space: nowrap; }
+.v-toc .meta.full { color: var(--color-accent); font-weight: 700; }
+
+/* ============ استجابة ============ */
+@media (max-width: 640px) {
+  /* الحبل النقّاط لا يسع الشاشة الضيقة: المعلومة تلتف تحت الاسم */
+  .v-toc .row { flex-wrap: wrap; row-gap: 2px; }
+  .v-toc .leader { display: none; }
+  .v-toc .meta { flex-basis: 100%; padding-inline-start: 21px; white-space: normal; }
+}
+@media (max-width: 880px) {
+  .hero { min-height: 0; padding: 24px 22px; }
+  .v-editorial, .v-toc { grid-template-columns: 1fr; }
+  .v-editorial .col-art { order: 2; margin-top: 24px; }
+  .v-editorial .col-art svg { max-width: 300px; }
+  .search-row .go { padding: 0 14px; }
+  .v-map .picked .priv { margin-inline-start: 0; }
+  .compare-bar, .stage, .variant-note { padding-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="compare-bar">
+  <h1>ثلاثة اتجاهات لقسم الـ Hero · الصفحة الرئيسية</h1>
+  <p>ألوان DESIGN.md المقترحة (قيد المراجعة) · عناوين <span dir="ltr">Noto Naskh Arabic</span> (متوفر على جهازك سنغًا، بديله افتراضيًا <span dir="ltr">Noto Kufi Arabic</span>) · واجهة <span dir="ltr">Noto Sans Arabic</span> من المشروع.</p>
+  <div class="tabs" role="tablist" aria-label="اختيار اتجاه الـ Hero">
+    <button role="tab" id="tab-editorial" aria-selected="true" aria-controls="hero-editorial" data-target="hero-editorial" data-hash="editorial">
+      تحريري <span class="n">١</span>
+    </button>
+    <button role="tab" id="tab-map" aria-selected="false" aria-controls="hero-map" data-target="hero-map" data-hash="map" tabindex="-1">
+      خريطة تعلّم <span class="n">٢</span>
+    </button>
+    <button role="tab" id="tab-toc" aria-selected="false" aria-controls="hero-toc" data-target="hero-toc" data-hash="toc" tabindex="-1">
+      دفتر منظّم <span class="n">٣</span>
+    </button>
+  </div>
+</header>
+
+<div class="stage">
+
+  <!-- ═══════════════ الاتجاه ١ — تحريري ═══════════════ -->
+  <section class="hero v-editorial" id="hero-editorial" role="tabpanel" aria-labelledby="tab-editorial">
+    <div class="col-text">
+      <p class="kicker"><span class="ltr">CAT Reloaded · Circles Roadmaps</span></p>
+      <h2 class="h-display">رحلتك التعليمية كاملة في شبكة واحدة</h2>
+      <p class="lede">١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوع بموضوع (محفوظ على جهازك)، وابدأ من أي نقطة.</p>
+
+      <div class="rule-double" aria-hidden="true"></div>
+      <p class="stats-line">
+        <span class="stat"><b>١٤</b><span>مسار</span></span>
+        <span class="stat"><b>٨</b><span>مستوى تعلّم</span></span>
+        <span class="stat"><b>٧٧</b><span>موضوع</span></span>
+        <span class="stat"><b>٣٤٠</b><span>مصدر تعلّم</span></span>
+      </p>
+
+      <div class="search-row">
+        <div class="field">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-muted); flex: none;" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" placeholder="ابحث في المسارات والموضوعات والمصادر…" aria-label="بحث — معاينة عرض فقط" />
+          <kbd>/</kbd>
+        </div>
+        <button class="go" type="button">بحث</button>
+      </div>
+    </div>
+
+    <div class="col-art">
+      <!-- صفحة منهج تنطلق منها شبكة مسارات — رسم خطي بالحبر، علامتا المسارين المبنيين فقط -->
+      <svg viewBox="0 0 380 460" role="img" aria-label="رسم توضيحي: صفحة منهج مرتبطة بمسارات مترابطة">
+        <defs>
+          <style>
+            .pg { fill: var(--color-surface); stroke: var(--color-edge); stroke-width: 1.5; }
+            .pg-line { stroke: #E6E2D5; stroke-width: 2; stroke-linecap: round; }
+            .pg-head { fill: var(--color-ink); }
+            .margin { stroke: var(--color-accent); stroke-width: 1; opacity: .28; }
+            .flow { fill: none; stroke: var(--color-accent); stroke-width: 2; stroke-linecap: round; }
+            .link { stroke: var(--color-edge); stroke-width: 1.5; }
+            .nd { stroke-width: 2; }
+            .nd-wip { fill: var(--color-surface); stroke: var(--color-muted); stroke-dasharray: 4 3; }
+          </style>
+        </defs>
+        <rect class="pg" x="64" y="18" width="252" height="330" rx="10" />
+        <line class="margin" x1="112" y1="34" x2="112" y2="332" />
+        <!-- عنوان المنهج وسطوره -->
+        <rect class="pg-head" x="136" y="52" width="128" height="15" rx="4" />
+        <rect class="pg-head" x="136" y="80" width="82" height="9" rx="4" opacity=".55"/>
+        <line class="pg-line" x1="136" y1="120" x2="298" y2="120" />
+        <line class="pg-line" x1="136" y1="140" x2="266" y2="140" />
+        <line class="pg-line" x1="136" y1="160" x2="288" y2="160" />
+        <!-- سطر مميّز بنقطة مسار Front End -->
+        <circle cx="126" cy="196" r="4.5" fill="var(--c-front-end)" />
+        <line class="pg-line" x1="140" y1="196" x2="290" y2="196" />
+        <line class="pg-line" x1="136" y1="226" x2="250" y2="226" />
+        <line class="pg-line" x1="136" y1="246" x2="282" y2="246" />
+        <!-- سطر مميّز بنقطة مسار Flutter -->
+        <circle cx="126" cy="282" r="4.5" fill="var(--c-flutter)" />
+        <line class="pg-line" x1="140" y1="282" x2="272" y2="282" />
+        <line class="pg-line" x1="136" y1="312" x2="234" y2="312" />
+        <!-- الشبكة تنطلق من أسفل الصفحة -->
+        <path class="flow" d="M300 330 C 322 366, 296 382, 316 408" />
+        <line class="link" x1="230" y1="348" x2="222" y2="404" />
+        <line class="link" x1="150" y1="334" x2="112" y2="392" />
+        <!-- عقد الشبكة -->
+        <circle class="nd" cx="316" cy="416" r="11" fill="var(--c-front-end)" fill-opacity=".9" stroke="var(--color-surface)" />
+        <circle class="nd" cx="222" cy="412" r="9" fill="var(--c-flutter)" fill-opacity=".9" stroke="var(--color-surface)" />
+        <circle class="nd nd-wip" cx="112" cy="400" r="8.5" />
+        <circle class="nd nd-wip" cx="352" cy="440" r="7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════ الاتجاه ٢ — خريطة تعلّم ═══════════════ -->
+  <section class="hero v-map" id="hero-map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="head">
+      <div>
+        <h2 class="h-display">تصفّح المسارات، تابع تقدّمك موضوعًا بموضوع</h2>
+        <p class="lede">شبكة المسارات في لمحة: مساران بمنهج كامل قابل للتتبّع، والباقي قيد الإعداد. تقدّمك محفوظ على جهازك وترجع له وقتما تشاء.</p>
+      </div>
+      <div class="legend" aria-hidden="false">
+        <span><i class="full"></i> منهج كامل (٢ من ١٤)</span>
+        <span><i class="wip"></i> قيد الإعداد (١٢ من ١٤)</span>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <!-- خريطة المسارات الـ ١٤ بأسمائها وألوانها الفعلية — الترتيب للعرض فقط -->
+      <svg viewBox="0 0 760 500" role="img" aria-label="مخطط المسارات الـ ١٤: منهج كامل للـ Front End والـ Flutter، والباقي قيد الإعداد">
+        <defs>
+          <style>
+            .st { stroke-width: 2.5; }
+            .wip { stroke-dasharray: 5 4; stroke-width: 1.6; fill: var(--color-surface); }
+            .mesh { stroke: var(--color-edge); stroke-width: 1; stroke-dasharray: 2 5; fill: none; }
+            .sel { fill: none; stroke: var(--color-accent); stroke-width: 2; }
+            text { font-family: var(--font-ui); }
+          </style>
+        </defs>
+        <!-- مسار توضيحي رفيع بين العقد (تنظيم بصري فقط) -->
+        <path class="mesh" d="M240 105 L385 60 L545 105 M240 105 L130 230 L150 350 M130 230 L330 235 L545 225 M545 225 L560 350 M330 235 L345 395 M560 350 L470 430 M150 350 L250 420 L345 395 M545 105 L665 200 L560 350 M665 200 L645 340 M345 395 L470 430" />
+        <!-- ═ مساران بمنهج كامل ═ -->
+        <g>
+          <circle cx="240" cy="82" r="30" fill="#38bdf8" fill-opacity=".14" class="st" stroke="#38bdf8" />
+          <text x="240" y="132" text-anchor="middle" class="node-name on">Flutter</text>
+          <text x="240" y="168" text-anchor="middle" class="node-count">٤ مستويات · ٣٢ موضوع</text>
+        </g>
+        <g>
+          <circle class="sel" cx="545" cy="76" r="40" />
+          <circle cx="545" cy="82" r="30" fill="#f59e0b" fill-opacity=".16" class="st" stroke="#f59e0b" />
+          <text x="545" y="132" text-anchor="middle" class="node-name on">Front End</text>
+          <text x="545" y="168" text-anchor="middle" class="node-count">٤ مستويات · ٤٥ موضوع</text>
+          <line x1="545" y1="178" x2="545" y2="360" stroke="var(--color-accent)" stroke-width="1.4" stroke-dasharray="3 4" opacity=".45" />
+        </g>
+        <!-- ═ قيد الإعداد ═ -->
+        <g>
+          <circle class="wip" cx="385" cy="52" r="15" stroke="#f472b6" /><text x="385" y="34" text-anchor="middle" class="node-name">English</text>
+          <circle class="wip" cx="130" cy="230" r="15" stroke="#e879f9" /><text x="130" y="262" text-anchor="middle" class="node-name">Game Development</text>
+          <circle class="wip" cx="330" cy="235" r="15" stroke="#c084fc" /><text x="330" y="274" text-anchor="middle" class="node-name">Computer Science</text>
+          <circle class="wip" cx="545" cy="225" r="15" stroke="#60a5fa" /><text x="545" y="190" text-anchor="middle" class="node-name">iOS</text>
+          <circle class="wip" cx="665" cy="200" r="15" stroke="#4ade80" /><text x="665" y="168" text-anchor="middle" class="node-name">Android</text>
+          <circle class="wip" cx="560" cy="350" r="15" stroke="#a3e635" /><text x="560" y="384" text-anchor="middle" class="node-name">Embedded Systems</text>
+          <circle class="wip" cx="645" cy="340" r="15" stroke="#fb923c" /><text x="645" y="374" text-anchor="middle" class="node-name">Data Science</text>
+          <circle class="wip" cx="345" cy="395" r="15" stroke="#f87171" /><text x="345" y="428" text-anchor="middle" class="node-name">CyberSecurity</text>
+          <circle class="wip" cx="150" cy="350" r="15" stroke="#34d399" /><text x="150" y="384" text-anchor="middle" class="node-name">Back End</text>
+          <circle class="wip" cx="250" cy="420" r="15" stroke="#2dd4bf" /><text x="250" y="453" text-anchor="middle" class="node-name">UI/UX</text>
+          <circle class="wip" cx="470" cy="430" r="15" stroke="#facc15" /><text x="470" y="463" text-anchor="middle" class="node-name">Media</text>
+          <circle class="wip" cx="95" cy="105" r="15" stroke="#93c5fd" /><text x="95" y="76" text-anchor="middle" class="node-name">Cloud Computing &amp; DevOps</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="picked">
+      <span class="who">Front End<i aria-hidden="true"></i></span>
+      <span class="phase">Phase 1 — The Foundation…<b>٥</b></span>
+      <span class="phase">Phase 2 — Core Engineering…<b>١٣</b></span>
+      <span class="phase">Phase 3 — React &amp; Next.js…<b>٢٠</b></span>
+      <span class="phase">Alternative Tracks (Angular / Vue)…<b>٧</b></span>
+      <span class="priv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        التقدّم محفوظ على جهازك
+      </span>
+    </div>
+  </section>
+
+  <!-- ═══════════════ الاتجاه ٣ — دفتر منظّم ═══════════════ -->
+  <section class="hero v-toc" id="hero-toc" role="tabpanel" aria-labelledby="tab-toc" hidden>
+    <div>
+      <h2 class="h-display">ابدأ من أي نقطة</h2>
+      <p class="lede">١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوع بموضوع (محفوظ على جهازك)، وابدأ من أي نقطة.</p>
+      <p class="footnote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        التقدّم محفوظ على جهازك — تصفّح آمن للقراءة
+      </p>
+    </div>
+
+    <div>
+      <div class="book-tabset" role="group" aria-label="تصفية فهرس المسارات">
+        <button data-filter="all" aria-pressed="true">الكل · ١٤</button>
+        <button data-filter="structured" aria-pressed="false">منهج كامل · ٢</button>
+        <button data-filter="raw" aria-pressed="false">قيد الإعداد · ١٢</button>
+      </div>
+      <nav class="sheet" aria-label="فهرس المسارات الأربعة عشر">
+        <ol>
+          <li data-kind="structured"><span class="row"><span class="dot" style="background: var(--c-front-end)"></span><span class="name ltr">Front End</span><span class="leader" aria-hidden="true"></span><span class="meta full">٤ مستويات · ٤٥ موضوع · ٢١٩ مصدر</span></span></li>
+          <li data-kind="structured"><span class="row"><span class="dot" style="background: var(--c-flutter)"></span><span class="name ltr">Flutter</span><span class="leader" aria-hidden="true"></span><span class="meta full">٤ مستويات · ٣٢ موضوع · ١٢١ مصدر</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Android</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Back End</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Cloud Computing &amp; DevOps</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Computer Science</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">CyberSecurity</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Data Science</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Embedded Systems</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">English</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Game Development</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">iOS</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">Media</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+          <li data-kind="raw"><span class="row"><span class="dot" style="border: 1.5px dashed var(--color-control-edge); background: transparent;"></span><span class="name ltr">UI/UX</span><span class="leader" aria-hidden="true"></span><span class="meta">قيد الإعداد</span></span></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+</div>
+
+<!-- شرح مختصر للتصميم المعروض حاليًا -->
+<p class="variant-note" id="note-editorial">
+  <b>١ · تحريري:</b> العنوان والبحث هما العنصران الأوضح: عمود نصي على اليمين يقوده عنوان <span dir="ltr">Naskh</span> كبير، وفاصل مزدوج رفيع مثل تنظيم صفحات المنهج، وكل الأرقام في سطر واحد هادئ لا كروت إحصاءات. الرسم توضيحي بخط الحبر: صفحة منهج سطورها تنطلق منها شبكة مسارات.
+</p>
+<p class="variant-note" id="note-map" hidden>
+  <b>٢ · خريطة تعلّم:</b> الرسم نفسه هو البطل. الدوائر الـ١٤ بأسمائها وألوانها الفعلية؛ مساران متاحان بمنهج كامل، والباقي حدود متقطعة مع مفتاح مكتوب لا يعتمد على اللون وحده. المسار المختار موصول بشريط مراحله الحقيقية بأعداد موضوعاتها، فيوضح فكرة اختيار المسار والتقدّم فيه بلا نسب مصنّعة (التقدّم يظهر عند الاستخدام الفعلي).
+</p>
+<p class="variant-note" id="note-toc" hidden>
+  <b>٣ · دفتر منظّم:</b> الهيرو هنا فهرس منهج شغّال فعليًا: تبويبات الأعلى تفلتر القائمة الحقيقية (١٤ مسارًا بأسمائها وألوانها)، وكل صف مسار بنقطة لونه الثانوية ومعلوماته من المحتوى. عند التطبيق كل صف رابط لصفحة المسار.
+</p>
+
+<script>
+  // تبديل الاتجاهات الثلاثة — تزامن مع الـ hash للرجوع والمشاركة
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const notes = { 'hero-editorial': 'note-editorial', 'hero-map': 'note-map', 'hero-toc': 'note-toc' };
+
+  function select(tab, focus = false) {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.dataset.target).hidden = !on;
+      document.getElementById(notes[t.dataset.target]).hidden = !on;
+    }
+    location.hash = tab.dataset.hash;
+    if (focus) tab.focus();
+  }
+  tabs.forEach((t) => t.addEventListener('click', () => select(t)));
+  document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    // في RTL: يسار = العنصر التالي
+    if (e.key === 'ArrowLeft') select(tabs[(i + 1) % tabs.length], true);
+    else if (e.key === 'ArrowRight') select(tabs[(i + tabs.length - 1) % tabs.length], true);
+    else if (e.key === 'Home') select(tabs[0], true);
+    else if (e.key === 'End') select(tabs[tabs.length - 1], true);
+    else return;
+    e.preventDefault();
+  });
+  const initial = tabs.find((t) => '#' + t.dataset.hash === location.hash);
+  if (initial && initial.getAttribute('aria-selected') !== 'true') select(initial);
+
+  // تفلترة فهرس الاتجاه الثالث
+  const tocButtons = document.querySelectorAll('[data-filter]');
+  const rows = document.querySelectorAll('.v-toc li[data-kind]');
+  tocButtons.forEach((b) => b.addEventListener('click', () => {
+    tocButtons.forEach((x) => x.setAttribute('aria-pressed', x === b));
+    rows.forEach((r) => { r.hidden = !(b.dataset.filter === 'all' || r.dataset.kind === b.dataset.filter); });
+  }));
+</script>
+</body>
+</html>

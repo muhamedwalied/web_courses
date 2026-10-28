@@ -7,10 +7,651 @@
   "color": "#4ade80",
   "icon": "📱",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "Android/"
+    "Android/README.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Android",
-  "levels": []
+  "levels": [
+    {
+      "id": "beginner",
+      "name": "مبتدئ",
+      "order": 0,
+      "goal": "تعلّم أساسيات Kotlin وبناء واجهات أندرويد، ثم تطبيق مفاهيم إدارة الحالة والبيانات والعمل غير المتزامن.",
+      "modules": [
+        {
+          "id": "kotlin-fundamentals",
+          "name": "أساسيات Kotlin",
+          "order": 0,
+          "objectives": [
+            "تعلّم صياغة Kotlin ومفاهيمها الأساسية قبل البدء ببناء تطبيقات أندرويد.",
+            "تعرّف على المتغيرات وأنواع البيانات والتحكم في تدفق البرنامج."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "kotlin-basics",
+              "title": "مدخل إلى Kotlin",
+              "resources": [
+                {
+                  "title": "قائمة أساسيات Kotlin بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PLXjbGq0ERjFriC0igmYE9qUwwJfEHGJ8H",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "قائمة أساسيات Kotlin بالإنجليزية",
+                  "url": "https://www.youtube.com/watch?v=QsrQV0wXh2E&list=PLQkwcJG4YTCRSQikwhtoApYs9ij_Hc5Z9",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "android-ui-foundations",
+          "name": "أساسيات واجهات أندرويد",
+          "order": 1,
+          "objectives": [
+            "تعرّف على بناء واجهات أندرويد باستخدام XML، ثم استكشف Jetpack Compose وفق مسار Google المقترح."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "xml-layouts",
+              "title": "تصميم الواجهات باستخدام XML",
+              "resources": [
+                {
+                  "title": "قائمة شرح XML بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PLF7pjAYSxOFu78LrDkXoN8XczDLeci-Fx",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح XML بالإنجليزية",
+                  "url": "https://www.youtube.com/watch?v=3Ri9PPsGCEg&list=PLQkwcJG4YTCTq1raTb5iMuxnEB06J1VHX",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة تطوير تطبيقات أندرويد باستخدام Kotlin",
+                  "url": "https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "jetpack-compose-intro",
+              "title": "مقدمة إلى Jetpack Compose",
+              "resources": [
+                {
+                  "title": "مسار أساسيات أندرويد باستخدام Compose من Google",
+                  "url": "https://developer.android.com/courses/android-basics-compose/course",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "android-app-components",
+          "name": "مكوّنات تطبيقات أندرويد الأساسية",
+          "order": 2,
+          "objectives": [
+            "طبّق مفاهيم التطبيق على مشروع عملي، وتعرّف على إدارة الحالة والبيانات ودورة حياة التطبيق."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "viewmodel",
+              "title": "إدارة حالة الواجهة باستخدام ViewModel",
+              "resources": [
+                {
+                  "title": "مسار أساسيات أندرويد باستخدام Compose من Google",
+                  "url": "https://developer.android.com/courses/android-basics-compose/course",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "تطبيق الملاحظات بمعمارية نظيفة — شرح عملي",
+                  "url": "https://www.youtube.com/watch?v=8YPXv7xKh2w&t=7490s",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "room-database",
+              "title": "تخزين البيانات محليًا باستخدام Room",
+              "resources": [
+                {
+                  "title": "مسار أساسيات أندرويد باستخدام Compose من Google",
+                  "url": "https://developer.android.com/courses/android-basics-compose/course",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "تطبيق الملاحظات بمعمارية نظيفة — شرح عملي",
+                  "url": "https://www.youtube.com/watch?v=8YPXv7xKh2w&t=7490s",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "coroutines",
+              "title": "العمل غير المتزامن باستخدام Coroutines",
+              "resources": [
+                {
+                  "title": "سلسلة Coroutines بالإنجليزية",
+                  "url": "https://www.youtube.com/watch?v=ShNhJ3wMpvQ&list=PLQkwcJG4YTCQcFEPuYGuv54nYai_lwil",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "kotlin-flows",
+              "title": "تدفّقات البيانات باستخدام Kotlin Flows",
+              "resources": [
+                {
+                  "title": "سلسلة Kotlin Flows بالإنجليزية",
+                  "url": "https://www.youtube.com/watch?v=ZX8VsqNO_Ss&list=PLQkwcJG4YTCQHCppNAQmLsj_jW38rU9sC",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "lifecycle-management",
+              "title": "إدارة دورة حياة التطبيق",
+              "resources": [
+                {
+                  "title": "مسار أساسيات أندرويد باستخدام Compose من Google",
+                  "url": "https://developer.android.com/courses/android-basics-compose/course",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "متوسط",
+      "order": 1,
+      "goal": "وسّع تطبيقاتك بإضافة الاتصال بالشبكات والتخزين والصلاحيات وخدمات أندرويد.",
+      "modules": [
+        {
+          "id": "networking-and-apis",
+          "name": "الاتصال بالشبكات وواجهات API",
+          "order": 0,
+          "objectives": [
+            "تعرّف على Retrofit وKtor لجلب البيانات من الخدمات عبر الإنترنت."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "retrofit",
+              "title": "الاتصال بالخدمات باستخدام Retrofit",
+              "resources": [
+                {
+                  "title": "مسار Google للاتصال بالإنترنت في تطبيقات أندرويد",
+                  "url": "https://developer.android.com/courses/pathways/android-basics-compose-unit-5-pathway-1?hl=en",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح Retrofit",
+                  "url": "https://www.youtube.com/watch?v=t6Sql3WMAnk",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "ktor",
+              "title": "الاتصال بالخدمات باستخدام Ktor",
+              "resources": [
+                {
+                  "title": "شرح Ktor",
+                  "url": "https://www.youtube.com/watch?v=3KTXD_ckAX0",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Ktor للتعلّم",
+                  "url": "https://ktor.io/learn/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "permissions",
+          "name": "التعامل مع صلاحيات أندرويد",
+          "order": 1,
+          "objectives": [
+            "اطلب الصلاحيات المناسبة وافهم إرشادات أندرويد لإدارتها."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "permission-handling",
+              "title": "إدارة الصلاحيات في أندرويد",
+              "resources": [
+                {
+                  "title": "شرح إدارة الصلاحيات",
+                  "url": "https://www.youtube.com/watch?v=D3JCtaK8LSU&t=282s",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل الصلاحيات في أندرويد",
+                  "url": "https://developer.android.com/guide/topics/permissions/overview",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "compose-interoperability",
+          "name": "العمل بين XML وJetpack Compose",
+          "order": 2,
+          "objectives": [
+            "استكشف استخدام Compose في تطبيقات أندرويد، وكيفية الانتقال من الواجهات التقليدية عند الحاجة."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "xml-with-compose",
+              "title": "دمج XML مع Jetpack Compose",
+              "resources": [
+                {
+                  "title": "خارطة تعلّم Jetpack Compose — إعداد Bassam",
+                  "url": "https://wave-quince-4c2.notion.site/Jetpack-Compose-29a3109457b04577bf9c41cdb75192dc?pvs=4",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "preferences-and-datastore",
+          "name": "التخزين المحلي باستخدام Preferences وDataStore",
+          "order": 3,
+          "objectives": [
+            "اختر وسيلة مناسبة لحفظ إعدادات المستخدم والبيانات البسيطة محليًا."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "shared-preferences",
+              "title": "حفظ الإعدادات باستخدام Shared Preferences",
+              "resources": [
+                {
+                  "title": "شرح Shared Preferences",
+                  "url": "https://www.youtube.com/watch?v=wtpRp2IpCSo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل تخزين Shared Preferences من Android",
+                  "url": "https://developer.android.com/training/data-storage/shared-preferences?hl=en",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "jetpack-datastore",
+              "title": "حفظ البيانات باستخدام Jetpack DataStore",
+              "resources": [
+                {
+                  "title": "شرح Jetpack DataStore",
+                  "url": "https://www.youtube.com/watch?v=McnVx7l5awk",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Jetpack DataStore من Android",
+                  "url": "https://developer.android.com/topic/libraries/architecture/datastore?hl=en",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "dependency-injection",
+          "name": "حقن الاعتماديات",
+          "order": 4,
+          "objectives": [
+            "افهم كيف يساعد حقن الاعتماديات على تنظيم مكوّنات التطبيق وإدارة ارتباطاتها."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "dependency-injection-android",
+              "title": "تطبيق حقن الاعتماديات في أندرويد",
+              "resources": [
+                {
+                  "title": "شرح حقن الاعتماديات",
+                  "url": "https://www.youtube.com/watch?v=bbMsuI2p1DQ&t=1464s",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل حقن الاعتماديات من Android",
+                  "url": "https://developer.android.com/training/dependency-injection",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "sensors",
+          "name": "التعامل مع مستشعرات الجهاز",
+          "order": 5,
+          "objectives": [
+            "تعرّف على واجهات أندرويد لقراءة بيانات المستشعرات واستخدامها داخل التطبيق."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "android-sensors",
+              "title": "قراءة بيانات المستشعرات في أندرويد",
+              "resources": [
+                {
+                  "title": "شرح مستشعرات أندرويد",
+                  "url": "https://www.youtube.com/watch?v=IU-EAtITRRM",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "نظرة عامة على مستشعرات أندرويد",
+                  "url": "https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "content-providers",
+          "name": "مشاركة البيانات باستخدام Content Providers",
+          "order": 6,
+          "objectives": [
+            "تعرّف على آلية Content Providers للوصول إلى البيانات ومشاركتها بين التطبيقات."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "android-content-providers",
+              "title": "مزوّدو المحتوى في أندرويد",
+              "resources": [
+                {
+                  "title": "شرح Content Providers",
+                  "url": "https://www.youtube.com/watch?v=IVHZpTyVOxU&t=450s",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Content Providers من Android",
+                  "url": "https://developer.android.com/guide/topics/providers/content-providers?hl=en",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "background-work",
+          "name": "تنفيذ المهام في الخلفية",
+          "order": 7,
+          "objectives": [
+            "اختر WorkManager أو الخدمات الأمامية بحسب نوع المهمة ومتطلبات تشغيلها."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "workmanager",
+              "title": "جدولة المهام المستمرة باستخدام WorkManager",
+              "resources": [
+                {
+                  "title": "شرح WorkManager",
+                  "url": "https://www.youtube.com/watch?v=A2JetouoNSc",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل بدء المهام المستمرة في الخلفية",
+                  "url": "https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "foreground-services",
+              "title": "الخدمات الأمامية في أندرويد",
+              "resources": [
+                {
+                  "title": "شرح الخدمات الأمامية",
+                  "url": "https://www.youtube.com/watch?v=YZL-_XJSClc",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل الخدمات الأمامية من Android",
+                  "url": "https://developer.android.com/develop/background-work/services/foreground-services",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "متقدم",
+      "order": 2,
+      "goal": "تعمّق في معمارية تطبيقات أندرويد، والرسوميات والتفاعل والاختبار.",
+      "modules": [
+        {
+          "id": "app-architecture",
+          "name": "معمارية تطبيقات أندرويد",
+          "order": 0,
+          "objectives": [
+            "نظّم تطبيقك بحيث يسهل تطويره وصيانته مع نمو قاعدة الشيفرة."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "android-architecture",
+              "title": "إرشادات معمارية تطبيقات أندرويد",
+              "resources": [
+                {
+                  "title": "دليل معمارية التطبيقات من Android",
+                  "url": "https://developer.android.com/topic/architecture",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "multi-module-development",
+          "name": "تطوير التطبيقات متعددة الوحدات",
+          "order": 1,
+          "objectives": [
+            "افهم تقسيم التطبيق إلى وحدات مستقلة، ومتى يفيد هذا الأسلوب في تنظيم المشروع."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "android-modularization",
+              "title": "تقسيم تطبيق أندرويد إلى وحدات",
+              "resources": [
+                {
+                  "title": "دليل Modularization من Android",
+                  "url": "https://developer.android.com/topic/modularization",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "custom-graphics",
+          "name": "الرسم المخصص باستخدام Canvas",
+          "order": 2,
+          "objectives": [
+            "أنشئ رسومات وأشكالًا مخصصة داخل واجهات Jetpack Compose باستخدام Canvas."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "compose-canvas",
+              "title": "الرسم باستخدام Canvas في Compose",
+              "resources": [
+                {
+                  "title": "نظرة عامة على الرسم باستخدام Canvas",
+                  "url": "https://developer.android.com/develop/ui/compose/graphics/draw/overview",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "advanced-interaction",
+          "name": "التفاعل المتقدم مع اللمس والقلم",
+          "order": 3,
+          "objectives": [
+            "تعامل مع الإيماءات وإدخال المؤشر، واستكشف دعم القلم الإلكتروني ورفض لمس راحة اليد."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "gesture-handling",
+              "title": "التعامل مع الإيماءات ومدخلات المؤشر",
+              "resources": [
+                {
+                  "title": "فهم الإيماءات في Compose",
+                  "url": "https://developer.android.com/develop/ui/compose/touch-input/pointer-input/understand-gestures?hl=en",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "stylus-and-palm-rejection",
+              "title": "اكتشاف القلم الإلكتروني ورفض لمس راحة اليد",
+              "resources": [
+                {
+                  "title": "ميزات متقدمة للقلم الإلكتروني",
+                  "url": "https://developer.android.com/develop/ui/compose/touch-input/stylus-input/advanced-stylus-features",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "android-graphics-shaders",
+          "name": "المؤثرات الرسومية باستخدام AGSL",
+          "order": 4,
+          "objectives": [
+            "تعرّف على لغة AGSL لإنشاء مؤثرات RuntimeShader في Compose أو على عناصر الواجهة التقليدية."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "agsl",
+              "title": "أساسيات لغة Android Graphics Shading Language",
+              "resources": [
+                {
+                  "title": "دليل AGSL من Android",
+                  "url": "https://developer.android.com/develop/ui/views/graphics/agsl",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        },
+        {
+          "id": "unit-testing",
+          "name": "اختبار الوحدات في تطبيقات أندرويد",
+          "order": 5,
+          "objectives": [
+            "اكتب اختبارات تساعدك على التأكد من سلوك الشيفرة واكتشاف الأخطاء مبكرًا."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "android-unit-testing",
+              "title": "أساسيات الاختبار في Kotlin وAndroid",
+              "resources": [
+                {
+                  "title": "مختبر Google لاختبار تطبيقات Android باستخدام Kotlin",
+                  "url": "https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

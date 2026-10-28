@@ -51,6 +51,8 @@
   }
 
   trigger?.addEventListener('click', open);
+  // زرا البحث في الهيرو (index.astro) بيفتحوا نفس النافذة عبر الحدث
+  window.addEventListener('open-search', () => { if (!dialog.open) open(); });
   dialog.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
   });

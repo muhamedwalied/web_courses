@@ -64,6 +64,20 @@ const payload = {
 };
 // "/" inside "</" is escaped so the JSON island can never contain a script end tag
 const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
+
+// ---- per-lesson comments via giscus (GitHub Discussions) — like the reference
+// LMS "Komentar" tab. repoId is the REST node_id (stable). categoryId is issued
+// by giscus.app after: 1) enabling Discussions on the repo, 2) installing
+// github.com/apps/giscus, 3) picking a category — paste it below to activate.
+const giscusConfig = {
+  repo: 'muhamedwalied/web_courses',
+  repoId: 'R_kgDOVXFd3Q',
+  category: 'Announcements',
+  categoryId: '',
+  lang: 'ar',
+  theme: 'light',
+};
+const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 ---
 
 <Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description}>
@@ -81,12 +95,29 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
         <Icon name={circleIcon(circle.id)} class="size-5" />
       </span>
 
-      <span dir="ltr" class="font-bold">{circle.name}</span>
+      <span dir="auto" class="font-bold">{circle.name}</span>
 
       <span class="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[10px] text-accent ring-1 ring-accent/30">
         <Icon name="lucide:monitor-play" class="size-3.5" />
         <span>جلسة مشاهدة</span>
       </span>
+    </div>
+
+    <!-- progress strip (from «مسار تعلّم تفاعلي ٢»): count + percent, bar fills from the right in RTL -->
+    <div
+      id="watch-progress"
+      role="progressbar"
+      aria-label="تقدّمك في المسار"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      class="mt-3 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-2.5"
+    >
+      <span class="shrink-0 font-mono text-[10px] text-muted">
+        أكملت <b id="watch-prog-count" class="text-ink">0</b> من {topicCount} · <span id="watch-prog-pct">0%</span>
+      </span>
+      <span class="wbar min-w-0 flex-1"><i id="watch-prog-bar"></i></span>
+      <span id="watch-prog-left" class="shrink-0 font-mono text-[10px] text-muted">{topicCount} درس متبقي</span>
     </div>
 
     <div class="grid grid-cols-1 gap-8 pb-10 lg:grid-cols-[20rem_1fr]" data-circle={circle.id}>
@@ -119,7 +150,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
               <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
                 <span class="flex items-center gap-2">
                   <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
-                  <span dir="ltr" class="text-sm font-bold text-ink">{level.name}</span>
+                  <span dir="auto" class="text-sm font-bold text-ink">{level.name}</span>
                 </span>
                 <span class="flex shrink-0 items-center gap-2">
                   {level.durationText && (
@@ -136,7 +167,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
                   <div>
                     <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
                       <span>{module.name}</span>
-                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">module</span>
+                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">وحدة</span>
                     </p>
                     <div class="mt-1 space-y-0.5">
                       {module.topics.map((topic) => (
@@ -146,13 +177,16 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
                           data-tkey={tkey(circle.id, level.id, module.id, topic.id)}
                           class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
                         >
-                          <Icon name="lucide:play" class="size-3.5 shrink-0 text-accent" />
-                          <span dir="auto" class="truncate text-xs text-ink/90">{topic.title}</span>
+                          <span class="wdot shrink-0" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                              ><path d="M20 6 9 17l-5-5"></path
+                            ></svg>
+                          </span>
+                          <span dir="auto" class="truncate text-xs text-ink/90" data-rowtitle>{topic.title}</span>
                           {topic.resources.some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar') && (
                             <span class="shrink-0 rounded bg-accent/10 px-1.5 py-0.5 font-mono text-[9px] font-bold text-accent/80">عربي</span>
                           )}
                           <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
-                          <Icon name="lucide:check" class="hidden size-3.5 shrink-0 text-accent-2" data-done />
                         </a>
                       ))}
                     </div>
@@ -236,11 +270,25 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
             <Icon name="lucide:arrow-left" class="size-3.5" />
           </a>
         </div>
+
+        <!-- per-lesson GitHub Discussions (giscus) — each lesson owns a thread; mounts lazily when opened -->
+        <details id="watch-comments" class="group mt-4 rounded-xl border border-edge bg-panel/60">
+          <summary class="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-xs font-bold text-ink [&::-webkit-details-marker]:hidden">
+            <Icon name="lucide:message-circle" class="size-4 shrink-0 text-accent" />
+            <span>المناقشة — تعليقات GitHub عن المحاضرة</span>
+            <span class="hidden font-mono text-[10px] font-normal text-muted sm:inline">ديسكاشن مستقلة لكل درس</span>
+            <Icon name="lucide:chevron-down" class="ms-auto size-4 shrink-0 text-muted transition group-open:rotate-180" />
+          </summary>
+          <div class="border-t border-edge/80 px-4 py-3">
+            <div id="watch-comments-mount"></div>
+          </div>
+        </details>
       </div>
     </div>
   </div>
 
   <script type="application/json" id="watch-data" data-circle={circle.id} set:html={escaped}></script>
+  <script type="application/json" id="giscus-config" set:html={giscusEscaped}></script>
 
   <script>
     // runs in the browser — this import must live INSIDE the client script
@@ -292,6 +340,14 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
     const prevEl = document.getElementById('watch-prev');
     const nextEl = document.getElementById('watch-next');
     const rows = Array.from(document.querySelectorAll('a[data-key]'));
+
+    // progress strip refs (bar + count + percent + remaining)
+    const progBarEl = document.getElementById('watch-prog-bar');
+    const progCountEl = document.getElementById('watch-prog-count');
+    const progPctEl = document.getElementById('watch-prog-pct');
+    const progLeftEl = document.getElementById('watch-prog-left');
+    const progressStrip = document.getElementById('watch-progress');
+    const allTkeys = rows.map((r) => r.dataset.tkey).filter(Boolean);
 
     const keyOf = (l, m, t) => l + '/' + m + '/' + t;
 
@@ -370,7 +426,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       btn.addEventListener('click', () => startPlayback(entry));
       film.appendChild(btn);
       film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
-      film.appendChild(plain('p', 'font-mono text-[10px] text-muted', 'youtube · داخل الموقع'));
+      film.appendChild(plain('p', 'font-mono text-[10px] text-muted', 'يوتيوب · تشغيل داخل الموقع'));
       return film;
     }
 
@@ -445,7 +501,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       bar.id = 'watch-lang';
       const twin = sameLecture(videos);
       bar.appendChild(plain('span', 'font-mono text-[10px] text-muted', twin ? 'النسخة:' : 'مصادر فيديو المحاضرة:'));
-      const labels = { ar: 'عربي', en: 'English' };
+      const labels = { ar: 'عربي', en: 'إنجليزي' };
       const langBadge = (lang) =>
         plain('span', 'rounded bg-accent/10 px-1 font-mono text-[9px] font-bold text-accent/80', labels[lang] || lang);
       for (const r of videos) {
@@ -602,9 +658,12 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       for (const row of rows) {
         const tkeyValue = row.dataset.tkey;
         const done = !!(tkeyValue && snapshot[tkeyValue] === 1);
-        const mark = row.querySelector('[data-done]');
-        if (mark) mark.classList.toggle('hidden', !done);
-        row.classList.toggle('opacity-60', done);
+        // done marker (from «مسار تعلّم تفاعلي ٢»): the circular dot fills with a
+        // white check and the title mutes — the dot itself stays full-strength.
+        const dot = row.querySelector('.wdot');
+        if (dot) dot.classList.toggle('is-done', done);
+        const label = row.querySelector('[data-rowtitle]');
+        if (label) label.classList.toggle('text-muted', done);
       }
     }
 
@@ -666,7 +725,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       window.__watchCurrentKey = currentKey;
 
       if (titleEl) titleEl.textContent = found.topic.title || '';
-      if (crumbEl) crumbEl.textContent = found.level.name + ' / ' + found.module.name;
+      if (crumbEl) crumbEl.textContent = found.level.name + ' · ' + found.module.name;
 
       setCurrentRow(currentKey);
 
@@ -700,6 +759,7 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
 
       renderSidebar();
       renderEdges(index);
+      mountComments(found.topic.title);
     }
 
     /** "#l/m/t" -> ["l","m","t"] */
@@ -713,9 +773,79 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       return keyOf(parts[0], parts[1], parts[2]);
     }
 
+    // ---- per-lesson comments (giscus / GitHub Discussions) -------------------
+    // one discussion thread per lesson title (specific-term mapping); the giscus
+    // script only loads once the section is opened (loading=lazy inside <details>).
+    const giscusMount = document.getElementById('watch-comments-mount');
+    let giscusConfig = null;
+    try {
+      giscusConfig = JSON.parse(document.getElementById('giscus-config')?.textContent || 'null');
+    } catch {}
+    let currentCommentTerm = '';
+
+    function commentSetupPlaceholder(term) {
+      const box = plain('div', 'rounded-lg border border-dashed border-edge bg-bg/40 p-4 text-xs leading-6 text-muted');
+      box.appendChild(plain('p', 'font-bold text-ink', 'تعليقات GitHub (giscus) محتاجة خطوة إعداد لمرة واحدة:'));
+      const list = plain('ol', 'list-decimal space-y-1 ps-5');
+      for (const step of [
+        'فعّل Discussions في مستودع ' + (giscusConfig?.repo || 'المشروع') + ' من Settings → General → Features.',
+        'ثبّت التطبيق github.com/apps/giscus على المستودع.',
+        'افتح giscus.app واكتب اسم المستودع، ثم انسخ قيمة data-category-id للتصنيف الذي تختاره وضَعها في giscusConfig.categoryId داخل src/pages/start-[id].astro.',
+      ]) {
+        list.appendChild(plain('li', null, step));
+      }
+      box.appendChild(list);
+      box.appendChild(plain('p', 'mt-2', 'كل محاضرة بياخد ديسكاشن مستقلة عنها بالعنوان: ' + term));
+      return box;
+    }
+
+    function mountComments(term) {
+      if (!giscusMount) return;
+      if (currentCommentTerm === term) return;
+      currentCommentTerm = term;
+      giscusMount.replaceChildren();
+      if (!giscusConfig || !giscusConfig.categoryId) {
+        giscusMount.appendChild(commentSetupPlaceholder(term));
+        return;
+      }
+      const s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', giscusConfig.repo);
+      s.setAttribute('data-repo-id', giscusConfig.repoId);
+      s.setAttribute('data-category', giscusConfig.category);
+      s.setAttribute('data-category-id', giscusConfig.categoryId);
+      s.setAttribute('data-mapping', 'specific-term');
+      s.setAttribute('data-term', term);
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', giscusConfig.theme || 'light');
+      s.setAttribute('data-lang', giscusConfig.lang || 'ar');
+      s.setAttribute('data-loading', 'lazy');
+      s.crossOrigin = 'anonymous';
+      s.async = true;
+      giscusMount.appendChild(s);
+    }
+
     if (rows.length) {
       render(keyFromLocation() || keyOf(flat[0]?.l, flat[0]?.m, flat[0]?.t));
     }
+
+    // progress strip — countDone over every sidebar row key; subscribe covers the
+    // checkbox on this page AND cross-tab storage events from any other page.
+    function updateProgressUI() {
+      const total = flat.length;
+      const done = progressStore.countDone(allTkeys);
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      if (progBarEl) progBarEl.style.transform = 'scaleX(' + (total ? done / total : 0) + ')';
+      if (progCountEl) progCountEl.textContent = String(done);
+      if (progPctEl) progPctEl.textContent = pct + '%';
+      if (progLeftEl) progLeftEl.textContent = (total - done) + ' درس متبقي';
+      if (progressStrip) progressStrip.setAttribute('aria-valuenow', String(pct));
+    }
+    updateProgressUI();
+    progressStore.subscribe(updateProgressUI);
 
     if (doneEl) {
       doneEl.addEventListener('change', () => {
@@ -782,4 +912,60 @@ const escaped = JSON.stringify(payload).replace(/<\//g, '<\\/');
       onBreakpoint();
     }
   </script>
+
+  <style>
+    /* نقطة الإنجاز الدائرية (من «مسار تعلّم تفاعلي ٢»): مفرّغة افتراضيًا،
+       تمتلئ بالأزرق الحبري مع صح أبيض بعد إتمام المحاضرة أو المقالة،
+       والدرس الحالي نقطته بإطار وهالة — النص وحده يخفّت عند الإنجاز. */
+    .wdot {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 9999px;
+      border: 1.5px solid color-mix(in oklab, var(--color-control-edge) 70%, transparent);
+      background: var(--color-surface);
+      display: grid;
+      place-items: center;
+      transition:
+        background-color 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s;
+    }
+    .wdot svg {
+      width: 0.75rem;
+      height: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .wdot.is-done {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+    .wdot.is-done svg {
+      opacity: 1;
+      color: var(--color-surface);
+    }
+    a[data-current] .wdot {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 18%, transparent);
+    }
+
+    /* شريط تقدّم المسار: يمتلئ من اليمين (RTL) بنسبة الدروس المكتملة */
+    .wbar {
+      display: block;
+      height: 0.375rem;
+      border-radius: 9999px;
+      background: color-mix(in oklab, var(--color-edge) 55%, var(--color-bg));
+      overflow: hidden;
+    }
+    .wbar > i {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border-radius: inherit;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.25s;
+    }
+  </style>
 </Layout>

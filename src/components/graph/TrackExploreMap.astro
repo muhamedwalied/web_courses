@@ -1,0 +1,322 @@
+---
+/**
+ * خريطة استكشاف — الاتجاه الثالث المعتمد من معاينة
+ * design-explorations/roadmap-network-options.html (خيار «خريطة استكشاف»).
+ *
+ * صدق البيانات: كل الأسماء والحالات والألوان والمستويات من content/circles/*.json.
+ * المحتوى الحالي لا يسجّل متطلبات سابقة بين المسارات (prereqs: [] للجميع)، فلا
+ * تُرسم أسهم تبعية اختراعًا — الأغصان المرسومة تفرعات مستويات المسارين المكتملين
+ * فقط، وعند اكتمال prereqs مستقبلًا تُضاف أسهمها في المكان المخصص أدناه.
+ */
+
+export interface ExploreCircle {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  status: 'structured' | 'raw';
+  prereqs: string[];
+  topics: number;
+  tagline: string;
+  levelNames: string[];
+  href: string;
+}
+
+interface Props {
+  circles: ExploreCircle[];
+}
+
+const { circles } = Astro.props;
+
+const AR = (n: number) => n.toLocaleString('ar-EG');
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const W = 1180;
+const H = 690;
+
+/* مواقع مضبوطة يدويًا — فراغات مريحة للأسماء الإنجليزية كاملة بلا قطع */
+const POS: Record<string, [number, number]> = {
+  'computer-science': [110, 80], 'english': [400, 75], 'media': [655, 80], 'ios': [930, 70],
+  'game-dev': [110, 220], 'ui': [350, 190], 'cybersecurity': [560, 205], 'flutter': [880, 250],
+  'android': [1105, 210], 'backend': [150, 380], 'cloud': [365, 400], 'front-end': [640, 430],
+  'data-science': [930, 430], 'embedded': [1085, 570],
+};
+
+const fullCount = circles.filter((c) => c.status === 'structured').length;
+const wipCount = circles.length - fullCount;
+
+let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" class="txm-svg" role="img" aria-label="خريطة استكشاف: انتشار حر لعقد المسارات الـ${AR(circles.length)}">`;
+svg += `<defs>
+  <style>
+    .txm-name { font-family: var(--font-ui); font-size: 12.5px; font-weight: 500; fill: var(--color-muted); }
+    .txm-name.on { font-size: 13.5px; font-weight: 700; fill: var(--color-ink); }
+    .txm-count { font-family: var(--font-ui); font-size: 10.5px; font-weight: 500; fill: var(--color-accent); }
+    .txm-branch { stroke: var(--color-edge); stroke-width: 1.4; fill: none; }
+    .txm-tick { stroke-width: 2; }
+    .txm-icon { font-size: 15px; }
+    .txm-box { fill: var(--color-surface); stroke-width: 2; }
+    .txm-box.wip { stroke-dasharray: 5 4; stroke-width: 1.6; }
+    .txm-status { font-family: var(--font-ui); font-size: 9.5px; font-weight: 500; fill: var(--color-control-edge); }
+  </style>
+</defs>`;
+
+for (const c of circles) {
+  const [x, y] = POS[c.id] ?? [W / 2, H / 2];
+  if (c.status !== 'structured') {
+    const inner = `
+      <circle class="txm-box wip" cx="${x}" cy="${y}" r="17" stroke="${c.color}" fill="var(--color-surface)" />
+      <text class="txm-icon" x="${x}" y="${y + 5}" text-anchor="middle">${c.icon}</text>
+      <text class="txm-name" style="direction:ltr" x="${x}" y="${y + 37}" text-anchor="middle">${esc(c.name)}</text>
+      <text class="txm-status" x="${x}" y="${y + 61}" text-anchor="middle">قابلة للبدء · قيد الإعداد</text>
+    `;
+    svg += `<g class="txm-node" data-node="${c.id}" role="button" tabindex="0" aria-label="تمييز مسار ${esc(c.name)}">${inner}</g>`;
+    continue;
+  }
+  /* مسار مكتمل: عقدة أكبر + تفرعات المستويات الحقيقية (مروحة أغصان) */
+  const branchR = 46;
+  const ticks = c.levelNames.map((_, i) => {
+    const a = (200 + (i * 140) / (c.levelNames.length - 1)) * (Math.PI / 180);
+    const tx = x + Math.cos(a) * branchR;
+    const ty = y + Math.sin(a) * branchR + 18;
+    return `<line class="edge txm-branch" data-from="${c.id}" data-to="${c.id}" x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" /><circle class="txm-tick" cx="${tx}" cy="${ty}" r="4.5" fill="${c.color}" stroke="var(--color-surface)" />`;
+  }).join('');
+  const inner = `
+    <circle class="txm-ring" cx="${x}" cy="${y}" r="33" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-dasharray="4 4" />
+    ${ticks}
+    <circle class="txm-box" cx="${x}" cy="${y}" r="27" fill="${c.color}" fill-opacity=".16" stroke="${c.color}" />
+    <text class="txm-icon" x="${x}" y="${y + 6}" text-anchor="middle" style="font-size:20px">${c.icon}</text>
+    <text class="txm-name on" style="direction:ltr" x="${x}" y="${y + 46}" text-anchor="middle">${esc(c.name)}</text>
+    <text class="txm-count" x="${x}" y="${y + 71}" text-anchor="middle">${AR(c.levelNames.length)} مستويات · ${AR(c.topics)} موضوع</text>
+    <rect x="${x - 95}" y="${y - 33}" width="190" height="115" fill="transparent" stroke="none" />
+  `;
+  svg += `<g class="txm-node" data-node="${c.id}" role="button" tabindex="0" aria-label="تمييز مسار ${esc(c.name)}">${inner}</g>`;
+}
+svg += '</svg>';
+---
+
+<div class="txm-root" data-txm>
+  <div class="txm-controls">
+    <button type="button" data-z="in" aria-label="تكبير">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <button type="button" data-z="out" aria-label="تصغير">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <button type="button" data-z="fit" aria-label="إعادة الملاءمة">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+    </button>
+  </div>
+  <div class="txm-legend" aria-hidden="true">
+    <span><i class="txm-full"></i> منهج كامل ({AR(fullCount)} من {AR(circles.length)})</span>
+    <span><i class="txm-wip"></i> قيد الإعداد ({AR(wipCount)} من {AR(circles.length)})</span>
+  </div>
+  <div class="txm-canvas" data-canvas>
+    <div class="txm-plane" data-plane><Fragment set:html={svg} /></div>
+  </div>
+  <div class="txm-info" data-info aria-live="polite"></div>
+</div>
+
+<style is:global>
+  .txm-root { position: relative; }
+  .txm-canvas {
+    position: relative;
+    height: 560px;
+    border: 1px solid var(--color-edge);
+    border-radius: 12px;
+    background: var(--color-surface);
+    overflow: hidden;
+    touch-action: none;
+    cursor: grab;
+  }
+  .txm-canvas.dragging { cursor: grabbing; }
+  .txm-plane { position: absolute; inset-inline-start: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  .txm-plane svg { display: block; }
+
+  .txm-controls { position: absolute; top: 10px; inset-inline-start: 10px; z-index: 5; display: flex; gap: 6px; }
+  .txm-controls button {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border: 1px solid var(--color-control-edge);
+    border-radius: 9px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .txm-controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  :where(.txm-controls button, .txm-node):focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  .txm-legend {
+    position: absolute; top: 10px; inset-inline-end: 10px; z-index: 5;
+    display: flex; flex-direction: column; gap: 3px;
+    font-size: .75rem; color: var(--color-muted);
+    background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+    border: 1px solid var(--color-edge);
+    border-radius: 9px;
+    padding: 7px 12px;
+    pointer-events: none;
+    line-height: 1.6;
+  }
+  .txm-legend i { display: inline-block; inline-size: 10px; block-size: 10px; border-radius: 50%; vertical-align: -1px; margin-inline-end: 7px; }
+  .txm-legend .txm-full { background: color-mix(in oklab, var(--color-accent) 30%, var(--color-surface)); border: 2px solid var(--color-accent); }
+  .txm-legend .txm-wip { background: var(--color-surface); border: 2px dashed var(--color-control-edge); }
+
+  /* العقد */
+  .txm-node { cursor: pointer; }
+  .txm-node .txm-ring { opacity: 0; transition: opacity .15s; }
+  .txm-node.sel .txm-ring { opacity: 1; }
+  .txm-node.sel .txm-box { stroke: var(--color-accent); stroke-width: 2.5; }
+  .txm-plane.has-sel .txm-node:not(.sel):not(.rel) { opacity: .22; }
+  .txm-plane.has-sel .edge:not(.rel) { opacity: .08; }
+  .txm-node .txm-box, .txm-plane .edge { transition: opacity .15s, stroke .15s; }
+
+  /* لوحة معلومات المختار */
+  .txm-info {
+    margin-top: 12px;
+    border: 1px solid var(--color-edge);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 12px 16px;
+    min-height: 96px;
+    font-size: .875rem;
+  }
+  .txm-info .txm-who { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+  .txm-info .txm-who b { font-size: 1rem; }
+  .txm-info .txm-who i { inline-size: 10px; block-size: 10px; border-radius: 50%; }
+  .txm-info .txm-chip { font-size: .75rem; border-radius: 999px; padding: 1px 10px; border: 1px solid var(--color-edge); color: var(--color-muted); }
+  .txm-info .txm-chip.full { color: var(--color-accent); border-color: color-mix(in oklab, var(--color-accent) 40%, var(--color-edge)); background: var(--color-accent-soft); }
+  .txm-info .txm-tagline { color: var(--color-muted); margin-top: 2px; }
+  .txm-info .txm-facts { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; color: var(--color-muted); font-size: .8125rem; }
+  .txm-info .txm-levels { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .txm-info .txm-levels span { font-size: .75rem; color: var(--color-ink); background: var(--color-panel); border: 1px solid var(--color-edge); border-radius: 8px; padding: 2px 9px; }
+  .txm-info .txm-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .txm-info .txm-open, .txm-info .txm-clear {
+    font-size: .8125rem; color: var(--color-accent);
+    background: none; border: 1px solid color-mix(in oklab, var(--color-accent) 40%, var(--color-edge));
+    border-radius: 8px; padding: 3px 12px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+  }
+  .txm-info .txm-open { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-surface); }
+  .txm-info .txm-open:hover { background: color-mix(in oklab, var(--color-accent) 85%, var(--color-ink)); }
+  .txm-info .txm-clear:hover { background: var(--color-accent-soft); }
+
+  @media (max-width: 700px) {
+    .txm-canvas { height: 440px; }
+    .txm-legend { font-size: .6875rem; padding: 5px 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .txm-node .txm-box, .txm-plane .edge, .txm-node .txm-ring { transition: none !important; }
+  }
+</style>
+
+<script define:vars={{ data: circles }}>
+(function () {
+  const root = document.querySelector('[data-txm]');
+  if (!root) return;
+  const canvas = root.querySelector('[data-canvas]');
+  const plane = root.querySelector('[data-plane]');
+  const info = root.querySelector('[data-info]');
+  const W = 1180;
+  const H = 690;
+  const st = { x: 0, y: 0, s: 1 };
+  let touched = false;
+
+  const apply = () => { plane.style.transform = 'translate(' + st.x + 'px, ' + st.y + 'px) scale(' + st.s + ')'; };
+  const fit = () => {
+    const cw = canvas.clientWidth, ch = canvas.clientHeight;
+    st.s = Math.min(cw / W, ch / H, 1.15);
+    st.x = (cw - W * st.s) / 2;
+    st.y = (ch - H * st.s) / 2;
+    apply();
+  };
+  root.querySelector('[data-z="in"]').addEventListener('click', () => { st.s = Math.min(st.s * 1.25, 3); apply(); });
+  root.querySelector('[data-z="out"]').addEventListener('click', () => { st.s = Math.max(st.s / 1.25, 0.35); apply(); });
+  root.querySelector('[data-z="fit"]').addEventListener('click', () => { touched = false; fit(); });
+
+  let drag = null;
+  canvas.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    if (e.target.closest('.txm-node')) return; /* النقر على عقدة لا يسحب */
+    drag = { x: e.clientX - st.x, y: e.clientY - st.y };
+    canvas.classList.add('dragging');
+    canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener('pointermove', (e) => { if (drag) { st.x = e.clientX - drag.x; st.y = e.clientY - drag.y; apply(); } });
+  canvas.addEventListener('pointerup', () => { drag = null; canvas.classList.remove('dragging'); });
+  canvas.addEventListener('pointercancel', () => { drag = null; canvas.classList.remove('dragging'); });
+  window.addEventListener('resize', () => { if (!touched) fit(); });
+
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  function renderInfo(id) {
+    const clearHtml = '<div class="txm-actions"><button class="txm-clear" type="button">مسح التحديد</button></div>';
+    if (!id) {
+      info.innerHTML = '<div class="txm-who"><b>انقر أي مسار لتمييزه</b></div>' +
+        '<div class="txm-tagline">التمييز يُظهر تفرعات مستوياته، ويمكن السحب والتكبير والتصغير وإعادة الملاءمة</div>';
+      return;
+    }
+    const c = data.find((d) => d.id === id);
+    const full = c.status === 'structured';
+    const prereqText = c.prereqs && c.prereqs.length
+      ? c.prereqs.join('، ')
+      : 'لا شيء مسجّل بعد';
+    info.innerHTML =
+      '<div class="txm-who">' +
+        '<i style="background:' + esc(c.color) + '"></i><b dir="auto">' + esc(c.name) + '</b>' +
+        '<span class="txm-chip' + (full ? ' full' : '') + '">' + (full ? 'منهج كامل' : 'قيد الإعداد') + '</span>' +
+        '<span class="txm-chip">قابل للبدء الآن</span>' +
+      '</div>' +
+      '<div class="txm-tagline">' + esc(c.tagline) + '</div>' +
+      '<div class="txm-facts">' +
+        '<span>المستويات: ' + (full ? c.levelNames.length : '—') + '</span>' +
+        '<span>الموضوعات: ' + (full ? c.topics : '—') + '</span>' +
+        '<span>متطلبات سابقة: ' + esc(prereqText) + '</span>' +
+        '<span>تفرعات معروضة: ' + (full ? 'مستويات المسار نفسه' : 'لا يوجد') + '</span>' +
+      '</div>' +
+      (full ? '<div class="txm-levels">' + c.levelNames.map((l) => '<span dir="auto">' + esc(l) + '</span>').join('') + '</div>' : '') +
+      '<div class="txm-actions"><a class="txm-open" href="' + esc(c.href) + '">افتح صفحة المسار</a>' +
+      '<button class="txm-clear" type="button">مسح التحديد</button></div>';
+    info.querySelector('.txm-clear').addEventListener('click', () => setSel(null));
+  }
+
+  function setSel(id) {
+    plane.querySelectorAll('.txm-node.sel').forEach((n) => n.classList.remove('sel'));
+    plane.querySelectorAll('.txm-node.rel').forEach((n) => n.classList.remove('rel'));
+    plane.querySelectorAll('.edge.rel').forEach((n) => n.classList.remove('rel'));
+    plane.classList.remove('has-sel');
+    if (!id) { renderInfo(null); return; }
+    const node = plane.querySelector('.txm-node[data-node="' + id + '"]');
+    if (node) { node.classList.add('sel'); plane.classList.add('has-sel'); }
+    plane.querySelectorAll('.edge[data-from="' + id + '"], .edge[data-to="' + id + '"]').forEach((n) => n.classList.add('rel'));
+    /* عند اكتمال prereqs مستقبلًا: أشِع العقد المرتبطة */
+    const c = data.find((d) => d.id === id);
+    const rel = new Set([...(c.prereqs || [])]);
+    data.forEach((d) => { if ((d.prereqs || []).includes(id)) rel.add(d.id); });
+    rel.forEach((r) => {
+      const n = plane.querySelector('.txm-node[data-node="' + r + '"]');
+      if (n) n.classList.add('rel');
+    });
+    renderInfo(id);
+    touched = true;
+  }
+
+  plane.addEventListener('click', (e) => {
+    const n = e.target.closest('.txm-node');
+    if (!n) return;
+    const id = n.getAttribute('data-node');
+    setSel(plane.querySelector('.txm-node.sel')?.getAttribute('data-node') === id ? null : id);
+  });
+  plane.addEventListener('keydown', (e) => {
+    const n = e.target.closest?.('.txm-node');
+    if (!n) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      n.dispatchEvent(new Event('click', { bubbles: true }));
+    }
+  });
+
+  renderInfo(null);
+  fit();
+  requestAnimationFrame(fit);
+})();
+</script>

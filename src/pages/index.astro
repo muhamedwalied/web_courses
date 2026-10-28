@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CirclesGraph from '../components/graph/CirclesGraph';
+import TrackExploreMap from '../components/graph/TrackExploreMap.astro';
 import CircleCard from '../components/CircleCard.astro';
-import { structuredCircles } from '../lib/content';
+import { circles, structuredCircles } from '../lib/content';
 
-const graphCircles = structuredCircles.map((c) => ({
+// الرسم والبطاقات يعرضان المسارات الـ١٤ كلها — النص في الهيرو يقول ١٤ مسار
+// والكومبوننتين يدعمان حالة «قيد الإعداد» (raw) أصلًا.
+const graphCircles = circles.map((c) => ({
   id: c.id,
   name: c.name,
   icon: c.icon ?? '📚',
@@ -12,6 +14,9 @@ const graphCircles = structuredCircles.map((c) => ({
   status: c.status,
   prereqs: c.prereqs,
   topics: c.levels.reduce((a, l) => a + l.modules.reduce((b, m) => b + m.topics.length, 0), 0),
+  tagline: c.tagline,
+  levelNames: c.levels.map((l) => l.name),
+  href: `/circles/${c.id}`,
 }));
 
 const totalTopics = structuredCircles.reduce((a, c) => a + c.levels.reduce((b, l) => b + l.modules.reduce((x, m) => x + m.topics.length, 0), 0), 0);
@@ -23,49 +28,83 @@ const totalResources = structuredCircles.reduce((a, c) =>
 const totalLevels = structuredCircles.reduce((a, c) => a + c.levels.length, 0);
 
 const stats = [
-  { v: structuredCircles.length, l: 'مسار' },
+  { v: circles.length, l: 'مسار' },
   { v: totalLevels, l: 'مستوى تعلّم' },
   { v: totalTopics, l: 'موضوع' },
   { v: totalResources, l: 'مصدر تعلّم' },
 ];
+
+// أرقام الهيرو بالأرقام الهندية مثل صيغة المحتوى (١٤ مسار) — قرار الهيرو المعتمد من المعاينة
+const ar = (n: number) => n.toLocaleString('ar-EG');
 ---
 <Layout title="مسارات CAT Reloaded — ابدأ من هنا">
-  <!-- hero -->
-  <section class="pb-8 pt-14">
-    <p class="font-mono text-xs text-accent">CAT RELOADED · CIRCLES ROADMAPS</p>
-    <h1 class="mt-3 max-w-2xl text-4xl font-bold leading-snug sm:text-5xl">
-      رحلتك التعليمية كاملة
-      <span class="bg-gradient-to-l from-accent to-accent-2 bg-clip-text text-transparent">في شبكة واحدة</span>
-    </h1>
-    <p class="mt-4 max-w-2xl leading-8 text-muted">
-      ١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوع بموضوع
-      (محفوظ على جهازك)، وابدأ من أي نقطة.
-    </p>
-    <dl class="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
-      {stats.map((s) => (
-        <div class="rounded-xl border border-edge bg-panel/50 px-4 py-3">
-          <dt class="sr-only">{s.l}</dt>
-          <dd class="font-mono text-2xl font-semibold text-ink">{s.v}</dd>
-          <dd class="mt-0.5 text-xs text-muted">{s.l}</dd>
-        </div>
-      ))}
-    </dl>
+  <!-- hero — الاتجاه «تحريري» من design-explorations/hero-options.html (اعتماده 2026-10-27) -->
+  <section class="hero-ed" aria-labelledby="hero-title">
+    <div class="col-text">
+      <p class="kicker"><span dir="ltr">CAT Reloaded · Circles Roadmaps</span></p>
+      <h1 id="hero-title" class="h-display">رحلتك التعليمية كاملة في شبكة واحدة</h1>
+      <p class="lede">
+        ١٤ مسار تعليمي من مجتمع CAT Reloaded معاد بناءها كواجهة تفاعلية: تصفّح المسارات، تابع تقدّمك موضوعًا بموضوع
+        (محفوظ على جهازك)، وابدأ من أي نقطة.
+      </p>
+
+      <div class="rule-double" aria-hidden="true"></div>
+      <p class="stats-line">
+        {stats.map((s) => <span class="stat"><b>{ar(s.v)}</b><span>{s.l}</span></span>)}
+      </p>
+
+      <div class="search-row">
+        <button type="button" class="field" data-open-search>
+          <svg class="size-4 shrink-0 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="ph">ابحث في المسارات والموضوعات والمصادر…</span>
+          <kbd class="rounded border border-edge bg-panel px-1.5 font-mono text-[10px] text-muted">/</kbd>
+        </button>
+        <button type="button" class="go" data-open-search>بحث</button>
+      </div>
+    </div>
+
+    <div class="col-art">
+      <!-- صفحة منهج تنطلق منها شبكة مسارات — رسم خطي بالحبر (SVG، بلا صور خارجية) -->
+      <svg viewBox="0 0 380 460" role="img" aria-label="رسم توضيحي: صفحة منهج مرتبطة بمسارات مترابطة">
+        <rect class="pg" x="64" y="18" width="252" height="330" rx="10" />
+        <line class="margin" x1="112" y1="34" x2="112" y2="332" />
+        <rect class="pg-head" x="136" y="52" width="128" height="15" rx="4" />
+        <rect class="pg-head" x="136" y="80" width="82" height="9" rx="4" opacity=".55"/>
+        <line class="pg-line" x1="136" y1="120" x2="298" y2="120" />
+        <line class="pg-line" x1="136" y1="140" x2="266" y2="140" />
+        <line class="pg-line" x1="136" y1="160" x2="288" y2="160" />
+        <circle cx="126" cy="196" r="4.5" fill="#f59e0b" />
+        <line class="pg-line" x1="140" y1="196" x2="290" y2="196" />
+        <line class="pg-line" x1="136" y1="226" x2="250" y2="226" />
+        <line class="pg-line" x1="136" y1="246" x2="282" y2="246" />
+        <circle cx="126" cy="282" r="4.5" fill="#38bdf8" />
+        <line class="pg-line" x1="140" y1="282" x2="272" y2="282" />
+        <line class="pg-line" x1="136" y1="312" x2="234" y2="312" />
+        <path class="flow" d="M300 330 C 322 366, 296 382, 316 408" />
+        <line class="link" x1="230" y1="348" x2="222" y2="404" />
+        <line class="link" x1="150" y1="334" x2="112" y2="392" />
+        <circle class="nd" cx="316" cy="416" r="11" fill="#f59e0b" fill-opacity=".9" stroke="var(--color-surface)" />
+        <circle class="nd" cx="222" cy="412" r="9" fill="#38bdf8" fill-opacity=".9" stroke="var(--color-surface)" />
+        <circle class="nd nd-wip" cx="112" cy="400" r="8.5" />
+        <circle class="nd nd-wip" cx="352" cy="440" r="7" />
+      </svg>
+    </div>
   </section>
 
   <!-- network graph -->
   <section class="pb-14" aria-label="شبكة المسارات">
     <div class="mb-4 flex items-baseline justify-between">
       <h2 class="text-xl font-bold">شبكة المسارات</h2>
-      <span class="font-mono text-xs text-muted">zoom / pan — تدوير بالموس</span>
+      <span class="text-xs text-muted">انقر أي مسار لتمييزه وعلاقاته · اسحب للتحريك والتكبير</span>
     </div>
-    <CirclesGraph client:load circles={graphCircles} />
+    <TrackExploreMap circles={graphCircles} />
   </section>
 
   <!-- cards -->
   <section aria-label="كل المسارات">
     <h2 class="mb-4 text-xl font-bold">كل المسارات</h2>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {structuredCircles.map((c) => <CircleCard circle={c} />)}
+      {circles.map((c) => <CircleCard circle={c} />)}
     </div>
   </section>
 </Layout>
@@ -87,4 +126,183 @@ const stats = [
   };
   render();
   progressStore.subscribe(render);
+
+  // زرا البحث في الهيرو يفتحان نفس نافذة البحث (SearchModal يستمع للحدث)
+  for (const btn of document.querySelectorAll('[data-open-search]')) {
+    btn.addEventListener('click', () => window.dispatchEvent(new CustomEvent('open-search')));
+  }
 </script>
+
+<style>
+  /* ============ hero «تحريري» — القيم من الاتجاه المعتمد في design-explorations/hero-options.html ============ */
+  .hero-ed {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: stretch;
+    padding-block: clamp(2rem, 4vw, 3.5rem) 2rem;
+  }
+  .kicker {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  .h-display {
+    margin: 14px 0 0;
+    max-width: 15ch;
+    font-family: var(--font-header);
+    font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.5; /* ارتفاع آمن للنسخ العربي */
+    color: var(--color-ink);
+  }
+  .lede {
+    margin: 18px 0 0;
+    max-width: 46ch;
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+  .rule-double {
+    margin-top: 22px;
+    border-top: 4px double var(--color-edge);
+  }
+  .stats-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 26px;
+    margin: 0;
+    padding-top: 14px;
+  }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .stat b {
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+  .stat span {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  .search-row {
+    display: flex;
+    max-width: 46ch;
+    min-width: 0; /* يسمح للمسار بالتقلّص — لا يفرض عرضه الأقصى على الموبايل */
+    margin-top: 26px;
+  }
+  .field {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-control-edge);
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    cursor: pointer;
+    text-align: start;
+  }
+  .field .ph {
+    flex: 1 1 0%; /* ينمو ليملأ، ولا يدفعه النص الطويل عند حساب العرض الأدنى */
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+  .field:hover {
+    border-color: var(--color-accent);
+  }
+  .go {
+    padding: 0 22px;
+    background: var(--color-accent);
+    color: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .go:hover {
+    background: color-mix(in oklab, var(--color-accent) 88%, black);
+  }
+  .col-art {
+    display: grid;
+    place-items: center;
+  }
+  .col-art svg {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+  }
+
+  /* رسم الصفحة→الشبكة؛ ألوان المسارين من content/circles حرفيًا */
+  .pg {
+    fill: var(--color-surface);
+    stroke: var(--color-edge);
+    stroke-width: 1.5;
+  }
+  .pg-line {
+    stroke: #e6e2d5;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  .pg-head {
+    fill: var(--color-ink);
+  }
+  .margin {
+    stroke: var(--color-accent);
+    stroke-width: 1;
+    opacity: 0.28;
+  }
+  .flow {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  .link {
+    stroke: var(--color-edge);
+    stroke-width: 1.5;
+  }
+  .nd {
+    stroke-width: 2;
+  }
+  .nd-wip {
+    fill: var(--color-surface);
+    stroke: var(--color-muted);
+    stroke-dasharray: 4 3;
+  }
+
+  @media (max-width: 880px) {
+    .hero-ed {
+      grid-template-columns: 1fr;
+    }
+    .col-art {
+      order: 2;
+      margin-top: 1.5rem;
+    }
+    .col-art svg {
+      max-width: 300px;
+    }
+    .go {
+      padding: 0 14px;
+    }
+  }
+</style>

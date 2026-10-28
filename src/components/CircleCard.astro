@@ -21,18 +21,18 @@ const topicKeys = structured ? circleTopics(circle).map((t) => t.key) : [];
     <span class="grid size-11 place-items-center rounded-xl text-xl transition" style={`background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}>
       <Icon name={circleIcon(circle.id)} class="size-5" />
     </span>
-    <span class={`rounded-full px-2 py-0.5 font-mono text-[10px] ${structured ? 'bg-accent/10 text-accent ring-1 ring-accent/30' : 'bg-edge/40 text-muted ring-1 ring-edge'}`}>
+    <span class={`rounded-full px-2 py-0.5 text-[11px] ${structured ? 'bg-accent/10 text-accent ring-1 ring-accent/30' : 'bg-edge/40 text-muted ring-1 ring-edge'}`}>
       {structured ? `${counts?.required ?? 0} موضوع` : 'قيد الإعداد'}
     </span>
   </div>
   <div>
-    <h3 dir="ltr" class="text-start text-lg font-bold transition group-hover:text-white">{circle.name}</h3>
+    <h3 dir="auto" class="text-start text-lg font-bold transition group-hover:text-accent">{circle.name}</h3>
     <p class="mt-1 line-clamp-2 text-sm text-muted">{circle.tagline ?? circle.description}</p>
   </div>
   {
     counts && (
       <div class="mt-auto space-y-2 border-t border-edge/70 pt-3">
-        <div class="flex items-center justify-between font-mono text-[11px] text-muted">
+        <div class="flex items-center justify-between text-[11px] text-muted">
           <span>
             {circle.levels.length} مستويات · {counts.resources} مصدر
           </span>

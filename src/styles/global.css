@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* dark technical palette */
-  --color-bg: #0a0e14;
-  --color-surface: #10161f;
-  --color-panel: #141c28;
-  --color-edge: #202b3b;
-  --color-ink: #e6edf3;
-  --color-muted: #8b98a9;
-  --color-accent: #22d3ee; /* cyan — primary actions / active state */
-  --color-accent-2: #a78bfa; /* violet — graph edges / secondary */
+  /* light scholarly palette — قيم DESIGN.md المعتمدة بعد معاينة 2026-10-27 (اختيار «تحريري» + النظام الفاتح كامل) */
+  --color-bg: #F8F6EE; /* خلفية الموقع، أبيض دافئ مصفر بخفة */
+  --color-surface: #FFFEF9; /* أسطح القراءة والبحث */
+  --color-panel: #F0EEE5; /* مناطق مرتفعة قليلًا مثل البطاقات والقوائم */
+  --color-edge: #DEDACB; /* فواصل وحدود هادئة — غير تفاعلية */
+  --color-control-edge: #8C887C; /* حدود عناصر التحكم (تباين 3.27:1 على الخلفية) */
+  --color-ink: #26313A; /* النص الأساسي (12.26:1 على الخلفية) */
+  --color-muted: #5F6A70; /* النص الثانوي (5.13:1) */
+  --color-accent: #2E536B; /* أزرق حبر — أزرار وروابط وحالة التقدّم والتركيز (7.56:1) */
+  --color-accent-2: #B8B2A4; /* ثانوي هادئ — حواف رسم الشبكة على الفاتح */
 
   --font-sans: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif; /* العناوين الكبيرة — الإحساس الكتابي */
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace; /* كتل الشيفرة ومفاتيح kbd فقط */
 }
 
 html {
@@ -20,10 +22,8 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(1200px 500px at 85% -10%, color-mix(in oklab, var(--color-accent) 7%, transparent), transparent 60%),
-    radial-gradient(900px 420px at 10% 110%, color-mix(in oklab, var(--color-accent-2) 6%, transparent), transparent 60%),
-    var(--color-bg);
+  /* خلفية مسطحة ورقية بلا تدرجات — التوقيع المقترح في DESIGN.md */
+  background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
   min-height: 100dvh;

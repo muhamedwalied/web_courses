@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>معاينة: ثلاثة اتجاهات لصفحة تفاصيل المسار · Front End</title>
+
+<!--
+  ملف معاينة مستقل — لا يطبّق أي شيء على الموقع.
+  البيانات كلها الحقيقية من content/circles/front-end.json و content/SOURCES.json:
+  المستويات والوحدات والموضوعات بأسمائها وعدّاداتها وروابطها، لا اختراع فيها.
+  لا يوجد غلاف صور للمسار في المحتوى (cover غير موجود)، فيُستخدم البديل الحالي
+  في الموقع نفسه: لوحة ملوّنة بلون المسار مع الأيقونة والاسم.
+-->
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/400.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/500.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-sans-arabic/700.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-naskh-arabic/500.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-naskh-arabic/700.css" />
+<link rel="stylesheet" href="../node_modules/@fontsource/jetbrains-mono/400.css" />
+
+<style>
+:root {
+  --color-bg: #F8F6EE;
+  --color-surface: #FFFEF9;
+  --color-panel: #F0EEE5;
+  --color-edge: #DEDACB;
+  --color-control-edge: #8C887C;
+  --color-ink: #26313A;
+  --color-muted: #5F6A70;
+  --color-accent: #2E536B;
+  --color-accent-soft: #E8EEF0;
+  --color-accent-2: #B8B2A4;
+
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif;
+  --font-sans: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #ECEAE0; /* خلفية شاشة المقارنة — ليست جزءًا من المقترح */
+  line-height: 1.7;
+}
+button { font-family: var(--font-sans); }
+:where(button, a, input, [tabindex]):focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* ===== واجهة المقارنة ===== */
+.compare-bar { max-width: 1180px; margin-inline: auto; padding: 20px 20px 0; }
+.compare-bar h1 { font-family: var(--font-header); font-size: 1.35rem; font-weight: 700; margin: 0 0 .35rem; line-height: 1.6; }
+.compare-bar p { margin: 0; font-size: .8125rem; color: var(--color-muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 12px; }
+.tabs [role="tab"] {
+  font-size: .9375rem; font-weight: 500;
+  padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--color-control-edge);
+  background: transparent; color: var(--color-ink);
+  cursor: pointer; transition: background-color .15s, border-color .15s, color .15s;
+}
+.tabs [role="tab"] .n { color: var(--color-muted); font-size: .8125rem; }
+.tabs [role="tab"]:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.tabs [role="tab"][aria-selected="true"] { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-surface); }
+.tabs [role="tab"][aria-selected="true"] .n { color: color-mix(in oklab, var(--color-surface) 75%, var(--color-accent)); }
+
+.stage { max-width: 1180px; margin: 0 auto 12px; padding-inline: 16px; }
+.exp {
+  background: var(--color-bg);
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+  padding: clamp(16px, 3vw, 30px);
+}
+.variant-note { max-width: 1180px; margin: 0 auto 36px; padding-inline: 20px; font-size: .8125rem; color: var(--color-muted); line-height: 1.7; }
+.variant-note b { color: var(--color-ink); }
+.preview-meta { color: var(--color-muted); }
+.preview-meta::before { content: "ملاحظة المعاينة: "; font-weight: 700; }
+
+/* ===== عناصر مشتركة بين الاتجاهات ===== */
+.breadcrumb { font-size: .8125rem; color: var(--color-muted); display: flex; align-items: center; gap: 8px; }
+.breadcrumb a { color: var(--color-muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--color-accent); }
+.breadcrumb .sep { color: var(--color-edge); }
+.breadcrumb .here { color: var(--color-ink); font-weight: 500; }
+.tname { font-family: var(--font-header); font-weight: 700; letter-spacing: 0; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: .6875rem; border-radius: 999px; padding: 2px 10px; }
+.chip.mono { font-family: var(--font-mono); }
+.chip.status-on { background: color-mix(in oklab, var(--color-accent) 8%, transparent); color: var(--color-accent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 30%, transparent); }
+.chip.tint { background: var(--color-panel); color: var(--color-muted); box-shadow: inset 0 0 0 1px var(--color-edge); }
+.dot { inline-size: 8px; block-size: 8px; border-radius: 50%; display: inline-block; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-weight: 700; text-decoration: none; cursor: pointer;
+  border-radius: 10px; padding: 10px 18px; font-size: .9375rem;
+  transition: background-color .15s, border-color .15s, color .15s, opacity .15s;
+}
+.btn.primary { background: var(--color-accent); border: 1px solid var(--color-accent); color: var(--color-surface); }
+.btn.primary:hover { opacity: .92; }
+.btn.ghost { background: transparent; border: 1px solid var(--color-ink); color: var(--color-ink); }
+.btn.ghost:hover { background: var(--color-panel); }
+.btn.small { padding: 7px 14px; font-size: .8125rem; border-radius: 9px; }
+
+.facts li { display: flex; align-items: center; gap: 8px; }
+.facts { list-style: none; margin: 0; padding: 0; }
+.h2 { font-size: 1.25rem; font-weight: 700; }
+
+/* صف موضوع/درس */
+.trow {
+  display: flex; align-items: center; gap: 10px; min-height: 40px;
+  border: 1px solid color-mix(in oklab, var(--color-edge) 60%, transparent);
+  background: color-mix(in oklab, var(--color-panel) 55%, transparent);
+  border-radius: 10px; padding: 8px 12px;
+  text-decoration: none; transition: background-color .15s, border-color .15s;
+}
+.trow:hover { border-color: color-mix(in oklab, var(--color-accent) 30%, transparent); background: var(--color-panel); }
+.trow .tt { flex: 1; min-width: 0; font-size: .75rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 90%, transparent); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trow .meta { display: flex; align-items: center; gap: 6px; font-size: .625rem; color: var(--color-muted); white-space: nowrap; }
+.trow .ar { font-family: var(--font-mono); font-weight: 700; color: color-mix(in oklab, var(--color-accent) 80%, transparent); background: color-mix(in oklab, var(--color-accent) 10%, transparent); border-radius: 5px; padding: 1px 6px; }
+.ico { inline-size: 14px; block-size: 14px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* أكورديون المستويات */
+details.chapter {
+  overflow: hidden;
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--color-surface) 72%, transparent);
+}
+details.chapter > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 16px; cursor: pointer; list-style: none; user-select: none;
+  transition: background-color .15s;
+}
+details.chapter > summary::-webkit-details-marker { display: none; }
+details.chapter > summary:hover { background: color-mix(in oklab, var(--color-panel) 70%, transparent); }
+details.chapter[open] > summary { border-bottom: 1px solid color-mix(in oklab, var(--color-edge) 70%, transparent); }
+details.chapter .idx { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 800; line-height: 1; color: color-mix(in oklab, var(--color-accent) 70%, transparent); }
+details.chapter .lname { display: block; font-weight: 700; font-size: .9375rem; }
+details.chapter .lmeta { display: block; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); margin-top: 2px; }
+details.chapter .body { padding: 14px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.modname { font-size: .75rem; font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-inline: 4px; }
+.modname .cnt { font-weight: 400; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); background: color-mix(in oklab, var(--color-edge) 50%, transparent); border-radius: 5px; padding: 1px 6px; }
+.durchip { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); border: 1px solid color-mix(in oklab, var(--color-edge) 70%, transparent); background: color-mix(in oklab, var(--color-panel) 60%, transparent); border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
+.chev { transition: transform .15s; }
+details[open] .chev { transform: rotate(180deg); }
+
+/* شريط المسارات المشابهة */
+.sim-strip { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; scrollbar-width: none; }
+.sim-strip::-webkit-scrollbar { display: none; }
+.sim-card { width: 280px; max-width: 78vw; flex: none; scroll-snap-align: start; border: 1px solid var(--color-edge); border-radius: 14px; background: color-mix(in oklab, var(--color-surface) 72%, transparent); padding: 14px 16px; text-decoration: none; }
+.sim-card .nm { font-weight: 700; font-size: .9375rem; display: flex; align-items: center; gap: 8px; }
+.sim-card .tg { font-size: .75rem; color: var(--color-muted); margin-top: 4px; line-height: 1.6; }
+.sim-card .st { display: inline-block; margin-top: 8px; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); border: 1px dashed var(--color-control-edge); border-radius: 999px; padding: 1px 8px; }
+.sim-card .st.on { border-style: solid; border-color: color-mix(in oklab, var(--color-accent) 30%, transparent); background: var(--color-accent-soft); color: var(--color-accent); font-weight: 700; }
+.sim-nav { display: flex; gap: 8px; }
+.sim-nav button { inline-size: 36px; block-size: 36px; border-radius: 50%; border: 1px solid var(--color-edge); background: color-mix(in oklab, var(--color-panel) 60%, transparent); color: var(--color-muted); cursor: pointer; }
+.sim-nav button:hover { border-color: color-mix(in oklab, var(--color-accent) 40%, transparent); color: var(--color-ink); }
+.simnav-label { font-size: .8125rem; color: var(--color-muted); }
+.simnav-label b { color: var(--color-ink); }
+
+/* ===== ١) تحريري ===== */
+.c1-wrap { max-width: 1120px; }
+.c1-name { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.45; margin: 14px 0 6px; }
+.c1-lead { max-width: 62ch; font-size: .9375rem; line-height: 1.9; color: var(--color-muted); margin: 12px 0 0; }
+.c1-metaline { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; padding-block: 10px; border-block: 1px solid var(--color-edge); font-size: .75rem; color: var(--color-muted); }
+.c1-metaline b { color: var(--color-ink); font-weight: 700; }
+.c1-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 30px; align-items: start; }
+@media (min-width: 1000px) { .c1-grid { grid-template-columns: 20rem 1fr; } }
+.c1-side { display: grid; gap: 18px; }
+@media (min-width: 1000px) { .c1-side { position: sticky; top: 18px; } }
+.card { border: 1px solid var(--color-edge); border-radius: 16px; background: var(--color-panel); padding: 18px; }
+.card.soft { background: color-mix(in oklab, var(--color-panel) 40%, transparent); }
+.c1-price { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.c1-price .big { font-size: 1.75rem; font-weight: 800; }
+.prov { font-family: var(--font-mono); font-size: .6875rem; color: var(--color-muted); display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.prov li { display: flex; align-items: center; gap: 8px; }
+.prov .u { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.c1-sech { margin-top: 34px; }
+.c1-over { font-size: .875rem; line-height: 1.9; color: var(--color-muted); max-width: 70ch; }
+
+/* ===== ٢) صفحة دورة مركّزة ===== */
+.c2-wrap { max-width: 860px; margin-inline: auto; }
+.c2-cover {
+  aspect-ratio: 16/9; border-radius: 18px; border: 1px solid var(--color-edge);
+  display: grid; place-items: center; overflow: hidden;
+}
+.c2-cover .inner { display: grid; place-items: center; gap: 6px; }
+.c2-cover .em { font-size: 44px; line-height: 1; }
+.c2-h1 { text-align: center; font-size: clamp(1.9rem, 4.5vw, 2.5rem); margin: 20px 0 4px; }
+.c2-tag { text-align: center; font-size: .875rem; font-weight: 500; color: var(--color-ink); }
+.c2-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+.c2-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; }
+.c2-trust { font-size: .75rem; color: var(--color-muted); }
+.c2-prov { margin-top: 16px; border-block: 1px solid var(--color-edge); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 4px 20px; font-family: var(--font-mono); font-size: .6875rem; color: var(--color-muted); }
+.c2-sec { margin-top: 30px; }
+
+/* ===== ٣) دفتر منهج ===== */
+.c3-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 12px; }
+.c3-head h1 { font-size: clamp(1.7rem, 4vw, 2.1rem); margin: 0; }
+.c3-body { display: grid; grid-template-columns: 1fr; gap: 26px; margin-top: 22px; align-items: start; }
+@media (min-width: 1000px) { .c3-body { grid-template-columns: 17rem 1fr; } }
+.c3-rail { display: flex; gap: 8px; overflow-x: auto; min-width: 0; max-inline-size: 100%; scrollbar-width: none; }
+.c3-rail::-webkit-scrollbar { display: none; }
+@media (min-width: 1000px) { .c3-rail { flex-direction: column; overflow: visible; position: sticky; top: 18px; } }
+.c3-toc {
+  flex: none; min-inline-size: 15rem; text-align: start;
+  border: 1px solid var(--color-edge); border-radius: 12px;
+  background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  padding: 11px 14px; cursor: pointer;
+  transition: border-color .15s, background-color .15s, box-shadow .15s;
+}
+.c3-toc:hover { border-color: color-mix(in oklab, var(--color-accent) 40%, var(--color-edge)); }
+.c3-toc.on { background: var(--color-accent-soft); border-color: color-mix(in oklab, var(--color-accent) 45%, transparent); box-shadow: inset 3px 0 0 var(--color-accent); }
+.c3-toc .rn { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.c3-toc.on .rn { color: var(--color-accent); }
+.c3-toc .nm { display: block; font-weight: 700; font-size: .8125rem; margin-top: 1px; }
+.c3-toc .mt { display: block; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); margin-top: 2px; }
+.c3-panel { border: 1px solid var(--color-edge); border-radius: 16px; background: color-mix(in oklab, var(--color-surface) 72%, transparent); overflow: hidden; }
+.c3-ptop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 14px 18px; border-bottom: 1px solid var(--color-edge); }
+.c3-ptop h3 { margin: 0; font-size: 1.0625rem; }
+.c3-pbody { padding: 16px 18px 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.c3-pages { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--color-edge); padding: 12px 18px; font-size: .8125rem; }
+.c3-pages a { color: var(--color-accent); text-decoration: none; font-weight: 500; }
+.c3-pages a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.c3-pos { font-family: var(--font-mono); font-size: .6875rem; color: var(--color-muted); }
+.c3-stats { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .75rem; color: var(--color-muted); margin-top: 12px; }
+.c3-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+
+.simsec { margin-top: 34px; }
+.simhead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="compare-bar">
+  <h1>ثلاثة اتجاهات لصفحة تفاصيل المسار</h1>
+  <p>الصفحة نفسها ببيانات <span dir="ltr">front-end.json</span> الجاهزة في الموقع، المستويات والوحدات والموضوعات والعُدّادات والمصادر والروابط حقيقة، ولا يوجد غلاف صور للمسار في المحتوى فيُستخدم بديل الموقع الحالي.</p>
+  <div class="tabs" role="tablist" aria-label="اختيار اتجاه صفحة المسار">
+    <button role="tab" id="tab-editorial" aria-selected="true" aria-controls="exp-editorial" data-hash="editorial">تحريري <span class="n">١</span></button>
+    <button role="tab" id="tab-course" aria-selected="false" aria-controls="exp-course" data-hash="course" tabindex="-1">صفحة دورة مركّزة <span class="n">٢</span></button>
+    <button role="tab" id="tab-notebook" aria-selected="false" aria-controls="exp-notebook" data-hash="notebook" tabindex="-1">دفتر منهج <span class="n">٣</span></button>
+  </div>
+</header>
+
+<div class="stage">
+  <section class="exp" id="exp-editorial" role="tabpanel" aria-labelledby="tab-editorial">
+    <div class="exp-body c1-wrap" data-design="editorial"></div>
+  </section>
+  <section class="exp" id="exp-course" role="tabpanel" aria-labelledby="tab-course" hidden>
+    <div class="exp-body c2-wrap" data-design="course"></div>
+  </section>
+  <section class="exp" id="exp-notebook" role="tabpanel" aria-labelledby="tab-notebook" hidden>
+    <div class="exp-body c3-wrap" data-design="notebook"></div>
+  </section>
+</div>
+
+<p class="variant-note" id="note-editorial"><b>١ · تحريري:</b> عنوان وجملة بارزان بقراءة مريحة وبعدّادات حقيقية على سطر خفيف، وبطاقة إجراء ثابتة على الشاشات الواسعة (زر البدء وGitHub والمصدر)، المنهج فصول قابلة للفتح، والمسارات المشابهة أسفل الصفحة.</p>
+<p class="variant-note" id="note-course" hidden><b>٢ · صفحة دورة مركّزة:</b> غلاف المسار في المقدمة (بديل الموقع الحالي لغياب صورة الغلاف، لوحة بلون المسار مع الأيقونة)، ثم الإحصاءات وزر البدء وGitHub بوضوح ثم المنهج، مناسبة للقراءة بعمود واحد.</p>
+<p class="variant-note" id="note-notebook" hidden><b>٣ · دفتر منهج:</b> فهرس فصول على الجانب (يتحول لشرائط أفقية على الهاتف) يبيّن مكان المتعلم: «الفصل ٢ من ٤»، وكل فصل بصفحة داخلية بمنهجه وبينقل السابق/التالي، الإجراءات في رأس الصفحة والمنهج هو البطل.</p>
+
+<script>
+const DATA = {"id": "front-end", "name": "Front End", "status": "structured", "color": "#f59e0b", "icon": "⚛️", "tagline": "Phase 1 → Core Engineering → إطار عمل تخصصي", "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.", "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Front%20End", "startHref": "/start-front-end/", "stats": {"levels": 4, "topics": 45, "resources": 219, "arabic": 22}, "firstLevelDuration": "5 أسابيع", "upstream": {"repo": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps", "branch": "2026", "commit": "6a1c6a2c3a203d8a8383c7e6a8f527aad19f75b8", "fetchedAt": "2026-10-25", "note": "إذن CATReloaded مطلوب قبل أي نشر عام — upstream بلا ملف LICENSE."}, "levels": [{"id": "phase-1-foundation", "name": "Phase 1 — The Foundation", "duration": "5 أسابيع", "modules": [{"id": "setup", "name": "Prerequisites & Setup", "topics": []}, {"id": "w01", "name": "The Setup & Syntax", "topics": [{"id": "introduction-the-invisible-web", "title": "Introduction: The Invisible Web", "res": 8, "ar": false, "g": "doc"}, {"id": "html-playlist-elzero-web-school", "title": "HTML Playlist — Elzero Web School", "res": 1, "ar": true, "g": "video"}]}, {"id": "w02", "name": "CSS Basics", "topics": [{"id": "css-playlist-elzero-web-school-lessons-1-53", "title": "CSS Playlist — Elzero Web School (Lessons 1–53)", "res": 1, "ar": true, "g": "video"}]}, {"id": "w03", "name": "Visual Effects", "topics": [{"id": "css-playlist-lessons-54-67", "title": "CSS Playlist (Lessons 54–67)", "res": 1, "ar": false, "g": "video"}]}, {"id": "w04", "name": "Layout Mastery", "topics": [{"id": "css-playlist-lessons-68-88", "title": "CSS Playlist (Lessons 68–88)", "res": 1, "ar": false, "g": "video"}]}, {"id": "w05", "name": "The Final Boss", "topics": []}], "topics": 5}, {"id": "phase-2-core", "name": "Phase 2 — Core Engineering", "duration": "13 أسبوعًا", "modules": [{"id": "module-a", "name": "Module A: Logic & Layouts", "topics": [{"id": "w01", "title": "Week 1: Syntax & Layouts", "res": 7, "ar": true, "g": "video"}, {"id": "w02", "title": "Week 2: Control Flow & Cloning", "res": 8, "ar": true, "g": "video"}, {"id": "w03", "title": "Week 3: Functions & Forms", "res": 5, "ar": true, "g": "video"}, {"id": "w04", "title": "Week 4: Higher Order Logic", "res": 3, "ar": true, "g": "video"}]}, {"id": "module-b", "name": "Module B: DOM & Interactivity", "topics": [{"id": "w05", "title": "Week 5: DOM & Bootstrap", "res": 10, "ar": true, "g": "video"}, {"id": "w06", "title": "Week 6: Persistent Data (BOM)", "res": 4, "ar": true, "g": "video"}, {"id": "w07", "title": "Week 7: Advanced Data & Regex", "res": 5, "ar": true, "g": "video"}]}, {"id": "module-c", "name": "Module C: Advanced Engineering", "topics": [{"id": "w08", "title": "Week 8: Data Patterns & Regex", "res": 2, "ar": true, "g": "video"}, {"id": "w09", "title": "Week 9: OOP", "res": 6, "ar": true, "g": "video"}, {"id": "w10", "title": "Week 10: Async & API", "res": 4, "ar": true, "g": "video"}]}, {"id": "module-d", "name": "Module D: Pro Tooling", "topics": [{"id": "w11", "title": "Week 11: SASS", "res": 3, "ar": true, "g": "video"}, {"id": "w12", "title": "Week 12: Tooling (NPM & Git)", "res": 2, "ar": false, "g": "video"}, {"id": "w13", "title": "Week 13: THE CAPSTONE", "res": 1, "ar": false, "g": "video"}]}, {"id": "js-practice-projects", "name": "JS Practice Projects", "topics": []}, {"id": "problem-solving", "name": "Problem-Solving", "topics": []}, {"id": "extra-javascript-resources", "name": "Extra JavaScript Resources", "topics": []}, {"id": "interview-prep", "name": "Interview Prep", "topics": []}], "topics": 13}, {"id": "phase-3-react", "name": "Phase 3 — React & Next.js", "duration": "8 أسابيع تخصصية", "modules": [{"id": "prerequisites", "name": "React Prerequisites Checklist", "topics": []}, {"id": "learning-path", "name": "The React Learning Path", "topics": [{"id": "1-core-react", "title": "1. Core React", "res": 9, "ar": false, "g": "video"}, {"id": "2-state-management-redux-toolkit", "title": "2. State Management (Redux Toolkit)", "res": 5, "ar": false, "g": "video"}, {"id": "3-modern-styling-tailwind-css", "title": "3. Modern Styling (Tailwind CSS)", "res": 4, "ar": false, "g": "video"}, {"id": "4-typescript", "title": "4. TypeScript", "res": 4, "ar": true, "g": "video"}, {"id": "5-meta-framework-next-js", "title": "5. Meta-Framework (Next.js)", "res": 6, "ar": false, "g": "video"}]}, {"id": "ecosystem", "name": "React Ecosystem Libraries", "topics": [{"id": "navigation", "title": "Navigation", "res": 2, "ar": false, "g": "video"}, {"id": "ui-libraries", "title": "UI Libraries", "res": 2, "ar": false, "g": "video"}, {"id": "data-fetching", "title": "Data Fetching", "res": 2, "ar": false, "g": "video"}, {"id": "form-validation", "title": "Form Validation", "res": 4, "ar": true, "g": "video"}]}, {"id": "specialist-a", "name": "Module A: The React Standard", "topics": [{"id": "w01", "title": "Week 1: Thinking in React", "res": 1, "ar": false, "g": "doc"}, {"id": "w02", "title": "Week 2: Forms & Side Effects", "res": 1, "ar": false, "g": "doc"}, {"id": "w03", "title": "Week 3: Data-Driven React (API & Routing)", "res": 1, "ar": false, "g": "link"}, {"id": "w04", "title": "Week 4: Global State (Redux Toolkit)", "res": 0, "ar": false, "g": "link"}]}, {"id": "specialist-b", "name": "Module B: The Next.js Framework", "topics": [{"id": "w05", "title": "Week 5: Next.js Fundamentals (App Router)", "res": 1, "ar": false, "g": "link"}, {"id": "w06", "title": "Week 6: Server Actions & Databases", "res": 0, "ar": false, "g": "link"}, {"id": "w07", "title": "Week 7: Authentication & Optimization", "res": 0, "ar": false, "g": "link"}, {"id": "w08", "title": "Week 8: The Final Capstone", "res": 0, "ar": false, "g": "link"}]}, {"id": "recommended-projects", "name": "Recommended Projects", "topics": [{"id": "beginner", "title": "Beginner", "res": 4, "ar": false, "g": "video"}, {"id": "intermediate", "title": "Intermediate", "res": 2, "ar": false, "g": "video"}, {"id": "advanced", "title": "Advanced", "res": 1, "ar": false, "g": "video"}]}, {"id": "channels", "name": "YouTube Channels", "topics": []}], "topics": 20}, {"id": "alternative-tracks", "name": "Alternative Tracks (Angular / Vue)", "duration": null, "modules": [{"id": "vue-track", "name": "Vue.js Ecosystem", "topics": [{"id": "1-vue-fundamentals", "title": "1. Vue Fundamentals", "res": 3, "ar": true, "g": "video"}, {"id": "2-vue-3-features", "title": "2. Vue 3 Features", "res": 2, "ar": true, "g": "video"}, {"id": "3-state-management-pinia", "title": "3. State Management (Pinia)", "res": 3, "ar": true, "g": "video"}, {"id": "4-meta-framework-nuxt-js", "title": "4. Meta-Framework (Nuxt.js)", "res": 1, "ar": false, "g": "link"}]}, {"id": "angular-track", "name": "Angular Ecosystem", "topics": [{"id": "1-prerequisites", "title": "1. Prerequisites", "res": 0, "ar": false, "g": "link"}, {"id": "2-core-angular", "title": "2. Core Angular", "res": 4, "ar": true, "g": "video"}, {"id": "3-reactive-programming-rxjs", "title": "3. Reactive Programming (RxJS)", "res": 8, "ar": true, "g": "video"}]}], "topics": 7}], "topicsTotal": 45, "others": [{"id": "flutter", "name": "Flutter", "status": "structured", "color": "#38bdf8", "icon": "🐦", "tagline": "من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture"}, {"id": "android", "name": "Android", "status": "raw", "color": "#4ade80", "icon": "📱", "tagline": "تطبيقات أندرويد من الصفر"}, {"id": "backend", "name": "Back End", "status": "raw", "color": "#34d399", "icon": "🛠️", "tagline": "Back-End بأربع تتبّعات: DotNet / Laravel / NodeJS / Spring"}, {"id": "cloud", "name": "Cloud Computing & DevOps", "status": "raw", "color": "#93c5fd", "icon": "☁️", "tagline": "الحوسبة السحابية و DevOps"}, {"id": "computer-science", "name": "Computer Science", "status": "raw", "color": "#c084fc", "icon": "🧮", "tagline": "أساسيات علوم الحاسب"}, {"id": "cybersecurity", "name": "CyberSecurity", "status": "raw", "color": "#f87171", "icon": "🔐", "tagline": "أمن سيبراني من الأساسيات للـ SOC"}, {"id": "data-science", "name": "Data Science", "status": "raw", "color": "#fb923c", "icon": "📊", "tagline": "تحليل بيانات و ML"}, {"id": "embedded", "name": "Embedded Systems", "status": "raw", "color": "#a3e635", "icon": "🔩", "tagline": "أنظمة مدمجة وميكروكنترولر"}, {"id": "english", "name": "English", "status": "raw", "color": "#f472b6", "icon": "🔤", "tagline": "إنجليزي خطوة بخطوة"}, {"id": "game-dev", "name": "Game Development", "status": "raw", "color": "#e879f9", "icon": "🎮", "tagline": "تطوير ألعاب بـ Unity & C#"}, {"id": "ios", "name": "iOS", "status": "raw", "color": "#60a5fa", "icon": "🍎", "tagline": "تطبيقات iOS بسويفيت"}, {"id": "media", "name": "Media", "status": "raw", "color": "#facc15", "icon": "🎬", "tagline": "Content Writing / Motion Graphics / Photography"}, {"id": "ui", "name": "UI/UX", "status": "raw", "color": "#2dd4bf", "icon": "🖌️", "tagline": "UI/UX من الأساسيات لمصمم واثق"}]};
+
+const ESC = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const TAGS = DATA.tagline.split('→').map((s) => s.trim()).filter(Boolean);
+const segHtml = TAGS.map((s, i) => (i ? '<span style="margin-inline:6px;color:var(--color-accent-2)">←</span>' : '') + '<span>' + ESC(s) + '</span>').join('');
+// أسماء المستويات والموضوعات إنجليزية: تُعرض داخل dir=ltr وسط سطر عربي
+const LTR = (s) => '<span dir="ltr">' + ESC(s) + '</span>';
+
+const ICONS = {
+  play: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg>',
+  yt: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12s0-3.5-.5-5c-.3-.9-1-1.6-1.9-1.8C17.9 4.7 12 4.7 12 4.7s-5.9 0-7.6.5c-.9.2-1.6.9-1.9 1.8C2 8.5 2 12 2 12s0 3.5.5 5c.3.9 1 1.6 1.9 1.8 1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5c.9-.2 1.6-.9 1.9-1.8.5-1.5.5-5 .5-5zM10 8.8l6 3.2-6 3.2V8.8z" fill="currentColor" stroke="none"/></svg>',
+  doc: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+  link: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>',
+  ext: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>',
+  gh: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" stroke="none"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1 .79-.25.79-.55v-2.02c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.78 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>',
+  shield: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+  tree: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h10M4 19h7"/></svg>',
+};
+
+// صف درس: نفس منطق ربط الموقع /start-<id>/#<level>/<module>/<topic>
+function topicRow(level, mod, t) {
+  const glyph = t.g === 'video' ? (t.ar ? ICONS.yt : ICONS.play) : (t.g === 'doc' ? ICONS.doc : ICONS.link);
+  const resText = t.res > 0 ? t.res + ' مصادر' : 'درس';
+  return '<a class="trow" href="/start-' + DATA.id + '/#' + ESC(level.id) + '/' + ESC(mod.id) + '/' + ESC(t.id) + '">' +
+    '<span style="color:var(--color-accent);display:inline-flex">' + glyph + '</span>' +
+    '<span class="tt" dir="ltr">' + ESC(t.title) + '</span>' +
+    '<span class="meta">' + (t.ar ? '<span class="ar">عربي</span>' : '') + '<span>' + resText + '</span></span>' +
+  '</a>';
+}
+function modBlock(level, mod) {
+  const rows = mod.topics.map((t) => topicRow(level, mod, t)).join('');
+  return '<div><p class="modname"><span>' + (mod.name ? LTR(mod.name) : '') + '</span><span class="cnt">' + mod.topics.length + ' دروس</span></p><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:6px">' + rows + '</div></div>';
+}
+function chapterDetails(li, open) {
+  const lv = DATA.levels[li];
+  const mods = lv.modules.map((m) => modBlock(lv, m)).join('');
+  return '<details class="chapter"' + (open ? ' open' : '') + '>' +
+    '<summary><span style="display:flex;align-items:center;gap:16px;min-width:0">' +
+      '<span class="idx" aria-hidden="true">' + String(li + 1).padStart(2, '0') + '</span>' +
+      '<span style="min-width:0"><span class="lname ltr">' + ESC(lv.name) + '</span>' +
+      '<span class="lmeta">' + lv.modules.length + ' وحدات · ' + lv.topics + ' دروس</span></span></span>' +
+      '<span style="display:flex;align-items:center;gap:8px;flex:none">' +
+      (lv.duration ? '<span class="durchip">' + lv.duration + '</span>' : '') +
+      '<svg class="ico chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+    '</span></summary>' +
+    '<div class="body">' + mods + '</div></details>';
+}
+function overviewBlock() {
+  return '<div data-overview>' +
+    '<h2 class="h2" style="margin:0">نظرة عامة على المسار</h2>' +
+    '<p class="c1-over" style="margin-top:10px">' + ESC(DATA.description) + '</p></div>';
+}
+function curriculumHeader() {
+  return '<div class="simhead" style="margin-bottom:12px"><div><h2 class="h2" style="margin:0">منهج المسار</h2></div>' +
+    '<span class="chip tint mono" style="flex:none">' + DATA.levels.length + ' مراحل · ' + DATA.topicsTotal + ' موضوع</span></div>';
+}
+// المسارات المشابهة: ١٣ مسارًا — المنظّم أولًا (ترتيب SimilarCircles الحالي)
+const S = DATA.others;
+const simCard = (o) => '<a class="sim-card" href="/circles/' + o.id + '/">' +
+  '<span class="nm"><span class="dot" style="background:' + o.color + '">‎</span>' + LTR(o.name) + '</span>' +
+  '<span class="tg">' + (o.status === 'structured' ? LTR(o.tagline.split('→')[0].trim()) + ' …' : ESC(o.tagline)) + '</span>' +
+  '<span class="st' + (o.status === 'structured' ? ' on' : '') + '">' + (o.status === 'structured' ? 'منهج كامل — قابل للبدء' : 'قابلة للبدء · قيد الإعداد') + '</span>' +
+'</a>';
+const simSection = () => '<section class="simsec" aria-label="مسارات أخرى مقترحة">' +
+  '<div class="simhead"><div>' +
+  '<h2 class="h2" style="margin:0">مسارات تانية ممكن تبدأ بيها</h2></div>' +
+  '<div class="sim-nav"><button type="button" aria-label="المسارات اللي على اليمين">›</button><button type="button" aria-label="المسارات اللي على اليسار">‹</button></div></div>' +
+  '<div class="sim-strip">' + S.map(simCard).join('') + '</div></section>';
+
+function wireSimNav(section) {
+  const strip = section.querySelector('.sim-strip');
+  const btns = section.querySelectorAll('.sim-nav button');
+  const step = () => Math.max(strip.clientWidth * 0.7, 240);
+  // RTL: «اللي على اليمين» = رجوع = +step، و«اللي على اليسار» = تقدّم = -step (مثل SimilarCircles)
+  btns[0].addEventListener('click', () => strip.scrollBy({ left: step(), behavior: 'smooth' }));
+  btns[1].addEventListener('click', () => strip.scrollBy({ left: -step(), behavior: 'smooth' }));
+}
+
+const factLine = () => '<div class="c1-metaline">' +
+  '<span><b>' + DATA.stats.levels + '</b> مستويات</span><span><b>' + DATA.stats.topics + '</b> موضوع</span>' +
+  '<span><b>' + DATA.stats.resources + '</b> مصادر</span><span><b>' + DATA.stats.arabic + '</b> مصدر عربي</span>' +
+  (DATA.firstLevelDuration ? '<span>المرحلة الأولى: <b>' + DATA.firstLevelDuration + '</b></span>' : '') + '</div>';
+const startBtn = (cls) => '<a class="btn primary' + (cls ? ' ' + cls : '') + '" href="' + DATA.startHref + '">ابدأ المسار</a>';
+const ghBtn = (cls) => '<a class="btn ghost' + (cls ? ' ' + cls : '') + '" href="' + ESC(DATA.github) + '" target="_blank" rel="noopener noreferrer">' + ICONS.gh.replace('class="ico"', 'class="ico" style="inline-size:16px;block-size:16px"') + '<span>المصدر على GitHub</span></a>';
+const provList = () => '<ul class="prov">' +
+  '<li><span aria-hidden="true">⑂</span><span class="u ltr">upstream/' + ESC(DATA.upstream.branch) + '</span></li>' +
+  '<li><span aria-hidden="true">●</span><span class="u ltr">' + ESC(DATA.upstream.commit.slice(0, 9)) + '</span></li>' +
+  '<li><span aria-hidden="true">⇄</span><span>آخر مزامنة: ' + ESC(DATA.upstream.fetchedAt) + '</span></li>' +
+'</ul>' + (DATA.upstream.note ? '<p style="margin:10px 0 0;font-size:.6875rem;line-height:1.7;color:var(--color-muted)">' + ESC(DATA.upstream.note) + '</p>' : '');
+const breadcrumb = () => '<nav class="breadcrumb" aria-label="مسار التنقل"><a href="/">المسارات</a><span class="sep">/</span><span class="here ltr">' + ESC(DATA.name) + '</span></nav>';
+
+/* ===== بناء ١) تحريري ===== */
+(function () {
+  const root = document.querySelector('[data-design="editorial"]');
+  const chapterHeaders = curriculumHeader();
+  root.innerHTML =
+    breadcrumb() +
+    '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px">' +
+      '<span style="display:grid;place-items:center;inline-size:34px;block-size:34px;border-radius:9px;background:' + DATA.color + '1f;box-shadow:inset 0 0 0 1px ' + DATA.color + '40;font-size:17px">' + DATA.icon + '</span>' +
+      '<span class="chip mono" style="color:var(--color-accent)">مسار</span>' +
+      '<span class="chip status-on">منظّم · تقدّم قابل للتتبّع</span>' +
+    '</div>' +
+    '<h1 class="tname c1-name ltr">' + ESC(DATA.name) + '</h1>' +
+    '<p style="margin:0;font-size:.9375rem;font-weight:500">' + segHtml + '</p>' +
+    '<p class="c1-lead">' + ESC(DATA.description) + '</p>' +
+    factLine() +
+    '<div class="c1-grid">' +
+      '<aside class="c1-side">' +
+        '<div class="card">' +
+          '<div class="c1-price"><span class="big">مجاني</span><span class="chip tint mono">بدون تسجيل</span></div>' +
+          '<div style="display:grid;gap:9px;margin-top:14px">' + startBtn() + ghBtn() + '</div>' +
+          '<p style="display:flex;justify-content:center;align-items:center;gap:6px;margin:12px 0 0;font-size:.75rem;color:var(--color-muted)">' + ICONS.shield + ' تقدّمك محفوظ على جهازك</p>' +
+          '<hr style="border:none;border-top:1px solid var(--color-edge);margin:14px 0">' +
+          '<ul class="facts" style="display:grid;gap:8px;font-size:.8125rem;color:var(--color-muted)">' +
+            '<li>' + ICONS.tree + ' <span>' + DATA.stats.levels + ' مستويات تعليمية</span></li>' +
+            '<li>' + ICONS.doc + ' <span>' + DATA.stats.topics + ' موضوع</span></li>' +
+            '<li>' + ICONS.link + ' <span>' + DATA.stats.resources + ' مصادر</span></li>' +
+            '<li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.6 6.6a9 9 0 1 0 .4 8.4"/><path d="M18 2v4h-4"/></svg> <span>وصول مجاني دائم</span></li>' +
+          '</ul>' +
+        '</div>' +
+        '<div class="card soft">' +
+          '<p style="margin:0;font-weight:700;font-size:.875rem">مصدر المحتوى</p>' + provList() +
+        '</div>' +
+      '</aside>' +
+      '<main style="min-width:0">' +
+        overviewBlock() +
+        '<section class="c1-sech" data-curriculum>' + chapterHeaders + '<div style="display:grid;gap:14px">' + DATA.levels.map((_, i) => chapterDetails(i, i === 0)).join('') + '</div></section>' +
+        simSection() +
+      '</main>' +
+    '</div>';
+  wireSimNav(root);
+})();
+
+/* ===== بناء ٢) صفحة دورة مركّزة ===== */
+(function () {
+  const root = document.querySelector('[data-design="course"]');
+  root.innerHTML =
+    breadcrumb() +
+    '<div class="c2-cover" style="margin-top:16px;background:linear-gradient(135deg,' + DATA.color + '22,' + DATA.color + '05),var(--color-panel)">' +
+      '<div class="inner"><span class="em">' + DATA.icon + '</span><span class="ltr" style="font-family:var(--font-mono);font-size:.875rem;color:var(--color-ink)">' + ESC(DATA.name) + '</span></div>' +
+    '</div>' +
+    '<h1 class="tname c2-h1 ltr">' + ESC(DATA.name) + '</h1>' +
+    '<p class="c2-tag">' + segHtml + '</p>' +
+    '<div class="c2-chips">' +
+      '<span class="chip status-on">منظّم · تقدّم قابل للتتبّع</span>' +
+      '<span class="chip tint mono">' + DATA.stats.levels + ' مستويات</span>' +
+      '<span class="chip tint mono">' + DATA.stats.topics + ' موضوع</span>' +
+      '<span class="chip tint mono">' + DATA.stats.resources + ' مصادر</span>' +
+      '<span class="chip tint mono">' + DATA.stats.arabic + ' مصدر عربي</span>' +
+      (DATA.firstLevelDuration ? '<span class="chip tint mono">المرحلة الأولى: ' + DATA.firstLevelDuration + '</span>' : '') +
+    '</div>' +
+    '<div class="c2-act" style="justify-content:center">' + startBtn() + ghBtn() + '</div>' +
+    '<p class="c2-trust" style="display:flex;justify-content:center;align-items:center;gap:6px;margin:10px 0 0">' + ICONS.shield + ' مجاني · بدون تسجيل · تقدّمك محفوظ على جهازك · وصول دائم</p>' +
+    '<div class="c2-prov"><span class="ltr">upstream/' + ESC(DATA.upstream.branch) + '</span><span class="ltr">' + ESC(DATA.upstream.commit.slice(0, 9)) + '</span><span>آخر مزامنة: ' + ESC(DATA.upstream.fetchedAt) + '</span></div>' +
+    '<div class="c2-sec">' + overviewBlock() +
+      '<section data-curriculum style="margin-top:26px">' + curriculumHeader() + '<div style="display:grid;gap:14px">' + DATA.levels.map((_, i) => chapterDetails(i, i === 0)).join('') + '</div></section>' +
+      simSection() +
+    '</div>';
+  wireSimNav(root);
+})();
+
+/* ===== بناء ٣) دفتر منهج ===== */
+(function () {
+  const root = document.querySelector('[data-design="notebook"]');
+  const railBtn = (i) => {
+    const lv = DATA.levels[i];
+    return '<button type="button" class="c3-toc" data-ch="' + i + '" role="tab" aria-selected="' + (i === 0) + '">' +
+      '<span class="rn">الفصل ' + String(i + 1).padStart(2, '0') + ' من ' + String(DATA.levels.length).padStart(2, '0') + (lv.duration ? ' · ' + lv.duration : '') + '</span>' +
+      '<span class="nm ltr">' + ESC(lv.name) + '</span>' +
+      '<span class="mt">' + lv.modules.length + ' وحدات · ' + lv.topics + ' دروس</span></button>';
+  };
+  const panel = (i) => {
+    const lv = DATA.levels[i];
+    const mods = lv.modules.map((m) => modBlock(lv, m)).join('');
+    const prev = i > 0 ? '<a href="#ch' + (i - 1) + '" data-goto="' + (i - 1) + '">→ الفصل السابق: ' + LTR(DATA.levels[i - 1].name) + '</a>' : '<span style="color:var(--color-edge)">بداية الكتاب</span>';
+    const next = i < DATA.levels.length - 1 ? '<a href="#ch' + (i + 1) + '" data-goto="' + (i + 1) + '">الفصل التالي: ' + LTR(DATA.levels[i + 1].name) + ' ←</a>' : '<span style="color:var(--color-edge)">نهاية المنهج</span>';
+    return '<div class="c3-panel" data-panel="' + i + '"' + (i === 0 ? '' : ' hidden') + '>' +
+      '<div class="c3-ptop"><h3 class="ltr">' + ESC(lv.name) + '</h3><span style="display:flex;gap:8px;flex-wrap:wrap">' +
+      (lv.duration ? '<span class="durchip">' + lv.duration + '</span>' : '') +
+      '<span class="durchip">' + lv.modules.length + ' وحدات · ' + lv.topics + ' دروس</span></span></div>' +
+      '<div class="c3-pbody">' + mods + '</div>' +
+      '<div class="c3-pages"><span>' + prev + '</span><span class="c3-pos">الفصل ' + (i + 1) + ' من ' + DATA.levels.length + '</span><span>' + next + '</span></div>' +
+    '</div>';
+  };
+  root.innerHTML =
+    breadcrumb() +
+    '<div class="c3-head">' +
+      '<span style="display:grid;place-items:center;inline-size:38px;block-size:38px;border-radius:10px;background:' + DATA.color + '1f;box-shadow:inset 0 0 0 1px ' + DATA.color + '40;font-size:19px;flex:none">' + DATA.icon + '</span>' +
+      '<h1 class="tname ltr">' + ESC(DATA.name) + '</h1>' +
+      '<span class="chip status-on">منظّم</span><span class="chip mono" style="color:var(--color-accent)">مسار</span>' +
+      startBtn('small') + ghBtn('small') +
+    '</div>' +
+    '<p style="margin:8px 0 0;font-weight:500;font-size:.875rem">' + segHtml + '</p>' +
+    '<p style="margin:8px 0 0;font-size:.875rem;line-height:1.85;color:var(--color-muted);max-width:75ch">' + ESC(DATA.description) + '</p>' +
+    '<div class="c3-stats">' +
+      '<span><b style="color:var(--color-ink)">' + DATA.stats.levels + '</b> مستويات</span><span><b style="color:var(--color-ink)">' + DATA.stats.topics + '</b> موضوع</span>' +
+      '<span><b style="color:var(--color-ink)">' + DATA.stats.resources + '</b> مصادر</span><span><b style="color:var(--color-ink)">' + DATA.stats.arabic + '</b> مصدر عربي</span>' +
+      '<span>استخدام دائم · مجاني بلا تسجيل</span></div>' +
+    '<div class="c3-body">' +
+      '<div class="c3-rail" role="tablist" aria-label="فصول المنهج">' + DATA.levels.map((_, i) => railBtn(i)).join('') + '</div>' +
+      '<div data-panels>' + DATA.levels.map((_, i) => panel(i)).join('') + '</div>' +
+    '</div>' +
+    simSection();
+
+  const rail = root.querySelector('.c3-rail');
+  const panels = root.querySelectorAll('[data-panel]');
+  const select = (i) => {
+    rail.querySelectorAll('.c3-toc').forEach((b) => b.setAttribute('aria-selected', String(+b.dataset.ch === i)));
+    panels.forEach((p) => { p.hidden = +p.dataset.panel !== i; });
+  };
+  rail.addEventListener('click', (e) => {
+    const b = e.target.closest('.c3-toc');
+    if (b) select(+b.dataset.ch);
+  });
+  root.querySelector('[data-panels]').addEventListener('click', (e) => {
+    const a = e.target.closest('[data-goto]');
+    if (!a) return;
+    e.preventDefault();
+    select(+a.dataset.goto);
+    root.querySelector('.c3-panel:not([hidden])')?.scrollIntoView({ block: 'nearest' });
+  });
+  wireSimNav(root);
+})();
+
+/* ===== تبديل التبويبات + hash ===== */
+const tabs = [...document.querySelectorAll('.tabs [role="tab"]')];
+function select(tab, focus = false) {
+  for (const t of tabs) {
+    const on = t === tab;
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    document.getElementById('note-' + t.dataset.hash).hidden = !on;
+  }
+  history.replaceState(null, '', '#' + tab.dataset.hash);
+  if (focus) tab.focus();
+}
+tabs.forEach((t) => t.addEventListener('click', () => select(t)));
+document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+  const i = tabs.indexOf(document.activeElement);
+  if (i < 0) return;
+  if (e.key === 'ArrowLeft') select(tabs[(i + 1) % tabs.length], true);
+  else if (e.key === 'ArrowRight') select(tabs[(i + tabs.length - 1) % tabs.length], true);
+  else if (e.key === 'Home') select(tabs[0], true);
+  else if (e.key === 'End') select(tabs[tabs.length - 1], true);
+  else return;
+  e.preventDefault();
+});
+const initial = tabs.find((t) => '#' + t.dataset.hash === location.hash);
+if (initial) select(initial);
+</script>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>معاينة: ثلاثة اتجاهات لصفحة بدء المسار · start-front-end</title>
+
+<!--
+  ملف معاينة مستقل — لا يطبّق أي شيء على الموقع.
+  البيانات كلها الحقيقية من content/circles/front-end.json: المستويات والوحدات
+  والأهداف والملاحظات والموارد بعناوينها وروابطها وأنواعها ولغاتها، ولا اختراع فيها.
+  سلوك المشاهدة منسوخ من src/pages/start-[id].astro: hash ‎#level/module/topic،
+  فيديو youtube-nocookie داخل الموقع، محاضرات القراءة للمواضيع بلا فيديو،
+  شريط اللغة للحاضرات المتعددة، «خلصت المحاضرة دي؟»، السابق/التالي.
+  التقدّم هنا معزول: مفتاح تخزين خاص بالمعاينة لا يمس مفتاح الموقع الأصلي.
+-->
+<link rel="stylesheet" href="../../node_modules/@fontsource/noto-sans-arabic/400.css" />
+<link rel="stylesheet" href="../../node_modules/@fontsource/noto-sans-arabic/500.css" />
+<link rel="stylesheet" href="../../node_modules/@fontsource/noto-sans-arabic/700.css" />
+<link rel="stylesheet" href="../../node_modules/@fontsource/noto-naskh-arabic/500.css" />
+<link rel="stylesheet" href="../../node_modules/@fontsource/noto-naskh-arabic/700.css" />
+<link rel="stylesheet" href="../../node_modules/@fontsource/jetbrains-mono/400.css" />
+
+<style>
+:root {
+  --color-bg: #F8F6EE;
+  --color-surface: #FFFEF9;
+  --color-panel: #F0EEE5;
+  --color-edge: #DEDACB;
+  --color-control-edge: #8C887C;
+  --color-ink: #26313A;
+  --color-muted: #5F6A70;
+  --color-accent: #2E536B;
+  --color-accent-soft: #E8EEF0;
+  --color-accent-2: #B8B2A4;
+
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif;
+  --font-sans: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-sans); color: var(--color-ink); background: #ECEAE0; line-height: 1.7; }
+button { font-family: var(--font-sans); }
+:where(button, a, input, summary, [tabindex]):focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; }
+[hidden] { display: none !important; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+a { color: inherit; }
+
+/* ══ واجهة المقارنة ══ */
+.compare-bar { max-width: 1240px; margin-inline: auto; padding: 20px 20px 0; }
+.compare-bar h1 { font-family: var(--font-header); font-size: 1.35rem; font-weight: 700; margin: 0 0 .35rem; line-height: 1.6; }
+.compare-bar p { margin: 0; font-size: .8125rem; color: var(--color-muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 12px; }
+.tabs [role="tab"] {
+  font-size: .9375rem; font-weight: 500; padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--color-control-edge); background: transparent; color: var(--color-ink);
+  cursor: pointer; transition: background-color .15s, border-color .15s, color .15s;
+}
+.tabs [role="tab"] .n { color: var(--color-muted); font-size: .8125rem; }
+.tabs [role="tab"]:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.tabs [role="tab"][aria-selected="true"] { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-surface); }
+.tabs [role="tab"][aria-selected="true"] .n { color: color-mix(in oklab, var(--color-surface) 75%, var(--color-accent)); }
+
+.stage { max-width: 1240px; margin: 0 auto 12px; padding-inline: 16px; }
+.exp { background: var(--color-bg); border: 1px solid var(--color-edge); border-radius: 14px; overflow: hidden; }
+.exp-body { padding: clamp(10px, 2vw, 22px); }
+.variant-note { max-width: 1240px; margin: 0 auto 36px; padding-inline: 20px; font-size: .8125rem; color: var(--color-muted); line-height: 1.8; }
+.variant-note b { color: var(--color-ink); }
+
+/* عناصر متجمعة مشتركة للتصاميم الثلاثة */
+.wtag { display: inline-flex; align-items: center; gap: 6px; font-size: .6875rem; }
+.wtag.round { border-radius: 999px; padding: 2px 10px; }
+.backlink { display: inline-flex; align-items: center; gap: 6px; font-size: .8125rem; color: var(--color-muted); text-decoration: none; }
+.backlink:hover { color: var(--color-ink); }
+.badge-ar { flex: none; font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: color-mix(in oklab, var(--color-accent) 85%, transparent); background: color-mix(in oklab, var(--color-accent) 10%, transparent); border-radius: 4px; padding: 1px 5px; }
+.ico { width: 14px; height: 14px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.donecheck { flex: none; color: var(--color-accent-2); }
+[aria-current="true"] .donecheck, .is-done .donecheck { display: block; }
+.btnline { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; cursor: pointer; border-radius: 9px; padding: 8px 16px; font-size: .8125rem; font-weight: 700; transition: background-color .15s, border-color .15s, opacity .15s, color .15s; }
+.btnline.solid { background: var(--color-accent); border: 1px solid var(--color-accent); color: var(--color-surface); }
+.btnline.solid:hover { opacity: .92; }
+.btnline.line { background: transparent; border: 1px solid var(--color-control-edge); color: var(--color-ink); }
+.btnline.line:hover { background: var(--color-panel); }
+.btnline[aria-disabled="true"] { pointer-events: none; opacity: .4; }
+.checkline { display: flex; align-items: center; gap: 8px; font-size: .8125rem; color: var(--color-muted); cursor: pointer; }
+.checkline input { width: 15px; height: 15px; accent-color: var(--color-accent); cursor: pointer; }
+.shim { width: 1px; height: 1px; }
+
+/* ══ ١) دفتر تعلّم ══ */
+.nb-wrap { max-width: 1150px; margin-inline: auto; }
+.nb-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding-block: 6px 4px; border-bottom: 1px solid var(--color-edge); }
+.nb-grid { display: grid; grid-template-columns: 1fr; gap: 26px; padding-block: 18px; align-items: start; }
+@media (min-width: 1024px) { .nb-grid { grid-template-columns: 19rem 1fr; } }
+.nb-index { border: 1px solid var(--color-edge); background: color-mix(in oklab, var(--color-surface) 70%, transparent); border-radius: 10px; padding: 14px; }
+@media (min-width: 1024px) { .nb-index { position: sticky; top: 12px; max-height: calc(100dvh - 120px); overflow-y: auto; } }
+.nb-idxhead { font-family: var(--font-header); font-size: 1.25rem; font-weight: 700; margin: 0; line-height: 1.6; }
+.nb-idxmeta { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); margin: 2px 0 10px; }
+.nb-chapter { border-top: 1px solid color-mix(in oklab, var(--color-edge) 65%, transparent); padding-block: 8px; }
+.nb-chapter summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 10px; padding-block: 2px; }
+.nb-chapter summary::-webkit-details-marker { display: none; }
+.nb-chnum { font-family: var(--font-mono); font-size: .75rem; color: var(--color-accent); }
+.nb-chname { font-family: var(--font-header); font-weight: 700; font-size: .9375rem; }
+.nb-chdur { margin-inline-start: auto; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.nb-unit { font-size: .75rem; font-weight: 700; color: var(--color-muted); padding-inline-start: 8px; margin: 8px 0 3px; }
+.nb-lesson { display: flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 7px; padding: 5px 8px 5px 8px; margin-inline-start: 10px; font-size: .75rem; line-height: 1.6; color: color-mix(in oklab, var(--color-ink) 88%, transparent); transition: background-color .15s; }
+.nb-lesson:hover { background: color-mix(in oklab, var(--color-panel) 75%, transparent); }
+.nb-lesson .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nb-lesson .cnt { flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); border-block: 1px dotted var(--color-accent-2); padding-block: 1px; border-radius: 0; }
+.nb-lesson[aria-current="true"] { background: var(--color-accent-soft); color: var(--color-accent); box-shadow: inset 3px 0 0 var(--color-accent); font-weight: 700; }
+.nb-lesson.is-done { color: var(--color-muted); }
+.nb-lesson .donecheck { display: none; width: 12px; height: 12px; }
+.nb-idxfoot { border-top: 1px solid var(--color-edge); margin-top: 10px; padding-top: 8px; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); display: flex; justify-content: space-between; gap: 8px; }
+.nb-sheet { padding: 18px 22px 26px; border: 1px solid var(--color-edge); background: var(--color-surface); border-radius: 8px; box-shadow: 0 1px 0 color-mix(in oklab, var(--color-edge) 60%, transparent); min-width: 0; }
+@media (min-width: 1024px) { .nb-sheet { min-height: 70dvh; } }
+.nb-runhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--color-edge); padding-bottom: 8px; }
+.nb-runhead .rb { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.nb-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 14px; }
+.nb-h1 { font-family: var(--font-header); font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 700; line-height: 1.55; margin: 4px 0 0; }
+.nb-stage { margin-top: 14px; border: 1px solid var(--color-edge); border-radius: 8px; overflow: hidden; background: color-mix(in oklab, var(--color-panel) 55%, transparent); position: relative; }
+.nb-stage .film { aspect-ratio: 16/9; display: grid; place-items: center; position: relative; }
+.nb-play { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--color-accent) 12%, transparent); color: var(--color-accent); border: 1px solid color-mix(in oklab, var(--color-accent) 40%, transparent); cursor: pointer; transition: background-color .15s; }
+.nb-play:hover { background: color-mix(in oklab, var(--color-accent) 20%, transparent); }
+.nb-cap { text-align: center; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); padding-bottom: 10px; }
+.nb-caption { text-align: center; font-size: .8125rem; font-weight: 700; padding: 0 16px 10px; margin: 0; }
+.nb-note { font-size: .8125rem; leading: 1.9; line-height: 1.9; color: var(--color-muted); margin: 14px 0 0; }
+.nb-objectives { border-block: 1px solid color-mix(in oklab, var(--color-edge) 70%, transparent); margin-block: 14px; padding-block: 10px; }
+.nb-objectives h3 { font-family: var(--font-header); font-size: .9375rem; margin: 0 0 6px; }
+.nb-objectives li { font-size: .75rem; line-height: 1.8; color: color-mix(in oklab, var(--color-ink) 85%, transparent); display: flex; gap: 8px; align-items: baseline; }
+.nb-objectives li::before { content: "•"; color: var(--color-accent-2); }
+.nb-refs h3 { font-family: var(--font-header); font-size: .9375rem; margin: 14px 0 6px; }
+.nb-ref { display: flex; align-items: center; gap: 10px; text-decoration: none; padding-block: 6px; border-bottom: 1px dotted color-mix(in oklab, var(--color-control-edge) 55%, transparent); }
+.nb-ref:hover .rn { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.nb-ref .rn { font-size: .8125rem; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nb-ref .rh { margin-inline-start: auto; flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.nb-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--color-edge); margin-top: 18px; padding-top: 12px; }
+.nb-drawerbtn { display: inline-flex; align-items: center; gap: 6px; font-size: .8125rem; font-weight: 700; border: 1px solid var(--color-control-edge); background: var(--color-surface); color: var(--color-ink); border-radius: 8px; padding: 7px 14px; cursor: pointer; }
+.nb-drawerbtn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+/* ══ ٢) مسار تعلّم تفاعلي ══ */
+.pt-wrap { max-width: 1150px; margin-inline: auto; color-scheme: light; }
+.pt-head { border: 1px solid var(--color-edge); border-radius: 12px; background: var(--color-accent-soft); padding: 14px 18px; }
+.pt-headrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.pt-idchip { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .9375rem; }
+.pt-progrow { margin-top: 10px; display: grid; gap: 6px; }
+.pt-progmeta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.pt-bar { height: 8px; border-radius: 999px; background: color-mix(in oklab, var(--color-surface) 80%, transparent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 25%, transparent); overflow: hidden; }
+.pt-bar i { display: block; height: 100%; width: 100%; background: var(--color-accent); border-radius: 999px; transform: scaleX(0); transform-origin: right center; transition: transform .25s; }
+.pt-steps { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-top: 12px; padding-bottom: 2px; }
+.pt-steps::-webkit-scrollbar { display: none; }
+.pt-seg { flex: 1 0 150px; text-align: start; border: 1px solid color-mix(in oklab, var(--color-accent) 25%, transparent); background: color-mix(in oklab, var(--color-surface) 75%, transparent); border-radius: 10px; padding: 9px 12px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.pt-seg:hover { border-color: var(--color-accent); }
+.pt-seg.on { box-shadow: inset 0 -3px 0 var(--color-accent); border-color: var(--color-accent); }
+.pt-seg .sn { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); display: flex; justify-content: space-between; gap: 6px; }
+.pt-seg .nm { display: block; font-size: .75rem; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 20px; align-items: start; }
+@media (min-width: 1024px) { .pt-grid { grid-template-columns: 19.5rem 1fr; } }
+.pt-pathbox { border: 1px solid var(--color-edge); border-radius: 12px; background: color-mix(in oklab, var(--color-surface) 70%, transparent); padding: 12px; }
+@media (min-width: 1024px) { .pt-pathbox { position: sticky; top: 12px; max-height: calc(100dvh - 110px); overflow-y: auto; } }
+.pt-pathhead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding-inline: 6px 6px; }
+.pt-pathhead h2 { font-size: .875rem; font-weight: 700; margin: 0; }
+.pt-level { font-family: var(--font-mono); font-size: .625rem; color: var(--color-accent); padding: 10px 6px 4px; }
+.pt-level > span[dir="ltr"] { letter-spacing: .04em; }
+.pt-unit { font-size: .75rem; font-weight: 700; color: var(--color-muted); padding: 8px 6px 3px; }
+.pt-node { position: relative; display: flex; align-items: center; gap: 10px; text-decoration: none; border-radius: 9px; padding: 6px 8px; font-size: .75rem; line-height: 1.55; color: color-mix(in oklab, var(--color-ink) 88%, transparent); transition: background-color .15s; }
+.pt-node::before { content: ""; position: absolute; inset-inline-start: 14px; top: -7px; bottom: -7px; width: 2px; background: color-mix(in oklab, var(--color-edge) 80%, transparent); }
+.pt-node.first::before { display: none; }
+.pt-dot { position: relative; z-index: 1; flex: none; width: 13px; height: 13px; border-radius: 50%; border: 2px solid color-mix(in oklab, var(--color-accent) 55%, transparent); background: var(--color-surface); display: grid; place-items: center; transition: background-color .15s, border-color .15s; }
+.pt-dot svg { width: 8px; height: 8px; stroke: var(--color-surface); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.pt-node.is-done .pt-dot { background: var(--color-accent); border-color: var(--color-accent); }
+.pt-node.is-done .pt-dot svg { opacity: 1; }
+.pt-node[aria-current="true"] { background: var(--color-accent-soft); box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--color-accent) 45%, transparent); }
+.pt-node[aria-current="true"] .pt-dot { box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 18%, transparent); border-color: var(--color-accent); }
+.pt-node .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pt-node.is-done .lbl { color: var(--color-muted); }
+.pt-node .cnt { flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.pt-player { border: 1px solid var(--color-edge); border-radius: 12px; background: color-mix(in oklab, var(--color-surface) 75%, transparent); padding: 14px; }
+@media (min-width: 1024px) { .pt-player { position: sticky; top: 12px; } }
+.pt-crumb { display: flex; align-items: center; gap: 10px; }
+.pt-crumb .co { display: inline-flex; color: var(--color-accent); }
+.pt-title { font-family: var(--font-header); font-size: 1.0625rem; font-weight: 700; line-height: 1.6; margin: 0; min-width: 0; }
+.pt-stagewrap { margin-top: 12px; }
+.pt-stage { position: relative; aspect-ratio: 16/9; border: 1px solid var(--color-edge); border-radius: 10px; overflow: hidden; background: color-mix(in oklab, var(--color-ink) 6%, var(--color-panel)); display: grid; place-items: center; }
+.pt-stage.mode-article { display: block; aspect-ratio: auto; }
+.pt-lang { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; font-size: .75rem; }
+.pt-lang .lb { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.pt-lang button { border-radius: 7px; padding: 4px 10px; font-size: .6875rem; cursor: pointer; border: 1px solid var(--color-edge); background: transparent; color: var(--color-muted); transition: background-color .15s, color .15s, border-color .15s; }
+.pt-lang button:hover { color: var(--color-ink); }
+.pt-lang button[aria-pressed="true"] { background: color-mix(in oklab, var(--color-accent) 15%, transparent); border-color: color-mix(in oklab, var(--color-accent) 40%, transparent); color: var(--color-accent); font-weight: 700; }
+
+/* ══ ٣) قارئ منهج هادئ ══ */
+.qr-wrap { max-width: 1120px; margin-inline: auto; }
+.qr-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding-block: 6px 12px; border-bottom: 1px solid var(--color-edge); }
+.qr-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 8px; align-items: start; }
+@media (min-width: 1024px) { .qr-grid { grid-template-columns: 16rem 1fr; } }
+.qr-toc { display: none; }
+@media (min-width: 1024px) { .qr-toc { display: block; position: sticky; top: 10px; max-height: calc(100dvh - 100px); overflow-y: auto; padding-inline-end: 14px; border-inline-end: 1px solid var(--color-edge); } }
+.qr-toc .lvl { font-family: var(--font-mono); font-size: .625rem; color: var(--color-accent); padding: 12px 8px 4px; }
+.qr-toc .mod { font-size: .75rem; font-weight: 700; padding: 7px 8px 2px; }
+.qr-toc a { display: flex; align-items: center; gap: 8px; text-decoration: none; padding: 4px 8px; font-size: .8125rem; line-height: 1.65; color: color-mix(in oklab, var(--color-ink) 88%, transparent); border-inline-start: 2px solid transparent; }
+.qr-toc a:hover { color: var(--color-accent); }
+.qr-toc a .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qr-toc a .cnt { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.qr-toc a .donecheck { display: none; width: 12px; height: 12px; color: var(--color-muted); }
+.qr-toc a.is-done .lbl { color: var(--color-muted); }
+.qr-toc a.is-done .donecheck { display: block; }
+.qr-toc a[aria-current="true"] { border-inline-start-color: var(--color-accent); color: var(--color-accent); font-weight: 700; background: color-mix(in oklab, var(--color-accent) 5%, transparent); }
+.qr-mobiletoc { display: block; border-bottom: 1px solid var(--color-edge); }
+@media (min-width: 1024px) { .qr-mobiletoc { display: none; } }
+.qr-mobiletoc summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 10px 4px; font-size: .8125rem; font-weight: 700; }
+.qr-mobiletoc summary::-webkit-details-marker { display: none; }
+.qr-mtoclist { max-height: 55dvh; overflow-y: auto; padding-bottom: 8px; }
+.qr-content { min-width: 0; padding-block: 14px 30px; }
+.qr-kick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.qr-h1 { font-family: var(--font-header); font-size: clamp(1.4rem, 3.2vw, 1.9rem); font-weight: 700; line-height: 1.6; margin: 6px 0 0; }
+.qr-desc { font-size: .9375rem; line-height: 1.9; color: var(--color-muted); max-width: 68ch; margin: 10px 0 0; }
+.qr-stage { margin-top: 16px; border: 1px solid var(--color-edge); border-radius: 6px; overflow: hidden; position: relative; background: color-mix(in oklab, var(--color-panel) 60%, transparent); }
+.qr-stage .film { aspect-ratio: 16/9; display: grid; place-items: center; position: relative; }
+.qr-stage.mode-article { aspect-ratio: auto; }
+.qr-reflist { margin-top: 8px; }
+.qr-ref { display: flex; align-items: center; gap: 8px; text-decoration: none; padding: 7px 2px; border-bottom: 1px solid color-mix(in oklab, var(--color-edge) 60%, transparent); }
+.qr-ref .rn { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in oklab, var(--color-accent-2) 80%, transparent); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qr-ref:hover .rn { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+.qr-ref .rh { margin-inline-start: auto; flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.qr-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; border-top: 1px solid var(--color-edge); padding-top: 12px; font-size: .8125rem; }
+.qr-pager a { text-decoration: none; color: var(--color-accent); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.qr-pager a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.qr-pager a[aria-disabled="true"] { pointer-events: none; opacity: .4; color: var(--color-muted); }
+.qr-plainlist { margin: 0; padding: 0; list-style: none; }
+.qr-plainlist li { display: flex; align-items: baseline; gap: 8px; font-size: .8125rem; line-height: 1.9; color: color-mix(in oklab, var(--color-ink) 88%, transparent); }
+.qr-plainlist li::before { content: "–"; color: var(--color-accent-2); flex: none; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* ══ التصميم الرابع: منصة تعلّم (شكل المقررات المرجعي) ══ */
+.lm-wrap { width: min(100%, 72rem); margin-inline: auto; border: 1px solid var(--color-edge); border-radius: 14px; background: var(--color-surface); box-shadow: 0 1px 0 color-mix(in oklab, var(--color-edge) 60%, transparent); overflow: visible; }
+.lm-appbar { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--color-edge); }
+.lm-back { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1px solid var(--color-control-edge); background: var(--color-surface); color: var(--color-ink); display: grid; place-items: center; transition: border-color .15s, color .15s; }
+.lm-back:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.lm-title { font-family: var(--font-header); font-weight: 700; font-size: 1.02rem; }
+.lm-appbar-actions { margin-inline-start: auto; display: flex; align-items: center; gap: 8px; }
+.lm-tabsbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 11px 16px; background: color-mix(in oklab, var(--color-surface) 55%, var(--color-bg)); border-bottom: 1px solid var(--color-edge); }
+.lm-chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--color-edge); background: var(--color-surface); font-size: .75rem; font-weight: 700; color: var(--color-muted); text-decoration: none; }
+.lm-chip .ico { width: 13px; height: 13px; }
+.lm-chip.on { background: color-mix(in oklab, var(--color-accent) 10%, transparent); color: var(--color-accent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 32%, transparent); }
+.lm-grid { display: grid; grid-template-columns: 21rem minmax(0, 1fr); }
+.lm-side { border-inline-end: 1px solid var(--color-edge); background: color-mix(in oklab, var(--color-surface) 50%, var(--color-bg)); padding: 0 0 16px; border-radius: 0; max-height: none; }
+.lm-sidehead { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 13px 16px 8px; }
+.lm-sidehead .k { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.lm-group > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 13px 16px; cursor: pointer; font-family: var(--font-header); font-weight: 700; font-size: .875rem; color: var(--color-ink); border-top: 1px solid color-mix(in oklab, var(--color-edge) 55%, transparent); }
+.lm-group > summary::-webkit-details-marker { display: none; }
+.lm-gname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lm-gcount { margin-inline-start: auto; flex: none; font-family: var(--font-mono); font-size: .625rem; font-weight: 400; color: var(--color-muted); }
+.lm-group > summary .chev { flex: none; width: 14px; height: 14px; color: var(--color-muted); transition: transform .2s; }
+.lm-group[open] > summary .chev { transform: rotate(180deg); }
+.lm-items { padding-bottom: 4px; }
+.lm-item { display: flex; align-items: center; gap: 9px; padding: 9px 16px 9px 12px; font-size: .8125rem; line-height: 1.6; color: color-mix(in oklab, var(--color-ink) 86%, transparent); text-decoration: none; border-inline-start: 3px solid transparent; transition: background-color .15s; }
+.lm-item:hover { background: color-mix(in oklab, var(--color-accent) 5%, transparent); }
+.lm-ico { flex: none; width: 15px; height: 15px; color: var(--color-muted); display: grid; place-items: center; }
+.lm-ico svg { width: 15px; height: 15px; }
+.lm-kind { flex: none; font-size: .6875rem; font-weight: 700; color: var(--color-accent); }
+.lm-item .lbl { flex: 1; min-width: 0; }
+.lm-item .donecheck { display: none; width: 14px; height: 14px; flex: none; color: var(--color-muted); }
+.lm-item.is-done .donecheck { display: block; }
+.lm-item.is-done .lbl, .lm-item.is-done .lm-kind { color: var(--color-muted); }
+.lm-item[aria-current="true"] { border-inline-start-color: var(--color-accent); background: color-mix(in oklab, var(--color-accent) 9%, transparent); }
+.lm-item[aria-current="true"] .lbl { font-weight: 700; }
+.lm-main { padding: 20px 26px 34px; display: grid; gap: 13px; align-content: start; border-inline-start: 0; }
+.lm-meta { display: flex; align-items: center; gap: 10px; }
+.lm-pos { font-family: var(--font-mono); font-size: .6875rem; color: var(--color-muted); }
+.lm-xnav { margin-inline-start: auto; display: flex; gap: 8px; }
+.lm-cbtn { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1.5px solid var(--color-ink); background: transparent; color: var(--color-ink); display: grid; place-items: center; transition: border-color .15s, color .15s, opacity .15s; }
+.lm-cbtn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.lm-cbtn[aria-disabled="true"] { opacity: .3; pointer-events: none; }
+.lm-menu { display: none; }
+.lm-h1 { font-family: var(--font-header); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.5; margin: 2px 0 0; }
+.lm-stage { border-radius: 12px; overflow: hidden; background: #171c22; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-edge) 45%, transparent); }
+.lm-stage:has(> .mode-article) { background: var(--color-surface); }
+.lm-stage .w-playbig { background: rgb(255 255 255 / .13); color: #fff; border-color: rgb(255 255 255 / .38); }
+.lm-stage .w-playbig:hover { background: rgb(255 255 255 / .22); }
+.lm-stage .w-filmtitle { color: #fff; }
+.lm-stage .w-filmcap { color: rgb(255 255 255 / .5); }
+.lm-ctrlrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lm-srclabel { font-size: .8125rem; font-weight: 700; color: var(--color-ink); }
+.lm-donebtn { position: relative; margin-inline-start: auto; display: inline-flex; align-items: center; cursor: pointer; background: var(--color-accent); color: var(--color-surface); border: 0; border-radius: 10px; padding: 11px 20px; font-size: .875rem; font-weight: 700; transition: background-color .15s, color .15s, box-shadow .15s; }
+.lm-donebtn:hover { background: color-mix(in oklab, var(--color-accent) 86%, #000); }
+.lm-donebtn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+.lm-donebtn.done { background: color-mix(in oklab, var(--color-accent) 13%, transparent); color: var(--color-accent); box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--color-accent) 45%, transparent); }
+.lm-donebtn.done:hover { background: color-mix(in oklab, var(--color-accent) 19%, transparent); }
+.lm-finishnote { font-size: .75rem; color: var(--color-muted); }
+.lm-progressrow { display: flex; align-items: center; gap: 10px; padding: 9px 16px; background: color-mix(in oklab, var(--color-surface) 55%, var(--color-bg)); border-bottom: 1px solid var(--color-edge); }
+.lm-progtext { flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.lm-progtext b { color: var(--color-ink); }
+.lm-progressbar { flex: 1; height: 6px; border-radius: 999px; background: color-mix(in oklab, var(--color-panel) 80%, var(--color-bg)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-edge) 55%, transparent); overflow: hidden; }
+.lm-progressbar i { display: block; height: 100%; width: 100%; border-radius: inherit; background: var(--color-accent); transform: scaleX(0); transform-origin: right center; transition: transform .25s; }
+.lm-dot { flex: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid color-mix(in oklab, var(--color-control-edge) 70%, transparent); background: var(--color-surface); display: grid; place-items: center; transition: background-color .15s, border-color .15s, box-shadow .15s; }
+.lm-dot .donecheck { width: 10px; height: 10px; display: none; }
+.lm-item.is-done .lm-dot { background: var(--color-accent); border-color: var(--color-accent); }
+.lm-item.is-done .lm-dot .donecheck { display: block; color: var(--color-surface); }
+.lm-item[aria-current="true"] .lm-dot { border-color: var(--color-accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 18%, transparent); }
+@media (max-width: 1023px) {
+  .lm-grid { grid-template-columns: 1fr; }
+  .lm-menu { display: inline-flex; }
+  .lm-menu.gone { display: none; }
+  .lm-main { padding: 16px 16px 30px; }
+}
+</style>
+</head>
+<body>
+
+<header class="compare-bar">
+  <h1>ثلاثة اتجاهات لصفحة بدء المسار (جلسة مشاهدة)</h1>
+  <p>بيانات مسار <span dir="ltr">front-end</span> الحقيقية: 4 مستويات، 45 موضوعًا، 219 مصدرًا. السلوك من نسخ صفحة الموقع نفسها — الفرق في تنظيم التصفّح لا في الميزات. التقدّم المعروض تجريبي ومحفوظ بمفتاح معاينة منفصل لا يمس تقدّمك الحقيقي.</p>
+  <div class="tabs" role="tablist" aria-label="اختيار اتجاه صفحة البدء">
+    <button role="tab" id="tab-notebook" aria-selected="true" aria-controls="exp-notebook" data-tab="notebook">دفتر تعلّم <span class="n">١</span></button>
+    <button role="tab" id="tab-path" aria-selected="false" aria-controls="exp-path" data-tab="path" tabindex="-1">مسار تعلّم تفاعلي <span class="n">٢</span></button>
+    <button role="tab" id="tab-reader" aria-selected="false" aria-controls="exp-reader" data-tab="reader" tabindex="-1">قارئ منهج هادئ <span class="n">٣</span></button>
+    <button role="tab" id="tab-manager" aria-selected="false" aria-controls="exp-manager" data-tab="manager" tabindex="-1">منصة تعلّم <span class="n">٤</span></button>
+  </div>
+</header>
+
+<div class="stage">
+  <section class="exp" id="exp-notebook" role="tabpanel" aria-labelledby="tab-notebook"><div class="exp-body" data-design="notebook"></div></section>
+  <section class="exp" id="exp-path" role="tabpanel" aria-labelledby="tab-path" hidden><div class="exp-body" data-design="path"></div></section>
+  <section class="exp" id="exp-reader" role="tabpanel" aria-labelledby="tab-reader" hidden><div class="exp-body" data-design="reader"></div></section>
+  <section class="exp" id="exp-manager" role="tabpanel" aria-labelledby="tab-manager" hidden><div class="exp-body" data-design="manager"></div></section>
+</div>
+
+<p class="variant-note" id="note-notebook"><b>١ · دفتر تعلّم:</b> إحساس كتاب حديث — فهرس بعناوين فصول وأرقام وعدّادات على اليمين، «ورقة» قراءة في الوسط بعنوان نسخي كبير ومراجع مثقّلة، وعلامة ✓ قلمية في الهامش لكل درس خلصته، والتنقّل بأسلوب تقليب الصفحات.</p>
+<p class="variant-note" id="note-path" hidden><b>٢ · مسار تعلّم تفاعلي:</b> التقدّم هو البطل — شريط إنجاز للكل مع النسبة، ومسطّرة مراحل بالمنجز من كل مرحلة، ومسار خطوات رأسي بعقد: المكتمل ممتلئ، الحالي بإطار بارز، والقادم مجوّف — والمنصّة تزتحن مع كل نقرة.</p>
+<p class="variant-note" id="note-reader" hidden><b>٣ · قارئ منهج هادئ:</b> قراءة أولًا بلا بطاقات — فهرس طباعي رفيع بجانب النص على الشاشات الكبيرة ويتحول لقائمة منسدلة على الموبايل، ومحتوى بعرض قراءة مريح، والمصادر لينكات صريحة بلا زخرفة.</p>
+<p class="variant-note" id="note-manager" hidden><b>٤ · منصة تعلّم:</b> بنية منصات المقرّرات كما في المرجع المرفق — شريط أعلى فيه زر رجوع دائري واسم المسار، وتبويب «محتوى المسار»، وفهرس جانبي بالمراحل المطوية فيه أيقونة لنوع كل درس (فيديو/قراءة) وشريط تلوين للدرس الحالي، وسطر «الدرس N من 45» بجانب زرّين دائريين للتنقّل، وشريط تقدّم رفيع بالعدّاد والنسبة، وعلامة إنجاز دائرية تمتلئ بعد كل درس تمّ (مستلهمتان من التبويب ٢)، ومشغّل داكن، وزر أساسي كبير «خلّصت المحاضرة دي؟» يقلب حالته بعد الإنجاز — بنفس توكنات الموقع: الأزرق الحبري والأرضية الكريمي وخط النسخ للعناوين.</p>
+
+<script>
+const DATA = {"circle": {"id": "front-end", "name": "Front End", "color": "#f59e0b", "icon": "⚛️", "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.", "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Front%20End"}, "stats": {"levels": 4, "topics": 45, "resources": 219}, "levels": [{"id": "phase-1-foundation", "name": "Phase 1 — The Foundation", "durationText": "5 أسابيع", "goal": "صفحات static نضيفة بـ semantic HTML و CSS سليم.", "modules": [{"id": "setup", "name": "Prerequisites & Setup", "objectives": [], "practice": [], "resources": [{"title": "Download", "url": "https://code.visualstudio.com/Download", "kind": "other", "lang": "en"}, {"title": "Download", "url": "https://git-scm.com/downloads", "kind": "other", "lang": "en"}, {"title": "[GitHub](https://github.com/)", "url": "https://github.com/", "kind": "repo", "lang": "en"}, {"title": "[LinkedIn](https://www.linkedin.com/)", "url": "https://www.linkedin.com/", "kind": "other", "lang": "en"}, {"title": "[LeetCode](https://leetcode.com/)", "url": "https://leetcode.com/", "kind": "interactive", "lang": "en"}], "topics": []}, {"id": "w01", "name": "The Setup & Syntax", "objectives": [], "practice": ["Create a purely HTML Resume.", "Use tables, lists, and semantic tags."], "resources": [{"title": "Assignments 01–05", "url": "https://elzero.org/html-assignments-lesson-from-1-to-5/", "kind": "article", "lang": "en"}, {"title": "Assignments 06–10", "url": "https://elzero.org/html-assignments-lesson-from-6-to-10/", "kind": "article", "lang": "en"}, {"title": "Assignments 11–14", "url": "https://elzero.org/html-assignments-lesson-from-11-to-14/", "kind": "article", "lang": "en"}, {"title": "Assignments 15–18", "url": "https://elzero.org/html-assignments-lesson-from-15-to-18/", "kind": "article", "lang": "en"}, {"title": "Assignments 19–23", "url": "https://elzero.org/html-assignments-lesson-from-19-to-23/", "kind": "article", "lang": "en"}, {"title": "Assignments 24–27", "url": "https://elzero.org/html-assignments-lesson-from-24-to-27/", "kind": "article", "lang": "en"}, {"title": "Assignments 28–30", "url": "https://elzero.org/html-assignments-lesson-from-28-to-30/", "kind": "article", "lang": "en"}, {"title": "Assignments 31–34", "url": "https://elzero.org/html-assignments-lesson-from-31-to-34/", "kind": "article", "lang": "en"}, {"title": "Assignments 35–37", "url": "https://elzero.org/html-assignments-lesson-from-35-to-37/", "kind": "article", "lang": "en"}], "topics": [{"id": "introduction-the-invisible-web", "title": "Introduction: The Invisible Web", "note": null, "resources": [{"title": "How does the Internet work?", "url": "https://developer.mozilla.org/en-US/docs/Learn/Common_questions/How_does_the_Internet_work", "kind": "docs", "lang": "en"}, {"title": "World Wide Web (WWW) Basic Mechanics", "url": "https://frontendmasters.com/guides/learning-roadmap/www-basic-mechanics/", "kind": "other", "lang": "en"}, {"title": "An Overview of HTTP", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview", "kind": "docs", "lang": "en"}, {"title": "How The Web Works", "url": "https://academind.com/tutorials/how-the-web-works", "kind": "other", "lang": "en"}, {"title": "What is a web browser?", "url": "https://www.mozilla.org/en-US/firefox/browsers/what-is-a-browser/", "kind": "other", "lang": "en"}, {"title": "How Browsers Work", "url": "https://www.freecodecamp.org/news/web-application-security-understanding-the-browser-5305ed2f1dac/", "kind": "other", "lang": "en"}, {"title": "What is DNS?", "url": "https://aws.amazon.com/route53/what-is-dns/", "kind": "other", "lang": "en"}, {"title": "What is a domain name?", "url": "https://www.cloudflare.com/learning/dns/glossary/what-is-a-domain-name/", "kind": "other", "lang": "en"}]}, {"id": "html-playlist-elzero-web-school", "title": "HTML Playlist — Elzero Web School", "note": null, "resources": [{"title": "HTML Playlist — Elzero Web School", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAw_t_XWUFbBX-c9MafPk9ji", "kind": "playlist", "lang": "ar"}]}]}, {"id": "w02", "name": "CSS Basics", "objectives": [], "practice": ["Implement basic photo layouts using HTML/CSS."], "resources": [{"title": "Assignments 01–04", "url": "https://elzero.org/css-assignments-lesson-from-1-to-4/", "kind": "article", "lang": "en"}, {"title": "Assignments 05–08", "url": "https://elzero.org/css-assignments-lesson-from-5-to-8/", "kind": "article", "lang": "en"}, {"title": "Assignments 09–12", "url": "https://elzero.org/css-assignments-lesson-from-9-to-12/", "kind": "article", "lang": "en"}, {"title": "Assignments 13–16", "url": "https://elzero.org/css-assignments-lesson-from-13-to-16/", "kind": "article", "lang": "en"}, {"title": "Assignments 17–21", "url": "https://elzero.org/css-assignments-lesson-from-17-to-21/", "kind": "article", "lang": "en"}, {"title": "Assignments 22–26", "url": "https://elzero.org/css-assignments-lesson-from-22-to-26/", "kind": "article", "lang": "en"}, {"title": "Assignments 27–29", "url": "https://elzero.org/css-assignments-lesson-from-27-to-29/", "kind": "article", "lang": "en"}, {"title": "Assignments 30–33", "url": "https://elzero.org/css-assignments-lesson-from-30-to-33/", "kind": "article", "lang": "en"}, {"title": "Assignments 34–37", "url": "https://elzero.org/css-assignments-lesson-from-34-to-37", "kind": "article", "lang": "en"}, {"title": "Assignments 38–41", "url": "https://elzero.org/css-assignments-lesson-from-38-to-41/", "kind": "article", "lang": "en"}, {"title": "Assignments 42–45", "url": "https://elzero.org/css-assignments-lesson-from-42-to-45/", "kind": "article", "lang": "en"}, {"title": "Assignments 46–53", "url": "https://elzero.org/css-assignments-lesson-from-46-to-53/", "kind": "article", "lang": "en"}], "topics": [{"id": "css-playlist-elzero-web-school-lessons-1-53", "title": "CSS Playlist — Elzero Web School (Lessons 1–53)", "note": null, "resources": [{"title": "CSS Playlist — Elzero Web School (Lessons 1–53)", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe", "kind": "playlist", "lang": "ar"}]}]}, {"id": "w03", "name": "Visual Effects", "objectives": [], "practice": ["Recreate complex visual cards."], "resources": [{"title": "Assignments 54–56", "url": "https://elzero.org/css-assignments-lesson-from-54-to-56/", "kind": "article", "lang": "en"}, {"title": "Assignments 57–64", "url": "https://elzero.org/css-assignments-lesson-from-57-to-64/", "kind": "article", "lang": "en"}, {"title": "Assignments 65–67", "url": "https://elzero.org/css-assignments-lesson-from-65-to-67/", "kind": "article", "lang": "en"}], "topics": [{"id": "css-playlist-lessons-54-67", "title": "CSS Playlist (Lessons 54–67)", "note": null, "resources": [{"title": "CSS Playlist (Lessons 54–67)", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe", "kind": "playlist", "lang": "en"}]}]}, {"id": "w04", "name": "Layout Mastery", "objectives": [], "practice": [], "resources": [{"title": "A Complete Guide to Flexbox", "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/", "kind": "article", "lang": "en"}, {"title": "A Complete Guide to CSS Grid", "url": "https://css-tricks.com/snippets/css/complete-guide-grid/", "kind": "article", "lang": "en"}, {"title": "CSS Positioning", "url": "https://css-tricks.com/almanac/properties/p/position/", "kind": "article", "lang": "en"}, {"title": "Everything about CSS Variables", "url": "https://css-tricks.com/everything-need-know-css-variables/", "kind": "article", "lang": "en"}, {"title": "CSS Animations", "url": "https://css-tricks.com/almanac/properties/a/animation/", "kind": "article", "lang": "en"}, {"title": "Flexbox CSS in 20 Minutes", "url": "https://www.youtube.com/watch?v=JJSoEo8JSnc", "kind": "video", "lang": "en"}, {"title": "CSS Grid Layout Crash Course", "url": "https://www.youtube.com/watch?v=jV8B24rSN5o", "kind": "video", "lang": "en"}, {"title": "Assignments 68–73", "url": "https://elzero.org/css-assignments-lesson-from-68-to-73/", "kind": "article", "lang": "en"}, {"title": "Assignments 74–77", "url": "https://elzero.org/css-assignments-lesson-from-74-to-77/", "kind": "article", "lang": "en"}, {"title": "Assignments 78–82", "url": "https://elzero.org/css-assignments-lesson-from-78-to-82/", "kind": "article", "lang": "en"}, {"title": "Assignments 83–85", "url": "https://elzero.org/css-assignments-lesson-from-83-to-85/", "kind": "article", "lang": "en"}, {"title": "Assignments 86–88", "url": "https://elzero.org/css-assignments-lesson-from-86-to-88/", "kind": "article", "lang": "en"}], "topics": [{"id": "css-playlist-lessons-68-88", "title": "CSS Playlist (Lessons 68–88)", "note": null, "resources": [{"title": "CSS Playlist (Lessons 68–88)", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe", "kind": "playlist", "lang": "en"}]}]}, {"id": "w05", "name": "The Final Boss", "objectives": [], "practice": [], "resources": [{"title": "Pluralsight Login Page Clone", "url": "https://www.youtube.com/watch?v=wIx1O5Y5EB4", "kind": "video", "lang": "en"}, {"title": "Best Way to Create Nav", "url": "https://youtu.be/SkML640BcoA", "kind": "video", "lang": "en"}, {"title": "Master Responsive Design", "url": "https://youtu.be/x4u1yp3Msao", "kind": "video", "lang": "en"}, {"title": "GitHub Hello World Guide", "url": "https://guides.github.com/activities/hello-world/", "kind": "repo", "lang": "en"}, {"title": "MDN CSS Reference", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS", "kind": "docs", "lang": "en"}], "topics": []}]}, {"id": "phase-2-core", "name": "Phase 2 — Core Engineering", "durationText": "13 أسبوعًا", "goal": "JavaScript عميق + Problem Solving + أدوات محترفة — سبرنت مكثف 13 أسبوع.", "modules": [{"id": "module-a", "name": "Module A: Logic & Layouts", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w01", "title": "Week 1: Syntax & Layouts", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 1–30)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Visual Task — HTML/CSS Template 3", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAxuCSp2_-9LurPqRVwketnc", "kind": "playlist", "lang": "en"}, {"title": "Assignments 001–009", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-001-to-009", "kind": "article", "lang": "en"}, {"title": "Assignments 010–017", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-010-to-017", "kind": "article", "lang": "en"}, {"title": "Assignments 018–022", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-018-to-022", "kind": "article", "lang": "en"}, {"title": "Assignments 023–026", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-023-to-026/", "kind": "article", "lang": "en"}, {"title": "Assignments 027–030", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-027-to-030/", "kind": "article", "lang": "en"}]}, {"id": "w02", "title": "Week 2: Control Flow & Cloning", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 31–56)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Visual Task — Starbucks Landing Page Clone", "url": "https://www.youtube.com/watch?v=x_n2FGNsm0o", "kind": "video", "lang": "en"}, {"title": "Assignments 031–032", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-031-to-032/", "kind": "article", "lang": "en"}, {"title": "Assignments 033–037", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-033-to-037/", "kind": "article", "lang": "en"}, {"title": "Assignments 038–039", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-038-to-039/", "kind": "article", "lang": "en"}, {"title": "Assignments 040–047", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-040-to-047/", "kind": "article", "lang": "en"}, {"title": "Assignments 048–053", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-048-to-053/", "kind": "article", "lang": "en"}, {"title": "Assignments 054–056", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-054-to-056/", "kind": "article", "lang": "en"}]}, {"id": "w03", "title": "Week 3: Functions & Forms", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 57–70)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Visual Task 1 — Pluralsight Login Page Clone", "url": "https://www.youtube.com/watch?v=wIx1O5Y5EB4", "kind": "video", "lang": "en"}, {"title": "Visual Task 2 — HTML/CSS Template 4", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAyGaRGzPVZCkYx5L7Mo9Tbh", "kind": "playlist", "lang": "en"}, {"title": "Assignments 057–063", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-057-to-063/", "kind": "article", "lang": "en"}, {"title": "Assignments 064–070", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-064-to-070/", "kind": "article", "lang": "en"}]}, {"id": "w04", "title": "Week 4: Higher Order Logic", "note": "Drill: LeetCode \"Array\" problems. • Visual Task: Finish Template 4.", "resources": [{"title": "JS Study — Elzero JS (Videos 71–85)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Assignments 071–078", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-071-to-078/", "kind": "article", "lang": "en"}, {"title": "Assignments 079–085", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-079-to-085/", "kind": "article", "lang": "en"}]}]}, {"id": "module-b", "name": "Module B: DOM & Interactivity", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w05", "title": "Week 5: DOM & Bootstrap", "note": "Project: Build a Responsive Landing Page using Bootstrap.", "resources": [{"title": "JS Study — Elzero JS (Videos 86–101)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Framework — Bootstrap 5 Documentation", "url": "https://getbootstrap.com/", "kind": "other", "lang": "en"}, {"title": "Abdelrahman Gamal — Bootstrap 4", "url": "https://www.youtube.com/watch?v=EzHbZjXDdKc", "kind": "video", "lang": "ar"}, {"title": "Elzero — Bootstrap 5 Bondi Design", "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAyvm7f--dc6XqkpfDcen_vQ", "kind": "playlist", "lang": "ar"}, {"title": "Assignments 086–093", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-086-to-093/", "kind": "article", "lang": "en"}, {"title": "Assignments 094–101", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-094-to-101/", "kind": "article", "lang": "en"}, {"title": "Extra — Part 1", "url": "https://youtu.be/0ik6X4DJKCc", "kind": "video", "lang": "en"}, {"title": "Extra — Part 2", "url": "https://youtu.be/mPd2aJXCZ2g", "kind": "video", "lang": "en"}, {"title": "Extra — Part 3", "url": "https://youtu.be/wK2cBMcDTss", "kind": "video", "lang": "en"}, {"title": "Extra — Part 4 (Project)", "url": "https://youtu.be/i37KVt_IcXw", "kind": "video", "lang": "en"}]}, {"id": "w06", "title": "Week 6: Persistent Data (BOM)", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 102–114)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Project — Todo List V2 (Persistent)", "url": "https://youtu.be/ylsFXMHpFUQ", "kind": "video", "lang": "en"}, {"title": "Assignments 102–110", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-102-to-110/", "kind": "article", "lang": "en"}, {"title": "Assignments 111–114", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-111-to-114/", "kind": "article", "lang": "en"}]}, {"id": "w07", "title": "Week 7: Advanced Data & Regex", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 115–133)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Project 1 — Countdown Timer", "url": "https://youtu.be/eFsiOTJrrE8", "kind": "video", "lang": "en"}, {"title": "Project 2 — Netflix Landing Page Clone", "url": "https://youtu.be/P7t13SGytRk", "kind": "video", "lang": "en"}, {"title": "Assignments 115–122", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-115-to-122/", "kind": "article", "lang": "en"}, {"title": "Assignments 123–133", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-123-to-133/", "kind": "article", "lang": "en"}]}]}, {"id": "module-c", "name": "Module C: Advanced Engineering", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w08", "title": "Week 8: Data Patterns & Regex", "note": "Project: Validation Form System.", "resources": [{"title": "JS Study — Elzero JS (Videos 134–146)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Assignments 134–146", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-134-to-146/", "kind": "article", "lang": "en"}]}, {"id": "w09", "title": "Week 9: OOP", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 147–168)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Project 1 — Quiz App (OOP)", "url": "https://youtu.be/T5QyLcmcMJ4", "kind": "video", "lang": "en"}, {"title": "Project 2 — Product Management System (CRUD)", "url": "https://youtu.be/nJZAvdUhUMs", "kind": "video", "lang": "en"}, {"title": "Assignments 147–158", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-147-to-158/", "kind": "article", "lang": "en"}, {"title": "Assignments 159–168", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-159-to-168/", "kind": "article", "lang": "en"}, {"title": "Extra — JavaScript OOP Crash Course (ES5 & ES6)", "url": "https://youtu.be/vDJpGenyHaA", "kind": "video", "lang": "en"}]}, {"id": "w10", "title": "Week 10: Async & API", "note": null, "resources": [{"title": "JS Study — Elzero JS (Videos 169–188)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplXPkLUq0o57XMW8y_", "kind": "playlist", "lang": "ar"}, {"title": "Project — GitHub Repo Fetcher", "url": "https://youtu.be/uCKCSO8vkiU", "kind": "video", "lang": "en"}, {"title": "Assignments 169–178", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-169-to-178/", "kind": "article", "lang": "en"}, {"title": "Assignments 179–188", "url": "https://elzero.org/javascript-bootcamp-assignments-lesson-from-179-to-188/", "kind": "article", "lang": "en"}]}]}, {"id": "module-d", "name": "Module D: Pro Tooling", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w11", "title": "Week 11: SASS", "note": "Mission: Refactor Netflix Clone CSS to SASS.", "resources": [{"title": "Arabic — Elzero SASS Playlist", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAzlPyLCtVVMNqaAFxCIY7ii", "kind": "playlist", "lang": "ar"}, {"title": "English — SASS Tutorial — Net Ninja", "url": "https://youtube.com/playlist?list=PL4cUxeGkcC9jxJX7vojNVK-o8ubDZEcNb", "kind": "playlist", "lang": "en"}, {"title": "English — SASS Crash Course — Traversy Media", "url": "https://www.youtube.com/watch?v=nu5mdN2JIwM", "kind": "video", "lang": "en"}]}, {"id": "w12", "title": "Week 12: Tooling (NPM & Git)", "note": "Task: Set up a professional local environment with scripts.", "resources": [{"title": "NPM Crash Course — Traversy Media", "url": "https://youtu.be/jHDhaSSKmB0", "kind": "video", "lang": "en"}, {"title": "Webpack 5 Crash Course — Traversy Media", "url": "https://youtu.be/IZGNcSuwBZs", "kind": "video", "lang": "en"}]}, {"id": "w13", "title": "Week 13: THE CAPSTONE", "note": null, "resources": [{"title": "Project — Vanilla JS E-Commerce System", "url": "https://youtu.be/b3Gqq_k-g24", "kind": "video", "lang": "en"}]}]}, {"id": "js-practice-projects", "name": "JS Practice Projects", "objectives": [], "practice": [], "resources": [{"title": "Tutorial", "url": "https://youtu.be/QmPXb-RHy5s", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/ylsFXMHpFUQ", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/eFsiOTJrrE8", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/KRj4DFBTBkA", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/ZFb_eaYtWwY", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/uCKCSO8vkiU", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/T5QyLcmcMJ4", "kind": "video", "lang": "en"}, {"title": "Playlist", "url": "https://youtube.com/playlist?list=PLtFbQRDJ11kGlRWp8MFhqlbO3ZmxIa3RE", "kind": "playlist", "lang": "en"}, {"title": "Playlist", "url": "https://youtube.com/playlist?list=PLtFbQRDJ11kEMjSzhHKMdcIuLiIywYWjH", "kind": "playlist", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/nJZAvdUhUMs", "kind": "video", "lang": "en"}, {"title": "Playlist", "url": "https://youtube.com/playlist?list=PLtFbQRDJ11kHCgyFid3khHdOk0VEHiJ3e", "kind": "playlist", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/JkeyKeK3V24", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/P7t13SGytRk", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/AOlkcLtyXkw", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/b3Gqq_k-g24", "kind": "video", "lang": "en"}], "topics": []}, {"id": "problem-solving", "name": "Problem-Solving", "objectives": [], "practice": [], "resources": [{"title": "[JSchallenger](https://www.jschallenger.com/)", "url": "https://www.jschallenger.com/", "kind": "interactive", "lang": "en"}, {"title": "[FreeCodeCamp — JS Algorithms](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)", "url": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/", "kind": "interactive", "lang": "en"}, {"title": "[NeetCode Roadmap](https://neetcode.io/roadmap)", "url": "https://neetcode.io/roadmap", "kind": "interactive", "lang": "en"}, {"title": "[LeetCode](https://leetcode.com/)", "url": "https://leetcode.com/", "kind": "interactive", "lang": "en"}], "topics": []}, {"id": "extra-javascript-resources", "name": "Extra JavaScript Resources", "objectives": [], "practice": [], "resources": [{"title": "[Learn JavaScript (Interactive)](https://learnjavascript.online/)", "url": "https://learnjavascript.online/", "kind": "interactive", "lang": "en"}, {"title": "[The Modern JS Tutorial](https://javascript.info/)", "url": "https://javascript.info/", "kind": "other", "lang": "en"}, {"title": "[Traversy Media](https://www.youtube.com/@TraversyMedia)", "url": "https://www.youtube.com/@TraversyMedia", "kind": "video", "lang": "en"}, {"title": "[Elzero Web School](https://www.youtube.com/@ElzeroWebSchool)", "url": "https://www.youtube.com/@ElzeroWebSchool", "kind": "video", "lang": "ar"}, {"title": "[FreeCodeCamp](https://www.youtube.com/@freecodecamp)", "url": "https://www.youtube.com/@freecodecamp", "kind": "video", "lang": "en"}, {"title": "[Unique Coderz Academy](https://www.youtube.com/@UniqueCoderzAcademy)", "url": "https://www.youtube.com/@UniqueCoderzAcademy", "kind": "video", "lang": "en"}, {"title": "[The Complete JavaScript Course 2023 — Jonas Schmedtmann](https://www.udemy.com/course/the-complete-javascript-course/)", "url": "https://www.udemy.com/course/the-complete-javascript-course/", "kind": "book", "lang": "en"}], "topics": []}, {"id": "interview-prep", "name": "Interview Prep", "objectives": [], "practice": [], "resources": [{"title": "[JavaScript Interview Questions (GitHub)](https://github.com/FADL285/javascript-interview-questions)", "url": "https://github.com/FADL285/javascript-interview-questions", "kind": "repo", "lang": "en"}], "topics": []}]}, {"id": "phase-3-react", "name": "Phase 3 — React & Next.js", "durationText": "8 أسابيع تخصصية", "goal": "المسار المفصّل الرسمي: React → Redux → Tailwind → TypeScript → Next.js + جدول تخصصي 8 أسابيع.", "modules": [{"id": "prerequisites", "name": "React Prerequisites Checklist", "objectives": ["JavaScript Fundamentals", "Higher Order Methods", "Arrow Functions", "ES6 Modules", "Promises", "Destructuring", "Classes", "Spread Operator", "NPM", "Webpack & Babel"], "practice": [], "resources": [], "topics": []}, {"id": "learning-path", "name": "The React Learning Path", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "1-core-react", "title": "1. Core React", "note": null, "resources": [{"title": "Official Docs — React.dev", "url": "https://react.dev/", "kind": "docs", "lang": "en"}, {"title": "Kimz Codes — Part 1: React Hooks", "url": "https://www.youtube.com/watch?v=RgtTrM_sflo&list=PLejc1JbD4ZFSaQIFNstRIrbm_fqb12Q59", "kind": "video", "lang": "en"}, {"title": "Kimz Codes — Part 2: LifeCycle", "url": "https://www.youtube.com/playlist?list=PLejc1JbD4ZFQa9YDF5pzB4JFbJovh3TN9", "kind": "playlist", "lang": "en"}, {"title": "Kimz Codes — Part 3: Performance Optimization", "url": "https://www.youtube.com/watch?v=AZ41NpgebPA&list=PLejc1JbD4ZFTYdkjzqYBujf7UCVQyn_aq", "kind": "video", "lang": "en"}, {"title": "Kimz Codes — Part 4: Advanced React", "url": "https://www.youtube.com/watch?v=aC9vgsUorPE&list=PLejc1JbD4ZFTiDCCVu_uCW0GXqyvhtbf8", "kind": "video", "lang": "en"}, {"title": "Code Zone (Arabic Course)", "url": "https://youtube.com/playlist?list=PLQtNtS-WfRa9LbmD8ON7rWhn-AtKTGdkn", "kind": "playlist", "lang": "en"}, {"title": "FreeCodeCamp React Course (2022)", "url": "https://www.youtube.com/watch?v=bMknfKXIFA8", "kind": "video", "lang": "en"}, {"title": "The Ultimate React Course — Jonas Schmedtmann", "url": "https://www.udemy.com/course/the-ultimate-react-course/", "kind": "book", "lang": "en"}, {"title": "React — The Complete Guide — Maximilian Schwarzmuller", "url": "https://www.udemy.com/course/react-the-complete-guide-incl-redux/", "kind": "book", "lang": "en"}]}, {"id": "2-state-management-redux-toolkit", "title": "2. State Management (Redux Toolkit)", "note": null, "resources": [{"title": "Docs — Redux Official Docs", "url": "https://redux.js.org/", "kind": "other", "lang": "en"}, {"title": "Kimz Codes — Redux Toolkit", "url": "https://youtube.com/playlist?list=PLejc1JbD4ZFREfrBoSl8tjAPZOY6HNqZv", "kind": "playlist", "lang": "en"}, {"title": "Kimz Codes — Redux Toolkit Build Book Store", "url": "https://youtube.com/playlist?list=PLejc1JbD4ZFQFvS469VXyCPO_py_kvVD5", "kind": "playlist", "lang": "en"}, {"title": "Index Academy — Redux With React", "url": "https://youtube.com/playlist?list=PLDQ11FgmbqQObr_XGBVQiRr89YitNq-zc", "kind": "playlist", "lang": "en"}, {"title": "Redux Tutorial — FreeCodeCamp", "url": "https://youtu.be/zrs7u6bdbUw", "kind": "video", "lang": "en"}]}, {"id": "3-modern-styling-tailwind-css", "title": "3. Modern Styling (Tailwind CSS)", "note": null, "resources": [{"title": "Tailwind CSS Crash Course — Ag Coding", "url": "https://youtube.com/playlist?list=PLnD96kXp-_pMR9cBUmvsz_kIIt9bv2UIP", "kind": "playlist", "lang": "en"}, {"title": "Learn Tailwind in One Video — Termez Academy", "url": "https://youtu.be/Pk3hhCJG2Dk", "kind": "video", "lang": "en"}, {"title": "Build a Responsive Plant Website", "url": "https://youtu.be/zKguO4oaAGs", "kind": "video", "lang": "en"}, {"title": "Full Website Using Tailwind", "url": "https://youtu.be/9Px2cwdQ8PM", "kind": "video", "lang": "en"}]}, {"id": "4-typescript", "title": "4. TypeScript", "note": null, "resources": [{"title": "Elzero — TypeScript in Arabic", "url": "https://www.youtube.com/watch?v=yUndnE-2osg&list=PLDoPjvoNmBAy532K9M_fjiAmrJ0gkCyLJ", "kind": "video", "lang": "ar"}, {"title": "Net Ninja — TypeScript", "url": "https://www.youtube.com/watch?v=2pZmKW9-I_k&list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI", "kind": "video", "lang": "en"}, {"title": "TypeScript Crash Course for React/Next — Lama Dev", "url": "https://www.youtube.com/watch?v=WlxcujsvcIY", "kind": "video", "lang": "en"}, {"title": "Build eCommerce App — React, TypeScript, Redux Toolkit", "url": "https://youtube.com/playlist?list=PLejc1JbD4ZFS4sEpIpLfD18FEnEpafVbz", "kind": "playlist", "lang": "en"}]}, {"id": "5-meta-framework-next-js", "title": "5. Meta-Framework (Next.js)", "note": null, "resources": [{"title": "Docs — Next.js Official Docs", "url": "https://nextjs.org/", "kind": "other", "lang": "en"}, {"title": "Next.js Full Course — Termez Academy", "url": "https://youtu.be/_t4c-vxalp4", "kind": "video", "lang": "en"}, {"title": "Next.js 13 Course — Index Academy", "url": "https://youtu.be/KN66vLV0QZk", "kind": "video", "lang": "en"}, {"title": "Next.js 14 Full Course — JS Mastery", "url": "https://youtu.be/wm5gMKuwSYk", "kind": "video", "lang": "en"}, {"title": "Next.js — Stephen Grider", "url": "https://www.udemy.com/course/next-js-the-complete-developers-guide/", "kind": "book", "lang": "en"}, {"title": "Next.js 14 & React — Maximilian Schwarzmuller", "url": "https://www.udemy.com/course/nextjs-react-the-complete-guide/", "kind": "book", "lang": "en"}]}]}, {"id": "ecosystem", "name": "React Ecosystem Libraries", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "navigation", "title": "Navigation", "note": null, "resources": [{"title": "[React Router Tutorial — Codevolution](https://youtube.com/playlist?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG)", "url": "https://youtube.com/playlist?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG", "kind": "playlist", "lang": "en"}, {"title": "[React Router — Complete Tutorial](https://youtu.be/oTIJunBa6MA)", "url": "https://youtu.be/oTIJunBa6MA", "kind": "video", "lang": "en"}]}, {"id": "ui-libraries", "title": "UI Libraries", "note": null, "resources": [{"title": "[Material UI Tutorial — Net Ninja](https://youtube.com/playlist?list=PL4cUxeGkcC9gjxLvV4VEkZ6H6H4yWuS58)", "url": "https://youtube.com/playlist?list=PL4cUxeGkcC9gjxLvV4VEkZ6H6H4yWuS58", "kind": "playlist", "lang": "en"}, {"title": "[Shadcn UI Tutorial — Net Ninja](https://youtube.com/playlist?list=PL4cUxeGkcC9h1NXLUuiAQ7c4UtdEInqma)", "url": "https://youtube.com/playlist?list=PL4cUxeGkcC9h1NXLUuiAQ7c4UtdEInqma", "kind": "playlist", "lang": "en"}]}, {"id": "data-fetching", "title": "Data Fetching", "note": null, "resources": [{"title": "[Learn React Query in 50 Minutes](https://youtu.be/r8Dg0KVnfMA)", "url": "https://youtu.be/r8Dg0KVnfMA", "kind": "video", "lang": "en"}, {"title": "[React Query — Complete Tutorial](https://youtu.be/8K1N3fE-cDs)", "url": "https://youtu.be/8K1N3fE-cDs", "kind": "video", "lang": "en"}]}, {"id": "form-validation", "title": "Form Validation", "note": null, "resources": [{"title": "[React Hook Form Crash Course (Arabic)](https://youtu.be/8OO4xhJnniU)", "url": "https://youtu.be/8OO4xhJnniU", "kind": "video", "lang": "ar"}, {"title": "[Learn Zod in 30 Minutes](https://youtu.be/L6BE-U3oy80)", "url": "https://youtu.be/L6BE-U3oy80", "kind": "video", "lang": "en"}, {"title": "[React Hook Form + Zod — Complete](https://youtu.be/cc_xmawJ8Kg)", "url": "https://youtu.be/cc_xmawJ8Kg", "kind": "video", "lang": "en"}, {"title": "[React Hook Form Tutorials — Playlist](https://youtube.com/playlist?list=PLC3y8-rFHvwjmgBr1327BA5bVXoQH-w5s)", "url": "https://youtube.com/playlist?list=PLC3y8-rFHvwjmgBr1327BA5bVXoQH-w5s", "kind": "playlist", "lang": "en"}]}]}, {"id": "specialist-a", "name": "Module A: The React Standard", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w01", "title": "Week 1: Thinking in React", "note": "Components, JSX, Props, State (useState), Effects (useEffect). — Task 1: [The Static Tweet] • Build a Twitter Card component. Passing data via props. • Task 2: [Interactive Accordion]", "resources": [{"title": "Study — React.dev: Describing the UI", "url": "https://react.dev/learn/describing-the-ui", "kind": "docs", "lang": "en"}]}, {"id": "w02", "title": "Week 2: Forms & Side Effects", "note": "Controlled Components, useRef, useEffect Cleanup, Custom Hooks. — Task 1: [Registration Form] • Task 2: [Window Resizer Hook] • Create a custom hook useWindowSize() that returns width/height.", "resources": [{"title": "Study — React.dev: Managing State", "url": "https://react.dev/learn/managing-state", "kind": "docs", "lang": "en"}]}, {"id": "w03", "title": "Week 3: Data-Driven React (API & Routing)", "note": "React Router v6, Fetching Data (useEffect vs Query), Handling Loading/Error states. — Task: [Movie Search App]", "resources": [{"title": "Study — React Router Tutorial", "url": "https://reactrouter.com/en/main/start/tutorial", "kind": "other", "lang": "en"}]}, {"id": "w04", "title": "Week 4: Global State (Redux Toolkit)", "note": "Store, Slices, Dispatch, Selectors. — Task: [E-Commerce Cart System] • Challenge: Implement \"Undo\" action (remove last item).", "resources": []}]}, {"id": "specialist-b", "name": "Module B: The Next.js Framework", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "w05", "title": "Week 5: Next.js Fundamentals (App Router)", "note": "Server vs Client Components, File-based Routing, Layouts. — Task: [Simple Blog]", "resources": [{"title": "Study — Next.js Dashboard Tutorial", "url": "https://nextjs.org/learn", "kind": "other", "lang": "en"}]}, {"id": "w06", "title": "Week 6: Server Actions & Databases", "note": "Server Actions (No API routes), Prisma (ORM), Supabase/PostgreSQL. — Task: [Guestbook App] • User can sign the guestbook (Form submission without useState).", "resources": []}, {"id": "w07", "title": "Week 7: Authentication & Optimization", "note": "NextAuth (Auth.js), Middleware, Image Optimization, Fonts. — Task: [Protected Dashboard]", "resources": []}, {"id": "w08", "title": "Week 8: The Final Capstone", "note": "Project: [Fullstack LMS (Learning Management System)] • Teacher Mode: Create courses, upload chapters.", "resources": []}]}, {"id": "recommended-projects", "name": "Recommended Projects", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "beginner", "title": "Beginner", "note": null, "resources": [{"title": "Tutorial", "url": "https://youtu.be/W7up-w1QYpw", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://www.youtube.com/watch?v=hrHIzqyq06U", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://youtu.be/i__4ul5yXFc", "kind": "video", "lang": "en"}, {"title": "Tutorial", "url": "https://www.youtube.com/watch?v=LoYbN6qoQHA", "kind": "video", "lang": "en"}]}, {"id": "intermediate", "title": "Intermediate", "note": null, "resources": [{"title": "Playlist", "url": "https://youtube.com/playlist?list=PLakmP0ibjfQcNNh7PnmIQ9zTm2bLM_wCC", "kind": "playlist", "lang": "en"}, {"title": "Playlist", "url": "https://youtube.com/playlist?list=PLJT9n0q3md18xl4PWqzqNFUEp9DbBmogZ", "kind": "playlist", "lang": "en"}]}, {"id": "advanced", "title": "Advanced", "note": null, "resources": [{"title": "Playlist", "url": "https://youtube.com/playlist?list=PL-J2q3Ga50oMQa1JdSJxYoZELwOJAXExP", "kind": "playlist", "lang": "en"}]}]}, {"id": "channels", "name": "YouTube Channels", "objectives": [], "practice": [], "resources": [{"title": "[JavaScript Mastery](https://www.youtube.com/@javascriptmastery)", "url": "https://www.youtube.com/@javascriptmastery", "kind": "video", "lang": "en"}, {"title": "[Traversy Media](https://www.youtube.com/@TraversyMedia)", "url": "https://www.youtube.com/@TraversyMedia", "kind": "video", "lang": "en"}, {"title": "[Lama Dev](https://www.youtube.com/@LamaDev)", "url": "https://www.youtube.com/@LamaDev", "kind": "video", "lang": "en"}, {"title": "[FreeCodeCamp](https://www.youtube.com/@freecodecamp)", "url": "https://www.youtube.com/@freecodecamp", "kind": "video", "lang": "en"}], "topics": []}]}, {"id": "alternative-tracks", "name": "Alternative Tracks (Angular / Vue)", "durationText": null, "goal": "الصفحة الرسمية بتسيبك تختار إطار العمل — React مساره مفصّل أعلاه، ودي بدائل Angular و Vue.", "modules": [{"id": "vue-track", "name": "Vue.js Ecosystem", "objectives": [], "practice": ["Todo App (with Pinia)", "Real-time Chat App"], "resources": [], "topics": [{"id": "1-vue-fundamentals", "title": "1. Vue Fundamentals", "note": null, "resources": [{"title": "Official Docs — Vue.js Guide", "url": "https://vuejs.org/guide/introduction.html", "kind": "docs", "lang": "en"}, {"title": "Vue.js Crash Course (English)", "url": "https://www.youtube.com/watch?v=YrxBCBibVo0", "kind": "video", "lang": "en"}, {"title": "Vue for Beginners (Arabic)", "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAxr5AqK3Yz4DWYKVSmIFziw", "kind": "playlist", "lang": "ar"}]}, {"id": "2-vue-3-features", "title": "2. Vue 3 Features", "note": null, "resources": [{"title": "What's New in Vue 3?", "url": "https://www.youtube.com/watch?v=bwItFdPt-6M", "kind": "video", "lang": "en"}, {"title": "Vue 3 New Features (Arabic)", "url": "https://www.youtube.com/playlist?list=PLLXntwspGdhCrdh_7xqzz0s3sH4sWlEiQ", "kind": "playlist", "lang": "ar"}]}, {"id": "3-state-management-pinia", "title": "3. State Management (Pinia)", "note": null, "resources": [{"title": "Pinia Official Docs", "url": "https://pinia.vuejs.org/", "kind": "other", "lang": "en"}, {"title": "Pinia Tutorial (Net Ninja)", "url": "https://www.youtube.com/playlist?list=PL4cUxeGkcC9hp28dYyYBy3xoOdoeNw-hD", "kind": "playlist", "lang": "en"}, {"title": "Pinia Explanation (Arabic)", "url": "https://www.youtube.com/watch?v=IwNyiqUQa-8", "kind": "video", "lang": "ar"}]}, {"id": "4-meta-framework-nuxt-js", "title": "4. Meta-Framework (Nuxt.js)", "note": null, "resources": [{"title": "Nuxt.js Docs", "url": "https://nuxt.com/", "kind": "other", "lang": "en"}]}]}, {"id": "angular-track", "name": "Angular Ecosystem", "objectives": [], "practice": [], "resources": [], "topics": [{"id": "1-prerequisites", "title": "1. Prerequisites", "note": null, "resources": []}, {"id": "2-core-angular", "title": "2. Core Angular", "note": null, "resources": [{"title": "Official Docs — Angular.io", "url": "https://angular.io/docs", "kind": "docs", "lang": "en"}, {"title": "Angular for Beginners (FreeCodeCamp)", "url": "https://youtu.be/3qBXWUpoPHo", "kind": "video", "lang": "en"}, {"title": "Coding from A to Z (Arabic Playlist)", "url": "https://youtube.com/playlist?list=PLgU7izgeR2lwwNRNY4fYQf3GZawV-EGnW", "kind": "playlist", "lang": "ar"}, {"title": "Monsterlessons Academy", "url": "https://youtube.com/playlist?list=PLEjh-YiSBCDLC_zhXQ2J5SkHrLHdmV8qc", "kind": "playlist", "lang": "en"}]}, {"id": "3-reactive-programming-rxjs", "title": "3. Reactive Programming (RxJS)", "note": null, "resources": [{"title": "Learn RxJS", "url": "https://www.learnrxjs.io/", "kind": "other", "lang": "en"}, {"title": "RxJS in Angular (Arabic)", "url": "https://youtube.com/playlist?list=PLgU7izgeR2lxCLqerQWZYBvv_0UTtPnWb", "kind": "playlist", "lang": "ar"}, {"title": "Admin Dashboard — Tutorial", "url": "https://youtu.be/s7bKr_-GLtM", "kind": "video", "lang": "en"}, {"title": "Realtime Chat — Tutorial", "url": "https://youtu.be/Dg7bZUFopUo", "kind": "video", "lang": "en"}, {"title": "Weather App — Tutorial", "url": "https://youtu.be/fk0WoYnMbRo", "kind": "video", "lang": "en"}, {"title": "Movie App — Tutorial", "url": "https://youtu.be/rmPj2Qlbz3g", "kind": "video", "lang": "en"}, {"title": "Angular 17 Projects — Playlist", "url": "https://youtube.com/playlist?list=PL7JmcZV0UQtU5ds45KRtSXA19sOntKTnI", "kind": "playlist", "lang": "en"}, {"title": "Spotify Web App Clone — Tutorial", "url": "https://youtu.be/FzlwWh5lLVU", "kind": "video", "lang": "en"}]}]}]}], "flat": [{"l": "phase-1-foundation", "m": "w01", "t": "introduction-the-invisible-web", "title": "Introduction: The Invisible Web"}, {"l": "phase-1-foundation", "m": "w01", "t": "html-playlist-elzero-web-school", "title": "HTML Playlist — Elzero Web School"}, {"l": "phase-1-foundation", "m": "w02", "t": "css-playlist-elzero-web-school-lessons-1-53", "title": "CSS Playlist — Elzero Web School (Lessons 1–53)"}, {"l": "phase-1-foundation", "m": "w03", "t": "css-playlist-lessons-54-67", "title": "CSS Playlist (Lessons 54–67)"}, {"l": "phase-1-foundation", "m": "w04", "t": "css-playlist-lessons-68-88", "title": "CSS Playlist (Lessons 68–88)"}, {"l": "phase-2-core", "m": "module-a", "t": "w01", "title": "Week 1: Syntax & Layouts"}, {"l": "phase-2-core", "m": "module-a", "t": "w02", "title": "Week 2: Control Flow & Cloning"}, {"l": "phase-2-core", "m": "module-a", "t": "w03", "title": "Week 3: Functions & Forms"}, {"l": "phase-2-core", "m": "module-a", "t": "w04", "title": "Week 4: Higher Order Logic"}, {"l": "phase-2-core", "m": "module-b", "t": "w05", "title": "Week 5: DOM & Bootstrap"}, {"l": "phase-2-core", "m": "module-b", "t": "w06", "title": "Week 6: Persistent Data (BOM)"}, {"l": "phase-2-core", "m": "module-b", "t": "w07", "title": "Week 7: Advanced Data & Regex"}, {"l": "phase-2-core", "m": "module-c", "t": "w08", "title": "Week 8: Data Patterns & Regex"}, {"l": "phase-2-core", "m": "module-c", "t": "w09", "title": "Week 9: OOP"}, {"l": "phase-2-core", "m": "module-c", "t": "w10", "title": "Week 10: Async & API"}, {"l": "phase-2-core", "m": "module-d", "t": "w11", "title": "Week 11: SASS"}, {"l": "phase-2-core", "m": "module-d", "t": "w12", "title": "Week 12: Tooling (NPM & Git)"}, {"l": "phase-2-core", "m": "module-d", "t": "w13", "title": "Week 13: THE CAPSTONE"}, {"l": "phase-3-react", "m": "learning-path", "t": "1-core-react", "title": "1. Core React"}, {"l": "phase-3-react", "m": "learning-path", "t": "2-state-management-redux-toolkit", "title": "2. State Management (Redux Toolkit)"}, {"l": "phase-3-react", "m": "learning-path", "t": "3-modern-styling-tailwind-css", "title": "3. Modern Styling (Tailwind CSS)"}, {"l": "phase-3-react", "m": "learning-path", "t": "4-typescript", "title": "4. TypeScript"}, {"l": "phase-3-react", "m": "learning-path", "t": "5-meta-framework-next-js", "title": "5. Meta-Framework (Next.js)"}, {"l": "phase-3-react", "m": "ecosystem", "t": "navigation", "title": "Navigation"}, {"l": "phase-3-react", "m": "ecosystem", "t": "ui-libraries", "title": "UI Libraries"}, {"l": "phase-3-react", "m": "ecosystem", "t": "data-fetching", "title": "Data Fetching"}, {"l": "phase-3-react", "m": "ecosystem", "t": "form-validation", "title": "Form Validation"}, {"l": "phase-3-react", "m": "specialist-a", "t": "w01", "title": "Week 1: Thinking in React"}, {"l": "phase-3-react", "m": "specialist-a", "t": "w02", "title": "Week 2: Forms & Side Effects"}, {"l": "phase-3-react", "m": "specialist-a", "t": "w03", "title": "Week 3: Data-Driven React (API & Routing)"}, {"l": "phase-3-react", "m": "specialist-a", "t": "w04", "title": "Week 4: Global State (Redux Toolkit)"}, {"l": "phase-3-react", "m": "specialist-b", "t": "w05", "title": "Week 5: Next.js Fundamentals (App Router)"}, {"l": "phase-3-react", "m": "specialist-b", "t": "w06", "title": "Week 6: Server Actions & Databases"}, {"l": "phase-3-react", "m": "specialist-b", "t": "w07", "title": "Week 7: Authentication & Optimization"}, {"l": "phase-3-react", "m": "specialist-b", "t": "w08", "title": "Week 8: The Final Capstone"}, {"l": "phase-3-react", "m": "recommended-projects", "t": "beginner", "title": "Beginner"}, {"l": "phase-3-react", "m": "recommended-projects", "t": "intermediate", "title": "Intermediate"}, {"l": "phase-3-react", "m": "recommended-projects", "t": "advanced", "title": "Advanced"}, {"l": "alternative-tracks", "m": "vue-track", "t": "1-vue-fundamentals", "title": "1. Vue Fundamentals"}, {"l": "alternative-tracks", "m": "vue-track", "t": "2-vue-3-features", "title": "2. Vue 3 Features"}, {"l": "alternative-tracks", "m": "vue-track", "t": "3-state-management-pinia", "title": "3. State Management (Pinia)"}, {"l": "alternative-tracks", "m": "vue-track", "t": "4-meta-framework-nuxt-js", "title": "4. Meta-Framework (Nuxt.js)"}, {"l": "alternative-tracks", "m": "angular-track", "t": "1-prerequisites", "title": "1. Prerequisites"}, {"l": "alternative-tracks", "m": "angular-track", "t": "2-core-angular", "title": "2. Core Angular"}, {"l": "alternative-tracks", "m": "angular-track", "t": "3-reactive-programming-rxjs", "title": "3. Reactive Programming (RxJS)"}]};
+
+/* ═══ أدوات مشتركة ═══ */
+const NS = 'http://www.w3.org/2000/svg';
+const ICONS = {
+  play: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
+  check: 'M20 6 9 17l-5-5',
+  external: 'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
+  file: 'M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm-1 0v6h6',
+  link: 'M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7',
+  arrowRight: 'M5 12h14M13 5l7 7-7 7',
+  arrowLeft: 'M19 12H5M11 19l-7-7 7-7',
+  x: 'M18 6 6 18M6 6l12 12',
+  list: 'M4 5h16M4 12h10M4 19h7',
+  chevDown: 'M6 9l6 6 6-6',
+};
+function svgIcon(name, cls) {
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('class', cls || 'ico');
+  if (name === 'play') { svg.setAttribute('fill', 'currentColor'); svg.setAttribute('stroke', 'none'); }
+  const p = document.createElementNS(NS, 'path');
+  p.setAttribute('d', ICONS[name]);
+  svg.appendChild(p);
+  return svg;
+}
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const glyphOf = (topic) => {
+  const rs = topic.resources || [];
+  if (rs.some((r) => r.kind === 'video' || r.kind === 'playlist' || /youtube\.com|youtu\.be/.test(r.url))) return 'play';
+  if (rs.some((r) => r.kind === 'docs' || r.kind === 'article' || r.kind === 'book' || r.kind === 'repo')) return 'file';
+  return 'link';
+};
+const hasArabic = (topic) => (topic.resources || []).some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar');
+const tkey = (l, m, t) => DATA.circle.id + '/' + l + '/' + m + '/' + t;
+const idxOf = (key) => DATA.flat.findIndex((f) => f.l + '/' + f.m + '/' + f.t === key);
+
+/* تقدّم محصور بالمعاينة: مفتاح تخزين منفصل لا يمس مفتاح الموقع الأصلي */
+const STORE = 'cat-roadmaps:progress:preview-v1';
+const progress = (() => {
+  let snap = {};
+  try { snap = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch { snap = {}; }
+  const save = () => { try { localStorage.setItem(STORE, JSON.stringify(snap)); } catch {} };
+  return {
+    snapshot: () => snap,
+    isDone: (k) => snap[k] === 1,
+    toggle: (k) => { if (snap[k] === 1) delete snap[k]; else snap[k] = 1; save(); },
+  };
+})();
+let langPref = 'ar';
+const videoScore = (r, pref) => (r.lang === pref ? 2 : 0) + (r.lang ? 1 : 0);
+const pickVideo = (videos) => (videos && videos.length ? [...videos].sort((a, b) => videoScore(b, langPref) - videoScore(a, langPref))[0] : null);
+
+function embedSrc(url) {
+  try {
+    const u = new URL(url, 'https://x.invalid');
+    const host = u.hostname.replace(/^www\./, '').replace(/^m\./, '');
+    const list = u.searchParams.get('list');
+    let videoId = null;
+    if (host === 'youtu.be') videoId = u.pathname.split('/').filter(Boolean)[0] || null;
+    else if (host === 'youtube.com' || host === 'youtube-nocookie.com' || host === 'music.youtube.com') {
+      if (u.pathname === '/watch') videoId = u.searchParams.get('v') || null;
+      else {
+        const parts = u.pathname.split('/').filter(Boolean);
+        if (['embed', 'shorts', 'live', 'v'].includes(parts[0])) videoId = parts[1] || null;
+      }
+    }
+    const q = new URLSearchParams({ autoplay: '1', rel: '0' });
+    if (videoId) { if (list) q.set('list', list); return 'https://www.youtube-nocookie.com/embed/' + videoId + '?' + q; }
+    if (host === 'youtube.com' && u.pathname === '/playlist' && list) return 'https://www.youtube-nocookie.com/embed/videoseries?' + q + '&list=' + encodeURIComponent(list);
+    return null;
+  } catch { return null; }
+}
+const embeddable = (r) => !!r && (r.kind === 'video' || r.kind === 'playlist') && embedSrc(r.url) !== null;
+const hostOf = (url) => { try { return new URL(url, 'https://x.invalid').hostname.replace(/^www\./, ''); } catch { return url; } };
+const titleStem = (t) => (t || '').toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z\u0600-\u06FF]+/g, '');
+const sameLecture = (videos) => {
+  if (!videos || videos.length < 2) return true;
+  const stem = titleStem(videos[0].title).slice(0, 14);
+  return videos.every((r) => titleStem(r.title).slice(0, 14) === stem);
+};
+const find = (l, m, t) => {
+  const level = DATA.levels.find((x) => x.id === l);
+  const mod = level && level.modules.find((x) => x.id === m);
+  const topic = mod && mod.topics.find((x) => x.id === t);
+  return level && mod && topic ? { level, mod, topic } : null;
+};
+
+/* المحاضرات الحالية لكل تصميم (تُبدأ من أول درس حقيقي) */
+const current = { notebook: DATA.flat[0], path: DATA.flat[0], reader: DATA.flat[0] };
+const controllers = {};
+
+/* ═══ محرّك العرض المشترك — سلوك مطابق لصفحة الموقع ═══ */
+const EXTRA_CSS = `
+.film { aspect-ratio: 16/9; width: 100%; display: grid; place-items: center; align-content: center; gap: 10px; position: relative; }
+.w-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.w-playbig { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--color-accent) 12%, transparent); color: var(--color-accent); border: 1px solid color-mix(in oklab, var(--color-accent) 40%, transparent); cursor: pointer; transition: background-color .15s; }
+.w-playbig:hover { background: color-mix(in oklab, var(--color-accent) 20%, transparent); }
+.w-playbig svg { width: 26px; height: 26px; }
+.w-filmtitle { text-align: center; font-weight: 700; font-size: .8125rem; padding: 0 16px; margin: 0; max-width: 34rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-filmcap { text-align: center; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); padding: 0 12px 10px; }
+.w-articlebox { width: 100%; padding: 22px 24px; background: color-mix(in oklab, var(--color-surface) 82%, transparent); }
+.w-artinner { max-width: 62ch; margin-inline: auto; display: grid; gap: 12px; }
+.w-kick { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: .625rem; color: var(--color-accent); }
+.w-extrabox { margin-top: 12px; border: 1px solid var(--color-edge); border-radius: 10px; background: color-mix(in oklab, var(--color-surface) 65%, transparent); padding: 14px; display: grid; gap: 8px; }
+.w-extrabox h3 { font-size: .75rem; font-weight: 700; margin: 4px 0 0; }
+.w-obj { margin: 0; padding: 0; list-style: none; }
+.w-obj li { display: flex; gap: 8px; align-items: baseline; font-size: .75rem; line-height: 1.8; color: color-mix(in oklab, var(--color-ink) 88%, transparent); }
+.w-obj li::before { content: "–"; color: var(--color-accent-2); flex: none; }
+.w-src { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid var(--color-edge); border-radius: 10px; background: color-mix(in oklab, var(--color-bg) 60%, transparent); padding: 8px 12px; transition: border-color .15s; }
+.w-src:hover { border-color: color-mix(in oklab, var(--color-accent) 40%, transparent); }
+.w-src .rn { font-size: .75rem; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; unicode-bidi: isolate; text-align: start; }
+.w-src .rh { margin-inline-start: auto; flex: none; font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); direction: ltr; }
+.w-note { font-size: .8125rem; line-height: 1.9; color: var(--color-muted); margin: 0; }
+.w-backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / .5); z-index: 40; }
+.w-drawer-close { display: none; }
+@media (min-width: 1024px) { [data-role="drawer-open"] { display: none !important; } }
+@media (max-width: 1023px) {
+  .w-drawer { position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 50; width: min(19.5rem, 85vw); max-width: 85vw; border-radius: 0; border: 0; border-inline-end: 1px solid var(--color-edge); transform: translateX(100%); transition: transform .25s; max-height: none; }
+  .w-drawer.open { transform: translateX(0); }
+  .w-drawer-close { display: grid !important; }
+}
+/* نسخة الفهرس للموبايل في القارئ الهادئ تشارك أنماط الصفوف */
+.qr-mtoclist .lvl { font-family: var(--font-mono); font-size: .625rem; color: var(--color-accent); padding: 12px 8px 4px; }
+.qr-mtoclist .mod { font-size: .75rem; font-weight: 700; padding: 7px 8px 2px; }
+.qr-mtoclist a { display: flex; align-items: center; gap: 8px; text-decoration: none; padding: 4px 8px; font-size: .8125rem; line-height: 1.65; color: color-mix(in oklab, var(--color-ink) 88%, transparent); border-inline-start: 2px solid transparent; }
+.qr-mtoclist a:hover { color: var(--color-accent); }
+.qr-mtoclist a .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qr-mtoclist a .cnt { font-family: var(--font-mono); font-size: .625rem; color: var(--color-muted); }
+.qr-mtoclist a .donecheck { display: none; width: 12px; height: 12px; color: var(--color-muted); }
+.qr-mtoclist a.is-done .lbl { color: var(--color-muted); }
+.qr-mtoclist a.is-done .donecheck { display: block; }
+.qr-mtoclist a[aria-current="true"] { border-inline-start-color: var(--color-accent); color: var(--color-accent); font-weight: 700; background: color-mix(in oklab, var(--color-accent) 5%, transparent); }
+`;
+document.head.appendChild(Object.assign(document.createElement('style'), { textContent: EXTRA_CSS }));
+
+const belowLg = () => !matchMedia('(min-width: 1024px)').matches;
+
+/* ── عناصر المشاهدة (مطابقة لمنطق الموقع) ── */
+function filmNode(entry) {
+  const wrap = document.createElement('div');
+  wrap.className = 'film';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'w-playbig';
+  btn.setAttribute('aria-label', 'شغّل الفيديو: ' + (entry.topic.title || ''));
+  btn.appendChild(svgIcon('play'));
+  btn.addEventListener('click', () => {
+    const src = embedSrc(entry.video && entry.video.url);
+    if (!src) return;
+    const frame = document.createElement('iframe');
+    frame.src = src;
+    frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture');
+    frame.setAttribute('allowfullscreen', '');
+    frame.setAttribute('loading', 'lazy');
+    frame.className = 'w-frame';
+    wrap.replaceChildren(frame);
+  });
+  wrap.appendChild(btn);
+  const t = document.createElement('p');
+  t.className = 'w-filmtitle';
+  t.textContent = (entry.video && entry.video.title) || entry.topic.title || '';
+  wrap.appendChild(t);
+  const c = document.createElement('p');
+  c.className = 'w-filmcap';
+  c.textContent = 'youtube · داخل الموقع';
+  wrap.appendChild(c);
+  return wrap;
+}
+
+function third(container, heading, items) {
+  const h = document.createElement('h3');
+  h.textContent = heading;
+  container.appendChild(h);
+  const ul = document.createElement('ul');
+  ul.className = 'w-obj';
+  for (const text of items) {
+    const li = document.createElement('li');
+    const sp = document.createElement('span');
+    sp.textContent = text;
+    li.appendChild(sp);
+    ul.appendChild(li);
+  }
+  container.appendChild(ul);
+}
+
+function mutedP(text) {
+  const p = document.createElement('p');
+  p.style.cssText = 'font-size:.75rem;color:var(--color-muted);margin:0';
+  p.textContent = text;
+  return p;
+}
+
+function sourceRow(r) {
+  const a = document.createElement('a');
+  a.href = r.url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.className = 'w-src';
+  a.appendChild(svgIcon('external'));
+  const rn = document.createElement('span');
+  rn.className = 'rn';
+  rn.textContent = r.title || 'افتح المصدر';
+  a.appendChild(rn);
+  const rh = document.createElement('span');
+  rh.className = 'rh';
+  rh.textContent = hostOf(r.url);
+  a.appendChild(rh);
+  return a;
+}
+
+function articleNode(entry) {
+  const box = document.createElement('div');
+  box.className = 'w-articlebox';
+  const inner = document.createElement('div');
+  inner.className = 'w-artinner';
+  const kick = document.createElement('p');
+  kick.className = 'w-kick';
+  kick.appendChild(svgIcon('file'));
+  const ks = document.createElement('span');
+  ks.textContent = 'مقالة — محاضرة قراءة';
+  kick.appendChild(ks);
+  inner.appendChild(kick);
+  const lead = document.createElement('p');
+  lead.className = 'w-note';
+  lead.textContent = entry.topic.note || ('محاضرة قراءة — بتتناول: ' + (entry.topic.title || '') + '. المحتوى الكامل على المصادر المرتبطة بالأسفل.');
+  inner.appendChild(lead);
+  const obj = entry.module.objectives || [];
+  if (obj.length) third(inner, 'أهداف الوحدة', obj.slice(0, 6));
+  const h = document.createElement('p');
+  h.style.cssText = 'margin:6px 0 0;font-size:.75rem;font-weight:700;color:var(--color-ink)';
+  h.textContent = 'مصادر المحاضرة';
+  inner.appendChild(h);
+  const list = document.createElement('div');
+  list.style.cssText = 'display:grid;gap:8px';
+  const resources = entry.topic.resources || [];
+  if (resources.length) {
+    for (const r of resources) list.appendChild(sourceRow(r));
+  } else {
+    list.appendChild(mutedP('مفيش مصادر مرفقة بالموضوع ده.'));
+  }
+  inner.appendChild(list);
+  box.appendChild(inner);
+  return box;
+}
+
+function extrasNode(entry) {
+  const box = document.createElement('div');
+  box.className = 'w-extrabox';
+  if (entry.topic.note) {
+    const n = document.createElement('p');
+    n.className = 'w-note';
+    n.textContent = entry.topic.note;
+    box.appendChild(n);
+  }
+  const obj = entry.module.objectives || [];
+  if (obj.length) third(box, 'أهداف الوحدة', obj.slice(0, 6));
+  const chips = (entry.topic.resources || []).filter((r) => !embeddable(r));
+  if (chips.length) {
+    third(box, 'مصادر المحاضرة', chips.map((r) => r.title || hostOf(r.url)));
+  }
+  return box.childNodes.length ? box : null;
+}
+
+function makeLangBar(entry, rerender) {
+  const videos = entry.videos || [];
+  if (videos.length < 2) return null;
+  const twin = sameLecture(videos);
+  const bar = document.createElement('div');
+  bar.className = 'pt-lang';
+  const lbl = document.createElement('span');
+  lbl.className = 'lb';
+  lbl.textContent = twin ? 'النسخة:' : 'مصادر فيديو المحاضرة:';
+  bar.appendChild(lbl);
+  for (const r of videos) {
+    const active = entry.video && entry.video.url === r.url;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(!!active));
+    const label = r.lang === 'ar' ? 'عربي' : 'English';
+    b.textContent = twin ? label : (r.title || '').slice(0, 30) + ' · ' + label;
+    b.addEventListener('click', () => {
+      if (r.lang) langPref = r.lang;
+      rerender();
+    });
+    bar.appendChild(b);
+  }
+  return bar;
+}
+
+/* ═══ البنّاؤون: هيكل DOM لكل تصميم ═══ */
+const doneSVG = '<svg class="donecheck" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const chevDownSVG = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.chevDown + '"/></svg>';
+const xBtn = '<button type="button" class="w-drawer-close" data-role="drawer-close" aria-label="إغلاق" style="width:28px;height:28px;border:1px solid var(--color-edge);border-radius:7px;background:none;color:var(--color-muted);cursor:pointer;place-items:center">' + '<svg class="ico" viewBox="0 0 24 24"><path d="' + ICONS.x + '"/></svg></button>';
+const iconTile = (size, fs) => '<span aria-hidden="true" style="display:inline-grid;place-items:center;width:' + size + 'px;height:' + (size - 8) + 'px;border-radius:9px;background:' + DATA.circle.color + '1f;box-shadow:inset 0 0 0 1px ' + DATA.circle.color + '40;font-size:' + fs + 'px;flex:none">' + DATA.circle.icon + '</span>';
+
+function resCountLabel(topic) {
+  const n = (topic.resources || []).length;
+  return n > 0 ? n + ' مصادر' : 'درس';
+}
+
+function lessonRow(kind, level, mod, topic) {
+  const key = level.id + '/' + mod.id + '/' + topic.id;
+  const href = '#' + kind + '/' + key;
+  const arabic = hasArabic(topic);
+  const tkeyV = tkey(level.id, mod.id, topic.id);
+  if (kind === 'notebook') {
+    return '<a class="nb-lesson" href="' + href + '" data-key="' + key + '" data-tkey="' + tkeyV + '">' +
+      '<span class="lbl" dir="auto">' + esc(topic.title) + '</span>' +
+      (arabic ? '<span class="badge-ar">عربي</span>' : '') +
+      '<span class="cnt">' + resCountLabel(topic) + '</span>' + doneSVG + '</a>';
+  }
+  if (kind === 'manager') {
+    const isVideo = (topic.resources || []).some((r) => embeddable(r));
+    return '<a class="lm-item" href="' + href + '" data-key="' + key + '" data-tkey="' + tkeyV + '">' +
+      '<span class="lm-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="' + (isVideo ? ICONS.play : ICONS.file) + '"/></svg></span>' +
+      '<span class="lm-kind">' + (isVideo ? 'فيديو:' : 'قراءة:') + '</span>' +
+      '<span class="lbl" dir="auto">' + esc(topic.title) + '</span>' +
+      (arabic ? '<span class="badge-ar">عربي</span>' : '') +
+      '<span class="lm-dot" aria-hidden="true">' + doneSVG + '</span></a>';
+  }
+  if (kind === 'path') {
+    return '<a class="pt-node" href="' + href + '" data-key="' + key + '" data-tkey="' + tkeyV + '">' +
+      '<span class="pt-dot" aria-hidden="true">' + doneSVG + '</span>' +
+      '<span class="lbl" dir="auto">' + esc(topic.title) + '</span>' +
+      (arabic ? '<span class="badge-ar">عربي</span>' : '') +
+      '<span class="cnt">' + resCountLabel(topic) + '</span></a>';
+  }
+  return '<a href="' + href + '" data-key="' + key + '" data-tkey="' + tkeyV + '">' +
+    '<span class="lbl" dir="auto">' + esc(topic.title) + '</span>' +
+    (arabic ? '<span class="badge-ar">عربي</span>' : '') +
+    '<span class="cnt">' + resCountLabel(topic) + '</span>' + doneSVG + '</a>';
+}
+
+function tocMarkup(kind) {
+  let html = '';
+  DATA.levels.forEach((lv, li) => {
+    const dur = lv.durationText || '';
+    if (kind === 'notebook') {
+      html += '<details class="nb-chapter" open><summary><span class="nb-chnum">' + String(li + 1).padStart(2, '0') + '</span>' +
+        '<span class="nb-chname ltr">' + esc(lv.name) + '</span>' + (dur ? '<span class="nb-chdur">' + esc(dur) + '</span>' : '') + chevDownSVG + '</summary><div>';
+    } else if (kind === 'path') {
+      const nT = lv.modules.reduce((a, m) => a + m.topics.length, 0);
+      html += '<p class="pt-level" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">' +
+        '<span dir="ltr">' + String(li + 1).padStart(2, '0') + ' · ' + esc(lv.name) + '</span>' +
+        (dur ? '<span>' + esc(dur) + '</span>' : '') +
+        '<span style="margin-inline-start:auto" data-role="levelcount" data-level="' + lv.id + '">0/' + nT + '</span></p>';
+    } else if (kind === 'manager') {
+      const nT = lv.modules.reduce((a, m) => a + m.topics.length, 0);
+      html += '<details class="lm-group" open><summary><span class="lm-gname ltr">' + esc(lv.name) + '</span>' +
+        '<span class="lm-gcount">' + nT + ' دروس</span>' +
+        '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.chevDown + '"/></svg></summary><div class="lm-items">';
+    } else {
+      html += '<p class="lvl" dir="ltr">' + String(li + 1).padStart(2, '0') + ' · ' + esc(lv.name) + '</p>';
+    }
+    for (const mod of lv.modules) {
+      if (!mod.topics.length) continue;
+      const modLabel = '<span dir="ltr">' + esc(mod.name) + '</span>';
+      if (kind === 'notebook') {
+        html += '<p class="nb-unit">' + modLabel + ' · ' + mod.topics.length + ' موضوع</p>';
+      } else if (kind === 'path') {
+        html += '<p class="pt-unit">' + modLabel + '</p>';
+      } else {
+        html += '<p class="mod">' + modLabel + '</p>';
+      }
+      html += mod.topics.map((t) => lessonRow(kind, lv, mod, t)).join('');
+    }
+    if (kind === 'notebook' || kind === 'manager') html += '</div></details>';
+  });
+  return html;
+}
+
+const BUILDERS = {
+  notebook() {
+    const c = DATA.circle;
+    return '<div class="nb-wrap">' +
+      '<div class="nb-top">' +
+        '<a class="backlink" href="/circles/' + c.id + '/"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowRight + '"/></svg><span>رجوع للمسار</span></a>' +
+        iconTile(36, 17) +
+        '<span dir="ltr" style="font-weight:700">' + esc(c.name) + '</span>' +
+        '<span class="wtag round" style="font-family:var(--font-mono);background:color-mix(in oklab, var(--color-accent) 10%, transparent);color:var(--color-accent);box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 30%, transparent)">جلسة مشاهدة</span>' +
+        '<button type="button" class="nb-drawerbtn" data-role="drawer-open" aria-expanded="false" aria-controls="nb-index" style="margin-inline-start:auto"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.list + '"/></svg><span>الفهرس</span></button>' +
+      '</div>' +
+      '<div class="nb-grid">' +
+        '<aside class="nb-index w-drawer" id="nb-index" data-role="drawer" aria-label="فهرس الدروس">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">' +
+            '<h2 class="nb-idxhead">الفهرس</h2>' + xBtn +
+          '</div>' +
+          '<p class="nb-idxmeta">' + DATA.stats.levels + ' مستويات · ' + DATA.stats.topics + ' موضوع · ' + DATA.stats.resources + ' مصادر</p>' +
+          tocMarkup('notebook') +
+          '<p class="nb-idxfoot"><span>قرأت <b data-role="donecount">0 من ' + DATA.stats.topics + '</b></span><span data-role="lessonpos"></span></p>' +
+        '</aside>' +
+        '<div class="nb-sheet">' +
+          '<div class="nb-runhead"><span class="rb" data-role="lessonpos"></span><span class="rb ltr">start-front-end · جلسة مشاهدة</span></div>' +
+          '<p style="font-family:var(--font-mono);font-size:.625rem;color:var(--color-muted);margin:12px 0 0" dir="ltr" data-role="crumb"></p>' +
+          '<h1 class="nb-h1" dir="auto" data-role="title"></h1>' +
+          '<div class="nb-stage"><div data-role="stage"></div></div>' +
+          '<div data-role="langslot"></div>' +
+          '<div data-role="extrasslot"></div>' +
+          '<label class="checkline" style="margin-top:14px"><input type="checkbox" data-role="done" /><span>خلصت المحاضرة دي؟</span></label>' +
+          '<div class="nb-pager">' + pagerMarkup() + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="w-backdrop" data-role="backdrop" hidden></div>' +
+    '</div>';
+  },
+
+  path() {
+    const c = DATA.circle;
+    const segs = DATA.levels.map((lv, li) => {
+      const nT = lv.modules.reduce((a, m) => a + m.topics.length, 0);
+      const firstMod = lv.modules.find((m) => m.topics.length);
+      const firstT = firstMod ? firstMod.topics[0] : null;
+      const firstKey = firstT ? lv.id + '/' + firstMod.id + '/' + firstT.id : '';
+      return '<button type="button" class="pt-seg" data-first="' + firstKey + '">' +
+        '<span class="sn"><span>' + String(li + 1).padStart(2, '0') + '</span><span data-role="levelcount" data-level="' + lv.id + '">0/' + nT + '</span></span>' +
+        '<span class="nm ltr">' + esc(lv.name) + '</span>' +
+        (lv.durationText ? '<span class="sn">' + esc(lv.durationText) + '</span>' : '') +
+      '</button>';
+    }).join('');
+    return '<div class="pt-wrap">' +
+      '<div class="pt-head">' +
+        '<div class="pt-headrow">' +
+          '<span class="pt-idchip">' + iconTile(34, 16) + '<span dir="ltr">' + esc(c.name) + '</span></span>' +
+          '<span class="wtag round" style="font-family:var(--font-mono);background:color-mix(in oklab, var(--color-accent) 10%, transparent);color:var(--color-accent)">جلسة مشاهدة</span>' +
+          '<a class="backlink" style="margin-inline-start:auto" href="/circles/' + c.id + '/">رجوع للمسار ←</a>' +
+        '</div>' +
+        '<div class="pt-progrow">' +
+          '<div class="pt-progmeta">' +
+            '<span>أكملت <b data-role="donecount">0 من ' + DATA.stats.topics + '</b> · <span data-role="pct">0%</span></span>' +
+            '<span data-role="leftcount">' + DATA.stats.topics + ' درس متبقي</span>' +
+          '</div>' +
+          '<div class="pt-bar" role="progressbar" aria-label="نسبة إنجاز المسار"><i data-role="barfill" style="width:0%"></i></div>' +
+          '<div class="pt-steps">' + segs + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pt-grid">' +
+        '<aside class="pt-pathbox w-drawer" id="pt-path" data-role="drawer" aria-label="مسار الدروس">' +
+          '<div class="pt-pathhead"><h2>خطوات المسار</h2>' + xBtn + '</div>' +
+          tocMarkup('path') +
+        '</aside>' +
+        '<div class="pt-player">' +
+          '<div class="pt-crumb">' +
+            '<span class="co"><svg viewBox="0 0 24 24" style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/></svg></span>' +
+            '<div style="min-width:0;flex:1">' +
+              '<p class="ltr" style="margin:0;font-family:var(--font-mono);font-size:.625rem;color:var(--color-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" data-role="crumb"></p>' +
+              '<h1 class="pt-title" dir="auto" data-role="title"></h1>' +
+            '</div>' +
+            '<button type="button" class="btnline solid" data-role="drawer-open" aria-expanded="false" aria-controls="pt-path" style="flex:none">' + '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.list + '"/></svg><span>المسار</span></button>' +
+          '</div>' +
+          '<div class="pt-stagewrap"><div class="pt-stage" data-role="stage"></div></div>' +
+          '<div data-role="langslot"></div>' +
+          '<div data-role="extrasslot"></div>' +
+          '<label class="checkline" style="margin-top:12px"><input type="checkbox" data-role="done" /><span>خلصت المحاضرة دي؟</span></label>' +
+          '<div class="nb-pager">' + pagerMarkup() + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="w-backdrop" data-role="backdrop" hidden></div>' +
+    '</div>';
+  },
+
+  reader() {
+    const c = DATA.circle;
+    return '<div class="qr-wrap">' +
+      '<div class="qr-top">' +
+        '<a class="backlink" href="/circles/' + c.id + '/">رجوع للمسار ←</a>' +
+        iconTile(34, 16) +
+        '<span dir="ltr" style="font-weight:700">' + esc(c.name) + '</span>' +
+        '<span class="wtag round" style="font-family:var(--font-mono);background:color-mix(in oklab, var(--color-accent) 10%, transparent);color:var(--color-accent)">جلسة مشاهدة</span>' +
+        '<span style="margin-inline-start:auto;font-family:var(--font-mono);font-size:.625rem;color:var(--color-muted)">' + DATA.stats.levels + ' مستويات · ' + DATA.stats.topics + ' موضوع · ' + DATA.stats.resources + ' مصادر</span>' +
+      '</div>' +
+      '<details class="qr-mobiletoc"><summary><span>فهرس الدروس</span>' + chevDownSVG + '</summary><div class="qr-mtoclist">' + tocMarkup('reader') + '</div></details>' +
+      '<div class="qr-grid">' +
+        '<nav class="qr-toc" aria-label="فهرس الدروس">' + tocMarkup('reader') + '</nav>' +
+        '<div class="qr-content">' +
+          '<div class="qr-kick"><span style="font-family:var(--font-mono);font-size:.625rem;color:var(--color-muted)" dir="ltr" data-role="crumb"></span><span style="color:var(--color-edge)" aria-hidden="true">/</span><span style="font-family:var(--font-mono);font-size:.625rem;color:var(--color-muted)" data-role="lessonpos"></span></div>' +
+          '<h1 class="qr-h1" dir="auto" data-role="title"></h1>' +
+          '<div class="qr-stage"><div data-role="stage"></div></div>' +
+          '<div data-role="langslot"></div>' +
+          '<div data-role="extrasslot"></div>' +
+          '<label class="checkline" style="margin-top:14px"><input type="checkbox" data-role="done" /><span>خلصت المحاضرة دي؟</span></label>' +
+          '<div class="qr-pager">' + pagerMarkup(true) + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  },
+  manager() {
+    const c = DATA.circle;
+    return '<div class="lm-wrap">' +
+      '<header class="lm-appbar">' +
+        '<a class="lm-back" href="/circles/' + c.id + '/" aria-label="رجوع لصفحة المسار"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowRight + '"/></svg></a>' +
+        '<span class="lm-title ltr">' + esc(c.name) + '</span>' +
+        '<span class="lm-appbar-actions">' +
+          '<button type="button" class="lm-menu" data-role="drawer-open" aria-expanded="false" aria-controls="lm-index"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.list + '"/></svg><span>الفهرس</span></button>' +
+        '</span>' +
+      '</header>' +
+      '<div class="lm-tabsbar">' +
+        '<span class="lm-chip on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.play + '"/></svg>محتوى المسار</span>' +
+        '<a class="lm-chip" href="/circles/' + c.id + '/"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.external + '"/></svg>عن المسار</a>' +
+      '</div>' +
+      '<div class="lm-progressrow">' +
+        '<span class="lm-progtext">أكملت <b data-role="donecount">0 من ' + DATA.stats.topics + '</b> · <span data-role="pct">0%</span></span>' +
+        '<div class="lm-progressbar" role="progressbar" aria-label="نسبة إنجاز المسار"><i data-role="barfill"></i></div>' +
+      '</div>' +
+      '<div class="lm-grid">' +
+        '<aside class="lm-side w-drawer" id="lm-index" data-role="drawer" aria-label="فهرس دروس المسار">' +
+          '<div class="lm-sidehead"><span class="k">فهرس الدروس</span>' + xBtn + '</div>' +
+          tocMarkup('manager') +
+        '</aside>' +
+        '<div class="lm-main">' +
+          '<div class="lm-meta">' +
+            '<span class="lm-pos" data-role="lessonpos"></span>' +
+            '<div class="lm-xnav">' +
+              '<a class="lm-cbtn" data-role="prev" href="#" aria-label="الدرس السابق"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowRight + '"/></svg></a>' +
+              '<a class="lm-cbtn" data-role="next" href="#" aria-label="الدرس التالي"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowLeft + '"/></svg></a>' +
+            '</div>' +
+          '</div>' +
+          '<h1 class="lm-h1" dir="auto" data-role="title"></h1>' +
+          '<div class="lm-stage"><div data-role="stage"></div></div>' +
+          '<div data-role="langslot"></div>' +
+          '<div class="lm-ctrlrow">' +
+            '<span class="lm-srclabel">مصادر المحاضرة</span>' +
+            '<label class="lm-donebtn"><input type="checkbox" data-role="done" /><span data-role="donetext">خلّصت المحاضرة دي؟</span></label>' +
+          '</div>' +
+          '<div data-role="extrasslot"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="w-backdrop" data-role="backdrop" hidden></div>' +
+    '</div>';
+  },
+};
+
+function pagerMarkup(textStyle) {
+  const cls = textStyle ? 'qr-pager-link' : 'btnline ' + 'line';
+  if (textStyle) {
+    return '<a data-role="prev" href="#" class="qr-pager-a"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowRight + '"/></svg><span>السابق</span></a>' +
+      '<a data-role="next" href="#" class="qr-pager-a"><span>التالي</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowLeft + '"/></svg></a>';
+  }
+  return '<a class="btnline line" data-role="prev" href="#"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowRight + '"/></svg><span>السابق</span></a>' +
+    '<a class="btnline solid" data-role="next" href="#"><span>التالي</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS.arrowLeft + '"/></svg></a>';
+}
+
+/* ═══ التوصيل: نفس دورة حياة صفحة الموقع ═══ */
+function boot(kind) {
+  const root = document.querySelector('[data-design="' + kind + '"]');
+  root.innerHTML = BUILDERS[kind]();
+  const qa = (sel) => Array.from(root.querySelectorAll(sel));
+  const q = (sel) => root.querySelector(sel);
+  const rows = qa('a[data-key]');
+  const stage = q('[data-role=stage]');
+  const doneEl = q('[data-role=done]');
+  const prevEl = q('[data-role=prev]');
+  const nextEl = q('[data-role=next]');
+  const rail = q('[data-role=drawer]') || q('.qr-toc');
+  const drawer = q('[data-role=drawer]');
+  const backdrop = q('[data-role=backdrop]');
+  const openBtn = q('[data-role=drawer-open]');
+  const closeBtn = q('[data-role=drawer-close]');
+
+  function setDrawer(open) {
+    if (!drawer || belowLg() === false) return;
+    drawer.classList.toggle('open', open);
+    if (backdrop) backdrop.hidden = !open;
+    openBtn && openBtn.setAttribute('aria-expanded', String(open));
+    if (closeBtn) closeBtn.style.display = open ? 'grid' : '';
+  }
+  openBtn && openBtn.addEventListener('click', () => { if (belowLg()) setDrawer(!drawer.classList.contains('open')); });
+  closeBtn && closeBtn.addEventListener('click', () => setDrawer(false));
+  backdrop && backdrop.addEventListener('click', () => setDrawer(false));
+  for (const row of rows) {
+    row.addEventListener('click', () => { if (belowLg()) setDrawer(false); });
+  }
+
+  function render(keyArg) {
+    let key = keyArg || (current[kind] ? current[kind].l + '/' + current[kind].m + '/' + current[kind].t : '');
+    let idx = idxOf(key);
+    if (idx < 0) idx = 0;
+    const f = DATA.flat[idx];
+    const found = find(f.l, f.m, f.t);
+    if (!found) return;
+    current[kind] = f;
+
+    const entry = Object.assign({}, f, { level: found.level, module: found.mod, topic: found.topic, tab: kind });
+    entry.videos = (entry.topic.resources || []).filter((r) => embeddable(r));
+    entry.video = pickVideo(entry.videos);
+
+    const crumbEl = q('[data-role=crumb]');
+    const titleEl = q('[data-role=title]');
+    const langSlot = q('[data-role=langslot]');
+    const extrasSlot = q('[data-role=extrasslot]');
+    if (crumbEl) crumbEl.textContent = found.level.name + ' / ' + found.mod.name;
+    if (titleEl) titleEl.textContent = entry.topic.title || '';
+
+    if (stage) {
+      const hasVideo = !!entry.video;
+      stage.classList.toggle('mode-article', !hasVideo);
+      if (hasVideo) {
+        stage.replaceChildren(filmNode(entry));
+        if (extrasSlot) extrasSlot.replaceChildren();
+        const extras = extrasNode(entry);
+        if (extras && extrasSlot) extrasSlot.replaceChildren(extras);
+      } else {
+        stage.replaceChildren(articleNode(entry));
+        if (extrasSlot) extrasSlot.replaceChildren();
+      }
+      if (langSlot) {
+        const bar = makeLangBar(entry, () => render(entry.l + '/' + entry.m + '/' + entry.t));
+        langSlot.replaceChildren(...(bar ? [bar] : []));
+      }
+    }
+
+    if (doneEl) {
+      doneEl.dataset.tkey = tkey(f.l, f.m, f.t);
+      doneEl.checked = progress.isDone(doneEl.dataset.tkey);
+      const doneTxt = q('[data-role=donetext]');
+      const doneLbl = doneEl.closest('label');
+      if (doneTxt) doneTxt.textContent = doneEl.checked ? 'خلصتها — اضغط للتراجع' : 'خلّصت المحاضرة دي؟';
+      if (doneLbl) doneLbl.classList.toggle('done', doneEl.checked);
+    }
+
+    const hrefOf = (f2) => '#' + kind + '/' + (f2 ? f2.l + '/' + f2.m + '/' + f2.t : f.l + '/' + f.m + '/' + f.t);
+    const prev = DATA.flat[idx - 1];
+    const next = DATA.flat[idx + 1];
+    if (prevEl) {
+      prevEl.setAttribute('href', hrefOf(prev || f));
+      prevEl.toggleAttribute('aria-disabled', !prev);
+    }
+    if (nextEl) {
+      nextEl.setAttribute('href', hrefOf(next || f));
+      nextEl.toggleAttribute('aria-disabled', !next);
+    }
+
+    const curKey = f.l + '/' + f.m + '/' + f.t;
+    for (const row of rows) {
+      const isCur = row.dataset.key === curKey;
+      const isDone = progress.isDone(row.dataset.tkey || '');
+      row.classList.toggle('is-done', isDone);
+      if (isCur) row.setAttribute('aria-current', 'true');
+      else row.removeAttribute('aria-current');
+      const det = row.closest('details');
+      if (det && isCur && !det.classList.contains('qr-mobiletoc')) det.open = true;
+    }
+
+    const doneN = DATA.flat.filter((x) => progress.isDone(tkey(x.l, x.m, x.t))).length;
+    for (const el of qa('[data-role=donecount]')) el.textContent = doneN + ' من ' + DATA.stats.topics;
+    for (const el of qa('[data-role=pct]')) el.textContent = Math.round((doneN / DATA.stats.topics) * 100) + '%';
+    for (const el of qa('[data-role=barfill]')) el.style.transform = 'scaleX(' + (doneN / DATA.stats.topics) + ')';
+    for (const el of qa('[data-role=leftcount]')) el.textContent = (DATA.stats.topics - doneN) + ' درس متبقي';
+    for (const el of qa('[data-role=levelcount]')) {
+      const lv = DATA.levels.find((x) => x.id === el.dataset.level);
+      if (!lv) continue;
+      const tks = lv.modules.flatMap((m) => m.topics.map((t) => tkey(lv.id, m.id, t.id)));
+      el.textContent = tks.filter((k) => progress.isDone(k)).length + '/' + tks.length;
+    }
+    const cur = rows.find((r) => r.getAttribute('aria-current') === 'true');
+    if (cur && rail) {
+      const det = cur.closest('details');
+      const shown = cur.getClientRects().length > 0 && (!det || det.open);
+      const drawerOpen = !!(drawer && drawer.classList.contains('open'));
+      if (shown || drawerOpen) cur.scrollIntoView({ block: 'nearest' });
+    }
+
+    qa('[data-role=lessonpos]').forEach((el) => { el.textContent = 'الدرس ' + (idx + 1) + ' من ' + DATA.flat.length; });
+
+    if (drawer) {
+      const ptSegs = qa('.pt-seg[data-first]');
+      for (const seg of ptSegs) {
+        if (!seg.dataset.bound) {
+          seg.dataset.bound = '1';
+          seg.addEventListener('click', () => {
+            const first = seg.dataset.first;
+            if (first) location.hash = '#' + kind + '/' + first;
+          });
+        }
+      }
+    }
+  }
+
+  if (doneEl) {
+    doneEl.addEventListener('change', () => {
+      const k = doneEl.dataset.tkey;
+      if (!k) return;
+      progress.toggle(k);
+      render(current[kind].l + '/' + current[kind].m + '/' + current[kind].t);
+    });
+  }
+
+  return { render };
+}
+
+/* ═══ التوجيه: ‎#tab أو ‎#tab/level/module/topic ═══ */
+const TABS = ['notebook', 'path', 'reader', 'manager'];
+const tabsEls = Array.from(document.querySelectorAll('.tabs [role="tab"]'));
+let activeTab = 'notebook';
+
+function setTabUI(tab) {
+  activeTab = tab;
+  for (const t of tabsEls) {
+    const on = t.dataset.tab === tab;
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+    const panel = document.getElementById(t.getAttribute('aria-controls'));
+    if (panel) panel.hidden = !on;
+    const note = document.getElementById('note-' + t.dataset.tab);
+    if (note) note.hidden = !on;
+  }
+}
+
+function applyHash() {
+  const parts = (location.hash || '').replace(/^#/, '').split('/').filter(Boolean);
+  const tab = TABS.includes(parts[0]) ? parts[0] : activeTab;
+  setTabUI(tab);
+  const rest = parts[0] === tab ? parts.slice(1) : [];
+  if (rest.length >= 3) {
+    const key = rest.slice(0, 3).join('/');
+    if (idxOf(key) >= 0) current[tab] = DATA.flat[idxOf(key)];
+  }
+  controllers[tab].render(current[tab] ? current[tab].l + '/' + current[tab].m + '/' + current[tab].t : '');
+}
+
+for (const kind of TABS) controllers[kind] = boot(kind);
+for (const t of tabsEls) {
+  t.addEventListener('click', () => {
+    const tab = t.dataset.tab;
+    if (location.hash === '#' + tab) applyHash();
+    else location.hash = '#' + tab;
+  });
+}
+document.querySelector('.tabs').addEventListener('keydown', (e) => {
+  const i = tabsEls.indexOf(document.activeElement);
+  if (i < 0) return;
+  if (e.key === 'ArrowLeft') { e.preventDefault(); tabsEls[(i + 1) % tabsEls.length].focus(); tabsEls[(i + 1) % tabsEls.length].click(); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); tabsEls[(i + tabsEls.length - 1) % tabsEls.length].focus(); tabsEls[(i + tabsEls.length - 1) % tabsEls.length].click(); }
+});
+addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  for (const kind of TABS) {
+    const root = document.querySelector('[data-design="' + kind + '"]');
+    const drawer = root.querySelector('[data-role=drawer]');
+    if (drawer && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+      const backdrop = root.querySelector('[data-role=backdrop]');
+      if (backdrop) backdrop.hidden = true;
+      const openBtn = root.querySelector('[data-role=drawer-open]');
+      if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+});
+addEventListener('hashchange', applyHash);
+applyHash();
+
+</script>
+</body>
+</html>
