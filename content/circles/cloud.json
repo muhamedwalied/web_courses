@@ -2,16 +2,404 @@
   "$schema": "../circles.schema.json",
   "id": "cloud",
   "name": "الحوسبة السحابية وعمليات التطوير",
-  "tagline": "الحوسبة السحابية وعمليات التطوير",
-  "description": "الحوسبة السحابية وعمليات التطوير",
+  "tagline": "من أساسيات الشبكات وLinux إلى الخدمات السحابية",
+  "description": "مدخل إلى الحوسبة السحابية يبدأ بالشبكات وإدارة Linux وكتابة نصوص Bash، ثم يستكشف نماذج الخدمات ومقدّمي السحابة. يجمع المصدر بين مواد عربية وإنجليزية، ولا يتضمن حتى الآن مسارًا متكاملًا لأدوات DevOps؛ فقسم الحوسبة السحابية في المصدر الأصلي ما زال غير مكتمل.",
   "color": "#93c5fd",
   "icon": "☁️",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "Cloud Computing & DevOps/",
-    "submodule: KareemEl-Giushy/Cloud-Computing-RoadMap (MIT) — يُجلب يدويًا بأذن"
+    "Cloud Computing & DevOps/Cloud-Computing-RoadMap/ReadMe.md",
+    "Cloud Computing & DevOps/Cloud-Computing-RoadMap/Tasks And Assignments.md"
   ],
-  "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Cloud%20Computing%20%26%20DevOps",
-  "levels": []
+  "github": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap",
+  "levels": [
+    {
+      "id": "foundations",
+      "name": "أساسيات الشبكات وLinux",
+      "order": 0,
+      "goal": "ابدأ بمفاهيم الشبكات، ثم جهّز بيئة Linux وتعرّف على الطرفية وبنية النظام.",
+      "modules": [
+        {
+          "id": "networking-basics",
+          "name": "أساسيات الشبكات",
+          "order": 0,
+          "objectives": [
+            "تعرّف على أساسيات تقنية المعلومات والشبكات التي تحتاجها قبل دراسة الخدمات السحابية."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "networking-intro",
+              "title": "مدخل إلى الشبكات ومفاهيم الحوسبة السحابية",
+              "resources": [
+                {
+                  "title": "أساسيات تقنية المعلومات والحوسبة السحابية — شرح عيسى أبو شريف",
+                  "url": "https://www.youtube.com/watch?v=xXyFoE-j2So",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "linux-environment",
+          "name": "تجهيز بيئة Linux",
+          "order": 1,
+          "objectives": [
+            "شغّل توزيعة Linux في بيئة افتراضية، وتدرّب على استخدام الطرفية والمحرر النصي."
+          ],
+          "practice": [
+            "أنشئ آلة افتراضية بنظام Linux، واستكشف صفحات المساعدة، وأكمل vimtutor أو استخدم Nano لتحرير ملفات الإعدادات."
+          ],
+          "topics": [
+            {
+              "id": "linux-virtual-machine",
+              "title": "تثبيت Linux في آلة افتراضية",
+              "resources": [
+                {
+                  "title": "تكليفات Linux من المصدر الأصلي",
+                  "url": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap/blob/main/Tasks%20And%20Assignments.md",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "برنامج VirtualBox",
+                  "url": "https://www.virtualbox.org/",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "linux-command-line",
+              "title": "الطرفية وبنية الملفات في Linux",
+              "resources": [
+                {
+                  "title": "شرح أوامر Linux وبنية المجلدات",
+                  "url": "https://www.youtube.com/watch?v=YiBAYvwKU4Q",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة تعلّم نظام Linux — قائمة Linuxtopia",
+                  "url": "https://www.youtube.com/playlist?list=PLAZ__zcDB1IaNaVNOckNpgEpjghSHr8Gg",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "linux-administration",
+      "name": "إدارة أنظمة Linux",
+      "order": 1,
+      "goal": "افهم أنظمة الملفات والمستخدمين والصلاحيات والخدمات والشبكات الافتراضية في Linux.",
+      "modules": [
+        {
+          "id": "storage-and-filesystems",
+          "name": "الأقراص وأنظمة الملفات",
+          "order": 0,
+          "objectives": [
+            "تعرّف على الأقراص وأنظمة الملفات وطريقة تركيبها وإدارتها من الطرفية."
+          ],
+          "practice": [
+            "تدرّب على تركيب صور ISO وفك تركيبها، واستخدم find للبحث عن الملفات."
+          ],
+          "topics": [
+            {
+              "id": "linux-filesystems",
+              "title": "إدارة الأقراص وأنظمة الملفات",
+              "resources": [
+                {
+                  "title": "شرح الأقراص وأنظمة الملفات في Linux",
+                  "url": "https://www.youtube.com/watch?v=dYDO18vHPno",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "تكليفات Linux العملية",
+                  "url": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap/blob/main/Tasks%20And%20Assignments.md",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "users-and-permissions",
+          "name": "المستخدمون والصلاحيات",
+          "order": 1,
+          "objectives": [
+            "أدر المستخدمين والمجموعات والصلاحيات، وافهم sudo وACL والملفات غير القابلة للتغيير."
+          ],
+          "practice": [
+            "أنشئ مستخدمين ومجموعات، واضبط صلاحيات مجلدات الأقسام، وجرّب قوائم التحكم في الوصول والبت اللاصق."
+          ],
+          "topics": [
+            {
+              "id": "linux-users-permissions",
+              "title": "إدارة المستخدمين والمجموعات والصلاحيات",
+              "resources": [
+                {
+                  "title": "تكليفات المستخدمين والصلاحيات في Linux",
+                  "url": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap/blob/main/Tasks%20And%20Assignments.md",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "note": "ورقة التكليفات الأصلية مكتوبة بالإنجليزية.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "linux-services-and-virtualization",
+          "name": "خدمات الشبكة والافتراضية في Linux",
+          "order": 2,
+          "objectives": [
+            "تعرّف على خدمات الشبكة ونقل الملفات والافتراضية، وافهم خطوات إقلاع نواة Linux."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "linux-network-services",
+              "title": "تطبيقات الشبكة وخدماتها في Linux",
+              "resources": [
+                {
+                  "title": "شرح تطبيقات الشبكة وخدماتها في Linux",
+                  "url": "https://www.youtube.com/watch?v=F9K3m9AbHCY",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح نقل الملفات ومشاركتها عبر الشبكة",
+                  "url": "https://www.youtube.com/watch?v=1ugHt-xOnGk",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "virtualization-and-kernel",
+              "title": "الافتراضية وإقلاع نواة Linux",
+              "resources": [
+                {
+                  "title": "شرح الافتراضية",
+                  "url": "https://www.youtube.com/watch?v=3HChgNmRYJU",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح بنية أنظمة التشغيل وإقلاع النواة — Dr. Handosa",
+                  "url": "https://youtu.be/QK5271loVB4?si=ujZKYb9ALcE8v1rB&t=1736",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "scripting-and-cloud",
+      "name": "الأتمتة ومدخل إلى السحابة",
+      "order": 2,
+      "goal": "استخدم Bash لأتمتة المهام، ثم تعرّف على مفاهيم السحابة ومقدّمي خدماتها وابدأ التعلّم بالتطبيق العملي.",
+      "modules": [
+        {
+          "id": "bash-scripting",
+          "name": "البرمجة النصية باستخدام Bash",
+          "order": 0,
+          "objectives": [
+            "تعلّم المتغيرات والإدخال والإخراج والشروط والحلقات والدوال في Bash."
+          ],
+          "practice": [
+            "اكتب نصوص Bash قصيرة تستخدم المتغيرات والشروط والحلقات والدوال."
+          ],
+          "topics": [
+            {
+              "id": "bash-basics",
+              "title": "أساسيات Bash والدوال والسلاسل النصية",
+              "resources": [
+                {
+                  "title": "شرح التعامل مع السلاسل النصية في Bash",
+                  "url": "https://www.youtube.com/watch?v=G8ocBTrrSS4",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مرجع سريع لكتابة نصوص Bash",
+                  "url": "https://devhints.io/bash",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "cloud-fundamentals",
+          "name": "مفاهيم الحوسبة السحابية",
+          "order": 1,
+          "objectives": [
+            "استكشف مفاهيم السحابة ونماذج IaaS وPaaS وSaaS، وافهم الفرق العام بينها وبين الخوادم الافتراضية الخاصة."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "cloud-learning-path",
+              "title": "مسار تعلّم الحوسبة السحابية",
+              "resources": [
+                {
+                  "title": "دليل Learn to Cloud المفتوح المصدر",
+                  "url": "https://learntocloud.guide/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "خارطة الحوسبة السحابية الأصلية — قسم النماذج وأنواع الخدمات",
+                  "url": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap/blob/main/ReadMe.md",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "note": "يشير المصدر الأصلي إلى أن قسم الحوسبة السحابية لم يكتمل بعد؛ هذا الجزء يقدّم مدخلًا فقط.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "cloud-providers",
+          "name": "مقدّمو الخدمات السحابية",
+          "order": 2,
+          "objectives": [
+            "قارن موارد التعلّم المتاحة لـ AWS وMicrosoft Azure وGoogle Cloud، واختر مزوّدًا واحدًا لتبدأ بالتطبيق العملي."
+          ],
+          "practice": [
+            "ابدأ بأكاديمية أو مسار تعليمي مجاني من المزوّد الذي اخترته، وانتبه إلى شروط الحساب والاستخدام قبل إنشاء موارد مدفوعة."
+          ],
+          "topics": [
+            {
+              "id": "aws",
+              "title": "التعلّم باستخدام Amazon Web Services",
+              "resources": [
+                {
+                  "title": "دورة AWS Solutions Architect بالعربية — عيسى أبو شريف",
+                  "url": "https://www.youtube.com/playlist?list=PLOoZRfEtk6kWSM_l9xMjDh-_MJXl03-pf",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "أكاديمية AWS",
+                  "url": "https://www.nti.sci.eg/dey/courses1m.php?catID=106",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "صفحة AWS Free Tier الرسمية",
+                  "url": "https://aws.amazon.com/free/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "id": "azure",
+              "title": "التعلّم باستخدام Microsoft Azure",
+              "resources": [
+                {
+                  "title": "شرح Azure بالعربية — Free4Arab",
+                  "url": "https://www.youtube.com/playlist?list=PLLlr6jKKdyK1DptcME7IFXUdPCY4z9Q28",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "أساسيات Azure AZ-900 بالعربية — محمد زوهدى",
+                  "url": "https://www.youtube.com/playlist?list=PLDxVq3TlR9y3D61tEq4BbRZ8f5bv2_PFt",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "حزمة GitHub Student Developer Pack",
+                  "url": "https://education.github.com/pack",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "id": "google-cloud",
+              "title": "التعلّم باستخدام Google Cloud",
+              "resources": [
+                {
+                  "title": "مسارات Google Skills العملية",
+                  "url": "https://www.skills.google/paths",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "صفحة Google Cloud Free Tier الرسمية",
+                  "url": "https://cloud.google.com/free",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "compiling-from-source",
+          "name": "تجميع البرامج من الشيفرة المصدرية",
+          "order": 3,
+          "objectives": [
+            "استكشف تنزيل برامج مفتوحة المصدر وتجميعها والتحقق من سلامة الملفات باستخدام MD5."
+          ],
+          "practice": [
+            "جرّب تجميع برنامج من مصدره، ثم قارِن قيمة MD5 بالرقم المنشور للمصدر."
+          ],
+          "topics": [
+            {
+              "id": "compile-linux-software",
+              "title": "تجميع البرامج وإدارة الحزم في Linux",
+              "resources": [
+                {
+                  "title": "تكليفات Linux — تجميع البرامج والتحقق من الملفات",
+                  "url": "https://github.com/KareemEl-Giushy/Cloud-Computing-RoadMap/blob/main/Tasks%20And%20Assignments.md",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ]
 }
