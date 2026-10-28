@@ -2,15 +2,477 @@
   "$schema": "../circles.schema.json",
   "id": "ios",
   "name": "آي أو إس",
-  "tagline": "تطبيقات آي أو إس باستخدام سويفت",
-  "description": "تطبيقات آي أو إس باستخدام سويفت",
+  "tagline": "من أساسيات Swift إلى بناء تطبيقات iOS",
+  "description": "مسار لتعلّم تطوير تطبيقات iOS يبدأ بإدارة الإصدارات وأساسيات Swift، ثم ينتقل إلى بناء الواجهات والتعامل مع الشبكات والبيانات والمعمارية وخدمات Firebase وSwiftUI.",
   "color": "#60a5fa",
   "icon": "🍎",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "IOS/"
+    "IOS/Readme.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/IOS",
-  "levels": []
+  "levels": [
+    {
+      "id": "foundation",
+      "name": "التهيئة والأساسيات",
+      "order": 0,
+      "goal": "تعرّف على Git وGitHub، ثم أتقن أساسيات Swift ومبادئ البرمجة كائنية التوجه قبل بناء تطبيقات iOS.",
+      "modules": [
+        {
+          "id": "git-and-github",
+          "name": "إدارة الإصدارات باستخدام Git وGitHub",
+          "order": 0,
+          "objectives": [
+            "تعرّف على الفرق بين Git وGitHub، وتعلّم ربط Xcode بمستودعات GitHub."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "git-vs-github",
+              "title": "الفرق بين Git وGitHub",
+              "resources": [
+                {
+                  "title": "مقال يشرح الفرق بين Git وGitHub",
+                  "url": "https://devmountain.com/blog/git-vs-github-whats-the-difference/",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تعلّم Git وGitHub",
+                  "url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقدمة إلى إدارة الإصدارات",
+                  "url": "https://www.coursera.org/learn/introduction-to-version-control?specialization=meta-front-end-developer",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "git-with-xcode",
+              "title": "استخدام Git وGitHub من داخل Xcode",
+              "resources": [
+                {
+                  "title": "شرح ربط Xcode بـ Git وGitHub",
+                  "url": "https://www.youtube.com/watch?v=lHEuUHqLvRk",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "swift-fundamentals",
+          "name": "أساسيات لغة Swift",
+          "order": 1,
+          "objectives": [
+            "تعلّم صياغة Swift وبناء أساس برمجي يمكّنك من الانتقال إلى تطوير تطبيقات iOS."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "swift-programming",
+              "title": "مدخل إلى البرمجة باستخدام Swift",
+              "resources": [
+                {
+                  "title": "سلسلة Swiftful Thinking لتعلّم Swift",
+                  "url": "https://www.youtube.com/playlist?list=PLwvDm4VfkdpiLvzZFJI6rVIBtdolrJBVB",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل لغة Swift الرسمي من Apple",
+                  "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "object-oriented-programming",
+          "name": "البرمجة كائنية التوجه",
+          "order": 2,
+          "objectives": [
+            "افهم مبادئ البرمجة كائنية التوجه وطبّقها باستخدام Swift."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "oop-basics",
+              "title": "أساسيات البرمجة كائنية التوجه",
+              "resources": [
+                {
+                  "title": "سلسلة شرح البرمجة كائنية التوجه",
+                  "url": "https://www.youtube.com/watch?v=fK2lLVqc8UY&list=PLuXY3ddo_8nzUrgCyaX_WEIJljx_We-c1",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "oop-with-swift",
+              "title": "تطبيق البرمجة كائنية التوجه في Swift",
+              "resources": [
+                {
+                  "title": "شرح البرمجة كائنية التوجه باستخدام Swift",
+                  "url": "https://www.youtube.com/watch?v=rKf9vs4ZoJc&t=632s",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "ios-basics",
+      "name": "أساسيات iOS",
+      "order": 1,
+      "goal": "انتقل من أساسيات Swift إلى بناء واجهات وتطبيق iOS بسيط باستخدام Storyboard أو الواجهات المنشأة برمجيًا.",
+      "modules": [
+        {
+          "id": "first-ios-app",
+          "name": "بناء أول تطبيق iOS",
+          "order": 0,
+          "objectives": [
+            "تعرّف على أساسيات تطوير التطبيقات باستخدام iOS.",
+            "تدرّب على بناء واجهة متجاوبة باستخدام Storyboard أو واجهة منشأة برمجيًا.",
+            "طبّق ما تعلّمته في تطبيق iOS بسيط."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "ios-development-basics",
+              "title": "أساسيات تطوير تطبيقات iOS",
+              "resources": [
+                {
+                  "title": "شرح أساسيات تطوير تطبيقات iOS",
+                  "url": "https://www.youtube.com/watch?v=CwA1VWP0Ldw",
+                  "kind": "video",
+                  "lang": "en",
+                  "note": "المقطع الأول: من 03:34:54 إلى 07:13:52."
+                }
+              ],
+              "note": "اتبع الفترة المحددة في المصدر؛ الفيديو نفسه يتناول أكثر من موضوع.",
+              "optional": false
+            },
+            {
+              "id": "responsive-ios-ui",
+              "title": "إنشاء واجهة iOS متجاوبة",
+              "resources": [
+                {
+                  "title": "شرح أساسيات تطوير تطبيقات iOS",
+                  "url": "https://www.youtube.com/watch?v=CwA1VWP0Ldw",
+                  "kind": "video",
+                  "lang": "en",
+                  "note": "تابع من 03:34:54 إلى 07:13:52، كما يحدد المصدر."
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "simple-ios-project",
+              "title": "تطبيق عملي بسيط لنظام iOS",
+              "resources": [
+                {
+                  "title": "شرح أساسيات تطوير تطبيقات iOS",
+                  "url": "https://www.youtube.com/watch?v=CwA1VWP0Ldw",
+                  "kind": "video",
+                  "lang": "en",
+                  "note": "استخدم التطبيق لتطبيق ما تعلّمته في هذا المستوى."
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "متوسط",
+      "order": 2,
+      "goal": "ابنِ تطبيقًا أكثر تكاملًا، وتدرّب على الشبكات والتخزين وإدارة الذاكرة والمكتبات والمعمارية.",
+      "modules": [
+        {
+          "id": "github-app-project",
+          "name": "مشروع تطبيق GitHub",
+          "order": 0,
+          "objectives": [
+            "طبّق المهارات السابقة في مشروع تطبيق GitHub، وتمرّن على بناء الواجهة برمجيًا والاتصال بالشبكات وترميز البيانات والتخزين المؤقت."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "github-app-ui",
+              "title": "بناء الواجهة برمجيًا",
+              "resources": [
+                {
+                  "title": "ملفات مشروع تطبيق GitHub",
+                  "url": "https://drive.google.com/drive/u/1/folders/1kS_wBv-mtjbG3HJDvbUcFa-vkJ1X4bNP",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "networking",
+              "title": "الاتصال بالشبكات",
+              "resources": [
+                {
+                  "title": "ملفات مشروع تطبيق GitHub",
+                  "url": "https://drive.google.com/drive/u/1/folders/1kS_wBv-mtjbG3HJDvbUcFa-vkJ1X4bNP",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "codable",
+              "title": "ترميز البيانات باستخدام Codable",
+              "resources": [
+                {
+                  "title": "ملفات مشروع تطبيق GitHub",
+                  "url": "https://drive.google.com/drive/u/1/folders/1kS_wBv-mtjbG3HJDvbUcFa-vkJ1X4bNP",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "caching",
+              "title": "التخزين المؤقت للبيانات",
+              "resources": [
+                {
+                  "title": "ملفات مشروع تطبيق GitHub",
+                  "url": "https://drive.google.com/drive/u/1/folders/1kS_wBv-mtjbG3HJDvbUcFa-vkJ1X4bNP",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "third-party-libraries",
+          "name": "المكتبات الخارجية وإدارة الاعتماديات",
+          "order": 1,
+          "objectives": [
+            "تعرّف على استخدام المكتبات الخارجية وإدارة الاعتماديات في مشاريع iOS."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "third-party-libraries-intro",
+              "title": "استخدام المكتبات الخارجية",
+              "resources": [
+                {
+                  "title": "شرح المكتبات الخارجية في iOS",
+                  "url": "https://www.youtube.com/watch?v=CwA1VWP0Ldw",
+                  "kind": "video",
+                  "lang": "en",
+                  "note": "تابع من 08:19:34 إلى 08:25:56."
+                },
+                {
+                  "title": "تثبيت CocoaPods",
+                  "url": "https://www.youtube.com/watch?v=oNKVVBN2JN0",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "data-and-memory",
+          "name": "البيانات وإدارة الذاكرة",
+          "order": 2,
+          "objectives": [
+            "تعلّم تخزين البيانات محليًا وفهم أساسيات إدارة الذاكرة في تطبيقات iOS."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "core-data",
+              "title": "تخزين البيانات باستخدام Core Data",
+              "resources": [
+                {
+                  "title": "شرح Core Data",
+                  "url": "https://www.youtube.com/watch?v=35mKM4IkHS8&t=5s",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "memory-management",
+              "title": "إدارة الذاكرة في Swift وiOS",
+              "resources": [
+                {
+                  "title": "شرح إدارة الذاكرة",
+                  "url": "https://www.youtube.com/watch?v=VcoZJ88d-vM",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "concurrency-and-architecture",
+          "name": "التنفيذ المتزامن ومعمارية التطبيق",
+          "order": 3,
+          "objectives": [
+            "تعرّف على تنفيذ المهام المتزامنة وتنظيم طبقات التطبيق باستخدام MVVM."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "grand-central-dispatch",
+              "title": "تنفيذ المهام المتزامنة باستخدام Grand Central Dispatch",
+              "resources": [
+                {
+                  "title": "دليل Grand Central Dispatch في Swift 5",
+                  "url": "https://www.kodeco.com/28540615-grand-central-dispatch-tutorial-for-swift-5-part-1-2",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "mvvm",
+              "title": "تنظيم التطبيق باستخدام MVVM",
+              "resources": [
+                {
+                  "title": "شرح معمارية MVVM في تطبيقات iOS",
+                  "url": "https://www.youtube.com/watch?v=sLHVxnRS75w",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "متقدم",
+      "order": 3,
+      "goal": "استكشف خدمات Firebase وواجهات SwiftUI، وواصل تطوير أسلوبك في كتابة شيفرة واضحة.",
+      "modules": [
+        {
+          "id": "firebase",
+          "name": "دمج Firebase في تطبيقات iOS",
+          "order": 0,
+          "objectives": [
+            "تعرّف على تسجيل الدخول باستخدام Google وFacebook، واستخدام خدمات Firebase للمصادقة وقواعد البيانات والتخزين."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "firebase-ios",
+              "title": "خدمات Firebase لتطبيقات iOS",
+              "resources": [
+                {
+                  "title": "سلسلة Firebase لتطبيقات iOS",
+                  "url": "https://www.youtube.com/watch?v=Mroju8T7Gdo&list=PL5PR3UyfTWvdlk-Qi-dPtJmjTj-2YIMMf",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "swiftui",
+          "name": "بناء الواجهات باستخدام SwiftUI",
+          "order": 1,
+          "objectives": [
+            "تعلّم بناء واجهات تطبيقات Apple باستخدام SwiftUI."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "swiftui-learning-path",
+              "title": "مسار تعلّم SwiftUI",
+              "resources": [
+                {
+                  "title": "دورة SwiftUI من Hacking with Swift",
+                  "url": "https://www.hackingwithswift.com/100/swiftui",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "clean-code",
+          "name": "كتابة شيفرة واضحة ونظيفة",
+          "order": 2,
+          "objectives": [
+            "اجعل الشيفرة سهلة القراءة والصيانة، واطّلع على مراجع تساعدك على تحسين أسلوبك."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "clean-code-book",
+              "title": "مبادئ كتابة الشيفرة النظيفة",
+              "resources": [
+                {
+                  "title": "كتاب Clean Code",
+                  "url": "https://thixalongmy.haugiang.gov.vn/media/1175/clean_code.pdf",
+                  "kind": "book",
+                  "lang": "en"
+                },
+                {
+                  "title": "سلسلة مرئية لشرح كتابة الشيفرة النظيفة",
+                  "url": "https://www.youtube.com/watch?v=WnoZa933kq0&list=PLwWuxCLlF_ufTMlXoJlQvImqz9wIfcWsX",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    }
+  ]
 }
