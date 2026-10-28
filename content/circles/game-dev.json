@@ -2,15 +2,688 @@
   "$schema": "../circles.schema.json",
   "id": "game-dev",
   "name": "تطوير الألعاب",
-  "tagline": "تطوير الألعاب باستخدام Unity وC#",
-  "description": "تعلّم تطوير الألعاب عبر مجموعة من المهارات، تشمل الرياضيات وهندسة البرمجيات والذكاء الاصطناعي، ثم اختر التخصص الذي يناسبك مثل الرسوميات أو تصميم الألعاب.",
+  "tagline": "من أساسيات البرمجة إلى صناعة الألعاب",
+  "description": "مسار يجمع بين البرمجة وتصميم الألعاب والفن والصوت. ابدأ بأساسيات C# ثم ابنِ ألعابًا باستخدام Unity، وبعدها اختر التخصص الذي يناسبك مثل Unreal أو تصميم الشخصيات أو الرسوميات.",
   "color": "#e879f9",
   "icon": "🎮",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "Game Development/"
+    "Game Development/Readme.md",
+    "Game Development/Game Dev Roadmap 2025.md",
+    "Game Development/Unity & C# Roadmap Into Weeks.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Game%20Development",
-  "levels": []
+  "levels": [
+    {
+      "id": "foundations",
+      "name": "الأساسيات",
+      "order": 0,
+      "goal": "تعلّم البرمجة بلغة C# ومبادئ البرمجة كائنية التوجه، ثم انتقل إلى تصميم الألعاب.",
+      "modules": [
+        {
+          "id": "csharp",
+          "name": "أساسيات C#",
+          "order": 0,
+          "objectives": [
+            "تعلّم أساسيات C# استعدادًا لاستخدامها في تطوير الألعاب.",
+            "طبّق المفاهيم بحل تمارين البرمجة المرفقة في المصدر."
+          ],
+          "practice": [
+            "حل تمارين C# المرتبطة بالأسبوع الأول في خارطة 2025."
+          ],
+          "topics": [
+            {
+              "id": "csharp-basics",
+              "title": "مدخل إلى لغة C#",
+              "resources": [
+                {
+                  "title": "قائمة تعلّم C# من Brackeys",
+                  "url": "https://www.youtube.com/watch?v=pSiIHe2uZ2w&list=PLPV2KyIb3jR6ZkG8gZwJYSjnXxmfPAl51",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة C# للمبتدئين",
+                  "url": "https://www.youtube.com/watch?v=gfkTfcpWqAY&list=PLTjRvDozrdlz3_FPXwb6lX_HoGXa09Yef",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقالات لتعلّم C#",
+                  "url": "http://bit.ly/CsharpTutorialsCAT",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "مسار البرمجة النصية للمبتدئين من Unity Learn",
+                  "url": "https://learn.unity.com/course/beginner-scripting",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "object-oriented-programming",
+          "name": "البرمجة كائنية التوجه",
+          "order": 1,
+          "objectives": [
+            "افهم مبادئ البرمجة كائنية التوجه وطبّقها في أنظمة بسيطة بلغة C#."
+          ],
+          "practice": [
+            "نفّذ نظام البرمجة كائنية التوجه المرتبط بالأسبوع الثاني في خارطة Unity وC#."
+          ],
+          "topics": [
+            {
+              "id": "oop-concepts",
+              "title": "مبادئ البرمجة كائنية التوجه",
+              "resources": [
+                {
+                  "title": "مقدمة إلى البرمجة كائنية التوجه",
+                  "url": "https://youtu.be/qP9-3LnMZsE?si=IFinTZ1Ol1Cck_Vn",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تطبيقات البرمجة كائنية التوجه باستخدام C#",
+                  "url": "https://youtube.com/playlist?list=PLnzqK5HvcpwQfXeFaGHRYQfyQrJjOy43u",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "game-design-and-unity",
+      "name": "تصميم الألعاب وUnity",
+      "order": 1,
+      "goal": "تعرّف على مبادئ تصميم الألعاب واستخدم Unity وC# لبناء ألعاب صغيرة ثنائية وثلاثية الأبعاد.",
+      "modules": [
+        {
+          "id": "game-design",
+          "name": "مبادئ تصميم الألعاب",
+          "order": 0,
+          "objectives": [
+            "تعرّف على أساسيات تصميم الألعاب وطبّقها في نموذج لعبة ثلاثي الأبعاد."
+          ],
+          "practice": [
+            "أنشئ مستوى مكعبات ثلاثي الأبعاد متواصلًا كما تقترح قائمة المصدر."
+          ],
+          "topics": [
+            {
+              "id": "game-design-basics",
+              "title": "مدخل إلى تصميم الألعاب",
+              "resources": [
+                {
+                  "title": "قائمة تصميم الألعاب من Brackeys",
+                  "url": "https://youtube.com/playlist?list=PLPV2KyIb3jR53Jce9hP7G5xC4O9AgnOuL",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "unity-fundamentals",
+          "name": "أساسيات محرك Unity",
+          "order": 1,
+          "objectives": [
+            "تعرّف على واجهة Unity وأدواته من خلال المسار التمهيدي الرسمي.",
+            "وسّع مهارات البرمجة النصية في Unity إلى المستوى المتوسط."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "unity-essentials",
+              "title": "مسار أساسيات Unity",
+              "resources": [
+                {
+                  "title": "مسار Unity Essentials الرسمي",
+                  "url": "https://learn.unity.com/pathway/unity-essentials",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "مسار Junior Programmer الرسمي من Unity",
+                  "url": "https://learn.unity.com/pathway/junior-programmer",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "unity-intermediate-scripting",
+              "title": "البرمجة النصية المتوسطة في Unity",
+              "resources": [
+                {
+                  "title": "مشروع البرمجة النصية المتوسطة من Unity Learn",
+                  "url": "https://learn.unity.com/project/intermediate-gameplay-scripting",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "small-game-projects",
+          "name": "مشروعات ألعاب للمبتدئين",
+          "order": 2,
+          "objectives": [
+            "حوّل مفاهيم البرمجة وتصميم الألعاب إلى مشروعات صغيرة قابلة للعب."
+          ],
+          "practice": [
+            "أنشئ لعبة Flappy Bird مع قائمة تعمل، أو لعبة ثعبان ثلاثية الأبعاد بمستويين مختلفين."
+          ],
+          "topics": [
+            {
+              "id": "flappy-bird",
+              "title": "إنشاء لعبة Flappy Bird",
+              "resources": [
+                {
+                  "title": "شرح إنشاء لعبة Flappy Bird",
+                  "url": "http://bit.ly/2Mvuedk",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تصميم الألعاب من Brackeys",
+                  "url": "https://youtube.com/playlist?list=PLX2vGYjWbI0QBJUI5wI3lBTaz85k37dwo",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "snake-game",
+              "title": "إنشاء لعبة ثعبان ثلاثية الأبعاد",
+              "resources": [
+                {
+                  "title": "شرح لعبة الثعبان ثلاثية الأبعاد — الجزء الأول",
+                  "url": "https://www.youtube.com/watch?v=DfwwlxCJ-TA",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح لعبة الثعبان ثلاثية الأبعاد — الجزء الثاني",
+                  "url": "https://youtu.be/FKYHMAULITQ?si=mSZ3mozCkSykKND_",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "game-art",
+      "name": "فن الألعاب",
+      "order": 2,
+      "goal": "تعرّف على مبادئ اللون والحركة، ثم أنشئ عناصر فنية ثنائية الأبعاد وحركات لشخصية لعبتك.",
+      "modules": [
+        {
+          "id": "color-and-animation-principles",
+          "name": "نظرية الألوان ومبادئ الحركة",
+          "order": 0,
+          "objectives": [
+            "دوّن ملاحظات تلخّص ما تعلّمته عن الألوان ومبادئ تحريك الشخصيات."
+          ],
+          "practice": [
+            "شاهد المواد ولخّص أهم الأفكار في ملاحظاتك."
+          ],
+          "topics": [
+            {
+              "id": "color-theory",
+              "title": "نظرية الألوان لفن الألعاب",
+              "resources": [
+                {
+                  "title": "مقدمة إلى نظرية الألوان في فن الألعاب",
+                  "url": "https://youtu.be/NBg3GjrcMF4",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح إضافي لنظرية الألوان — الجزء الأول",
+                  "url": "https://youtu.be/BMIa1LyWPAo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح إضافي لنظرية الألوان — الجزء الثاني",
+                  "url": "https://youtu.be/YeI6Wqn4I78",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "animation-principles",
+              "title": "مبادئ التحريك",
+              "resources": [
+                {
+                  "title": "قائمة مبادئ التحريك",
+                  "url": "https://youtube.com/playlist?list=PL-bOh8btec4CXd2ya1NmSKpi92U_l6ZJd",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "pixel-art",
+          "name": "الرسم بالنقاط والأصول ثنائية الأبعاد",
+          "order": 1,
+          "objectives": [
+            "أنشئ مجموعة بلاطات وخلفية وعوائق وشخصية ثنائية الأبعاد للعبة."
+          ],
+          "practice": [
+            "أنشئ مجموعة بلاطات وخلفية مستوى وعوائق وشخصية لعبة."
+          ],
+          "topics": [
+            {
+              "id": "pixel-art-basics",
+              "title": "أساسيات الرسم بالنقاط",
+              "resources": [
+                {
+                  "title": "كيف تبدأ في فن الرسم بالنقاط",
+                  "url": "https://youtu.be/WUlgvNe4BLU",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة شاملة لدروس الرسم بالنقاط",
+                  "url": "https://youtube.com/playlist?list=PLR3Ra9cf8aV06i2jKmgKvcYVHI86-4K_b",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "2d-game-assets",
+              "title": "إنشاء أصول اللعبة ثنائية الأبعاد",
+              "resources": [
+                {
+                  "title": "رسم مجموعة بلاطات",
+                  "url": "https://youtu.be/btnH0x7_1g8",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "إنشاء خلفية بالنقاط",
+                  "url": "https://youtu.be/OsRqXyE3rOI",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "إنشاء خلفية متحركة بتأثير اختلاف السرعة",
+                  "url": "https://youtu.be/7_qw0tWR3yk",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تصميم شخصية في Photoshop",
+                  "url": "https://youtu.be/rLdA4Amea7Y",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تصميم شخصية في Aseprite",
+                  "url": "https://youtu.be/UPAHMyN9YeQ",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "character-animation",
+              "title": "تحريك شخصية اللعبة",
+              "resources": [
+                {
+                  "title": "مقدمة إلى التحريك باستخدام Aseprite",
+                  "url": "https://youtu.be/N4Z4MdZ1KWY",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تحريك الوقوف باستخدام Aseprite — درس أول",
+                  "url": "https://youtu.be/zqOv4wyKOQw",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تحريك الوقوف باستخدام Aseprite — درس ثانٍ",
+                  "url": "https://youtu.be/vs-ierVdE7I",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "إنشاء دورة مشي في Photoshop",
+                  "url": "https://youtu.be/7T6yOk5n-zk",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "advanced-and-specializations",
+      "name": "مشروعات متقدمة وتخصصات",
+      "order": 3,
+      "goal": "وسّع خبرتك بمشروعات ألعاب أكبر، ثم اختر تخصصًا في المحركات أو الرسوميات أو النمذجة أو الصوت.",
+      "modules": [
+        {
+          "id": "advanced-unity-projects",
+          "name": "مشروعات متقدمة باستخدام Unity",
+          "order": 0,
+          "objectives": [
+            "طبّق تصميم المستويات والبرمجة والفن في ألعاب أكثر تكاملًا."
+          ],
+          "practice": [
+            "أنشئ لعبة منصات ثنائية الأبعاد بمستويين وقائمة إيقاف وشاشتي بداية ونهاية.",
+            "أنشئ لعبة تصويب من منظور الشخص الأول مع خصوم يتحكم بهم الذكاء الاصطناعي.",
+            "أنشئ لعبة دفاع عن الأبراج."
+          ],
+          "topics": [
+            {
+              "id": "platformer",
+              "title": "تطوير لعبة منصات ثنائية الأبعاد",
+              "resources": [
+                {
+                  "title": "قائمة تطوير لعبة منصات ثنائية الأبعاد",
+                  "url": "https://youtube.com/playlist?list=PLrnPJCHvNZuCVTz6lvhR81nnaf1a-b67U",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "fps-and-enemy-ai",
+              "title": "لعبة تصويب ثلاثية الأبعاد وذكاء الخصوم",
+              "resources": [
+                {
+                  "title": "قائمة تطوير ألعاب التصويب من منظور الشخص الأول",
+                  "url": "https://youtube.com/playlist?list=PLPV2KyIb3jR7dFbE2UQYu7QWMdUgDnlnk",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "سلسلة الذكاء الاصطناعي للخصوم — الأجزاء الأول إلى الرابع",
+                  "url": "https://youtube.com/playlist?list=PL0WgRP7BtOewNtJdJNE-YjlpcU-wl1lAi",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "tower-defense",
+              "title": "تطوير لعبة دفاع عن الأبراج",
+              "resources": [
+                {
+                  "title": "قائمة تطوير لعبة دفاع عن الأبراج",
+                  "url": "https://youtube.com/playlist?list=PLPV2KyIb3jR4u5jX8za5iU1cqnQPmbzG0",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "unreal-and-cpp",
+          "name": "مسار Unreal وC++",
+          "order": 1,
+          "objectives": [
+            "استكشف محرك Unreal وتعلّم تطوير الألعاب باستخدام C++ إذا كان هذا التخصص مناسبًا لك."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "unreal-learning",
+              "title": "موارد تعلّم Unreal Engine",
+              "resources": [
+                {
+                  "title": "قائمة إنشاء الألعاب للمبتدئين باستخدام Unreal",
+                  "url": "https://www.youtube.com/playlist?list=PLL0cLF8gjBpqDdMoeid6Vl5roMl6xJQGC",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة دروس C++ في Unreal من DevEnabled",
+                  "url": "https://www.youtube.com/playlist?list=PL9z3tc0RL6Z4JJS__Bge8O2mLwKUaG1eU",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "توثيق Unreal Engine الرسمي",
+                  "url": "https://docs.unrealengine.com/en-US/index.html",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "كتاب تعلّم C++",
+                  "url": "https://www.learncpp.com",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "3d-modeling-and-audio",
+          "name": "النمذجة ثلاثية الأبعاد والصوت",
+          "order": 2,
+          "objectives": [
+            "استكشف إنشاء النماذج ثلاثية الأبعاد أو إنتاج الموسيقى والمؤثرات الصوتية للألعاب."
+          ],
+          "practice": [
+            "أنشئ عنصرًا ثابتًا للعبة باستخدام Blender، أو صمّم نموذجًا متحركًا وفق قوائم المصدر."
+          ],
+          "topics": [
+            {
+              "id": "blender-modeling",
+              "title": "النمذجة والتحريك باستخدام Blender",
+              "resources": [
+                {
+                  "title": "مقدمة إلى Blender",
+                  "url": "https://www.youtube.com/playlist?list=PL3GeP3YLZn5hhfaGRSmRia0OwPPMfJu0V",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة التحريك والمحاكاة في Blender",
+                  "url": "https://youtube.com/playlist?list=PL-BTVXXeho5SFUrYlj_nL8rHjOdmt_uLF",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة النحت وإعادة بناء الشبكة في Blender",
+                  "url": "https://www.youtube.com/playlist?list=PL-BTVXXeho5TXgzvHUpjjWT4VLLMVWvVP",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "id": "game-audio",
+              "title": "الموسيقى والصوت للألعاب",
+              "resources": [
+                {
+                  "title": "قائمة نظرية الموسيقى",
+                  "url": "https://www.youtube.com/playlist?list=PLUyDmNalB0rjteAmf8ciJ1zL2GqnzryS_",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة هندسة الصوت",
+                  "url": "https://www.youtube.com/playlist?list=PLRwSxn6RVkVIM9443VFgYHNkYuqbmEakk",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دروس FL Studio",
+                  "url": "https://www.youtube.com/playlist?list=PLusIP7Dkr3aoO-zDc_VT26YOOrsvw53Ff",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دروس LMMS",
+                  "url": "https://www.youtube.com/watch?v=TrMTlpeSw8Y&list=PLqazFFzUAPc4K1To5JTtR3cskcdRifM1M",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "graphics-programming",
+          "name": "برمجة الرسوميات",
+          "order": 3,
+          "objectives": [
+            "تعرّف على واجهات برمجة الرسوميات إذا رغبت في فهم كيفية بناء الرسوم على مستوى منخفض."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "opengl",
+              "title": "برمجة الرسوميات باستخدام OpenGL",
+              "resources": [
+                {
+                  "title": "دليل تعلّم OpenGL",
+                  "url": "https://learnopengl.com/Introduction",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة OpenGL من The Cherno",
+                  "url": "https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "id": "directx",
+              "title": "برمجة الرسوميات باستخدام DirectX",
+              "resources": [
+                {
+                  "title": "الموقع التعليمي لـ DirectX",
+                  "url": "http://www.directxtutorial.com/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "توثيق DirectX من Microsoft",
+                  "url": "https://docs.microsoft.com/en-us/windows/win32/directx",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "game-jams-and-assets",
+          "name": "تحديات صناعة الألعاب والأصول الجاهزة",
+          "order": 4,
+          "objectives": [
+            "اكتسب خبرة عملية بالمشاركة في تحديات صناعة الألعاب، واستفد من مكتبات الأصول عند الحاجة."
+          ],
+          "practice": [
+            "شارك في تحدٍ لصناعة لعبة بعد تعلّم الأساسيات."
+          ],
+          "topics": [
+            {
+              "id": "game-jams",
+              "title": "المشاركة في تحديات صناعة الألعاب",
+              "resources": [
+                {
+                  "title": "تحديات صناعة الألعاب على itch.io",
+                  "url": "https://itch.io/jams",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "id": "game-assets",
+              "title": "مصادر الأصول الفنية للألعاب",
+              "resources": [
+                {
+                  "title": "أصول ألعاب مجانية من Kenney",
+                  "url": "https://kenney.nl/assets",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "متجر أصول Unity",
+                  "url": "https://assetstore.unity.com/",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "أصول مفتوحة للألعاب من OpenGameArt",
+                  "url": "http://opengameart.org",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "مؤثرات صوتية من Freesound",
+                  "url": "https://www.freesound.org",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ]
 }
