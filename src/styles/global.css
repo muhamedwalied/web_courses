@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Helvetica Neue LT Arabic — ملفات المستخدم في public/ (رخصة Linotype المدفوعة، مسؤولية الموقع)
+   عائلة موحّدة للعربي واللاتيني: 45 Light / 55 Roman / 75 Bold
+   ============================================================ */
+@font-face {
+  font-family: "Helvetica Arabic";
+  src: url("/HelveticaNeueLTArabic-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Arabic";
+  src: url("/HelveticaNeueLTArabic-Roman.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Arabic";
+  src: url("/HelveticaNeueLTArabic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
 @theme {
   /* light scholarly palette — قيم DESIGN.md المعتمدة بعد معاينة 2026-10-27 (اختيار «تحريري» + النظام الفاتح كامل) */
   --color-bg: #F8F6EE; /* خلفية الموقع، أبيض دافئ مصفر بخفة */
@@ -12,8 +35,9 @@
   --color-accent: #2E536B; /* أزرق حبر — أزرار وروابط وحالة التقدّم والتركيز (7.56:1) */
   --color-accent-2: #B8B2A4; /* ثانوي هادئ — حواف رسم الشبكة على الفاتح */
 
-  --font-sans: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
-  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif; /* العناوين الكبيرة — الإحساس الكتابي */
+  /* Helvetica Arabic (المستضافة) أولًا للعربي واللاتيني معًا، وخطوط النوتو شبكة أمان */
+  --font-sans: "Helvetica Arabic", "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-header: "Noto Naskh Arabic", "Noto Kufi Arabic", "Noto Sans Arabic", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace; /* كتل الشيفرة ومفاتيح kbd فقط */
 }
 
