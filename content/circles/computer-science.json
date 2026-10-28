@@ -2,15 +2,527 @@
   "$schema": "../circles.schema.json",
   "id": "computer-science",
   "name": "علوم الحاسوب",
-  "tagline": "أساسيات علوم الحاسوب",
-  "description": "مقدمة إلى علوم الحاسوب، وأهم مفاهيمها الأساسية، وكيفية بناء قاعدة معرفية تساعدك على فهم البرمجيات والأنظمة الحاسوبية.",
+  "tagline": "من البرمجة وهياكل البيانات إلى أنظمة الحاسوب",
+  "description": "خارطة للمفاهيم الأساسية في علوم الحاسوب: البرمجة وحل المشكلات، والبرمجة كائنية التوجه، وهياكل البيانات والخوارزميات، ثم قواعد البيانات وأنظمة التشغيل والشبكات وهندسة البرمجيات. تتضمن المصادر موادًا عربية وإنجليزية، وبعض الموضوعات توفر أكثر من مسار للتعلّم.",
   "color": "#c084fc",
   "icon": "🧮",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "Computer Science/"
+    "Computer Science/Readme.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Computer%20Science",
-  "levels": []
+  "levels": [
+    {
+      "id": "programming-foundations",
+      "name": "أساسيات البرمجة وحل المشكلات",
+      "order": 0,
+      "goal": "ابدأ بمفاهيم البرمجة، ثم تعلّم تنظيم البرامج وحل المسائل باستخدام لغة مثل C++.",
+      "modules": [
+        {
+          "id": "programming-fundamentals",
+          "name": "أساسيات البرمجة باستخدام C++",
+          "order": 0,
+          "objectives": [
+            "تعلّم أنواع البيانات والمتغيرات والتحكم في تدفق البرنامج والحلقات والمصفوفات والسلاسل النصية والدوال والاستدعاء الذاتي."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "cpp-basics",
+              "title": "أنواع البيانات والمتغيرات والتحكم في تدفق البرنامج",
+              "resources": [
+                {
+                  "title": "C++ للمبتدئين — أول عشر محاضرات من مصطفى سعد إبراهيم",
+                  "url": "https://www.youtube.com/playlist?list=PLPt2dINI2MIbwnEoeHZnUHeUHjTd8x4F3",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "تدريب C++ للمبتدئين — SVU",
+                  "url": "https://www.youtube.com/playlist?list=PLj1uh4JbO1ozayg013jEqqLovM7dfuF0y",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "functions-and-recursion",
+              "title": "الدوال والاستدعاء الذاتي",
+              "resources": [
+                {
+                  "title": "محاضرات الدوال في C++ — هداية",
+                  "url": "https://www.youtube.com/playlist?list=PLBkwGJXcrCATmqJ-xKYBtZIoMTVpHz6p7",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح الاستدعاء الذاتي في C++ — هداية",
+                  "url": "https://www.youtube.com/playlist?list=PLBkwGJXcrCATvPBkCUoJzURlO3MIeHZji",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "cpp-practical-tools",
+              "title": "مكتبة C++ القياسية والبرمجة العملية",
+              "resources": [
+                {
+                  "title": "مسار البرمجة التنافسية من AAST — أساسيات التعقيد والموضوعات العملية",
+                  "url": "https://youtube.com/playlist?list=PLw2JSXGww1ORU9v3h8jBS_bNz-ngSW2wk",
+                  "kind": "playlist",
+                  "lang": "ar",
+                  "note": "المصدر يوصي بأول محاضرتين للتعقيد الزمني، ثم المحاضرات من 3 إلى 10 لموضوعات عملية مثل الترتيب وSTL والمجاميع التراكمية."
+                },
+                {
+                  "title": "شرح كامل لمكتبة STL في C++ بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PLPt2dINI2MIbwnEoeHZnUHeUHjTd8x4F3",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "الاستثناءات والأخطاء والترجمة والتنقيح في C++",
+                  "url": "https://www.youtube.com/playlist?list=PLPt2dINI2MIZPFq6HyUB1Uhxdh1UDnZMS",
+                  "kind": "playlist",
+                  "lang": "ar",
+                  "note": "راجع المحاضرات 26 و27 ومن 30 إلى 37 للموضوعات العملية المحددة في المصدر."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "object-oriented-programming",
+          "name": "البرمجة كائنية التوجه",
+          "order": 1,
+          "objectives": [
+            "افهم الأصناف والكائنات والتغليف والتجريد والوراثة وتعدد الأشكال والتركيب والواجهات."
+          ],
+          "practice": [
+            "نفّذ ثلاثة مشروعات صغيرة على الأقل لتطبيق مفاهيم البرمجة كائنية التوجه."
+          ],
+          "topics": [
+            {
+              "id": "oop-concepts",
+              "title": "مفاهيم البرمجة كائنية التوجه بلغات متعددة",
+              "resources": [
+                {
+                  "title": "شرح البرمجة كائنية التوجه بلغة Java — عمر أحمد",
+                  "url": "https://www.youtube.com/playlist?list=PLwWuxCLlF_ue7GPvoG_Ko1x43tZw5cz9v",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "البرمجة كائنية التوجه باستخدام Java — شرح نظري",
+                  "url": "https://www.youtube.com/playlist?list=PL1DUmTEdeA6Icttz-O9C3RPRF8R8Px5vk",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح عملي للبرمجة كائنية التوجه باستخدام Python",
+                  "url": "https://www.youtube.com/playlist?list=PLuXY3ddo_8nzUrgCyaX_WEIJljx_We-c1",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح البرمجة كائنية التوجه باستخدام C++",
+                  "url": "https://www.youtube.com/playlist?list=PLPt2dINI2MIbMba7tpx3qvmgOsDlpITwG",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "مقالات عن البرمجة كائنية التوجه — مدونة الطبراني",
+                  "url": "https://tabarani.tk/articles",
+                  "kind": "article",
+                  "lang": "ar"
+                }
+              ],
+              "note": "ينبّه المصدر إلى أن C++ وحدها لا تغطي بعض المفاهيم مثل الواجهات؛ يمكن دراسة Java أو C# أو Python إلى جانبها.",
+              "optional": false
+            },
+            {
+              "id": "oop-projects",
+              "title": "مشروعات تطبيقية للبرمجة كائنية التوجه",
+              "resources": [
+                {
+                  "title": "مشروع نظام مستشفى",
+                  "url": "https://youtu.be/Lu3z4rfU-2s",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مشروع نظام مكتبة",
+                  "url": "https://youtu.be/zzuhhAuW5FY",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مشروع AskMe",
+                  "url": "https://youtu.be/xNu6L_pidUo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مشروع نظام إدارة تعليمي",
+                  "url": "https://youtu.be/hsEGVVu7_lE?si=utxjbP1oieQLYMcV",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مشروع قارئ كتب إلكتروني",
+                  "url": "https://youtu.be/Rk8vrmSpFII?si=hlSwtzXZu9r0OdlZ",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "data-structures-and-algorithms",
+          "name": "هياكل البيانات والخوارزميات",
+          "order": 2,
+          "objectives": [
+            "تعرّف على التعقيد الزمني والذاكرة الثابتة والديناميكية وهياكل البيانات الخطية، وتدرّب على تحليل المسائل."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "dsa-prerequisites",
+              "title": "المتطلبات السابقة لهياكل البيانات والخوارزميات",
+              "resources": [
+                {
+                  "title": "مراجعة الأصناف والمؤشرات — محاضرة تمهيدية",
+                  "url": "https://youtu.be/zaGyD_BY8XQ?si=k3Migkpr3ezAwYwL",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "linear-data-structures",
+              "title": "الذاكرة وهياكل البيانات الخطية",
+              "resources": [
+                {
+                  "title": "هياكل البيانات في C++ — أول ثلاث محاضرات",
+                  "url": "https://www.youtube.com/playlist?list=PL1DUmTEdeA6JlommmGP5wicYLxX5PVCQt",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح مرئي للقوائم المرتبطة وهياكل البيانات الخطية — Mega Code",
+                  "url": "https://www.youtube.com/playlist?list=PLsGJzJ8SQXTcsXRVviurGei0lf_t_I4D8",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح القوائم المرتبطة للمقابلات التقنية",
+                  "url": "https://www.youtube.com/watch?v=Hj_rA0dhr2I",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة شرح Stack",
+                  "url": "https://www.youtube.com/playlist?list=PLDV1Zeh2NRsC0FVi9Rshi-5fFU1QwcFQ1",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة شرح Queue",
+                  "url": "https://www.youtube.com/playlist?list=PLDV1Zeh2NRsAWrxWRTHJrsgBrbwqGzt-z",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "complexity-and-problem-solving",
+              "title": "تحليل التعقيد وأساليب حل المشكلات",
+              "resources": [
+                {
+                  "title": "تحليل التعقيد التقاربي — شرح نظري",
+                  "url": "https://www.youtube.com/playlist?list=PLpfYfulQlEPzTlSF6sdnMj3XdxgQdT06w",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح عملي للتعقيد التقاربي — الجزء الأول",
+                  "url": "https://www.youtube.com/watch?v=SmxZQpW_zA4",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح عملي للتعقيد التقاربي — الجزء الثاني",
+                  "url": "https://www.youtube.com/watch?v=krRT_US9Ll0",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "تحليل التعقيد — شرح محمد مجدي، الجزء الأول",
+                  "url": "https://www.youtube.com/watch?v=wEbdQeVwLlo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تحليل التعقيد — شرح محمد مجدي، الجزء الثاني",
+                  "url": "https://www.youtube.com/watch?v=o5zf5oVHtn0",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تقنية المؤشرين — شرح أحمد جمال",
+                  "url": "https://www.youtube.com/watch?v=uplty7GJ9qg",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "تقنية المؤشرين — شرح بالعربية",
+                  "url": "https://www.youtube.com/watch?v=n-Xwrr8RFQ0",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "core-systems",
+      "name": "الأنظمة والبيانات والشبكات",
+      "order": 1,
+      "goal": "تعمّق في طريقة عمل أنظمة التشغيل والشبكات وقواعد البيانات، وهي موضوعات محورية لفهم الحاسوب والبرمجيات.",
+      "modules": [
+        {
+          "id": "databases",
+          "name": "قواعد البيانات",
+          "order": 0,
+          "objectives": [
+            "ابدأ بمراحل التعلّم الأولى في قواعد البيانات، واستعن بالمصدرين الموصى بهما معًا قبل الانتقال إلى تخصصك."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "database-learning-path",
+              "title": "خارطة تعلّم قواعد البيانات ومواردها",
+              "resources": [
+                {
+                  "title": "خارطة تعلّم قواعد البيانات — سيد العيسوي",
+                  "url": "https://x.com/sayed_alesawy/status/1795550660999442580",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "موارد قواعد البيانات — أحمد أيمن",
+                  "url": "https://x.com/AHMED_BFCAI_20/status/1767298354051158324",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "note": "يذكر المصدر أن الموردين متكاملان، ويوصي بإكمال أول مرحلتين على الأقل قبل بدء التخصص.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "operating-systems",
+          "name": "أنظمة التشغيل",
+          "order": 1,
+          "objectives": [
+            "ادرس مفاهيم أنظمة التشغيل من خلال المحاضرات والتدريبات والواجبات والمشروع العملي."
+          ],
+          "practice": [
+            "نفّذ مشروع المقرر لبناء نظام تشغيل باستخدام C وفق توجيهات المصدر."
+          ],
+          "topics": [
+            {
+              "id": "os-course",
+              "title": "مقرر أنظمة التشغيل ومحاضراته",
+              "resources": [
+                {
+                  "title": "محاضرات أنظمة التشغيل — خريف 2024",
+                  "url": "https://www.youtube.com/playlist?list=PLpfYfulQlEPyavmKP24AhTtdzD2OZ-qgk",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "جلسات حل المسائل لأنظمة التشغيل",
+                  "url": "https://www.youtube.com/playlist?list=PLpfYfulQlEPyqVD4VVw3HtdLb8DGBqIKb",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مشروع مقرر أنظمة التشغيل — خريف 2024",
+                  "url": "https://www.youtube.com/playlist?list=PLpfYfulQlEPxcG4On42egRf8k-0IZEdqQ",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مواد المقرر والكتاب — Google Drive",
+                  "url": "https://drive.google.com/drive/folders/1ExkmYfMLUcBO6_cWhPPPZ-9H597VmbHb",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة بديلة في أنظمة التشغيل — د. أحمد حجاج",
+                  "url": "https://www.youtube.com/playlist?list=PLxIvc-MGOs6ib0oK1z9C46DeKd9rRcSMY",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "note": "المصدر يوصي بدراسة المقرر بتأنٍ وإكمال المحاضرات وفهم الأساسيات قبل الانتقال إلى التخصص.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "computer-networks",
+          "name": "شبكات الحاسوب",
+          "order": 2,
+          "objectives": [
+            "تعلّم الشبكات من منظور يبدأ بطبقات التطبيقات والبروتوكولات ويتدرّج نحو طبقات الاتصال الأدنى."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "networking-course",
+              "title": "مقرر شبكات الحاسوب والمواد المساندة",
+              "resources": [
+                {
+                  "title": "محاضرات شبكات الحاسوب — جامعة عين شمس",
+                  "url": "https://www.youtube.com/playlist?list=PLy_2fgXkPiZuMaG9Jmp8PAwimIumf19hp",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح شبكات الحاسوب — دروس أونلاين التقنية",
+                  "url": "https://www.youtube.com/playlist?list=PLYljoJMAPFLHrCVfzuMLkJOZHhCgfSXG-",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرائح كتاب Computer Networking: A Top-Down Approach",
+                  "url": "https://gaia.cs.umass.edu/kurose_ross/ppt.php",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرائح د. أيمن",
+                  "url": "https://drive.google.com/drive/folders/1jYleCLMeSqTCS2VbGxwfGXA5CqFFaP92",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "معلومات عن كتاب شبكات الحاسوب — Kurose وRoss",
+                  "url": "https://gaia.cs.umass.edu/kurose_ross/index.php",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "note": "قبل التعمق، يقترح المصدر إكمال خمسة فصول على الأقل وفهم مفاهيم الشبكات الأساسية.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "software-design",
+      "name": "تحليل الأنظمة وهندسة البرمجيات",
+      "order": 2,
+      "goal": "تعلّم فهم المتطلبات وتحليل الأنظمة، ثم استخدم مبادئ هندسة البرمجيات لتطوير أنظمة موثوقة وقابلة للصيانة.",
+      "modules": [
+        {
+          "id": "systems-analysis-design",
+          "name": "تحليل الأنظمة وتصميمها",
+          "order": 0,
+          "objectives": [
+            "تعرّف على جمع المتطلبات ونمذجة العمليات وتصميم الأنظمة قبل البدء بتنفيذ الحلول."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "systems-analysis-course",
+              "title": "مقرر تحليل الأنظمة وتصميمها",
+              "resources": [
+                {
+                  "title": "تحليل الأنظمة وتصميمها — د. الشيماء طنطاوي",
+                  "url": "https://www.youtube.com/playlist?list=PLMzaNeHCFdm-0QIV9CuFZpIi_4-nKH4Xi",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "كتاب Systems Analysis and Design — الإصدار الخامس",
+                  "url": "https://www.nguyenthihoi.com/TAI%20LIEU%20CHO%20SINH%20VIEN/Systems_Analysis_Design_UML_5th%20ed.pdf",
+                  "kind": "book",
+                  "lang": "en"
+                }
+              ],
+              "note": "يوصي المصدر بدراسة تحليل الأنظمة وتصميمها قبل هندسة البرمجيات، ولا يوفّر شرائح للمقرر.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "software-engineering",
+          "name": "هندسة البرمجيات",
+          "order": 1,
+          "objectives": [
+            "افهم أساليب تحليل المتطلبات والتصميم والتطوير والاختبار والصيانة والعمل الجماعي في مشروعات البرمجيات."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "software-engineering-course",
+              "title": "المفاهيم التأسيسية لهندسة البرمجيات",
+              "resources": [
+                {
+                  "title": "هندسة البرمجيات — HTI CS",
+                  "url": "https://www.youtube.com/playlist?list=PLCXxeGQt1gBy4KBPhXgf-JWMZrv6aHXB1",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "هندسة البرمجيات CS251 — عمرو غنيم",
+                  "url": "https://www.youtube.com/playlist?list=PLsnvpvHuTUbC-yJkvcf-Stp_kLwfesnn-",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرائح كتاب هندسة البرمجيات",
+                  "url": "https://software-engineering-book.com/slides/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "معلومات عن كتاب Software Engineering",
+                  "url": "https://software-engineering-book.com/",
+                  "kind": "book",
+                  "lang": "en"
+                }
+              ],
+              "note": "يركّز المصدر حاليًا على الفصول الثمانية الأولى والشرائح، ويشير إلى عدم وجود مورد عربي واضح يغطي الكتاب كاملًا.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    }
+  ]
 }
