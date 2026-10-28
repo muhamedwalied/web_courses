@@ -131,11 +131,11 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         </div>
 
         <div class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto pe-1">
-          {circle.levels.map((level) => (
-            <details class="level-acc group" data-level={level.id} open>
+          {circle.levels.map((level, levelIndex) => (
+            <details class="level-acc group/level" data-level={level.id} open={levelIndex === 0}>
               <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
                 <span class="flex items-center gap-2">
-                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open:rotate-180" />
+                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open/level:rotate-180" />
                   <span dir="auto" class="text-sm font-bold text-ink">{level.name}</span>
                 </span>
                 <span class="flex shrink-0 items-center gap-2">
@@ -148,14 +148,20 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                 </span>
               </summary>
 
-              <div class="mt-2 space-y-3 pb-1">
-                {toModules(level).map((module) => (
-                  <div>
-                    <p class="flex items-center gap-2 px-1 text-xs font-bold text-ink">
-                      <span>{module.name}</span>
-                      <span class="rounded bg-edge/50 px-1.5 py-0.5 font-mono text-[10px] font-normal text-muted">وحدة</span>
-                    </p>
-                    <div class="mt-1 space-y-0.5">
+              <div class="mt-3 space-y-3 pb-2">
+                {toModules(level).map((module, moduleIndex) => (
+                  <details
+                    class="module-acc group/module overflow-hidden rounded-xl border border-edge/80 bg-bg/40"
+                    data-module={module.id}
+                    open={levelIndex === 0 && moduleIndex === 0}
+                  >
+                    <summary class="flex w-full cursor-pointer list-none items-center gap-2 px-3 py-3 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
+                      <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open/module:rotate-180" />
+                      <span dir="auto" class="min-w-0 flex-1 text-xs font-bold leading-5 text-ink">{module.name}</span>
+                      <span class="shrink-0 rounded-md bg-edge/50 px-1.5 py-1 font-mono text-[9px] text-muted">وحدة</span>
+                      <span class="shrink-0 font-mono text-[10px] text-muted">{module.topics.length} درس</span>
+                    </summary>
+                    <div class="space-y-0.5 border-t border-edge/70 px-2 pb-2 pt-1.5">
                       {module.topics.map((topic) => (
                         <a
                           href={`#${level.id}/${module.id}/${topic.id}`}
@@ -176,7 +182,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                         </a>
                       ))}
                     </div>
-                  </div>
+                  </details>
                 ))}
               </div>
             </details>
@@ -693,9 +699,11 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         row.classList.toggle('ring-1', isCurrent);
         row.classList.toggle('ring-accent/30', isCurrent);
         if (isCurrent) {
-          const details = row.closest('details');
-          // property, not setAttribute: setting the attribute twice silently closes it
-          if (details) details.open = true;
+          const moduleDetails = row.closest('.module-acc');
+          const levelDetails = row.closest('.level-acc');
+          // Open the active lesson's containers when navigating to it by hash or next/previous.
+          if (moduleDetails instanceof HTMLDetailsElement) moduleDetails.open = true;
+          if (levelDetails instanceof HTMLDetailsElement) levelDetails.open = true;
         }
       }
     }
