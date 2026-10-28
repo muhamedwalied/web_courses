@@ -35,6 +35,20 @@ const arabicResourceCount = circle.levels.reduce(
     ),
   0,
 );
+const resourceLanguages = new Set(
+  circle.levels.flatMap((level) =>
+    level.modules.flatMap((module) => [
+      ...module.resources.map((resource) => resource.lang),
+      ...module.topics.flatMap((topic) => topic.resources.map((resource) => resource.lang)),
+    ]),
+  ),
+);
+const resourceLanguageLabel =
+  resourceLanguages.size === 1
+    ? resourceLanguages.has('en')
+      ? 'المصادر بالإنجليزية'
+      : 'المصادر بالعربية'
+    : undefined;
 const firstLevelDuration = [...circle.levels].sort((a, b) => a.order - b.order)[0]?.durationText;
 
 // provenance from the vendoring record (SOURCES.json is rewritten by npm run vendor)
@@ -75,6 +89,11 @@ const leadParagraph = (circle.overview?.paragraphs?.length ? circle.overview.par
       <span class={`rounded-full px-2.5 py-0.5 font-mono text-[10px] ${structured ? 'bg-accent/10 text-accent ring-1 ring-accent/30' : 'bg-edge/40 text-muted ring-1 ring-edge'}`}>
         {structured ? 'منظّم · تقدّم قابل للتتبّع' : 'قيد الإعداد'}
       </span>
+      {resourceLanguageLabel && (
+        <span class="rounded-full border border-edge bg-panel/60 px-2.5 py-0.5 text-[11px] leading-relaxed text-muted">
+          {resourceLanguageLabel}
+        </span>
+      )}
     </div>
 
     <h1 dir="auto" class="mt-3.5 font-header text-[clamp(2rem,5vw,2.9rem)] font-bold leading-[1.45]">{circle.name}</h1>
