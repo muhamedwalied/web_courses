@@ -80,71 +80,57 @@ const giscusConfig = {
 const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 ---
 
-<Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description}>
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="flex flex-wrap items-center gap-3 pt-6">
-      <a href={`/circles/${circle.id}/`} class="inline-flex items-center gap-1.5 text-sm text-muted transition hover:text-ink">
-        <Icon name="lucide:arrow-right" class="size-4" />
-        <span>رجوع للمسار</span>
-      </a>
-
-      <span
-        class="grid size-10 shrink-0 place-items-center text-lg"
-        style={`border-radius:0.75rem;background:${circle.color}1f;box-shadow:inset 0 0 0 1px ${circle.color}40`}
-      >
-        <Icon name={circleIcon(circle.id)} class="size-5" />
-      </span>
-
-      <span dir="auto" class="font-bold">{circle.name}</span>
-
-      <span class="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[10px] text-accent ring-1 ring-accent/30">
-        <Icon name="lucide:monitor-play" class="size-3.5" />
-        <span>جلسة مشاهدة</span>
-      </span>
+<Layout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description} wide>
+  <div class="watch-page">
+    <div class="watch-heading">
+      <a href="/" class="text-muted transition hover:text-accent">المسارات</a>
+      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
+      <a href={`/circles/${circle.id}/`} dir="auto" class="truncate text-muted transition hover:text-accent">{circle.name}</a>
+      <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
+      <span class="font-semibold text-ink">التعلّم</span>
     </div>
 
-    <!-- progress strip (from «مسار تعلّم تفاعلي ٢»): count + percent, bar fills from the right in RTL -->
-    <div
-      id="watch-progress"
-      role="progressbar"
-      aria-label="تقدّمك في المسار"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="0"
-      class="mt-3 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-2.5"
-    >
-      <span class="shrink-0 font-mono text-[10px] text-muted">
-        أكملت <b id="watch-prog-count" class="text-ink">0</b> من {topicCount} · <span id="watch-prog-pct">0%</span>
-      </span>
-      <span class="wbar min-w-0 flex-1"><i id="watch-prog-bar"></i></span>
-      <span id="watch-prog-left" class="shrink-0 font-mono text-[10px] text-muted">{topicCount} درس متبقي</span>
-    </div>
-
-    <div class="grid grid-cols-1 gap-8 pb-10 lg:grid-cols-[20rem_1fr]" data-circle={circle.id}>
+    <div class="watch-grid grid grid-cols-1 gap-5 pb-10 lg:grid-cols-[19rem_minmax(0,1fr)] 2xl:grid-cols-[19rem_minmax(0,1fr)_12rem]" data-circle={circle.id}>
       <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical).
            Desktop: docked, full-height, independently-scrolling column.
            Below lg: off-canvas drawer (fixed+right-0) — stays in the grid so RTL order is untouched. -->
       <aside
         id="content-sidebar"
         aria-label="محتوى المسار"
-        class="max-lg:fixed max-lg:inset-y-0 max-lg:start-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:flex lg:h-dvh lg:max-h-dvh lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-none lg:border-y-0 lg:border-s-0 rounded-2xl border border-edge bg-panel/60 p-4"
+        class="max-lg:fixed max-lg:inset-y-0 max-lg:start-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-14 lg:flex lg:h-[calc(100dvh-3.5rem)] lg:max-h-[calc(100dvh-3.5rem)] lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-2xl lg:border lg:border-edge lg:bg-panel/70 lg:p-4"
       >
-        <div class="flex shrink-0 items-baseline justify-between gap-2">
-          <h2 class="text-sm font-bold">محتوى المسار</h2>
-          <span class="flex items-center gap-2">
-            <p class="font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} موضوع · {resourceCount} مصادر</p>
+        <div class="shrink-0 border-b border-edge/70 pb-3">
+          <div class="flex items-center justify-between gap-2">
+            <h2 class="text-sm font-bold">محتوى المسار</h2>
             <button
               type="button"
               id="content-close"
-              class="grid size-6 shrink-0 place-items-center rounded-md text-muted transition hover:bg-panel/70 hover:text-ink lg:hidden"
+              class="grid size-7 shrink-0 place-items-center rounded-lg text-muted transition hover:bg-panel hover:text-ink lg:hidden"
               aria-label="إغلاق"
             >
               <Icon name="lucide:x" class="size-4" />
             </button>
-          </span>
+          </div>
+          <p class="mt-1 font-mono text-[10px] text-muted">{levelCount} مستويات · {topicCount} درس · {resourceCount} مصدر</p>
+          <div
+            id="watch-progress"
+            role="progressbar"
+            aria-label="تقدّمك في المسار"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            class="watch-progress mt-3 rounded-xl bg-bg/70 p-2.5"
+          >
+            <div class="flex items-center justify-between gap-2 font-mono text-[10px] text-muted">
+              <span>أكملت <b id="watch-prog-count" class="text-ink">0</b> من {topicCount}</span>
+              <span id="watch-prog-pct">0%</span>
+            </div>
+            <span class="wbar mt-2"><i id="watch-prog-bar"></i></span>
+            <span id="watch-prog-left" class="mt-1 block text-[10px] text-muted">{topicCount} درس متبقي</span>
+          </div>
         </div>
 
-        <div class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto lg:pe-1">
+        <div class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto pe-1">
           {circle.levels.map((level) => (
             <details class="level-acc group" data-level={level.id} open>
               <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
@@ -201,15 +187,17 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       <!-- mobile drawer backdrop — below lg only, toggled by JS -->
       <div id="content-backdrop" class="fixed inset-0 z-40 hidden bg-black/50" aria-hidden="true"></div>
 
-      <!-- second grid child renders on the LEFT in RTL: the player -->
-      <div class="max-lg:order-1">
-        <div class="mt-6 flex items-center gap-3 rounded-xl border border-edge bg-panel/60 px-4 py-3">
-          <Icon name="lucide:circle-play" class="size-5 shrink-0 text-accent" />
+      <!-- Center column: the current lesson and its learning controls. -->
+      <div class="watch-main min-w-0">
+        <div class="watch-titlebar mt-1 flex items-center gap-3 px-1 py-3">
+          <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20">
+            <Icon name="lucide:book-open" class="size-5" />
+          </span>
           <div class="min-w-0">
-            <p id="watch-crumb" class="truncate font-mono text-[10px] text-muted" dir="ltr">
+            <p id="watch-crumb" class="truncate text-xs text-muted" dir="auto">
               {firstTopic ? `${firstTopic.l} / ${firstTopic.m}` : ''}
             </p>
-            <h1 id="watch-title" class="truncate text-lg font-bold">
+            <h1 id="watch-title" class="mt-1 line-clamp-2 text-xl font-bold leading-relaxed text-ink sm:text-2xl">
               {firstTopic?.title ?? circle.name}
             </h1>
           </div>
@@ -219,7 +207,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
             id="content-toggle"
             aria-expanded="false"
             aria-controls="content-sidebar"
-            class="ms-auto inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-bg shadow-lg shadow-accent/25 transition hover:opacity-90 lg:hidden"
+            class="ms-auto inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-edge bg-panel px-3 py-2 text-xs font-bold text-ink transition hover:border-accent/50 hover:text-accent lg:hidden"
           >
             <Icon name="lucide:list-tree" class="size-4 shrink-0" />
             <span>المحتوى</span>
@@ -228,32 +216,41 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
         <div
           id="watch-stage"
-          class="relative mt-3 grid aspect-video place-items-center overflow-hidden rounded-2xl border border-edge bg-black/60"
+          class="watch-stage relative mt-2 grid aspect-video place-items-center overflow-hidden rounded-2xl border border-edge bg-black/60"
         >
           <button
             type="button"
             id="watch-facade"
-            class="grid size-16 place-items-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/40 transition hover:bg-accent/20"
+            class="grid size-16 place-items-center rounded-full bg-bg text-accent shadow-xl ring-1 ring-white/30 transition hover:bg-panel focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             aria-label="شغّل المحاضرة"
           >
             <Icon name="lucide:play" class="size-8" />
           </button>
         </div>
 
-        <hr class="mt-4 border-edge/70" />
+        <div class="watch-tabs mt-4 flex items-center gap-1 border-b border-edge/80" role="navigation" aria-label="أقسام الدرس">
+          <a href="#watch-overview" class="watch-tab is-active">نظرة عامة</a>
+          <a href="#watch-comments" class="watch-tab" data-open-comments>المناقشة</a>
+        </div>
 
-        <label class="mt-3 flex items-center gap-2 text-xs text-muted">
+        <section id="watch-overview" class="watch-overview mt-4">
+          <h2 class="text-base font-bold text-ink">عن هذا الدرس</h2>
+          <p class="mt-1 text-xs leading-6 text-muted">تابع الدرس، ثم علّم عليه كمكتمل لتحديث تقدّمك في المسار.</p>
+          <div id="watch-extras" class="mt-4 space-y-3"></div>
+        </section>
+
+        <label class="mt-4 flex w-fit items-center gap-2 rounded-xl border border-edge bg-panel/60 px-3 py-2.5 text-xs text-muted transition hover:border-accent/40 hover:text-ink">
           <input type="checkbox" id="watch-done" class="size-3.5 accent-[var(--color-accent)]" />
           <span>خلصت المحاضرة دي؟</span>
         </label>
 
-        <div class="mt-4 flex justify-between">
+        <div class="mt-4 flex justify-between gap-3">
           <a
             href={prevTopic ? `#${prevTopic.l}/${prevTopic.m}/${prevTopic.t}` : firstTopic ? `#${firstTopic.l}/${firstTopic.m}/${firstTopic.t}` : '#'}
             id="watch-prev"
             data-edge={prevTopic ? '0' : '1'}
             aria-disabled={prevTopic ? undefined : 'true'}
-            class="flex items-center gap-1.5 rounded-lg border border-edge px-4 py-2 text-xs text-ink transition hover:bg-panel/60 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+            class="flex items-center gap-1.5 rounded-xl border border-edge bg-panel/60 px-4 py-2.5 text-xs text-ink transition hover:border-accent/40 hover:bg-panel aria-disabled:pointer-events-none aria-disabled:opacity-40"
           >
             <Icon name="lucide:arrow-right" class="size-3.5" />
             <span>السابق</span>
@@ -264,7 +261,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
             id="watch-next"
             data-edge={nextTopic ? '0' : '1'}
             aria-disabled={nextTopic ? undefined : 'true'}
-            class="flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-xs font-bold text-bg transition hover:opacity-85 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+            class="flex items-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-bg transition hover:opacity-90 aria-disabled:pointer-events-none aria-disabled:opacity-40"
           >
             <span>التالي</span>
             <Icon name="lucide:arrow-left" class="size-3.5" />
@@ -272,7 +269,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         </div>
 
         <!-- per-lesson GitHub Discussions (giscus) — each lesson owns a thread; mounts lazily when opened -->
-        <details id="watch-comments" class="group mt-4 rounded-xl border border-edge bg-panel/60">
+        <details id="watch-comments" class="group mt-5 scroll-mt-20 rounded-xl border border-edge bg-panel/60">
           <summary class="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-xs font-bold text-ink [&::-webkit-details-marker]:hidden">
             <Icon name="lucide:message-circle" class="size-4 shrink-0 text-accent" />
             <span>المناقشة — تعليقات GitHub عن المحاضرة</span>
@@ -284,6 +281,26 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
           </div>
         </details>
       </div>
+
+      <!-- A compact course rail appears only on wide screens; the site header remains the primary global navigation. -->
+      <aside class="watch-rail hidden 2xl:flex 2xl:flex-col" aria-label="تنقّل التعلّم">
+        <a href="/" class="watch-brand flex items-center gap-2.5 rounded-xl px-2 py-3 text-ink transition hover:bg-panel">
+          <span class="grid size-9 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent ring-1 ring-accent/20">CR</span>
+          <span><span class="block text-xs font-bold">مسارات CAT</span><span class="mt-0.5 block text-[10px] text-muted">مساحة التعلّم</span></span>
+        </a>
+        <p class="mt-8 px-2 text-[10px] font-bold text-muted">التنقّل</p>
+        <nav class="mt-2 space-y-1" aria-label="أقسام مساحة التعلّم">
+          <a href="/" class="watch-rail-link"><Icon name="lucide:library" class="size-4" /><span>كل المسارات</span></a>
+          <a href={`/circles/${circle.id}/`} class="watch-rail-link"><Icon name={circleIcon(circle.id)} class="size-4" /><span class="truncate" dir="auto">صفحة المسار</span></a>
+          <a href="#watch-stage" class="watch-rail-link is-current"><Icon name="lucide:play" class="size-4" /><span>مشاهدة الدرس</span></a>
+          <a href="#content-sidebar" class="watch-rail-link"><Icon name="lucide:list-tree" class="size-4" /><span>محتوى المسار</span></a>
+        </nav>
+        <div class="mt-auto rounded-xl border border-edge/80 bg-panel/60 p-3">
+          <span class="grid size-8 place-items-center rounded-lg bg-accent/10 text-accent"><Icon name="lucide:bookmark-check" class="size-4" /></span>
+          <p class="mt-2 text-xs font-bold text-ink">تقدّمك محفوظ</p>
+          <p class="mt-1 text-[10px] leading-5 text-muted">تُحفظ الدروس المكتملة على هذا الجهاز.</p>
+        </div>
+      </aside>
     </div>
   </div>
 
@@ -417,16 +434,16 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     }
 
     function renderFacade(entry) {
-      const film = plain('div', 'flex aspect-video w-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-panel to-bg');
-      const btn = plain('button', 'grid size-20 place-items-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/40 transition hover:bg-accent/20');
+      const film = plain('div', 'flex aspect-video w-full flex-col items-center justify-center gap-4 bg-ink');
+      const btn = plain('button', 'grid size-16 place-items-center rounded-full bg-bg text-accent shadow-xl ring-1 ring-white/30 transition hover:bg-panel');
       btn.type = 'button';
       const big = svgIcon('play', 'size-9');
       if (big) btn.appendChild(big);
       btn.setAttribute('aria-label', 'شغّل الفيديو: ' + (entry.topic.title || ''));
       btn.addEventListener('click', () => startPlayback(entry));
       film.appendChild(btn);
-      film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-ink', entry.video.title || entry.topic.title || ''));
-      film.appendChild(plain('p', 'font-mono text-[10px] text-muted', 'يوتيوب · تشغيل داخل الموقع'));
+      film.appendChild(plain('p', 'max-w-lg truncate px-4 text-center text-sm font-bold text-bg', entry.video.title || entry.topic.title || ''));
+      film.appendChild(plain('p', 'font-mono text-[10px] text-bg/65', 'يوتيوب · تشغيل داخل الموقع'));
       return film;
     }
 
@@ -551,10 +568,9 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       return wrap;
     }
 
-    /** note + objectives + outbound chips rendered UNDER the stage while a video plays */
+    /** Note, objectives and source links rendered in the overview panel. */
     function renderExtras(entry) {
-      const box = plain('div', 'mt-4 rounded-2xl border border-edge bg-panel/60 p-4 space-y-2');
-      box.id = 'watch-extras';
+      const box = plain('div', 'rounded-2xl border border-edge bg-panel/60 p-4 space-y-2');
 
       if (entry.topic.note) box.appendChild(plain('p', 'text-sm leading-7 text-muted', entry.topic.note));
 
@@ -729,9 +745,9 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
       setCurrentRow(currentKey);
 
-      // extras + language switcher live right after the stage: rebuilt every render so they never duplicate
-      const oldExtras = document.getElementById('watch-extras');
-      if (oldExtras) oldExtras.remove();
+      // Rebuild the overview and language controls for the selected lesson.
+      const extrasEl = document.getElementById('watch-extras');
+      extrasEl?.replaceChildren();
       const oldLangBar = document.getElementById('watch-lang');
       if (oldLangBar) oldLangBar.remove();
       if (stage) delete stage.dataset.playing;
@@ -742,7 +758,9 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         if (hasVideo) {
           stage.replaceChildren(renderFacade(entry));
           const extras = renderExtras(entry);
-          if (extras) stage.insertAdjacentElement('afterend', extras);
+          if (extras && (entry.topic.note || entry.module.objectives?.length || entry.topic.resources.some((r) => !isEmbeddableResource(r)))) {
+            extrasEl?.appendChild(extras);
+          }
           const langBar = renderLanguageSwitch(entry);
           if (langBar) stage.insertAdjacentElement('afterend', langBar);
         } else {
@@ -788,7 +806,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       box.appendChild(plain('p', 'font-bold text-ink', 'تعليقات GitHub (giscus) محتاجة خطوة إعداد لمرة واحدة:'));
       const list = plain('ol', 'list-decimal space-y-1 ps-5');
       for (const step of [
-        'فعّل Discussions في مستودع ' + (giscusConfig?.repo || 'المشروع') + ' من Settings → General → Features.',
+        'فعّل Discussions في مستودع ' + (giscusConfig?.repo || 'المشروع') + ' من الإعدادات، ثم General، ثم Features.',
         'ثبّت التطبيق github.com/apps/giscus على المستودع.',
         'افتح giscus.app واكتب اسم المستودع، ثم انسخ قيمة data-category-id للتصنيف الذي تختاره وضَعها في giscusConfig.categoryId داخل src/pages/start-[id].astro.',
       ]) {
@@ -911,9 +929,96 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       belowLg.addEventListener('change', onBreakpoint);
       onBreakpoint();
     }
+
+    const lessonTabs = Array.from(document.querySelectorAll('.watch-tab'));
+    for (const tab of lessonTabs) {
+      tab.addEventListener('click', () => {
+        lessonTabs.forEach((item) => item.classList.toggle('is-active', item === tab));
+        if (tab.hasAttribute('data-open-comments')) {
+          const comments = document.getElementById('watch-comments');
+          if (comments instanceof HTMLDetailsElement) comments.open = true;
+        }
+      });
+    }
   </script>
 
   <style>
+    .watch-page {
+      --watch-radius: 1rem;
+    }
+    .watch-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 0;
+      overflow: hidden;
+      padding-block: 1rem 0.3rem;
+      font-size: 0.7rem;
+    }
+    .watch-grid {
+      align-items: start;
+      direction: rtl;
+    }
+    .watch-rail {
+      position: sticky;
+      top: 4.5rem;
+      min-height: calc(100dvh - 5.5rem);
+      padding-inline-start: 0.35rem;
+    }
+    .watch-rail-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-height: 2.65rem;
+      padding-inline: 0.65rem;
+      border-radius: 0.7rem;
+      color: var(--color-muted);
+      font-size: 0.7rem;
+      transition: color 150ms, background-color 150ms;
+    }
+    .watch-rail-link:hover {
+      color: var(--color-ink);
+      background: color-mix(in oklab, var(--color-panel) 72%, transparent);
+    }
+    .watch-rail-link.is-current {
+      color: var(--color-accent);
+      background: color-mix(in oklab, var(--color-accent) 9%, var(--color-panel));
+      font-weight: 700;
+    }
+    .watch-tab {
+      position: relative;
+      display: inline-flex;
+      min-height: 2.65rem;
+      align-items: center;
+      padding-inline: 0.9rem;
+      color: var(--color-muted);
+      font-size: 0.75rem;
+      transition: color 150ms;
+    }
+    .watch-tab:hover,
+    .watch-tab.is-active {
+      color: var(--color-accent);
+    }
+    .watch-tab.is-active::after {
+      position: absolute;
+      inset-inline: 0.65rem;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: var(--color-accent);
+      content: '';
+    }
+    .watch-overview {
+      scroll-margin-top: 5rem;
+    }
+    @media (max-width: 639px) {
+      .watch-heading { padding-block-start: 0.75rem; }
+      .watch-titlebar { align-items: flex-start; }
+      .watch-titlebar h1 { font-size: 1.1rem; }
+      .watch-progress { font-size: 0.7rem; }
+      .watch-stage { border-radius: 0.8rem; }
+    }
+
     /* نقطة الإنجاز الدائرية (من «مسار تعلّم تفاعلي ٢»): مفرّغة افتراضيًا،
        تمتلئ بالأزرق الحبري مع صح أبيض بعد إتمام المحاضرة أو المقالة،
        والدرس الحالي نقطته بإطار وهالة — النص وحده يخفّت عند الإنجاز. */
