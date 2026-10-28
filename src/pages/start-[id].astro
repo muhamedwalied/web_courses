@@ -132,8 +132,8 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
         <div class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto pe-1">
           {circle.levels.map((level, levelIndex) => (
-            <details class="level-acc group/level" data-level={level.id} open={levelIndex === 0}>
-              <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border border-edge bg-bg/40 px-3 py-2.5 transition hover:bg-panel/60 [&::-webkit-details-marker]:hidden">
+            <details class="level-acc group/level overflow-hidden rounded-2xl border border-edge bg-bg/70 p-1" data-level={level.id} open={levelIndex === 0}>
+              <summary class="flex w-full cursor-pointer list-none items-center justify-between rounded-xl border-0 bg-transparent px-3 py-3 transition hover:bg-panel/70 [&::-webkit-details-marker]:hidden">
                 <span class="flex items-center gap-2">
                   <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted transition group-open/level:rotate-180" />
                   <span dir="auto" class="text-sm font-bold text-ink">{level.name}</span>
@@ -148,10 +148,10 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                 </span>
               </summary>
 
-              <div class="mt-3 space-y-3 pb-2">
+              <div class="level-children mt-3 space-y-3 pb-2">
                 {toModules(level).map((module, moduleIndex) => (
                   <details
-                    class="module-acc group/module overflow-hidden rounded-xl border border-edge/80 bg-bg/40"
+                    class="module-acc group/module overflow-hidden rounded-xl border border-edge/80 bg-panel/80"
                     data-module={module.id}
                     open={levelIndex === 0 && moduleIndex === 0}
                   >
@@ -966,6 +966,14 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     .watch-grid {
       align-items: start;
       direction: rtl;
+    }
+    .level-acc {
+      background: color-mix(in oklab, var(--color-bg) 78%, var(--color-panel));
+    }
+    .level-children {
+      margin-inline-start: 0.35rem;
+      padding-inline-start: 0.7rem;
+      border-inline-start: 2px solid color-mix(in oklab, var(--color-accent) 28%, var(--color-edge));
     }
     .watch-rail {
       position: sticky;
