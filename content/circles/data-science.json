@@ -2,15 +2,1098 @@
   "$schema": "../circles.schema.json",
   "id": "data-science",
   "name": "علم البيانات",
-  "tagline": "تحليل البيانات وتعلّم الآلة",
-  "description": "يجمع علم البيانات بين البرمجة والإحصاء وتحليل البيانات لاستخلاص نتائج تساعد على فهم المشكلات واتخاذ قرارات أفضل.",
+  "tagline": "من تحليل البيانات إلى التعلّم العميق والذكاء الاصطناعي التوليدي",
+  "description": "مسار متعدد التخصصات يبدأ بثقافة البيانات والإحصاء وPython، ثم ينتقل إلى تحليل البيانات وتنظيفها وعرضها، فالتعلّم الآلي والرياضيات، وصولًا إلى التعلّم العميق ومعالجة اللغة الطبيعية والنماذج اللغوية الكبيرة. يتضمن مصادر عربية وإنجليزية، وبعض دورات DataCamp تتطلب اشتراكًا.",
   "color": "#fb923c",
   "icon": "📊",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "Data Science/"
+    "Data Science/README.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Data%20Science",
-  "levels": []
+  "levels": [
+    {
+      "id": "entry",
+      "name": "المدخل والأساسيات",
+      "order": 0,
+      "goal": "افهم مجال علم البيانات ومحو أمية البيانات، وابدأ بالإحصاء وPython والبرمجة كائنية التوجه.",
+      "modules": [
+        {
+          "id": "data-literacy-and-introduction",
+          "name": "محو أمية البيانات ومدخل إلى علم البيانات",
+          "order": 0,
+          "objectives": [
+            "تعلّم قراءة البيانات وفهمها، وتعرّف على دور عالم البيانات والاختلاف بين المسميات المهنية القريبة."
+          ],
+          "practice": [
+            "أكمل دورة محو أمية البيانات ومدخل علم البيانات، ثم أجب عن اختبار قصير."
+          ],
+          "topics": [
+            {
+              "id": "data-literacy",
+              "title": "محو أمية البيانات وفهم مجال علم البيانات",
+              "resources": [
+                {
+                  "title": "مقدمة إلى محو أمية البيانات — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-data-literacy",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "فهم علم البيانات — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/understanding-data-science",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "محو أمية البيانات — جامعة ولاية أريزونا",
+                  "url": "https://www.youtube.com/playlist?list=PLNrrxHpJhC8m_ifiOWl1hquDmdgvcviOt",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "محو أمية البيانات — مصطفى عثمان",
+                  "url": "https://youtube.com/playlist?list=PLWd4nYaF_Vx65cPZF_I2OpWERatzh5Gdj&si=s6bu10dbeW1aGXly",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "الفروق بين المسميات المهنية في البيانات — شرح بالعربية",
+                  "url": "https://www.youtube.com/watch?v=3Y8j11j6su8",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "statistics-foundations",
+          "name": "أساسيات الإحصاء والاحتمالات",
+          "order": 1,
+          "objectives": [
+            "ابنِ أساسًا في الإحصاء والاحتمالات يمهّد لتحليل البيانات والتعلّم الآلي."
+          ],
+          "practice": [
+            "أكمل مقدمة الإحصاء ثم حل اختبارًا قصيرًا."
+          ],
+          "topics": [
+            {
+              "id": "statistics-intro",
+              "title": "مدخل إلى الإحصاء والاحتمالات",
+              "resources": [
+                {
+                  "title": "مقدمة إلى الإحصاء — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-statistics",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "أساسيات الإحصاء — StatQuest",
+                  "url": "https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "الاحتمالات والإحصاء — دورة عربية",
+                  "url": "https://www.youtube.com/playlist?list=PLJM7jJIw2GC2Ihr__bRSeMxzsiFMZEsx7",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "الإحصاء لعلم البيانات والذكاء الاصطناعي — دورة عربية",
+                  "url": "https://unihance.com/Course/8030-5/%D8%B9%D9%84%D9%85-%D8%A7%D9%84%D8%A5%D8%AD%D8%B5%D8%A7%D8%A1-%D9%84%D8%BA%D8%A7%D9%8A%D8%A7%D8%AA-%D8%B9%D9%84%D9%85-%D8%A7%D9%84%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA-%D9%88%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1-%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A",
+                  "kind": "other",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "python-and-oop",
+          "name": "أساسيات Python والبرمجة كائنية التوجه",
+          "order": 2,
+          "objectives": [
+            "تعلّم أساسيات Python وحل المشكلات، ثم طبّق مفاهيم البرمجة كائنية التوجه."
+          ],
+          "practice": [
+            "حل تمارين Python، ثم أنشئ مشروعًا ختاميًا وقدّمه."
+          ],
+          "topics": [
+            {
+              "id": "python-basics",
+              "title": "أساسيات البرمجة بلغة Python",
+              "resources": [
+                {
+                  "title": "مقدمة إلى Python — Udacity",
+                  "url": "https://www.udacity.com/course/introduction-to-python--ud1110",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "إتقان Python — أسامة الزيرو",
+                  "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&si=yWsnLKcsYqGcI0B4",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة Python كاملة — freeCodeCamp",
+                  "url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "python-oop",
+              "title": "البرمجة كائنية التوجه باستخدام Python",
+              "resources": [
+                {
+                  "title": "البرمجة كائنية التوجه في Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/object-oriented-programming-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح البرمجة كائنية التوجه في Python — Codezilla",
+                  "url": "https://youtube.com/playlist?list=PLuXY3ddo_8nzUrgCyaX_WEIJljx_We-c1&si=n6ZW2Dok_a4FueiG",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "data-toolkit",
+      "name": "أدوات تحليل البيانات وعرضها",
+      "order": 1,
+      "goal": "استخدم مكتبات Python لمعالجة البيانات وعرضها، واستكشف Power BI وإدارة إصدارات المشروعات.",
+      "modules": [
+        {
+          "id": "numpy-and-pandas",
+          "name": "معالجة البيانات باستخدام NumPy وPandas",
+          "order": 0,
+          "objectives": [
+            "تعلّم التعامل مع المصفوفات والبيانات الجدولية باستخدام NumPy وPandas."
+          ],
+          "practice": [
+            "حل دفتر تمارين NumPy ودفتر تمارين Pandas من المصدر."
+          ],
+          "topics": [
+            {
+              "id": "numpy",
+              "title": "الحسابات والمصفوفات باستخدام NumPy",
+              "resources": [
+                {
+                  "title": "شرح NumPy — Keith Galli",
+                  "url": "https://youtu.be/GB9ByFAIAH4?si=APzRNNBbFusUagYp",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح NumPy — أسامة الزيرو",
+                  "url": "https://www.youtube.com/playlist?list=PLUgz8T_NoatsJCH-DmieQhqhSL2WBvlm-",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دفتر تمارين NumPy",
+                  "url": "https://drive.google.com/file/d/1IRzTGmUCzz3GJyxAIWAAsykXk_95l5ht/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "pandas",
+              "title": "تحليل البيانات الجدولية باستخدام Pandas",
+              "resources": [
+                {
+                  "title": "شرح Pandas — Corey Schafer",
+                  "url": "https://youtube.com/playlist?list=PL-osiE80TeTsWmV9i9c58mdDCSskIFdDS&si=ln9NvKCM064QT2hR",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "تحليل البيانات باستخدام Pandas — Data School",
+                  "url": "https://youtube.com/playlist?list=PL5-da3qGB5ICCsgW1MxlZ0Hq8LL5U3u9y&si=BuVDzp2CSsyx-FPh",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "التعامل مع البيانات باستخدام Pandas — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/data-manipulation-with-pandas",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح Pandas — هشام عاصم، من الفيديو 54 إلى 65",
+                  "url": "https://youtube.com/playlist?list=PL6-3IRz2XF5UM-FWfQeF1_YhMMa12Eg3s&si=qR-fuUZfKjCjs7Ic",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دفتر تمارين Pandas",
+                  "url": "https://drive.google.com/drive/folders/1ES61cauS4qbT-KuC-BabBYv3wBYZ4KAf?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "data-visualization",
+          "name": "تصوير البيانات باستخدام Matplotlib وSeaborn",
+          "order": 1,
+          "objectives": [
+            "اعرض البيانات بصريًا باستخدام Matplotlib وSeaborn، ووثّق استنتاجاتك في دفتر عمل."
+          ],
+          "practice": [
+            "أنشئ تصورات بيانية باستخدام مجموعة بيانات الأفلام ودوّن ما تعلّمته."
+          ],
+          "topics": [
+            {
+              "id": "matplotlib",
+              "title": "تصوير البيانات باستخدام Matplotlib",
+              "resources": [
+                {
+                  "title": "فهم تصوير البيانات — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/understanding-data-visualization",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح Matplotlib — Corey Schafer",
+                  "url": "https://youtube.com/playlist?list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_&si=I3gLknPrRuBYvuIo",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دفتر تمارين تصوير البيانات ومجموعة الأفلام",
+                  "url": "https://colab.research.google.com/drive/1PApywZw8dVapY25hvcmHVArfdW-rmNSB?usp=sharing",
+                  "kind": "interactive",
+                  "lang": "en",
+                  "note": "استخدم مجموعة البيانات المرتبطة من Kaggle في التصورات."
+                },
+                {
+                  "title": "مجموعة بيانات الأفلام — CAT Reloaded على Kaggle",
+                  "url": "https://www.kaggle.com/datasets/cat-reloaded-data-science/movies?authuser=0",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "seaborn",
+              "title": "تصوير البيانات باستخدام Seaborn",
+              "resources": [
+                {
+                  "title": "مقدمة إلى Seaborn — Kimberly Fessel",
+                  "url": "https://youtube.com/playlist?list=PLtPIclEQf-3cG31dxSMZ8KTcDG7zYng1j&si=a9PhU5bC9UIWyLTX",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقدمة إلى تصوير البيانات باستخدام Seaborn — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-data-visualization-with-seaborn",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "تصوير البيانات المتقدم باستخدام Seaborn — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/intermediate-data-visualization-with-seaborn",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "power-bi",
+          "name": "تحليل البيانات باستخدام Power BI",
+          "order": 2,
+          "objectives": [
+            "تعلّم أساسيات Power BI وابنِ لوحة معلومات تفاعلية."
+          ],
+          "practice": [
+            "أنشئ لوحة معلومات باستخدام Power BI."
+          ],
+          "topics": [
+            {
+              "id": "power-bi-dashboard",
+              "title": "إنشاء لوحات المعلومات باستخدام Power BI",
+              "resources": [
+                {
+                  "title": "شرح Power BI — Alex The Analyst",
+                  "url": "https://www.youtube.com/playlist?list=PLUaB-1hjhk8HqnmK0gQhfmIdCbxwoAoys",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقدمة إلى Power BI — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-power-bi",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح Power BI بالعربية — محمد زنون",
+                  "url": "https://youtube.com/playlist?list=PL69umUTzySPGWMxnmhX9SV5PIEbdnHv63&si=6GUwZfLbnMC3E6_C",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "git-github",
+          "name": "إدارة الإصدارات باستخدام Git وGitHub",
+          "order": 3,
+          "objectives": [
+            "تعلّم أساسيات إدارة إصدارات مشروعات تحليل البيانات ومشاركتها."
+          ],
+          "practice": [
+            "أكمل أحد المصادر ثم أجب عن اختبار قصير."
+          ],
+          "topics": [
+            {
+              "id": "version-control",
+              "title": "أساسيات Git وGitHub",
+              "resources": [
+                {
+                  "title": "شرح Git وGitHub — The Net Ninja",
+                  "url": "https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح Git وGitHub — أسامة الزيرو",
+                  "url": "https://youtube.com/playlist?list=PLDoPjvoNmBAw4eOj58MZPakHjaO3frVMF&si=d5G5A-xQhcNtI-qG",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة Git وGitHub — أحمد فتحي",
+                  "url": "https://almdrasa.com/tracks/programming-foundations/courses/git-github/",
+                  "kind": "other",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "data-preparation",
+      "name": "إعداد البيانات وتحليلها",
+      "order": 2,
+      "goal": "نظّف البيانات وجهّز السمات للاستفادة منها، واستكشفها باستخدام التحليل الاستكشافي والاستعلامات وجمع البيانات من الويب.",
+      "modules": [
+        {
+          "id": "data-cleaning-eda",
+          "name": "تنظيف البيانات وهندسة السمات والتحليل الاستكشافي",
+          "order": 0,
+          "objectives": [
+            "عالج القيم والمشكلات في البيانات، وأنشئ سمات مناسبة، ثم استكشف الأنماط والاتجاهات في البيانات."
+          ],
+          "practice": [
+            "طبّق تنظيف البيانات وهندسة السمات والتحليل الاستكشافي على دفاتر التمارين ومجموعات البيانات المرتبطة."
+          ],
+          "topics": [
+            {
+              "id": "data-cleaning",
+              "title": "تنظيف البيانات باستخدام Python",
+              "resources": [
+                {
+                  "title": "تنظيف البيانات باستخدام Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/cleaning-data-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "دليل تنظيف البيانات — Kaggle Learn",
+                  "url": "https://www.kaggle.com/learn/data-cleaning",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دفتر تمارين تنظيف البيانات ومجموعة Candy",
+                  "url": "https://drive.google.com/drive/folders/1Nxi3h7cxIFDJ1Zr8LajnHYDA2cuLDAK2?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "feature-engineering",
+              "title": "هندسة السمات للتعلّم الآلي",
+              "resources": [
+                {
+                  "title": "هندسة السمات باستخدام Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/feature-engineering-for-machine-learning-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "دفتر تمارين هندسة السمات والتحليل الاستكشافي",
+                  "url": "https://drive.google.com/drive/folders/1PFKCoQA2jak1RTYcsQRg7hYSN_BlHJB4",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "exploratory-data-analysis",
+              "title": "التحليل الاستكشافي للبيانات",
+              "resources": [
+                {
+                  "title": "التحليل الاستكشافي للبيانات باستخدام Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/exploratory-data-analysis-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح التحليل الاستكشافي للبيانات باستخدام Python — Simplilearn",
+                  "url": "https://www.youtube.com/watch?v=MoM6mighOJM",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دفتر تمارين هندسة السمات والتحليل الاستكشافي",
+                  "url": "https://drive.google.com/drive/folders/1PFKCoQA2jak1RTYcsQRg7hYSN_BlHJB4",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "web-scraping",
+          "name": "جمع البيانات من الويب",
+          "order": 1,
+          "objectives": [
+            "تعرّف على استخراج البيانات من صفحات الويب باستخدام Python وأدوات مثل Scrapy."
+          ],
+          "practice": [
+            "تدرّب على استخراج البيانات من موقع مخصص للتجربة."
+          ],
+          "topics": [
+            {
+              "id": "web-scraping-python",
+              "title": "استخراج البيانات من الويب باستخدام Python",
+              "resources": [
+                {
+                  "title": "استخراج البيانات من الويب باستخدام Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/web-scraping-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "شرح استخراج البيانات من الويب باستخدام Python — Codezilla",
+                  "url": "https://www.youtube.com/watch?v=q0ert5YP968",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة Scrapy — freeCodeCamp",
+                  "url": "https://youtu.be/mBoX_JCKZTE?si=kUL590DAPkYgLT2N",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "موقع تجريبي للتدرّب على استخراج البيانات",
+                  "url": "https://sandbox.oxylabs.io/products",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "sql",
+          "name": "الاستعلامات باستخدام SQL",
+          "order": 2,
+          "objectives": [
+            "تعلّم أساسيات SQL لتحليل البيانات والاستعلام عن قواعد البيانات."
+          ],
+          "practice": [
+            "حل مسائل تدريبية في SQL بعد إكمال أحد المسارات."
+          ],
+          "topics": [
+            {
+              "id": "sql-for-data-analysis",
+              "title": "أساسيات SQL وتحليل البيانات",
+              "resources": [
+                {
+                  "title": "مسار أساسيات SQL — DataCamp",
+                  "url": "https://app.datacamp.com/learn/skill-tracks/sql-fundamentals",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "CS50: مقدمة إلى قواعد البيانات باستخدام SQL — Harvard",
+                  "url": "https://cs50.harvard.edu/sql/2024/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "SQL لتحليل البيانات — Udacity",
+                  "url": "https://www.udacity.com/course/sql-for-data-analysis--ud198",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "SQL لتحليل البيانات — شرح عربي من Big Data",
+                  "url": "https://www.youtube.com/watch?v=kb-_GbpH3sQ",
+                  "kind": "video",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "machine-learning",
+      "name": "الرياضيات والتعلّم الآلي",
+      "order": 3,
+      "goal": "ابنِ الأساس الرياضي للتعلّم الآلي، ثم ادرس خوارزميات التعلّم الخاضع للإشراف وغير الخاضع له وتقييم النماذج.",
+      "modules": [
+        {
+          "id": "mathematics-for-ml",
+          "name": "الرياضيات اللازمة للتعلّم الآلي",
+          "order": 0,
+          "objectives": [
+            "راجع الجبر الخطي والتفاضل متعدد المتغيرات، وطبّق التمارين والاختبارات المرفقة."
+          ],
+          "practice": [
+            "أكمل التمارين والاختبارات المرفقة مع مقرري الجبر الخطي والتفاضل متعدد المتغيرات."
+          ],
+          "topics": [
+            {
+              "id": "linear-algebra",
+              "title": "الجبر الخطي",
+              "resources": [
+                {
+                  "title": "الجبر الخطي للتعلّم الآلي — Imperial College London",
+                  "url": "https://www.coursera.org/learn/linear-algebra-machine-learning?specialization=mathematics-machine-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "جوهر الجبر الخطي — 3Blue1Brown",
+                  "url": "https://www.3blue1brown.com/topics/linear-algebra",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "الجبر الخطي — Khan Academy",
+                  "url": "https://www.khanacademy.org/math/linear-algebra",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة الجبر الخطي بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PLJM7jJIw2GC1YBTTSGbFIlBxzY1aUmmJQ",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "اختبار وتمارين الجبر الخطي",
+                  "url": "https://forms.gle/Wc2FN1sCvxutkL7V6",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "multivariate-calculus",
+              "title": "التفاضل متعدد المتغيرات",
+              "resources": [
+                {
+                  "title": "التفاضل متعدد المتغيرات للتعلّم الآلي — Imperial College London",
+                  "url": "https://www.coursera.org/learn/multivariate-calculus-machine-learning?specialization=mathematics-machine-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "جوهر التفاضل — 3Blue1Brown",
+                  "url": "https://www.3blue1brown.com/topics/calculus",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "التفاضل متعدد المتغيرات — Khan Academy",
+                  "url": "https://www.khanacademy.org/math/multivariable-calculus",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "اختبار ودفتر تمارين التفاضل متعدد المتغيرات",
+                  "url": "https://colab.research.google.com/drive/1j_bOiw022XFXyoSRvi6ju0dF7B0OQHXn?usp=sharing",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "machine-learning-fundamentals",
+          "name": "أساسيات التعلّم الآلي",
+          "order": 1,
+          "practice": [
+            "لخّص فصول الكتاب وطبّق ما تعلّمته على مجموعة بيانات تختارها."
+          ],
+          "objectives": [
+            "تعرّف على مفاهيم التعلّم الآلي، ثم ادرس التعلّم الخاضع للإشراف وغير الخاضع له والتعلّم المعزّز والتجميعي."
+          ],
+          "practice": [
+            "حل دفاتر تمارين النماذج الخاضعة للإشراف وطبّق الخوارزميات على مجموعات بيانات."
+          ],
+          "topics": [
+            {
+              "id": "ml-overview",
+              "title": "مقدمة إلى التعلّم الآلي",
+              "resources": [
+                {
+                  "title": "التعلّم الآلي — StatQuest",
+                  "url": "https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "التعلّم الآلي — Data School",
+                  "url": "https://www.youtube.com/playlist?list=PL5-da3qGB5ICeMbQuqbbCOQWcS6OYBr5A",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "التعلّم الآلي باللغة العربية",
+                  "url": "https://www.youtube.com/playlist?list=PLtsZ69x5q-X9j44MdSX-NGuOhGXOY0aqH",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "التعلّم الآلي باستخدام Python — Sentdex",
+                  "url": "https://www.youtube.com/playlist?list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "note": "المصدر يضع هذه المراجع العامة كمواد مساندة تُدرس بالتوازي مع بقية موضوعات المرحلة.",
+              "optional": false
+            },
+            {
+              "id": "supervised-learning",
+              "title": "التعلّم الخاضع للإشراف وتقييم النماذج",
+              "resources": [
+                {
+                  "title": "التعلّم الآلي — Andrew Ng على Coursera",
+                  "url": "https://www.coursera.org/learn/machine-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "التعلّم الخاضع للإشراف باستخدام Scikit-Learn — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/supervised-learning-with-scikit-learn",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "دفاتر تمارين التعلّم الخاضع للإشراف والبيانات المرتبطة",
+                  "url": "https://drive.google.com/file/d/1e_MAU0DX5CKnftyqsbr5Sh83OsIhxF18/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "دفتر تمارين إضافي — الأسبوع الثالث",
+                  "url": "https://drive.google.com/file/d/1GZiVMo2bBkSyveZDTPvbvwnuRsWXortF/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "unsupervised-reinforcement-ensemble",
+              "title": "التعلّم غير الخاضع للإشراف والتعلّم المعزّز والتجميعي",
+              "resources": [
+                {
+                  "title": "التعلّم غير الخاضع للإشراف باستخدام Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/unsupervised-learning-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "التعلّم غير الخاضع للإشراف والتوصية والتعلّم المعزّز — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/unsupervised-learning-recommenders-reinforcement-learning?specialization=machine-learning-introduction",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "نماذج الأشجار والتعلّم التجميعي — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/machine-learning-with-tree-based-models-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "الخوارزميات المتقدمة للتعلّم — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/advanced-learning-algorithms?specialization=machine-learning-introduction",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "ml-book-and-projects",
+              "title": "التعلّم الآلي التطبيقي ومشروعاته",
+              "resources": [
+                {
+                  "title": "Hands-On Machine Learning — الإصدار الثالث",
+                  "url": "https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/",
+                  "kind": "book",
+                  "lang": "en",
+                  "note": "يوصي المصدر بدراسة الفصول حتى الفصل التاسع."
+                },
+                {
+                  "title": "دفاتر تمارين الفصول وبيانات CAT Reloaded",
+                  "url": "https://drive.google.com/drive/folders/1KNwUR9TcP3XPaiuXuleGgMXr0xYlPVCf?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "مجموعات بيانات CAT Reloaded على Kaggle",
+                  "url": "https://www.kaggle.com/organizations/cat-reloaded-data-science/datasets",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "apis-model-serving",
+              "title": "استخدام واجهات API مع تطبيقات Python",
+              "resources": [
+                {
+                  "title": "مقدمة إلى واجهات API في Python — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-apis-in-python",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                },
+                {
+                  "title": "مقدمة إلى FastAPI — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-fastapi",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                }
+              ],
+              "practice": [
+                "تدرّب على إتاحة نموذج تعلّم آلي عبر واجهة API."
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "deep-learning-and-nlp",
+      "name": "التعلّم العميق ومعالجة اللغة الطبيعية",
+      "order": 4,
+      "goal": "تعلّم الشبكات العصبية وأطر التعلّم العميق، ثم استكشف Transformers وLLMs وتطبيقات معالجة اللغة الطبيعية.",
+      "modules": [
+        {
+          "id": "deep-learning",
+          "name": "أساسيات التعلّم العميق وPyTorch",
+          "order": 0,
+          "objectives": [
+            "افهم الشبكات العصبية والتحسين والشبكات الالتفافية والمتكررة، وطبّقها باستخدام PyTorch."
+          ],
+          "practice": [
+            "طبّق نموذجًا على مجموعة بيانات، وتدرّب على تحميل البيانات وبناء نموذج تصنيف صور أو استخدام التعلّم بالنقل."
+          ],
+          "topics": [
+            {
+              "id": "neural-networks",
+              "title": "الشبكات العصبية وبناء نموذج من الصفر",
+              "resources": [
+                {
+                  "title": "الشبكات العصبية والتعلّم العميق — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/neural-networks-deep-learning?specialization=deep-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "بناء شبكة عصبية من الصفر — Andrej Karpathy",
+                  "url": "https://youtu.be/VMj-3S1tku0?si=xN0gneCmzYAOewI9",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "الشبكات العصبية — 3Blue1Brown",
+                  "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "التعلّم العميق — دورة هشام عاصم بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PL6-3IRz2XF5X-lzMZdmkvGAx1a3kIm7_I",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "optimizers-pytorch",
+              "title": "تحسين الشبكات العصبية والتطبيق باستخدام PyTorch",
+              "resources": [
+                {
+                  "title": "تحسين الشبكات العصبية العميقة — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/deep-neural-network?specialization=deep-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "دروس PyTorch العملية",
+                  "url": "https://youtube.com/playlist?list=PLqnslRFeH2UrcDBWF5mfPGpqQDSta6VK4&si=xDzbDOZZrradFBB6",
+                  "kind": "playlist",
+                  "lang": "en",
+                  "note": "يوصي المصدر بمشاهدة أول ثمانية فيديوهات، ثم متابعة الفيديوهات من التاسع إلى الثالث عشر في موضوعات لاحقة."
+                },
+                {
+                  "title": "تطبيق عملي على PyTorch — أحمد هاني",
+                  "url": "https://drive.google.com/drive/folders/1oT8unPa8MlcKSoXG8f5MokcHkLzmOQJr?usp=drive_link",
+                  "kind": "other",
+                  "lang": "ar"
+                },
+                {
+                  "title": "مقدمة إلى التعلّم العميق باستخدام PyTorch — DataCamp",
+                  "url": "https://app.datacamp.com/learn/courses/introduction-to-deep-learning-with-pytorch",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "يتطلب اشتراكًا في DataCamp."
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "cnn-rnn-transfer-learning",
+              "title": "الشبكات الالتفافية والمتكررة والتعلّم بالنقل",
+              "resources": [
+                {
+                  "title": "الشبكات الالتفافية — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "تصنيف الصور باستخدام PyTorch — خالد الهادي",
+                  "url": "https://www.youtube.com/watch?v=ITcBQy5pSWc",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "التعلّم بالنقل باستخدام PyTorch — خالد الهادي",
+                  "url": "https://www.youtube.com/watch?v=X3XR7rV6WkI",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "نماذج التسلسل — Andrew Ng",
+                  "url": "https://www.coursera.org/learn/nlp-sequence-models?specialization=deep-learning",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "معالجة اللغة الطبيعية — دورة ITI بالعربية",
+                  "url": "https://www.youtube.com/playlist?list=PLXNX_u2iEV4rw0caSVOALP2FBSEBZQ5Kn",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "transformers-and-llms",
+          "name": "Transformers والنماذج اللغوية الكبيرة",
+          "order": 1,
+          "objectives": [
+            "اقرأ الورقة البحثية المؤسسة لـ Transformers، وابنِ نموذجًا مبسطًا، ثم تعرّف على بنية النماذج اللغوية الكبيرة وأدواتها."
+          ],
+          "practice": [
+            "نفّذ نموذج Transformer وGPT من الصفر باتباع المشروعات المرئية، ثم طبّق مكتبات Hugging Face في مشروع لمعالجة اللغة."
+          ],
+          "topics": [
+            {
+              "id": "transformers",
+              "title": "معمارية Transformers",
+              "resources": [
+                {
+                  "title": "الورقة البحثية Attention Is All You Need",
+                  "url": "https://arxiv.org/abs/1706.03762",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح ورقة Attention Is All You Need",
+                  "url": "https://www.youtube.com/watch?v=iDulhoQ2pro",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "برمجة Transformer من الصفر باستخدام PyTorch — Umar Jamil",
+                  "url": "https://www.youtube.com/watch?v=ISNdQcPhsts",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "id": "large-language-models",
+              "title": "النماذج اللغوية الكبيرة وتطبيقاتها",
+              "resources": [
+                {
+                  "title": "محوّلات Decoder-Only — StatQuest",
+                  "url": "https://youtu.be/bQ5BoolX9Ag?si=fVcd7Jf9X0ehPnD2",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "الذكاء الاصطناعي التوليدي باستخدام LLMs — Coursera",
+                  "url": "https://www.coursera.org/learn/generative-ai-with-llms",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "بناء GPT من الصفر — Andrej Karpathy",
+                  "url": "https://www.youtube.com/watch?v=kCc8FmEb1nY",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة معالجة اللغة الطبيعية — Hugging Face",
+                  "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "أساسيات النماذج اللغوية الكبيرة — Full Stack Deep Learning",
+                  "url": "https://fullstackdeeplearning.com/llm-bootcamp/spring-2023/llm-foundations/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "nlp-specialization",
+          "name": "تطبيقات معالجة اللغة الطبيعية وRAG",
+          "order": 2,
+          "objectives": [
+            "استكشف تطبيقات معالجة اللغة الطبيعية مثل RAG، وتعرّف على أدوات LangChain وLangGraph."
+          ],
+          "practice": [
+            "أنشئ مشروعًا لمعالجة اللغة باستخدام الأدوات والمكتبات التي درستها."
+          ],
+          "topics": [
+            {
+              "id": "rag-langchain-langgraph",
+              "title": "تطبيقات RAG باستخدام LangChain وLangGraph",
+              "resources": [
+                {
+                  "title": "دليل LangChain الرسمي",
+                  "url": "https://python.langchain.com/docs/introduction/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دروس LangGraph الرسمية",
+                  "url": "https://langchain-ai.github.io/langgraph/tutorials/introduction/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة تطبيقات معالجة اللغة — أبو بكر سليمان",
+                  "url": "https://youtube.com/playlist?list=PLvLvlVqNQGHCUR2p0b8a0QpVjDUg50wQj&si=10vb66GBnKLErwWl",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    }
+  ]
 }
