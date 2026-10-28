@@ -2,15 +2,264 @@
   "$schema": "../circles.schema.json",
   "id": "cybersecurity",
   "name": "الأمن السيبراني",
-  "tagline": "الأمن السيبراني من الأساسيات إلى مركز العمليات الأمنية",
-  "description": "تعرّف على الأمن السيبراني وطرق حماية الأنظمة والبيانات من الهجمات الرقمية. يبدأ المسار بالمفاهيم الأساسية، ثم ينتقل إلى مجالات الدفاع والتحليل الأمني.",
+  "tagline": "ابدأ بالأساسيات، ثم اختر مجال الأمن الذي يناسبك",
+  "description": "مسار تمهيدي يعرّفك بمجالات الأمن السيبراني، ثم يساعدك على بناء أساس في Linux والشبكات والبرمجة ومفاهيم التشفير. بعد ذلك تختار تخصصًا مثل اختبار اختراق الويب أو الشبكات، أو الهندسة العكسية وتحليل البرمجيات الخبيثة، أو أمن الشبكات، أو SOC والاستجابة للحوادث والتحليل الجنائي الرقمي.",
   "color": "#f87171",
   "icon": "🔐",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "CyberSecurity/"
+    "CyberSecurity/README.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/CyberSecurity",
-  "levels": []
+  "levels": [
+    {
+      "id": "entry-level",
+      "name": "المرحلة التمهيدية والأساسيات",
+      "order": 0,
+      "goal": "تعرّف على مجالات الأمن السيبراني، وابنِ قاعدة من المهارات التي تحتاجها قبل اختيار التخصص.",
+      "modules": [
+        {
+          "id": "cybersecurity-overview",
+          "name": "مقدمة إلى الأمن السيبراني ومجالاته",
+          "order": 0,
+          "objectives": [
+            "افهم دور الأمن السيبراني في حماية الأنظمة والبيانات، وتعرّف على المجالات المهنية المختلفة.",
+            "استكشف الفروع قبل اختيار المسار الأقرب لاهتماماتك."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "security-fields",
+              "title": "التعرّف على مجالات الأمن السيبراني",
+              "resources": [
+                {
+                  "title": "So You Wanna Do Security? — استكشاف مجال الأمن",
+                  "url": "https://youtu.be/i8rizLc4hc0",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "يوم في حياة مختص بالأمن السيبراني",
+                  "url": "https://www.youtube.com/watch?v=ompZWkWsn9A&list=PLv7cogHXoVhXIg4R6-eyws4isM2-sh2St",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "note": "لا يوجد تخصص واحد مناسب للجميع؛ استخدم هذه المواد لمقارنة الفروع قبل الاختيار.",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        {
+          "id": "essential-skills",
+          "name": "المهارات التأسيسية",
+          "order": 1,
+          "objectives": [
+            "راجع أساسيات علوم الحاسب والبرمجة، والشبكات، ونظام Linux، ومبادئ التشفير."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "entry-level-roadmap",
+              "title": "خارطة المهارات التمهيدية للأمن السيبراني",
+              "resources": [
+                {
+                  "title": "خارطة Entry-Level من CAT Reloaded",
+                  "url": "https://www.notion.so/eljooker/Entry-Level-Roadmap-12f3f791038f807b9b84cf7d875a6e5d",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "specializations",
+      "name": "المسارات التخصصية",
+      "order": 1,
+      "goal": "اختر فرعًا واحدًا للبدء والتعمق فيه؛ هذه مسارات بديلة وليست مراحل يجب إكمالها كلها بالتتابع.",
+      "modules": [
+        {
+          "id": "web-penetration-testing",
+          "name": "اختبار اختراق تطبيقات الويب",
+          "order": 0,
+          "objectives": [
+            "اتبع خارطة مخصصة لفهم اختبار أمن تطبيقات الويب والتدرّب عليه."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "web-pentest-roadmaps",
+              "title": "خارطات اختبار اختراق تطبيقات الويب",
+              "resources": [
+                {
+                  "title": "خارطة اختبار اختراق الويب المبسطة والمحدّثة",
+                  "url": "https://third-open-099.notion.site/Penetration-testing-13bb1f518de7804f9220c035f65bdb87?pvs=4",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "خارطة أمن تطبيقات الويب — إعداد محمد جمال",
+                  "url": "https://drive.google.com/file/d/1YlYBgkith2ycK8aqP2bv_a-S9YD6LANi/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "network-penetration-testing",
+          "name": "اختبار اختراق الشبكات",
+          "order": 1,
+          "objectives": [
+            "استخدم خارطة متخصصة للتدرّج في اختبار الشبكات، مع التدريب العملي على المختبرات والأنظمة المصرّح بها."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "network-pentest-roadmaps",
+              "title": "خارطات اختبار اختراق الشبكات",
+              "resources": [
+                {
+                  "title": "خارطة اختبار اختراق الشبكات — المستوى الثاني",
+                  "url": "https://third-open-099.notion.site/Roadmap-for-Network-Pentest-Level-2-12eb1f518de78021b90ef331f8d9d2e4?pvs=4",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "خارطة اختبار اختراق الشبكات الرئيسية",
+                  "url": "https://drive.google.com/file/d/1OGCm2PHs0qX1NqmkeZFv9q-lo10fPbht/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "reverse-engineering-malware-analysis",
+          "name": "الهندسة العكسية وتحليل البرمجيات الخبيثة",
+          "order": 2,
+          "objectives": [
+            "تعرّف على مسار تحليل البرامج وفهم سلوكها باستخدام خارطة هذا التخصص."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "reverse-engineering-roadmaps",
+              "title": "خارطات الهندسة العكسية وتحليل البرمجيات الخبيثة",
+              "resources": [
+                {
+                  "title": "خارطة REMA المحدّثة",
+                  "url": "https://www.notion.so/eljooker/RE-MA-Road-Map-13b3f791038f8063a2bfee5884ee1543?pvs=25",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "خارطة الهندسة العكسية وتحليل البرمجيات الخبيثة الرئيسية",
+                  "url": "https://drive.google.com/file/d/13nDt8I-LoUq350HgeVq0UVhoF9qyhQVh/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "network-security",
+          "name": "أمن الشبكات والدفاع",
+          "order": 3,
+          "objectives": [
+            "استكشف أمن الشبكات من منظور دفاعي من خلال خارطة التخصص والمواد التي توصي بها."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "network-security-roadmap",
+              "title": "خارطة أمن الشبكات",
+              "resources": [
+                {
+                  "title": "خارطة Network Security من CAT Reloaded",
+                  "url": "https://grove-tuck-ba3.notion.site/Network-security-138e4937b36e80b28e2ac0b8d8731b86?pvs=4",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "soc-dfir",
+          "name": "مركز العمليات الأمنية والاستجابة والتحليل الجنائي الرقمي",
+          "order": 4,
+          "objectives": [
+            "تعرّف على خارطات SOC وDFIR، أي عمليات الأمن والاستجابة للحوادث والتحليل الجنائي الرقمي."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "soc-dfir-roadmaps",
+              "title": "خارطات SOC وDFIR",
+              "resources": [
+                {
+                  "title": "خارطة SOC وDFIR للدورات",
+                  "url": "https://www.notion.so/SOC-DFIR-RoadMap-Courses-Path-13d75215856d80609ed2f5453ea43272?pvs=4",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "خارطة SOC وDFIR الرئيسية",
+                  "url": "https://drive.google.com/file/d/14kQBiI_U17_rzwXpJpSEYnWtblfVYwn1/view?usp=sharing",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        },
+        {
+          "id": "cryptography",
+          "name": "التشفير",
+          "order": 5,
+          "objectives": [
+            "استكشف مفاهيم التشفير عبر الخارطة التي أعدّها مجتمع CAT Reloaded لهذا المجال."
+          ],
+          "practice": [],
+          "topics": [
+            {
+              "id": "cryptography-roadmap",
+              "title": "خارطة تعلّم التشفير",
+              "resources": [
+                {
+                  "title": "خارطة CAT Reloaded للتشفير",
+                  "url": "https://butter-tortellini-830.notion.site/CAT-Reloaded-Cryptography-roadmap-14ab155a2c68804bbbf0ca53260e92f1",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ]
 }
