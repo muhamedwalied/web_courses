@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "ios",
-  "name": "iOS",
-  "tagline": "تطبيقات iOS بسويفيت",
-  "description": "تطبيقات iOS بسويفيت",
+  "name": "آي أو إس",
+  "tagline": "تطبيقات آي أو إس باستخدام سويفت",
+  "description": "تطبيقات آي أو إس باستخدام سويفت",
   "color": "#60a5fa",
   "icon": "🍎",
   "prereqs": [],

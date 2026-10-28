@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "backend",
-  "name": "Back End",
-  "tagline": "Back-End بأربع تتبّعات: DotNet / Laravel / NodeJS / Spring",
-  "description": "Back-End بأربع تتبّعات: DotNet / Laravel / NodeJS / Spring",
+  "name": "الواجهة الخلفية",
+  "tagline": "مسارات الواجهة الخلفية: دوت نت، لارافيل، نود جي إس، وسبرينغ",
+  "description": "مسارات الواجهة الخلفية: دوت نت، لارافيل، نود جي إس، وسبرينغ",
   "color": "#34d399",
   "icon": "🛠️",
   "prereqs": [],

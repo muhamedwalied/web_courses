@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "flutter",
-  "name": "Flutter",
-  "tagline": "من أساسيات Dart لتطبيقات إنتاجية بـ Clean Architecture",
-  "description": "مسار Flutter في CAT Reloaded: رحلة منظمة أسبوعًا بأسبوع من Dart والموبايل حتى Firestore والمدفوعات والـ CI/CD، مع مشروع تطبيقي في كل مرحلة.",
+  "name": "فلاتر",
+  "tagline": "من أساسيات Dart إلى تطبيقات عملية بهندسة برمجية نظيفة",
+  "description": "مسار Flutter في CAT Reloaded: رحلة منظمة أسبوعًا بأسبوع من Dart وتطوير تطبيقات الهاتف حتى Firestore والمدفوعات والتكامل والنشر المستمر، مع مشروع تطبيقي في كل مرحلة.",
   "color": "#38bdf8",
   "icon": "🐦",
   "prereqs": [],
@@ -19,13 +18,13 @@
   "levels": [
     {
       "id": "beginner",
-      "name": "Beginner",
+      "name": "مبتدئ",
       "order": 0,
       "durationText": "5 أسابيع",
       "modules": [
         {
           "id": "w01",
-          "name": "Introduction to Flutter & Dart Basics",
+          "name": "مقدمة إلى Flutter وأساسيات Dart",
           "order": 1,
           "objectives": [
             "Set up Dart and write your first program.",
@@ -37,7 +36,7 @@
           "topics": [
             {
               "id": "week-1-dart-fundamentals",
-              "title": "Week 1 – Dart Fundamentals",
+              "title": "الأسبوع الأول — أساسيات Dart",
               "resources": [
                 {
                   "title": "Week 1 – Dart Fundamentals",
@@ -73,7 +72,7 @@
         },
         {
           "id": "w02",
-          "name": "Dart Collections, Functions & Null Safety",
+          "name": "المجموعات والدوال وأمان القيم الفارغة في Dart",
           "order": 2,
           "objectives": [
             "Learn how to use Dart’s core collection types: List, Set, and Map.",
@@ -85,7 +84,7 @@
           "topics": [
             {
               "id": "week-2-dart-collections-functions-null-safety",
-              "title": "Week 2 – Dart Collections, Functions & Null Safety",
+              "title": "الأسبوع الثاني — المجموعات والدوال وأمان القيم الفارغة في Dart",
               "resources": [
                 {
                   "title": "Week 2 – Dart Collections, Functions & Null Safety",
@@ -127,7 +126,7 @@
         },
         {
           "id": "w03",
-          "name": "Object-Oriented Programming in Dart",
+          "name": "البرمجة كائنية التوجه في Dart",
           "order": 3,
           "objectives": [
             "Understand the fundamentals of OOP (object-oriented programming) and how it applies in Dart.",
@@ -139,7 +138,7 @@
           "topics": [
             {
               "id": "week-3-oop-in-dart",
-              "title": "Week 3 – OOP in Dart",
+              "title": "الأسبوع الثالث — البرمجة كائنية التوجه في Dart",
               "resources": [
                 {
                   "title": "Week 3 – OOP in Dart",
@@ -181,7 +180,7 @@
         },
         {
           "id": "w04",
-          "name": "Continue OOP Concepts & Version Control with Git & GitHub",
+          "name": "استكمال مفاهيم البرمجة كائنية التوجه وإدارة الإصدارات باستخدام Git وGitHub",
           "order": 4,
           "objectives": [
             "Deepen your understanding of OOP concepts through a practical series by Omar Ahmed.",
@@ -191,7 +190,7 @@
           "topics": [
             {
               "id": "oop-playlist-by-omar-ahmed",
-              "title": "OOP – بالعربي (Playlist by Omar Ahmed)",
+              "title": "البرمجة كائنية التوجه بالعربية (قائمة تشغيل عمر أحمد)",
               "resources": [
                 {
                   "title": "OOP – بالعربي (Playlist by Omar Ahmed)",
@@ -204,7 +203,7 @@
             },
             {
               "id": "git-github",
-              "title": "Git & GitHub",
+              "title": "إدارة الإصدارات باستخدام Git وGitHub",
               "resources": [
                 {
                   "title": "Git & GitHub",
@@ -228,7 +227,7 @@
         },
         {
           "id": "w05",
-          "name": "Final Project & Setting Up Flutter",
+          "name": "المشروع الختامي وإعداد Flutter",
           "order": 5,
           "objectives": [
             "Make sure to catch up on any topics you may have missed from previous weeks to ensure you're ready for the final project.",
@@ -240,7 +239,7 @@
           "topics": [
             {
               "id": "installing-flutter-arabic",
-              "title": "Installing Flutter (Arabic)",
+              "title": "تثبيت Flutter (شرح عربي)",
               "resources": [
                 {
                   "title": "Installing Flutter (Arabic)",
@@ -253,7 +252,7 @@
             },
             {
               "id": "installing-flutter-english",
-              "title": "Installing Flutter (English)",
+              "title": "تثبيت Flutter (شرح إنجليزي)",
               "resources": [
                 {
                   "title": "Installing Flutter (English)",
@@ -266,7 +265,7 @@
             },
             {
               "id": "official-flutter-setup",
-              "title": "Official Flutter Setup",
+              "title": "دليل Flutter الرسمي للإعداد",
               "resources": [
                 {
                   "title": "Official Flutter Setup",
@@ -285,13 +284,13 @@
     },
     {
       "id": "intermediate",
-      "name": "Intermediate",
+      "name": "متوسط",
       "order": 1,
       "durationText": "8 أسابيع",
       "modules": [
         {
           "id": "w01",
-          "name": "Flutter UI Basics & Layout Widgets",
+          "name": "أساسيات واجهات Flutter وعناصر التخطيط",
           "order": 1,
           "objectives": [
             "Set up and use a Virtual Device (Emulator) for testing Flutter apps.",
@@ -303,7 +302,7 @@
           "topics": [
             {
               "id": "intermediate-week-1-flutter-ui-basics",
-              "title": "Intermediate Week 1 – Flutter UI Basics",
+              "title": "الأسبوع الأول للمرحلة المتوسطة — أساسيات واجهات Flutter",
               "resources": [
                 {
                   "title": "Intermediate Week 1 – Flutter UI Basics",
@@ -363,7 +362,7 @@
         },
         {
           "id": "w02",
-          "name": "Images, Layouts & Positioning",
+          "name": "الصور والتخطيط وتحديد المواضع",
           "order": 2,
           "objectives": [
             "Learn how to display and manage images from assets and gallery (using image_picker).",
@@ -375,7 +374,7 @@
           "topics": [
             {
               "id": "intermediate-week-2-images-layout-widgets",
-              "title": "Intermediate Week 2 – Images & Layout Widgets",
+              "title": "الأسبوع الثاني للمرحلة المتوسطة — الصور وعناصر التخطيط",
               "resources": [
                 {
                   "title": "Intermediate Week 2 – Images & Layout Widgets",
@@ -417,7 +416,7 @@
         },
         {
           "id": "w03",
-          "name": "Buttons, Forms & Themes",
+          "name": "الأزرار والنماذج والسمات",
           "order": 3,
           "objectives": [
             "Learn how to use interactive buttons, gestures, and input fields in Flutter.",
@@ -428,7 +427,7 @@
           "topics": [
             {
               "id": "intermediate-week-3-buttons-forms-themes",
-              "title": "Intermediate Week 3 – Buttons, Forms & Themes",
+              "title": "الأسبوع الثالث للمرحلة المتوسطة — الأزرار والنماذج والسمات",
               "resources": [
                 {
                   "title": "Intermediate Week 3 – Buttons, Forms & Themes",
@@ -470,7 +469,7 @@
         },
         {
           "id": "w04",
-          "name": "Lists, Navigation & Page Management",
+          "name": "القوائم والتنقل وإدارة الصفحات",
           "order": 4,
           "objectives": [
             "Master the use of ListView and GridView widgets for building scrollable layouts.",
@@ -481,7 +480,7 @@
           "topics": [
             {
               "id": "intermediate-week-4-lists-navigation-page-manage",
-              "title": "Intermediate Week 4 – Lists, Navigation & Page Management",
+              "title": "الأسبوع الرابع للمرحلة المتوسطة — القوائم والتنقل وإدارة الصفحات",
               "resources": [
                 {
                   "title": "Intermediate Week 4 – Lists, Navigation & Page Management",
@@ -529,7 +528,7 @@
         },
         {
           "id": "w05",
-          "name": "Advanced UI Components & App Polish",
+          "name": "مكوّنات واجهة متقدمة وتحسين التطبيق",
           "order": 5,
           "objectives": [
             "Work with advanced UI widgets like sliders, dropdowns, and dialogs.",
@@ -540,7 +539,7 @@
           "topics": [
             {
               "id": "intermediate-week-5-advanced-ui-app-polish",
-              "title": "Intermediate Week 5 – Advanced UI & App Polish",
+              "title": "الأسبوع الخامس للمرحلة المتوسطة — واجهات متقدمة وتحسين التطبيق",
               "resources": [
                 {
                   "title": "Intermediate Week 5 – Advanced UI & App Polish",
@@ -594,7 +593,7 @@
         },
         {
           "id": "w06",
-          "name": "Local Database with Sqflite",
+          "name": "قاعدة بيانات محلية باستخدام Sqflite",
           "order": 6,
           "objectives": [
             "Understand how to store, retrieve, and manage data locally in Flutter using the sqflite package.",
@@ -605,7 +604,7 @@
           "topics": [
             {
               "id": "intermediate-week-6-sqflite-database-in-flutter",
-              "title": "Intermediate Week 6 – Sqflite Database in Flutter",
+              "title": "الأسبوع السادس للمرحلة المتوسطة — قواعد البيانات باستخدام Sqflite",
               "resources": [
                 {
                   "title": "Intermediate Week 6 – Sqflite Database in Flutter",
@@ -641,7 +640,7 @@
         },
         {
           "id": "w07",
-          "name": "Networking & API Integration",
+          "name": "الاتصال بالشبكات ودمج واجهات API",
           "order": 7,
           "objectives": [
             "Learn how to fetch and send data over the internet using the http package.",
@@ -652,7 +651,7 @@
           "topics": [
             {
               "id": "intermediate-week-7-flutter-networking-api-integ",
-              "title": "Intermediate Week 7 – Flutter Networking & API Integration",
+              "title": "الأسبوع السابع للمرحلة المتوسطة — الاتصال بالشبكات وواجهات API في Flutter",
               "resources": [
                 {
                   "title": "Intermediate Week 7 – Flutter Networking & API Integration",
@@ -694,7 +693,7 @@
         },
         {
           "id": "w08",
-          "name": "State Management with Provider",
+          "name": "إدارة الحالة باستخدام Provider",
           "order": 8,
           "objectives": [
             "Understand why state management is essential for scalable Flutter apps — how state represents your app’s data and UI, and why managing it efficiently improves p",
@@ -705,7 +704,7 @@
           "topics": [
             {
               "id": "intermediate-week-8-state-management-with-provid",
-              "title": "Intermediate Week 8 – State Management with Provider",
+              "title": "الأسبوع الثامن للمرحلة المتوسطة — إدارة الحالة باستخدام Provider",
               "resources": [
                 {
                   "title": "Intermediate Week 8 – State Management with Provider",
@@ -743,13 +742,13 @@
     },
     {
       "id": "advanced",
-      "name": "Advanced",
+      "name": "متقدم",
       "order": 2,
       "durationText": "11 أسبوعًا",
       "modules": [
         {
           "id": "w01",
-          "name": "Advanced State Management with BLoC",
+          "name": "إدارة الحالة المتقدمة باستخدام BLoC",
           "order": 1,
           "objectives": [
             "Understand why large apps need structured architecture, predictable data flow, and separation of concerns.",
@@ -762,7 +761,7 @@
           "topics": [
             {
               "id": "flutter-bloc-cubit-series",
-              "title": "Flutter BLoC & Cubit Series",
+              "title": "سلسلة BLoC وCubit في Flutter",
               "resources": [
                 {
                   "title": "Flutter BLoC & Cubit Series",
@@ -810,7 +809,7 @@
         },
         {
           "id": "w02",
-          "name": "Firebase Authentication & Firestore CRUD",
+          "name": "المصادقة باستخدام Firebase وعمليات Firestore الأساسية",
           "order": 2,
           "objectives": [
             "Understand Firebase setup in Flutter projects.",
@@ -822,7 +821,7 @@
           "topics": [
             {
               "id": "flutter-firebase-2023-wael-abo-hamza",
-              "title": "Flutter Firebase 2023 – Wael abo hamza",
+              "title": "Firebase في Flutter لعام 2023 — وائل أبوحمزة",
               "resources": [
                 {
                   "title": "Flutter Firebase 2023 – Wael abo hamza",
@@ -858,7 +857,7 @@
         },
         {
           "id": "w03",
-          "name": "File Upload & Cloud Messaging",
+          "name": "رفع الملفات والرسائل السحابية",
           "order": 3,
           "objectives": [
             "Implement real-time data streams with StreamBuilder.",
@@ -870,7 +869,7 @@
           "topics": [
             {
               "id": "flutter-firebase-2023-wael-abo-hamza-2",
-              "title": "Flutter Firebase 2023 – Wael abo hamza",
+              "title": "Firebase في Flutter لعام 2023 — وائل أبوحمزة",
               "resources": [
                 {
                   "title": "Flutter Firebase 2023 – Wael abo hamza",
@@ -906,7 +905,7 @@
         },
         {
           "id": "w04",
-          "name": "Animation Basics",
+          "name": "أساسيات الحركة",
           "order": 4,
           "objectives": [
             "Understand the role of animations in improving user experience.",
@@ -924,7 +923,7 @@
           "topics": [
             {
               "id": "flutter-animation-tutorial",
-              "title": "Flutter Animation Tutorial",
+              "title": "شرح الحركة في Flutter",
               "resources": [
                 {
                   "title": "Flutter Animation Tutorial",
@@ -937,7 +936,7 @@
             },
             {
               "id": "making-animations-in-flutter",
-              "title": "Making Animations in Flutter",
+              "title": "تنفيذ الحركات في Flutter",
               "resources": [
                 {
                   "title": "Making Animations in Flutter",
@@ -979,7 +978,7 @@
         },
         {
           "id": "w05",
-          "name": "SOLID Principles & Clean Code",
+          "name": "مبادئ SOLID وكتابة شيفرة نظيفة",
           "order": 5,
           "objectives": [
             "Understand the SOLID principles and how to apply them in Flutter development:",
@@ -1000,7 +999,7 @@
           "topics": [
             {
               "id": "solid-principles-in-arabic-omar-ahmed",
-              "title": "SOLID Principles in Arabic – Omar Ahmed",
+              "title": "مبادئ SOLID بالعربية — عمر أحمد",
               "resources": [
                 {
                   "title": "SOLID Principles in Arabic – Omar Ahmed",
@@ -1013,7 +1012,7 @@
             },
             {
               "id": "clean-code-book-omar-ahmed",
-              "title": "Clean Code Book – Omar Ahmed",
+              "title": "كتاب الشيفرة النظيفة — عمر أحمد",
               "resources": [
                 {
                   "title": "Clean Code Book – Omar Ahmed",
@@ -1049,7 +1048,7 @@
         },
         {
           "id": "w06",
-          "name": "MVVM & Clean Architecture",
+          "name": "معمارية MVVM والهندسة النظيفة",
           "order": 6,
           "objectives": [
             "Understand MVVM architecture in Flutter and how to separate concerns:",
@@ -1069,7 +1068,7 @@
           "topics": [
             {
               "id": "flutter-mvvm-mohamed-fathy-taha",
-              "title": "Flutter MVVM – Mohamed Fathy Taha",
+              "title": "معمارية MVVM في Flutter — محمد فتحي طه",
               "resources": [
                 {
                   "title": "Flutter MVVM – Mohamed Fathy Taha",
@@ -1082,7 +1081,7 @@
             },
             {
               "id": "flutter-clean-architecture-rabee-omran",
-              "title": "Flutter Clean Architecture – Rabee Omran",
+              "title": "الهندسة النظيفة في Flutter — ربيع عمران",
               "resources": [
                 {
                   "title": "Flutter Clean Architecture – Rabee Omran",
@@ -1118,7 +1117,7 @@
         },
         {
           "id": "w07",
-          "name": "Maps & Google Map Integration",
+          "name": "الخرائط ودمج خرائط Google",
           "order": 7,
           "objectives": [
             "Understand the basics of maps in Flutter and how they work.",
@@ -1131,7 +1130,7 @@
           "topics": [
             {
               "id": "introduction-to-maps-google-map-integration",
-              "title": "Introduction to Maps & Google Map Integration",
+              "title": "مقدمة إلى الخرائط ودمج خرائط Google",
               "resources": [
                 {
                   "title": "Introduction to Maps & Google Map Integration",
@@ -1173,7 +1172,7 @@
         },
         {
           "id": "w08",
-          "name": "Payment Integration with Paymob",
+          "name": "دمج الدفع الإلكتروني باستخدام Paymob",
           "order": 8,
           "objectives": [
             "Understand the basics of electronic payment gateways.",
@@ -1186,7 +1185,7 @@
           "topics": [
             {
               "id": "paymob-payment-integration-in-flutter",
-              "title": "Paymob Payment Integration in Flutter",
+              "title": "دمج الدفع عبر Paymob في Flutter",
               "resources": [
                 {
                   "title": "Paymob Payment Integration in Flutter",
@@ -1228,7 +1227,7 @@
         },
         {
           "id": "w09",
-          "name": "Open-Source Contribution & Package Publishing",
+          "name": "المساهمة في المصادر المفتوحة ونشر الحزم",
           "order": 9,
           "objectives": [
             "Understand the importance of open-source contributions in Flutter and Dart.",
@@ -1241,7 +1240,7 @@
           "topics": [
             {
               "id": "create-flutter-package-and-publish",
-              "title": "Create Flutter Package and Publish",
+              "title": "إنشاء حزمة Flutter ونشرها",
               "resources": [
                 {
                   "title": "Create Flutter Package and Publish",
@@ -1296,7 +1295,7 @@
         },
         {
           "id": "w10",
-          "name": "Testing in Flutter",
+          "name": "اختبار تطبيقات Flutter",
           "order": 10,
           "objectives": [
             "Understand the importance of testing in Flutter applications.",
@@ -1310,7 +1309,7 @@
           "topics": [
             {
               "id": "flutter-unit-widget-testing-mohamed-waleed",
-              "title": "Flutter Unit & Widget Testing - Mohamed Waleed",
+              "title": "اختبار الوحدات والعناصر في Flutter — محمد وليد",
               "resources": [
                 {
                   "title": "Flutter Unit & Widget Testing - Mohamed Waleed",
@@ -1346,7 +1345,7 @@
         },
         {
           "id": "w11",
-          "name": "CI/CD, Flavors & App Distribution",
+          "name": "التكامل والنشر المستمران، ونُسخ التطبيق وتوزيعه",
           "order": 11,
           "objectives": [
             "Understand the CI/CD workflow in mobile and Flutter development.",
@@ -1361,7 +1360,7 @@
           "topics": [
             {
               "id": "flutter-advanced-complete-course",
-              "title": "Flutter Advanced Complete Course",
+              "title": "دورة Flutter المتقدمة الشاملة",
               "resources": [
                 {
                   "title": "Flutter Advanced Complete Course",
@@ -1411,20 +1410,20 @@
     },
     {
       "id": "titan",
-      "name": "Titan",
+      "name": "متقدم جدًا",
       "order": 3,
       "goal": "مستوى إضافي بعد الـ Advanced — Data Structures & Algorithms.",
       "modules": [
         {
           "id": "data-structure-and-algorithms",
-          "name": "Data structure and algorithms",
+          "name": "هياكل البيانات والخوارزميات",
           "order": 0,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "dsa-playlist",
-              "title": "Data structure and algorithms",
+              "title": "هياكل البيانات والخوارزميات",
               "resources": [
                 {
                   "title": "Data structure and algorithms",

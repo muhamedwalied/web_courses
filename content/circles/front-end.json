@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "front-end",
-  "name": "Front End",
-  "tagline": "Phase 1 → Core Engineering → إطار عمل تخصصي",
-  "description": "مسار Front End في CAT Reloaded 2026: أساسيات HTML/CSS، بعدها سبرنت 13 أسبوع JavaScript حقيقي، وبعدها تختار مسارك (React / Angular / Vue) بجدول تخصصي 8 أسابيع.",
+  "name": "الواجهة الأمامية",
+  "tagline": "من المرحلة الأولى إلى هندسة البرمجيات الأساسية، ثم إلى إطار عمل تخصصي",
+  "description": "من المرحلة الأولى إلى هندسة البرمجيات الأساسية، ثم إلى إطار عمل تخصصي",
   "color": "#f59e0b",
   "icon": "⚛️",
   "prereqs": [],
@@ -21,14 +20,14 @@
   "levels": [
     {
       "id": "phase-1-foundation",
-      "name": "Phase 1 — The Foundation",
+      "name": "المرحلة الأولى — الأساسيات",
       "order": 0,
       "durationText": "5 أسابيع",
       "goal": "صفحات static نضيفة بـ semantic HTML و CSS سليم.",
       "modules": [
         {
           "id": "setup",
-          "name": "Prerequisites & Setup",
+          "name": "المتطلبات والإعداد",
           "order": 0,
           "goal": "الأدوات والحسابات المطلوبة قبل أول يوم في المسار.",
           "objectives": [],
@@ -70,7 +69,7 @@
         },
         {
           "id": "w01",
-          "name": "The Setup & Syntax",
+          "name": "الإعداد وبنية اللغة",
           "order": 1,
           "goal": "Learn how the web works and master semantic HTML.",
           "objectives": [],
@@ -81,7 +80,7 @@
           "topics": [
             {
               "id": "introduction-the-invisible-web",
-              "title": "Introduction: The Invisible Web",
+              "title": "مقدمة: كيف يعمل الويب في الخفاء",
               "resources": [
                 {
                   "title": "How does the Internet work?",
@@ -136,7 +135,7 @@
             },
             {
               "id": "html-playlist-elzero-web-school",
-              "title": "HTML Playlist — Elzero Web School",
+              "title": "قائمة دروس HTML — الزيرو ويب سكول",
               "resources": [
                 {
                   "title": "HTML Playlist — Elzero Web School",
@@ -217,7 +216,7 @@
         },
         {
           "id": "w02",
-          "name": "CSS Basics",
+          "name": "أساسيات CSS",
           "order": 2,
           "goal": "Understand the Box Model, Colors, and Fonts.",
           "objectives": [],
@@ -227,7 +226,7 @@
           "topics": [
             {
               "id": "css-playlist-elzero-web-school-lessons-1-53",
-              "title": "CSS Playlist — Elzero Web School (Lessons 1–53)",
+              "title": "قائمة دروس CSS — الزيرو ويب سكول (الدروس 1–53)",
               "resources": [
                 {
                   "title": "CSS Playlist — Elzero Web School (Lessons 1–53)",
@@ -329,7 +328,7 @@
         },
         {
           "id": "w03",
-          "name": "Visual Effects",
+          "name": "التأثيرات المرئية",
           "order": 3,
           "goal": "Mastering Positioning, Backgrounds, and Transitions.",
           "objectives": [],
@@ -339,7 +338,7 @@
           "topics": [
             {
               "id": "css-playlist-lessons-54-67",
-              "title": "CSS Playlist (Lessons 54–67)",
+              "title": "قائمة دروس CSS (الدروس 54–67)",
               "resources": [
                 {
                   "title": "CSS Playlist (Lessons 54–67)",
@@ -378,7 +377,7 @@
         },
         {
           "id": "w04",
-          "name": "Layout Mastery",
+          "name": "إتقان تنسيق الصفحات",
           "order": 4,
           "goal": "Flexbox & Grid. This is how real websites are built.",
           "objectives": [],
@@ -386,7 +385,7 @@
           "topics": [
             {
               "id": "css-playlist-lessons-68-88",
-              "title": "CSS Playlist (Lessons 68–88)",
+              "title": "قائمة دروس CSS (الدروس 68–88)",
               "resources": [
                 {
                   "title": "CSS Playlist (Lessons 68–88)",
@@ -481,7 +480,7 @@
         },
         {
           "id": "w05",
-          "name": "The Final Boss",
+          "name": "التحدي الختامي",
           "order": 5,
           "goal": "Full Template Integration.",
           "objectives": [],
@@ -525,21 +524,21 @@
     },
     {
       "id": "phase-2-core",
-      "name": "Phase 2 — Core Engineering",
+      "name": "المرحلة الثانية — هندسة البرمجيات الأساسية",
       "order": 1,
       "durationText": "13 أسبوعًا",
       "goal": "JavaScript عميق + Problem Solving + أدوات محترفة — سبرنت مكثف 13 أسبوع.",
       "modules": [
         {
           "id": "module-a",
-          "name": "Module A: Logic & Layouts",
+          "name": "الوحدة أ: المنطق وتنسيق الصفحات",
           "order": 0,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w01",
-              "title": "Week 1: Syntax & Layouts",
+              "title": "الأسبوع الأول: البنية والتخطيط",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 1–30)",
@@ -588,7 +587,7 @@
             },
             {
               "id": "w02",
-              "title": "Week 2: Control Flow & Cloning",
+              "title": "الأسبوع الثاني: تدفق التحكم والاستنساخ",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 31–56)",
@@ -643,7 +642,7 @@
             },
             {
               "id": "w03",
-              "title": "Week 3: Functions & Forms",
+              "title": "الأسبوع الثالث: الدوال والنماذج",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 57–70)",
@@ -680,7 +679,7 @@
             },
             {
               "id": "w04",
-              "title": "Week 4: Higher Order Logic",
+              "title": "الأسبوع الرابع: المنطق عالي المستوى",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 71–85)",
@@ -710,14 +709,14 @@
         },
         {
           "id": "module-b",
-          "name": "Module B: DOM & Interactivity",
+          "name": "الوحدة ب: نموذج المستندات والتفاعل",
           "order": 1,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w05",
-              "title": "Week 5: DOM & Bootstrap",
+              "title": "الأسبوع الخامس: DOM وBootstrap",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 86–101)",
@@ -785,7 +784,7 @@
             },
             {
               "id": "w06",
-              "title": "Week 6: Persistent Data (BOM)",
+              "title": "الأسبوع السادس: البيانات المستمرة (BOM)",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 102–114)",
@@ -816,7 +815,7 @@
             },
             {
               "id": "w07",
-              "title": "Week 7: Advanced Data & Regex",
+              "title": "الأسبوع السابع: البيانات المتقدمة والتعبيرات النمطية",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 115–133)",
@@ -857,14 +856,14 @@
         },
         {
           "id": "module-c",
-          "name": "Module C: Advanced Engineering",
+          "name": "الوحدة ج: مفاهيم هندسية متقدمة",
           "order": 2,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w08",
-              "title": "Week 8: Data Patterns & Regex",
+              "title": "الأسبوع الثامن: أنماط البيانات والتعبيرات النمطية",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 134–146)",
@@ -884,7 +883,7 @@
             },
             {
               "id": "w09",
-              "title": "Week 9: OOP",
+              "title": "الأسبوع التاسع: البرمجة كائنية التوجه",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 147–168)",
@@ -927,7 +926,7 @@
             },
             {
               "id": "w10",
-              "title": "Week 10: Async & API",
+              "title": "الأسبوع العاشر: البرمجة غير المتزامنة وواجهات API",
               "resources": [
                 {
                   "title": "JS Study — Elzero JS (Videos 169–188)",
@@ -962,14 +961,14 @@
         },
         {
           "id": "module-d",
-          "name": "Module D: Pro Tooling",
+          "name": "الوحدة د: أدوات التطوير الاحترافية",
           "order": 3,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w11",
-              "title": "Week 11: SASS",
+              "title": "الأسبوع الحادي عشر: SASS",
               "resources": [
                 {
                   "title": "Arabic — Elzero SASS Playlist",
@@ -995,7 +994,7 @@
             },
             {
               "id": "w12",
-              "title": "Week 12: Tooling (NPM & Git)",
+              "title": "الأسبوع الثاني عشر: الأدوات (NPM وGit)",
               "resources": [
                 {
                   "title": "NPM Crash Course — Traversy Media",
@@ -1015,7 +1014,7 @@
             },
             {
               "id": "w13",
-              "title": "Week 13: THE CAPSTONE",
+              "title": "الأسبوع الثالث عشر: المشروع الختامي",
               "resources": [
                 {
                   "title": "Project — Vanilla JS E-Commerce System",
@@ -1032,7 +1031,7 @@
         },
         {
           "id": "js-practice-projects",
-          "name": "JS Practice Projects",
+          "name": "مشروعات تدريبية بلغة JavaScript",
           "order": 4,
           "objectives": [],
           "practice": [],
@@ -1133,7 +1132,7 @@
         },
         {
           "id": "problem-solving",
-          "name": "Problem-Solving",
+          "name": "حل المشكلات",
           "order": 5,
           "objectives": [],
           "practice": [],
@@ -1168,7 +1167,7 @@
         },
         {
           "id": "extra-javascript-resources",
-          "name": "Extra JavaScript Resources",
+          "name": "مصادر إضافية لتعلّم JavaScript",
           "order": 6,
           "objectives": [],
           "practice": [],
@@ -1221,7 +1220,7 @@
         },
         {
           "id": "interview-prep",
-          "name": "Interview Prep",
+          "name": "الاستعداد للمقابلات",
           "order": 7,
           "objectives": [],
           "practice": [],
@@ -1240,14 +1239,14 @@
     },
     {
       "id": "phase-3-react",
-      "name": "Phase 3 — React & Next.js",
+      "name": "المرحلة الثالثة — React وNext.js",
       "order": 2,
       "durationText": "8 أسابيع تخصصية",
       "goal": "المسار المفصّل الرسمي: React → Redux → Tailwind → TypeScript → Next.js + جدول تخصصي 8 أسابيع.",
       "modules": [
         {
           "id": "prerequisites",
-          "name": "React Prerequisites Checklist",
+          "name": "قائمة متطلبات تعلّم React",
           "order": 0,
           "objectives": [
             "JavaScript Fundamentals",
@@ -1268,7 +1267,7 @@
         },
         {
           "id": "learning-path",
-          "name": "The React Learning Path",
+          "name": "خطة تعلّم React",
           "order": 1,
           "goal": "من Core React إلى Redux وTailwind وTypeScript وNext.js.",
           "objectives": [],
@@ -1276,7 +1275,7 @@
           "topics": [
             {
               "id": "1-core-react",
-              "title": "1. Core React",
+              "title": "1. أساسيات React",
               "resources": [
                 {
                   "title": "Official Docs — React.dev",
@@ -1337,7 +1336,7 @@
             },
             {
               "id": "2-state-management-redux-toolkit",
-              "title": "2. State Management (Redux Toolkit)",
+              "title": "2. إدارة الحالة (Redux Toolkit)",
               "resources": [
                 {
                   "title": "Docs — Redux Official Docs",
@@ -1374,7 +1373,7 @@
             },
             {
               "id": "3-modern-styling-tailwind-css",
-              "title": "3. Modern Styling (Tailwind CSS)",
+              "title": "3. تنسيق الواجهات الحديث (Tailwind CSS)",
               "resources": [
                 {
                   "title": "Tailwind CSS Crash Course — Ag Coding",
@@ -1436,7 +1435,7 @@
             },
             {
               "id": "5-meta-framework-next-js",
-              "title": "5. Meta-Framework (Next.js)",
+              "title": "5. إطار العمل المتقدم (Next.js)",
               "resources": [
                 {
                   "title": "Docs — Next.js Official Docs",
@@ -1483,14 +1482,14 @@
         },
         {
           "id": "ecosystem",
-          "name": "React Ecosystem Libraries",
+          "name": "مكتبات منظومة React",
           "order": 2,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "navigation",
-              "title": "Navigation",
+              "title": "التنقل",
               "resources": [
                 {
                   "title": "[React Router Tutorial — Codevolution](https://youtube.com/playlist?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG)",
@@ -1509,7 +1508,7 @@
             },
             {
               "id": "ui-libraries",
-              "title": "UI Libraries",
+              "title": "مكتبات الواجهات",
               "resources": [
                 {
                   "title": "[Material UI Tutorial — Net Ninja](https://youtube.com/playlist?list=PL4cUxeGkcC9gjxLvV4VEkZ6H6H4yWuS58)",
@@ -1528,7 +1527,7 @@
             },
             {
               "id": "data-fetching",
-              "title": "Data Fetching",
+              "title": "جلب البيانات",
               "resources": [
                 {
                   "title": "[Learn React Query in 50 Minutes](https://youtu.be/r8Dg0KVnfMA)",
@@ -1547,7 +1546,7 @@
             },
             {
               "id": "form-validation",
-              "title": "Form Validation",
+              "title": "التحقق من صحة النماذج",
               "resources": [
                 {
                   "title": "[React Hook Form Crash Course (Arabic)](https://youtu.be/8OO4xhJnniU)",
@@ -1582,14 +1581,14 @@
         },
         {
           "id": "specialist-a",
-          "name": "Module A: The React Standard",
+          "name": "الوحدة أ: أساسيات React",
           "order": 3,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w01",
-              "title": "Week 1: Thinking in React",
+              "title": "الأسبوع الأول: التفكير باستخدام React",
               "resources": [
                 {
                   "title": "Study — React.dev: Describing the UI",
@@ -1603,7 +1602,7 @@
             },
             {
               "id": "w02",
-              "title": "Week 2: Forms & Side Effects",
+              "title": "الأسبوع الثاني: النماذج والآثار الجانبية",
               "resources": [
                 {
                   "title": "Study — React.dev: Managing State",
@@ -1617,7 +1616,7 @@
             },
             {
               "id": "w03",
-              "title": "Week 3: Data-Driven React (API & Routing)",
+              "title": "الأسبوع الثالث: تطبيقات React المعتمدة على البيانات (واجهات API والتوجيه)",
               "resources": [
                 {
                   "title": "Study — React Router Tutorial",
@@ -1631,7 +1630,7 @@
             },
             {
               "id": "w04",
-              "title": "Week 4: Global State (Redux Toolkit)",
+              "title": "الأسبوع الرابع: إدارة الحالة العامة (Redux Toolkit)",
               "resources": [],
               "note": "Store, Slices, Dispatch, Selectors. — Task: [E-Commerce Cart System] • Challenge: Implement \"Undo\" action (remove last item).",
               "optional": false
@@ -1642,14 +1641,14 @@
         },
         {
           "id": "specialist-b",
-          "name": "Module B: The Next.js Framework",
+          "name": "الوحدة ب: إطار Next.js",
           "order": 4,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "w05",
-              "title": "Week 5: Next.js Fundamentals (App Router)",
+              "title": "الأسبوع الخامس: أساسيات Next.js (موجّه التطبيقات)",
               "resources": [
                 {
                   "title": "Study — Next.js Dashboard Tutorial",
@@ -1663,21 +1662,21 @@
             },
             {
               "id": "w06",
-              "title": "Week 6: Server Actions & Databases",
+              "title": "الأسبوع السادس: إجراءات الخادم وقواعد البيانات",
               "resources": [],
               "note": "Server Actions (No API routes), Prisma (ORM), Supabase/PostgreSQL. — Task: [Guestbook App] • User can sign the guestbook (Form submission without useState).",
               "optional": false
             },
             {
               "id": "w07",
-              "title": "Week 7: Authentication & Optimization",
+              "title": "الأسبوع السابع: المصادقة وتحسين الأداء",
               "resources": [],
               "note": "NextAuth (Auth.js), Middleware, Image Optimization, Fonts. — Task: [Protected Dashboard]",
               "optional": false
             },
             {
               "id": "w08",
-              "title": "Week 8: The Final Capstone",
+              "title": "الأسبوع الثامن: المشروع الختامي",
               "resources": [],
               "note": "Project: [Fullstack LMS (Learning Management System)] • Teacher Mode: Create courses, upload chapters.",
               "optional": false
@@ -1688,14 +1687,14 @@
         },
         {
           "id": "recommended-projects",
-          "name": "Recommended Projects",
+          "name": "مشروعات مقترحة",
           "order": 5,
           "objectives": [],
           "practice": [],
           "topics": [
             {
               "id": "beginner",
-              "title": "Beginner",
+              "title": "مبتدئ",
               "resources": [
                 {
                   "title": "Tutorial",
@@ -1726,7 +1725,7 @@
             },
             {
               "id": "intermediate",
-              "title": "Intermediate",
+              "title": "متوسط",
               "resources": [
                 {
                   "title": "Playlist",
@@ -1745,7 +1744,7 @@
             },
             {
               "id": "advanced",
-              "title": "Advanced",
+              "title": "متقدم",
               "resources": [
                 {
                   "title": "Playlist",
@@ -1762,7 +1761,7 @@
         },
         {
           "id": "channels",
-          "name": "YouTube Channels",
+          "name": "قنوات يوتيوب",
           "order": 6,
           "objectives": [],
           "practice": [],
@@ -1799,13 +1798,13 @@
     },
     {
       "id": "alternative-tracks",
-      "name": "Alternative Tracks (Angular / Vue)",
+      "name": "مسارات بديلة (Angular وVue)",
       "order": 3,
       "goal": "الصفحة الرسمية بتسيبك تختار إطار العمل — React مساره مفصّل أعلاه، ودي بدائل Angular و Vue.",
       "modules": [
         {
           "id": "vue-track",
-          "name": "Vue.js Ecosystem",
+          "name": "منظومة Vue.js",
           "order": 0,
           "goal": "The Progressive JavaScript Framework — Nuxt للـ SSR/SSG.",
           "objectives": [],
@@ -1816,7 +1815,7 @@
           "topics": [
             {
               "id": "1-vue-fundamentals",
-              "title": "1. Vue Fundamentals",
+              "title": "1. أساسيات Vue",
               "resources": [
                 {
                   "title": "Official Docs — Vue.js Guide",
@@ -1841,7 +1840,7 @@
             },
             {
               "id": "2-vue-3-features",
-              "title": "2. Vue 3 Features",
+              "title": "2. مزايا Vue 3",
               "resources": [
                 {
                   "title": "What's New in Vue 3?",
@@ -1860,7 +1859,7 @@
             },
             {
               "id": "3-state-management-pinia",
-              "title": "3. State Management (Pinia)",
+              "title": "3. إدارة الحالة (Pinia)",
               "resources": [
                 {
                   "title": "Pinia Official Docs",
@@ -1885,7 +1884,7 @@
             },
             {
               "id": "4-meta-framework-nuxt-js",
-              "title": "4. Meta-Framework (Nuxt.js)",
+              "title": "4. إطار العمل المتقدم (Nuxt.js)",
               "resources": [
                 {
                   "title": "Nuxt.js Docs",
@@ -1902,7 +1901,7 @@
         },
         {
           "id": "angular-track",
-          "name": "Angular Ecosystem",
+          "name": "منظومة Angular",
           "order": 1,
           "goal": "Enterprise framework — TypeScript-first.",
           "objectives": [],
@@ -1910,13 +1909,13 @@
           "topics": [
             {
               "id": "1-prerequisites",
-              "title": "1. Prerequisites",
+              "title": "1. المتطلبات الأساسية",
               "resources": [],
               "optional": false
             },
             {
               "id": "2-core-angular",
-              "title": "2. Core Angular",
+              "title": "2. أساسيات Angular",
               "resources": [
                 {
                   "title": "Official Docs — Angular.io",
@@ -1947,7 +1946,7 @@
             },
             {
               "id": "3-reactive-programming-rxjs",
-              "title": "3. Reactive Programming (RxJS)",
+              "title": "3. البرمجة التفاعلية (RxJS)",
               "resources": [
                 {
                   "title": "Learn RxJS",

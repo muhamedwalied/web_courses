@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "game-dev",
-  "name": "Game Development",
-  "tagline": "تطوير ألعاب بـ Unity & C#",
-  "description": "GameDev (to me at least) is a track composed of multiple technologies. To truly learn it you will find yourself learning many technologies that may seem unrelated at first some of which are (Mathes, Software Engineering Architecture, AI, ML) then you may dive deeper into graphics or just follow your",
+  "name": "تطوير الألعاب",
+  "tagline": "تطوير الألعاب باستخدام Unity وC#",
+  "description": "تعلّم تطوير الألعاب عبر مجموعة من المهارات، تشمل الرياضيات وهندسة البرمجيات والذكاء الاصطناعي، ثم اختر التخصص الذي يناسبك مثل الرسوميات أو تصميم الألعاب.",
   "color": "#e879f9",
   "icon": "🎮",
   "prereqs": [],

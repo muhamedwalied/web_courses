@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "cybersecurity",
-  "name": "CyberSecurity",
-  "tagline": "أمن سيبراني من الأساسيات للـ SOC",
-  "description": "<h3 align=\"center\"><em>So, you choose the hard way :)</em></h3> Think of cyber security as the digital version of having a really good lock on your front door, plus a guard dog, a security camera, and maybe a moat with alligators—just to be safe. It's all about keeping the bad guys (a.k.a. hackers) ",
+  "name": "الأمن السيبراني",
+  "tagline": "الأمن السيبراني من الأساسيات إلى مركز العمليات الأمنية",
+  "description": "تعرّف على الأمن السيبراني وطرق حماية الأنظمة والبيانات من الهجمات الرقمية. يبدأ المسار بالمفاهيم الأساسية، ثم ينتقل إلى مجالات الدفاع والتحليل الأمني.",
   "color": "#f87171",
   "icon": "🔐",
   "prereqs": [],

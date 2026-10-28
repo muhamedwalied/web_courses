@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "english",
-  "name": "English",
-  "tagline": "إنجليزي خطوة بخطوة",
-  "description": "This roadmap is designed to guide you through learning English step by step — from the basics to advanced fluency. It covers grammar, vocabulary, listening, speaking, writing, and practical resources to help you stay consistent.",
+  "name": "اللغة الإنجليزية",
+  "tagline": "تعلّم الإنجليزية خطوة بخطوة",
+  "description": "خطة متدرجة لتعلّم اللغة الإنجليزية، من الأساسيات إلى الطلاقة، وتشمل القواعد والمفردات والاستماع والتحدث والكتابة.",
   "color": "#f472b6",
   "icon": "🔤",
   "prereqs": [],

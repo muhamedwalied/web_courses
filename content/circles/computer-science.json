@@ -1,10 +1,9 @@
 {
   "$schema": "../circles.schema.json",
-
   "id": "computer-science",
-  "name": "Computer Science",
-  "tagline": "أساسيات علوم الحاسب",
-  "description": "2. [A Glimpse into Computer Science: Let's Explore!](#a-glimpse-into-computer-science-lets-explore) 3. [Core Computer Science Fundamentals](#core-computer-science-fundamentals)",
+  "name": "علوم الحاسوب",
+  "tagline": "أساسيات علوم الحاسوب",
+  "description": "مقدمة إلى علوم الحاسوب، وأهم مفاهيمها الأساسية، وكيفية بناء قاعدة معرفية تساعدك على فهم البرمجيات والأنظمة الحاسوبية.",
   "color": "#c084fc",
   "icon": "🧮",
   "prereqs": [],
