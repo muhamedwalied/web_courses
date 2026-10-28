@@ -2,15 +2,621 @@
   "$schema": "../circles.schema.json",
   "id": "backend",
   "name": "الواجهة الخلفية",
-  "tagline": "مسارات الواجهة الخلفية: دوت نت، لارافيل، نود جي إس، وسبرينغ",
-  "description": "مسارات الواجهة الخلفية: دوت نت، لارافيل، نود جي إس، وسبرينغ",
+  "tagline": "أساسيات الويب أولًا، ثم اختر التخصص المناسب لك",
+  "description": "تعرّف على أساسيات بناء تطبيقات الويب من جهة الخادم، ثم اختر مسارًا واحدًا من خمسة تخصصات: Node.js، أو .NET، أو Python وDjango، أو Java وSpring Boot، أو PHP وLaravel. المسارات بدائل مستقلة؛ لست مطالبًا بدراستها كلها.",
   "color": "#34d399",
   "icon": "🛠️",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
-    "BackEnd/"
+    "Back End/README.md",
+    "Back End/NodeJS/README.md",
+    "Back End/DotNet/README.md",
+    "Back End/Django/README.md",
+    "Back End/Java/README.md",
+    "Back End/PHP/README.md"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Back%20End",
-  "levels": []
+  "overview": {
+    "paragraphs": [
+      "تطوير الواجهة الخلفية يشمل استقبال طلبات المستخدمين، ومعالجة البيانات، وبناء واجهات API آمنة، والتعامل مع قواعد البيانات وتشغيل التطبيق. ابدأ بالمهارات التأسيسية في المسار الذي تختاره، ثم انتقل من تطبيق صغير إلى تطبيق متكامل قابل للنشر.",
+      "يضم المصدر خمسة مسارات تخصصية مستقلة. اختر لغة وإطار عمل واحدًا كبداية؛ ويمكنك الرجوع إلى بقية المسارات لاحقًا للمقارنة أو التوسّع."
+    ],
+    "highlights": [
+      "مسارات مستقلة",
+      "مشاريع تطبيقية",
+      "مصادر عربية وإنجليزية"
+    ]
+  },
+  "levels": [
+    {
+      "id": "nodejs",
+      "name": "Node.js وExpress",
+      "order": 0,
+      "goal": "مسار مستقل في Node.js وExpress؛ ابدأ بالتأسيس ثم تابع إلى بناء التطبيقات وتشغيلها.",
+      "modules": [
+        {
+          "id": "foundation",
+          "name": "التأسيس",
+          "order": 0,
+          "objectives": [
+            "تعلّم JavaScript ومفاهيم الويب وقواعد البيانات، وتعرّف على Node.js وExpress."
+          ],
+          "practice": [
+            "أنشئ خادمًا يعرض صفحات وبيانات تجريبية، ثم خزّن البيانات في قاعدة بسيطة."
+          ],
+          "topics": [
+            {
+              "id": "foundation-roadmap",
+              "title": "استخدم الوحدات والحزم والعمليات غير المتزامنة لبناء خادم ويب بسيط.",
+              "resources": [
+                {
+                  "title": "خارطة Node.js وExpress الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/NodeJS/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "التعرّف على Node.js",
+                  "url": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة JavaScript من Elzero Web School",
+                  "url": "https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "application",
+          "name": "بناء التطبيقات",
+          "order": 1,
+          "objectives": [
+            "ابنِ واجهات REST، وتعامل مع قواعد البيانات والتحقق من المدخلات."
+          ],
+          "practice": [
+            "نفّذ واجهة لإدارة عناصر مع إنشاء البيانات وقراءتها وتعديلها وحذفها."
+          ],
+          "topics": [
+            {
+              "id": "application-roadmap",
+              "title": "طبّق المصادقة والاختبارات وتوثيق الواجهات وفصل مكونات التطبيق.",
+              "resources": [
+                {
+                  "title": "خارطة Node.js وExpress الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/NodeJS/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "إنشاء تطبيق Express",
+                  "url": "https://expressjs.com/en/starter/hello-world.html",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "production",
+          "name": "التوسّع والإطلاق",
+          "order": 2,
+          "objectives": [
+            "تعرّف على قواعد البيانات المتقدمة والتخزين المؤقت والمهام الخلفية."
+          ],
+          "practice": [
+            "أضف تسجيل دخول واختبارات وتوثيقًا، ثم انشر التطبيق."
+          ],
+          "topics": [
+            {
+              "id": "production-roadmap",
+              "title": "وسّع التطبيق إلى اتصالات آنية، واختبارات شاملة، وتشغيل ونشر موثوق.",
+              "resources": [
+                {
+                  "title": "خارطة Node.js وExpress الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/NodeJS/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "أدلة Node.js المتقدمة",
+                  "url": "https://nodejs.org/en/learn",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "dotnet",
+      "name": ".NET وASP.NET Core",
+      "order": 0,
+      "goal": "مسار مستقل في .NET وASP.NET Core؛ ابدأ بالتأسيس ثم تابع إلى بناء التطبيقات وتشغيلها.",
+      "modules": [
+        {
+          "id": "foundation",
+          "name": "التأسيس",
+          "order": 0,
+          "objectives": [
+            "تعلّم C# والبرمجة كائنية التوجه والمجموعات والبرمجة غير المتزامنة."
+          ],
+          "practice": [
+            "أنشئ برامج C# صغيرة لإدارة بيانات باستخدام الكائنات والمجموعات."
+          ],
+          "topics": [
+            {
+              "id": "foundation-roadmap",
+              "title": "افهم مبادئ SOLID وواجهات الويب وقواعد البيانات وLINQ.",
+              "resources": [
+                {
+                  "title": "خارطة .NET وASP.NET Core الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/DotNet/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "جولة تعلّم C#",
+                  "url": "https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تعلّم C# من Piece of Cake Dev",
+                  "url": "https://youtube.com/playlist?list=PLfHpC6JZ316dbrFn-jAwMBZwMqkcAabWB",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "application",
+          "name": "بناء التطبيقات",
+          "order": 1,
+          "objectives": [
+            "ابنِ تطبيقات ASP.NET Core وواجهات REST واربطها بقاعدة بيانات."
+          ],
+          "practice": [
+            "ابنِ واجهة API لإدارة بيانات واربطها بقاعدة علائقية."
+          ],
+          "topics": [
+            {
+              "id": "application-roadmap",
+              "title": "نظّم التطبيق إلى طبقات، وأضف التحقق والمصادقة والتعامل مع الأخطاء.",
+              "resources": [
+                {
+                  "title": "خارطة .NET وASP.NET Core الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/DotNet/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "إنشاء واجهة ويب باستخدام ASP.NET Core",
+                  "url": "https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "production",
+          "name": "التوسّع والإطلاق",
+          "order": 2,
+          "objectives": [
+            "تعمّق في Entity Framework Core وتحسين الاستعلامات والأداء."
+          ],
+          "practice": [
+            "أضف تسجيل الدخول والصلاحيات والاختبارات إلى تطبيقك."
+          ],
+          "topics": [
+            {
+              "id": "production-roadmap",
+              "title": "طوّر تطبيقًا متكاملًا واختبره وجهّزه للنشر والصيانة.",
+              "resources": [
+                {
+                  "title": "خارطة .NET وASP.NET Core الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/DotNet/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "مرجع Entity Framework Core",
+                  "url": "https://learn.microsoft.com/en-us/ef/core/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "django",
+      "name": "Python وDjango",
+      "order": 0,
+      "goal": "مسار مستقل في Python وDjango؛ ابدأ بالتأسيس ثم تابع إلى بناء التطبيقات وتشغيلها.",
+      "modules": [
+        {
+          "id": "foundation",
+          "name": "التأسيس",
+          "order": 0,
+          "objectives": [
+            "تعلّم Python وأساسيات الويب وGit وHTTP قبل اختيار إطار العمل."
+          ],
+          "practice": [
+            "أنشئ تطبيق Flask بسيطًا يعرض صفحات ديناميكية."
+          ],
+          "topics": [
+            {
+              "id": "foundation-roadmap",
+              "title": "ابدأ بـ Flask ووجّه الطلبات واعرض القوالب لبناء تطبيق ويب أولي.",
+              "resources": [
+                {
+                  "title": "خارطة Python وDjango الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Django/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "دليل Python الرسمي",
+                  "url": "https://docs.python.org/3/tutorial/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة Python من Codezilla",
+                  "url": "https://www.youtube.com/playlist?list=PLuXY3ddo_8nzrO74UeZQVZOb5-wIS6krJ",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "application",
+          "name": "بناء التطبيقات",
+          "order": 1,
+          "objectives": [
+            "تعلّم Django وORM والنماذج وقواعد البيانات."
+          ],
+          "practice": [
+            "ابنِ API لإدارة مورد مثل الكتب، مع قاعدة بيانات واختبارات."
+          ],
+          "topics": [
+            {
+              "id": "application-roadmap",
+              "title": "أنشئ واجهات API باستخدام Django REST Framework.",
+              "resources": [
+                {
+                  "title": "خارطة Python وDjango الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Django/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "البدء السريع في Django REST Framework",
+                  "url": "https://www.django-rest-framework.org/tutorial/quickstart/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "production",
+          "name": "التوسّع والإطلاق",
+          "order": 2,
+          "objectives": [
+            "أضف المصادقة والصلاحيات والاختبارات والتخزين المؤقت."
+          ],
+          "practice": [
+            "أضف الصلاحيات والتخزين المؤقت وحاويات Docker ثم جهّز خطة نشر."
+          ],
+          "topics": [
+            {
+              "id": "production-roadmap",
+              "title": "جهّز التطبيق باستخدام Docker، ثم انشره وراجع الأمان والأداء.",
+              "resources": [
+                {
+                  "title": "خارطة Python وDjango الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Django/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "أمن تطبيقات Django",
+                  "url": "https://docs.djangoproject.com/en/stable/topics/security/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "spring",
+      "name": "Java وSpring Boot",
+      "order": 0,
+      "goal": "مسار مستقل في Java وSpring Boot؛ ابدأ بالتأسيس ثم تابع إلى بناء التطبيقات وتشغيلها.",
+      "modules": [
+        {
+          "id": "foundation",
+          "name": "التأسيس",
+          "order": 0,
+          "objectives": [
+            "تعلّم Java والبرمجة كائنية التوجه وGit وأساسيات HTTP وقواعد البيانات."
+          ],
+          "practice": [
+            "أنشئ برنامج Java لإدارة مكتبة باستخدام الكائنات والمجموعات."
+          ],
+          "topics": [
+            {
+              "id": "foundation-roadmap",
+              "title": "تعرّف على Maven وSpring Boot وSpring MVC وواجهات REST.",
+              "resources": [
+                {
+                  "title": "خارطة Java وSpring Boot الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Java/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "وثائق Java الرسمية",
+                  "url": "https://docs.oracle.com/en/java/",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة Java للمبتدئين من عادل نسيم",
+                  "url": "https://youtube.com/playlist?list=PLCInYL3l2AajYlZGzU_LVrHdoouf8W6ZN",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "application",
+          "name": "بناء التطبيقات",
+          "order": 1,
+          "objectives": [
+            "اربط التطبيق بـ PostgreSQL واستخدم Spring Data JPA لبناء طبقة البيانات."
+          ],
+          "practice": [
+            "ابنِ REST API لإدارة الكتب واربطها بقاعدة بيانات PostgreSQL."
+          ],
+          "topics": [
+            {
+              "id": "application-roadmap",
+              "title": "أضف التحقق ومعالجة الأخطاء والاختبارات والمصادقة والصلاحيات.",
+              "resources": [
+                {
+                  "title": "خارطة Java وSpring Boot الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Java/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "إنشاء خدمة REST باستخدام Spring",
+                  "url": "https://spring.io/guides/gs/rest-service",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "production",
+          "name": "التوسّع والإطلاق",
+          "order": 2,
+          "objectives": [
+            "استكشف Redis والاتصالات الآنية والبرمجة التفاعلية."
+          ],
+          "practice": [
+            "وسّع تطبيقك إلى مشروع متكامل مع الأمان والاختبارات وDocker."
+          ],
+          "topics": [
+            {
+              "id": "production-roadmap",
+              "title": "تعرّف على Docker والخدمات المصغّرة ووسائط الرسائل والنشر.",
+              "resources": [
+                {
+                  "title": "خارطة Java وSpring Boot الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/Java/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "مرجع Spring Boot",
+                  "url": "https://docs.spring.io/spring-boot/reference/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "laravel",
+      "name": "PHP وLaravel",
+      "order": 0,
+      "goal": "مسار مستقل في PHP وLaravel؛ ابدأ بالتأسيس ثم تابع إلى بناء التطبيقات وتشغيلها.",
+      "modules": [
+        {
+          "id": "foundation",
+          "name": "التأسيس",
+          "order": 0,
+          "objectives": [
+            "راجع أساسيات HTML وCSS وJavaScript وGit والشبكات وقواعد البيانات."
+          ],
+          "practice": [
+            "أنشئ تطبيق PHP بسيطًا يعالج البيانات ويخزنها في قاعدة بيانات."
+          ],
+          "topics": [
+            {
+              "id": "foundation-roadmap",
+              "title": "تعلّم PHP وJSON والبرمجة كائنية التوجه وتصميم قواعد البيانات.",
+              "resources": [
+                {
+                  "title": "خارطة PHP وLaravel الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/PHP/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "دليل PHP الرسمي",
+                  "url": "https://www.php.net/manual/en/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "application",
+          "name": "بناء التطبيقات",
+          "order": 1,
+          "objectives": [
+            "استخدم MVC وLaravel وEloquent لبناء تطبيق متصل بقاعدة بيانات."
+          ],
+          "practice": [
+            "ابنِ API باستخدام Laravel مع التحقق من الطلبات وتسجيل الدخول."
+          ],
+          "topics": [
+            {
+              "id": "application-roadmap",
+              "title": "أنشئ REST API وأضف المصادقة والصلاحيات والاختبارات.",
+              "resources": [
+                {
+                  "title": "خارطة PHP وLaravel الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/PHP/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "مجموعات البدء في Laravel",
+                  "url": "https://laravel.com/docs/starter-kits",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        },
+        {
+          "id": "production",
+          "name": "التوسّع والإطلاق",
+          "order": 2,
+          "objectives": [
+            "طبّق أنماط التصميم ومبادئ SOLID ونظّم التطبيق إلى مكونات واضحة."
+          ],
+          "practice": [
+            "نفّذ مشروعًا متكاملًا واختبره واتبع دليل Laravel للنشر."
+          ],
+          "topics": [
+            {
+              "id": "production-roadmap",
+              "title": "ابنِ مشروعًا متكاملًا وراجعه وجهّزه للتشغيل في بيئة إنتاج.",
+              "resources": [
+                {
+                  "title": "خارطة PHP وLaravel الأصلية من CAT Reloaded",
+                  "url": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/blob/2026/Back%20End/PHP/README.md",
+                  "kind": "repo",
+                  "lang": "en",
+                  "note": "تتضمن التفاصيل والمواد المرتبة حسب المرحلة."
+                },
+                {
+                  "title": "نشر تطبيقات Laravel",
+                  "url": "https://laravel.com/docs/deployment",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "resources": [],
+          "optional": false
+        }
+      ]
+    }
+  ]
 }
