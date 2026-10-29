@@ -4,10 +4,8 @@ import { Icon } from 'astro-icon/components';
 interface Props {
   /** المسار الحالي لتظيين العنصر النشط */
   path: string;
-  /** جهة الشريط: يمين افتراضيًا — صفحة الكورس تبعته يسار (قرار 2026-10-29) */
-  side?: 'right' | 'left';
 }
-const { path, side = 'right' } = Astro.props;
+const { path } = Astro.props;
 
 const norm = (p: string) => (p.replace(/\/+$/, '') || '/dashboard');
 const current = norm(path);
@@ -25,18 +23,12 @@ const isActive = (item: (typeof nav)[number]) =>
   <!-- خلفية الـ drawer على الموبايل — بنفس نمط drawer محتوى الكورس -->
   <div data-dash-backdrop class="fixed inset-0 z-40 hidden bg-black/50 max-lg:block" aria-hidden="true"></div>
 
-  <!-- sidebar الداشبورد: جهته بحسب الصفحة — drawer الموبايل بيتزحلق من نفس الجهة -->
+  <!-- sidebar الداشبورد: يمين (start في RTL) — 12rem ديسكتوب، drawer موبايل بيتزحلق من اليمين -->
   <aside
     id="app-sidebar"
     dir="rtl"
-    data-side={side}
     aria-label="تنقّل الداشبورد"
-    class:list={[
-      'z-50 flex w-48 shrink-0 flex-col bg-panel/40 max-lg:fixed max-lg:inset-y-0 max-lg:w-64 max-lg:bg-panel max-lg:transition-transform max-lg:duration-300',
-      side === 'left'
-        ? 'border-r border-edge/60 max-lg:left-0 max-lg:-translate-x-full'
-        : 'border-e border-edge/60 max-lg:right-0 max-lg:translate-x-full',
-    ]}
+    class="z-50 flex w-48 shrink-0 flex-col border-e border-edge/60 bg-panel/40 max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:w-64 max-lg:bg-panel max-lg:translate-x-full max-lg:transition-transform max-lg:duration-300"
   >
     <div class="flex items-center gap-2.5 px-3 py-4">
       <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-accent/10 text-sm font-bold text-accent ring-1 ring-accent/30">CR</span>
@@ -124,11 +116,11 @@ const isActive = (item: (typeof nav)[number]) =>
 <script>
   import { getProfile, setName, initialOf } from '../../lib/profile';
 
-  // ===== drawer الموبايل — جهة الانزلاق تتبع طرف الشريط =====
+  // ===== drawer الموبايل (يمين — يمتد underneath من +X) =====
   const sidebar = document.getElementById('app-sidebar')!;
   const backdrop = document.querySelector<HTMLElement>('[data-dash-backdrop]');
+  const CLOSED = 'max-lg:translate-x-full';
   const OPEN = 'max-lg:translate-x-0';
-  const CLOSED = sidebar.dataset.side === 'left' ? 'max-lg:-translate-x-full' : 'max-lg:translate-x-full';
 
   function setDrawer(open: boolean) {
     sidebar.classList.toggle(CLOSED, !open);
