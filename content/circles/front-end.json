@@ -20,7 +20,7 @@
   "levels": [
     {
       "id": "phase-1-foundation",
-      "name": "المرحلة الأولى — الأساسيات",
+      "name": "الأساسيات",
       "order": 0,
       "durationText": "5 أسابيع",
       "goal": "صفحات static نضيفة بـ semantic HTML و CSS سليم.",
@@ -524,7 +524,7 @@
     },
     {
       "id": "phase-2-core",
-      "name": "المرحلة الثانية — هندسة البرمجيات الأساسية",
+      "name": "هندسة البرمجيات الأساسية",
       "order": 1,
       "durationText": "13 أسبوعًا",
       "goal": "JavaScript عميق + Problem Solving + أدوات محترفة — سبرنت مكثف 13 أسبوع.",
@@ -1239,7 +1239,7 @@
     },
     {
       "id": "phase-3-react",
-      "name": "المرحلة الثالثة — React وNext.js",
+      "name": "React وNext.js",
       "order": 2,
       "durationText": "8 أسابيع تخصصية",
       "goal": "المسار المفصّل الرسمي: React → Redux → Tailwind → TypeScript → Next.js + جدول تخصصي 8 أسابيع.",

@@ -134,12 +134,12 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                   <span dir="auto" class="truncate text-sm font-bold text-ink">{level.name}</span>
                 </span>
                 <span class="flex shrink-0 items-center gap-2">
-                  {level.durationText && (
+                  {/* {level.durationText && (
                     <span class="rounded bg-edge/50 px-2 py-0.5 font-mono text-[10px] text-muted">{level.durationText}</span>
-                  )}
-                  <span class="font-mono text-[10px] text-muted">
+                  )} */}
+                  {/* <span class="font-mono text-[10px] text-muted">
                     {level.modules.reduce((a, m) => a + m.topics.length, 0)} موضوع
-                  </span>
+                  </span> */}
                 </span>
               </summary>
 
@@ -164,15 +164,22 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
                           data-tkey={tkey(circle.id, level.id, module.id, topic.id)}
                           class="group/row flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-panel/70"
                         >
-                          <span class="wdot shrink-0" aria-hidden="true">
+                          <span
+                            class="wdot shrink-0 cursor-pointer"
+                            role="button"
+                            tabindex="0"
+                            data-done-toggle
+                            title="تسجيل الحضور"
+                            aria-label={`تسجيل حضور: ${topic.title}`}
+                          >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                               ><path d="M20 6 9 17l-5-5"></path
                             ></svg>
                           </span>
                           <span dir="auto" class="truncate text-xs text-ink/90" data-rowtitle>{topic.title}</span>
-                          {topic.resources.some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar') && (
+                          {/* {topic.resources.some((r) => (r.kind === 'video' || r.kind === 'playlist') && r.lang === 'ar') && (
                             <span class="shrink-0 rounded bg-accent/10 px-1.5 py-0.5 font-mono text-[9px] font-bold text-accent/80">عربي</span>
-                          )}
+                          )} */}
                           <Icon name={topicGlyph(topic)} class="ms-auto size-3.5 shrink-0 text-muted" />
                         </a>
                       ))}
@@ -245,14 +252,9 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
         <section id="watch-overview" class="watch-overview mt-4">
           <h2 class="text-base font-bold text-ink">عن هذا الدرس</h2>
-          <p class="mt-1 text-xs leading-6 text-muted">تابع الدرس، ثم علّم عليه كمكتمل لتحديث تقدّمك في المسار.</p>
+          <p class="mt-1 text-xs leading-6 text-muted">تابع الدرس، وبعدها دوس على الدايرة جنب اسم المحاضرة في «محتوى المسار» عشان تسجّل حضورك.</p>
           <div id="watch-extras" class="mt-4 space-y-3"></div>
         </section>
-
-        <label class="mt-4 flex w-fit items-center gap-2 rounded-xl border border-edge bg-panel/60 px-3 py-2.5 text-xs text-muted transition hover:border-accent/40 hover:text-ink">
-          <input type="checkbox" id="watch-done" class="size-3.5 accent-[var(--color-accent)]" />
-          <span>خلصت المحاضرة دي؟</span>
-        </label>
 
         <div class="mt-4 flex justify-between gap-3">
           <a
@@ -343,7 +345,6 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     const stage = document.getElementById('watch-stage');
     const titleEl = document.getElementById('watch-title');
     const crumbEl = document.getElementById('watch-crumb');
-    const doneEl = document.getElementById('watch-done');
     const prevEl = document.getElementById('watch-prev');
     const nextEl = document.getElementById('watch-next');
     const rows = Array.from(document.querySelectorAll('a[data-key]'));
@@ -667,7 +668,14 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         // done marker (from «مسار تعلّم تفاعلي ٢»): the circular dot fills with a
         // white check and the title mutes — the dot itself stays full-strength.
         const dot = row.querySelector('.wdot');
-        if (dot) dot.classList.toggle('is-done', done);
+        if (dot) {
+          dot.classList.toggle('is-done', done);
+          // الدايرة زر تسجيل حضور — الحالة والسُمّية يتحدثوا مع كل إعادة رسم
+          dot.setAttribute('aria-pressed', done ? 'true' : 'false');
+          const title = row.querySelector('[data-rowtitle]')?.textContent || 'المحاضرة';
+          dot.setAttribute('aria-label', (done ? 'إلغاء تسجيل حضور: ' : 'تسجيل حضور: ') + title);
+          dot.setAttribute('title', done ? 'إلغاء تسجيل الحضور' : 'تسجيل الحضور');
+        }
         const label = row.querySelector('[data-rowtitle]');
         if (label) label.classList.toggle('text-muted', done);
       }
@@ -758,13 +766,6 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         } else {
           stage.replaceChildren(renderArticle(entry));
         }
-      }
-
-      if (doneEl) {
-        // always the key of the topic on screen — never a cached one from a previous render
-        const tkeyValue = tkey(CIRCLE_ID, entry.l, entry.m, entry.t);
-        doneEl.dataset.tkey = tkeyValue;
-        doneEl.checked = progressStore.snapshot()[tkeyValue] === 1;
       }
 
       renderSidebar();
@@ -867,11 +868,29 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     updateProgressUI();
     progressStore.subscribe(updateProgressUI);
 
-    if (doneEl) {
-      doneEl.addEventListener('change', () => {
-        const key = doneEl.dataset.tkey;
-        if (key) progressStore.toggle(key);
-        renderSidebar();
+    // تسجيل الحضور من الدايرة جنب اسم المحاضرة في «محتوى المسار» — بدل مربع
+    // «خلصت المحاضرة دي؟» (شيلناه 2026-10-29). stopPropagation يمنع توجيه الرابط
+    // الأب وإغلاق الدروار على الموبايل عند الضغط على الدايرة فقط.
+    const toggleDone = (key) => {
+      if (!key) return;
+      progressStore.toggle(key);
+      renderSidebar();
+    };
+    const sidebarListEl = document.getElementById('content-sidebar');
+    if (sidebarListEl) {
+      sidebarListEl.addEventListener('click', (e) => {
+        const dot = (e.target instanceof Element ? e.target : null)?.closest('[data-done-toggle]');
+        if (!dot) return;
+        e.preventDefault();
+        e.stopPropagation();
+        toggleDone(dot.closest('[data-tkey]')?.getAttribute('data-tkey'));
+      });
+      sidebarListEl.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const dot = (e.target instanceof Element ? e.target : null)?.closest('[data-done-toggle]');
+        if (!dot) return;
+        e.preventDefault();
+        toggleDone(dot.closest('[data-tkey]')?.getAttribute('data-tkey'));
       });
     }
 
@@ -1012,6 +1031,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       border-radius: 9999px;
       border: 1.5px solid color-mix(in oklab, var(--color-control-edge) 70%, transparent);
       background: var(--color-surface);
+      cursor: pointer;
       display: grid;
       place-items: center;
       transition:
@@ -1032,6 +1052,15 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     .wdot.is-done svg {
       opacity: 1;
       color: var(--color-surface);
+    }
+    /* hover على الدايرة = توحي إنها زر تسجيل الحضور قبل الضغط */
+    .wdot:not(.is-done):hover {
+      border-color: var(--color-accent);
+      background: color-mix(in oklab, var(--color-accent) 14%, var(--color-surface));
+    }
+    .wdot:not(.is-done):hover svg {
+      opacity: 0.6;
+      color: var(--color-accent);
     }
     a[data-current] .wdot {
       border-color: var(--color-accent);
