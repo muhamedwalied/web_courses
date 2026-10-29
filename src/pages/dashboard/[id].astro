@@ -84,15 +84,15 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
   <div class="watch-page">
     
 
-    <!-- عمود الـ sidebar بتاع الداشبورد بقى في الشل (DashboardLayout) — الجريد هنا عمودين: محتوى المسار + الساحة -->
-    <div class="watch-grid grid grid-cols-1 gap-5 pb-10 lg:grid-cols-[19rem_minmax(0,1fr)]" data-circle={circle.id}>
-      <!-- first grid child renders on the RIGHT in RTL: the content sidebar (Udemy-canonical).
-           Desktop: docked, full-height, independently-scrolling column.
-           Below lg: off-canvas drawer (fixed+right-0) — stays in the grid so RTL order is untouched. -->
+    <!-- الجريد عمودين RTL: track1 (يمين) = الدرس 1fr · track2 (يسار) = محتوى المسار 19rem (قرار 2026-10-29).
+         شريط CR بتاع الداشبورد برة الجريد في الشل على أقصى اليمين — مالوش علاقة بالترتيب ده. -->
+    <div class="watch-grid grid grid-cols-1 gap-5 pb-10 lg:grid-cols-[minmax(0,1fr)_19rem]" data-circle={circle.id}>
+      <!-- محتوى المسار: يسار الصفحة على الديسكتوب (col-start-2 في RTL) —
+           Below lg: off-canvas drawer بيتزحلق من اليسار. -->
       <aside
         id="content-sidebar"
         aria-label="محتوى المسار"
-        class="max-lg:fixed max-lg:inset-y-0 max-lg:start-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-8 lg:flex lg:h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-4rem)] lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-2xl lg:border lg:border-edge lg:bg-panel/70 lg:p-4"
+        class="max-lg:fixed max-lg:inset-y-0 max-lg:end-0 max-lg:z-50 max-lg:w-85 max-lg:max-w-[85vw] max-lg:-translate-x-full max-lg:overflow-y-auto max-lg:rounded-none max-lg:border-s max-lg:bg-panel max-lg:p-4 max-lg:transition-transform max-lg:duration-300 lg:sticky lg:col-start-2 lg:row-start-1 lg:top-8 lg:flex lg:h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-4rem)] lg:flex-col lg:self-start lg:overflow-x-hidden lg:rounded-2xl lg:border lg:border-edge lg:bg-panel/70 lg:p-4"
       >
         <div class="shrink-0 border-b border-edge/70 pb-3">
           <div class="flex items-center justify-between gap-2">
@@ -188,8 +188,8 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       <!-- mobile drawer backdrop — below lg only, toggled by JS -->
       <div id="content-backdrop" class="fixed inset-0 z-40 hidden bg-black/50" aria-hidden="true"></div>
 
-      <!-- Center column: the current lesson and its learning controls. -->
-      <div class="watch-main min-w-0">
+      <!-- Center column: the current lesson and its learning controls — يمين الجريد في RTL (track1). -->
+      <div class="watch-main min-w-0 lg:col-start-1 lg:row-start-1">
         <div class="watch-heading">
       <a href="/" class="text-muted transition hover:text-accent">المسارات</a>
       <Icon name="lucide:chevron-left" class="size-3.5 text-muted/70" />
@@ -909,7 +909,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 
     function setDrawer(open) {
       if (!sidebarEl || !backdropEl || !toggleEl) return;
-      sidebarEl.classList.toggle('max-lg:translate-x-full', !open);
+      sidebarEl.classList.toggle('max-lg:-translate-x-full', !open); // الـ drawer من اليسار (قرار 2026-10-29)
       sidebarEl.classList.toggle('max-lg:translate-x-0', open);
       backdropEl.classList.toggle('hidden', !open);
       backdropEl.classList.toggle('block', open);
