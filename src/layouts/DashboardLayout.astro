@@ -16,7 +16,7 @@ interface Props {
 }
 
 // شل الداشبورد v1 — بدون هيدر على الديسكتوب نهائيًا (اتفقنا 2026-10-29):
-// sidebar الشمال هو الواجهة الوحيدة، وعلى الموبايل شريط مصغر وظيفته إظهار الـ drawer فقط.
+// sidebar اليمين (بقرار مُعدَّل 2026-10-29: اليمين مش الشمال)، وعلى الموبايل شريط مصغر وظيفته إظهار الـ drawer فقط.
 const { title, description = 'لوحة التعلّم — تابع مساراتك وتقدّمك موضوعًا بموضوع.', wide = false } = Astro.props;
 const path = Astro.url.pathname;
 ---
@@ -48,13 +48,13 @@ const path = Astro.url.pathname;
       <span class="ms-auto size-9" aria-hidden="true"></span>
     </header>
 
-    <!-- الشل: sidebar شمال + محتوى RTL — الحاوية ltr لتثبيت sidebar على اليسار فيزيائيًا -->
-    <div class="flex min-h-dvh" dir="ltr">
+    <!-- الشل: sidebar يمين (start في RTL — DOM-first بيرسم يمين في flex RTL) + المحتوى شماله -->
+    <div class="flex min-h-dvh">
       <Sidebar path={path} />
       <main
         dir="rtl"
         class:list={[
-          'min-w-0 flex-1 border-l border-edge/40 px-4 pb-20 pt-16 sm:px-6 lg:pt-8 print:border-0',
+          'min-w-0 flex-1 border-r border-edge/40 px-4 pb-20 pt-16 sm:px-6 lg:pt-8 print:border-0',
           wide ? '' : 'mx-auto w-full max-w-7xl',
         ]}
       >
