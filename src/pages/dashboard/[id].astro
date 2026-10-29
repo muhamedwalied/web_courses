@@ -80,7 +80,8 @@ const giscusConfig = {
 const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
 ---
 
-<DashboardLayout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description} wide>
+<!-- sidebarSide="left" (قرار 2026-10-29): محتوى المسار أقصى اليمين وشريط الداشبورد أقصى اليسار في صفحة الدرس فقط -->
+<DashboardLayout title={`ابدأ ${circle.name} — مسارات CAT Reloaded`} description={circle.description} wide sidebarSide="left">
   <div class="watch-page">
     
 

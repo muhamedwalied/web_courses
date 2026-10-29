@@ -13,11 +13,13 @@ interface Props {
   title: string;
   description?: string;
   wide?: boolean;
+  /** جهة شريط الداشبورد: يمين افتراضيًا — صفحة الكورس تبعته يسار (قرار 2026-10-29) */
+  sidebarSide?: 'right' | 'left';
 }
 
 // شل الداشبورد v1 — بدون هيدر على الديسكتوب نهائيًا (اتفقنا 2026-10-29):
-// sidebar اليمين (بقرار مُعدَّل 2026-10-29: اليمين مش الشمال)، وعلى الموبايل شريط مصغر وظيفته إظهار الـ drawer فقط.
-const { title, description = 'لوحة التعلّم — تابع مساراتك وتقدّمك موضوعًا بموضوع.', wide = false } = Astro.props;
+// على الموبايل شريط مصغر وظيفته إظهار الـ drawer فقط.
+const { title, description = 'لوحة التعلّم — تابع مساراتك وتقدّمك موضوعًا بموضوع.', wide = false, sidebarSide = 'right' } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
@@ -48,13 +50,15 @@ const path = Astro.url.pathname;
       <span class="ms-auto size-9" aria-hidden="true"></span>
     </header>
 
-    <!-- الشل: sidebar يمين (start في RTL — DOM-first بيرسم يمين في flex RTL) + المحتوى شماله -->
-    <div class="flex min-h-dvh">
-      <Sidebar path={path} />
+    <!-- الشل: RTL flex — الافتراضي [CR يمين][محتوى]؛ صفحة الكورس تقلبه بـ sidebarSide="left"
+         عشان محتوى المسار يبقى أقصى اليمين وCR أقصى اليسار -->
+    <div class:list={['flex min-h-dvh', sidebarSide === 'left' && 'lg:flex-row-reverse']}>
+      <Sidebar path={path} side={sidebarSide} />
       <main
         dir="rtl"
         class:list={[
-          'min-w-0 flex-1 border-r border-edge/40 px-4 pb-20 pt-16 sm:px-6 lg:pt-8 print:border-0',
+          'min-w-0 flex-1 px-4 pb-20 pt-16 sm:px-6 lg:pt-8 print:border-0',
+          sidebarSide === 'left' ? 'border-l border-edge/40' : 'border-r border-edge/40',
           wide ? '' : 'mx-auto w-full max-w-7xl',
         ]}
       >

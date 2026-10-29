@@ -10,4 +10,4 @@
 
 ## ملخص حالة المشروع
 - الموقع Astro static يتصدر لـ Cloudflare Pages؛ التقدم محفوظ `localStorage` بدون حسابات.
-- منطقة الداشبورد بـ شل خاص بدون header ديسكتوب: `/dashboard` + `/dashboard/[id]` + `/dashboard/circles`، sidebar يمين بـ 12rem (قرار مُعدَّل من الشمال في نفس اليوم)، جيت اسم محلي إلزامي بلا تخطٍ، بروفايل `cr:profile:v1`، كارت المسار يدخل الكورس مباشرة. الروت القديم `/start/:id` يعمل 301 عبر `public/_redirects`.
+- منطقة الداشبورد بـ شل خاص بدون header ديسكتوب: `/dashboard` + `/dashboard/[id]` + `/dashboard/circles`. شريط CR يمين افتراضيًا، لكن على صفحة الدرس sidebarSide="left" فيبقى: [محتوى المسار أقصى اليمين][الدرس][CR أقصى اليسار]. جيت اسم محلي إلزامي بلا تخطٍ، بروفايل `cr:profile:v1`، كارت المسار يدخل الكورس مباشرة. الروت القديم `/start/:id` يعمل 301 عبر `public/_redirects`.
