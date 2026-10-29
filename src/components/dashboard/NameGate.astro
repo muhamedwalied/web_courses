@@ -55,8 +55,10 @@ import { Icon } from 'astro-icon/components';
 <script>
   import { getProfile, setName, initialOf } from '../../lib/profile';
 
-  const dlg = document.getElementById('name-gate') as HTMLDialogElement | null;
-  if (dlg && !getProfile().name) {
+  // View Transitions (2026-10-29): الفحص والربط بيتكرروا مع كل تنقّل داخلي
+  document.addEventListener('astro:page-load', () => {
+    const dlg = document.getElementById('name-gate') as HTMLDialogElement | null;
+    if (!dlg || getProfile().name) return;
     const form = dlg.querySelector<HTMLFormElement>('[data-gate-form]')!;
     const input = dlg.querySelector<HTMLInputElement>('[data-gate-input]')!;
     const avatar = dlg.querySelector<HTMLElement>('[data-gate-avatar]')!;
@@ -87,5 +89,5 @@ import { Icon } from 'astro-icon/components';
     });
 
     dlg.showModal();
-  }
+  });
 </script>

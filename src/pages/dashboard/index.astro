@@ -57,43 +57,53 @@ const circles = structuredCircles.map((c) => ({ circle: c }));
   import { getProfile } from '../../lib/profile';
   import { paintCircleCard } from '../../lib/dash-cards';
 
-  const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
-  const grid = document.getElementById('continue-grid')!;
-  const emptyEl = document.getElementById('continue-empty')!;
+  // ===== View Transitions (2026-10-29): الرسم والتجميع بيتكرروا مع كل تنقّل
+  // داخلي، ومستمعات الـ window بتتنضف في astro:before-swap.
+  const windowCleanups: (() => void)[] = [];
+  document.addEventListener('astro:before-swap', () => {
+    while (windowCleanups.length) windowCleanups.pop()();
+  });
 
-  function render() {
-    let started = 0;
-    let finished = 0;
-    const shown: { el: HTMLElement; pct: number }[] = [];
+  document.addEventListener('astro:page-load', () => {
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
+    const grid = document.getElementById('continue-grid')!;
+    const emptyEl = document.getElementById('continue-empty')!;
 
-    for (const el of cards) {
-      const { done, total } = paintCircleCard(el);
-      if (done === 0) {
-        el.classList.add('hidden');
-        continue;
+    function render() {
+      let started = 0;
+      let finished = 0;
+      const shown: { el: HTMLElement; pct: number }[] = [];
+
+      for (const el of cards) {
+        const { done, total } = paintCircleCard(el);
+        if (done === 0) {
+          el.classList.add('hidden');
+          continue;
+        }
+        el.classList.remove('hidden');
+        started++;
+        if (total > 0 && done === total) finished++;
+        shown.push({ el, pct: total ? done / total : 0 });
       }
-      el.classList.remove('hidden');
-      started++;
-      if (total > 0 && done === total) finished++;
-      shown.push({ el, pct: total ? done / total : 0 });
+
+      // الأقرب للاكتمال أولًا — بدون timestamps في v1
+      shown.sort((a, b) => b.pct - a.pct);
+      for (const { el } of shown) grid.appendChild(el);
+
+      document.getElementById('stat-started')!.textContent = String(started);
+      document.getElementById('stat-finished')!.textContent = String(finished);
+      emptyEl.hidden = shown.length > 0;
     }
 
-    // الأقرب للاكتمال أولًا — بدون timestamps في v1
-    shown.sort((a, b) => b.pct - a.pct);
-    for (const { el } of shown) grid.appendChild(el);
+    // التحية بالاسم المحلي — الجيت بيكفله موجود أول ما تدخل
+    function paintGreeting() {
+      document.querySelector<HTMLElement>('[data-greet]')!.textContent = getProfile().name || 'صديقنا';
+    }
+    paintGreeting();
+    window.addEventListener('dash:profile', paintGreeting);
+    windowCleanups.push(() => window.removeEventListener('dash:profile', paintGreeting));
 
-    document.getElementById('stat-started')!.textContent = String(started);
-    document.getElementById('stat-finished')!.textContent = String(finished);
-    emptyEl.hidden = shown.length > 0;
-  }
-
-  // التحية بالاسم المحلي — الجيت بيكفله موجود أول ما تدخل
-  function paintGreeting() {
-    document.querySelector<HTMLElement>('[data-greet]')!.textContent = getProfile().name || 'صديقنا';
-  }
-  paintGreeting();
-  window.addEventListener('dash:profile', paintGreeting);
-
-  render();
-  progressStore.subscribe(render);
+    render();
+    windowCleanups.push(progressStore.subscribe(render));
+  });
 </script>

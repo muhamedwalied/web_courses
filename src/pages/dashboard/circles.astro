@@ -20,11 +20,19 @@ const circles = structuredCircles;
   import { progressStore } from '../../lib/progress';
   import { paintCircleCard } from '../../lib/dash-cards';
 
-  const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
+  // ===== View Transitions (2026-10-29): الرسم بيتكرر مع كل تنقّل داخلي + تنظيف
+  const windowCleanups: (() => void)[] = [];
+  document.addEventListener('astro:before-swap', () => {
+    while (windowCleanups.length) windowCleanups.pop()();
+  });
 
-  function render() {
-    for (const el of cards) paintCircleCard(el);
-  }
-  render();
-  progressStore.subscribe(render);
+  document.addEventListener('astro:page-load', () => {
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-circle-stats]')];
+
+    function render() {
+      for (const el of cards) paintCircleCard(el);
+    }
+    render();
+    windowCleanups.push(progressStore.subscribe(render));
+  });
 </script>

@@ -304,6 +304,17 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
     // (frontmatter imports never reach the bundled client code)
     import { progressStore, tkey } from "../../lib/progress";
 
+    // ===== View Transitions (2026-10-29) =====
+    // نفس الموديول بيّتنفذ مرة واحدة بس في الجلسة — فكل الإعداد بالأسفل
+    // بيتلف جوه astro:page-load عشان يتنفذ مع كل تنقّل داخلي، ومستمعات
+    // الـ window بتتنضف في astro:before-swap عشان متتراكمش مع التنقّلات.
+    const windowCleanups: (() => void)[] = [];
+    document.addEventListener('astro:before-swap', () => {
+      while (windowCleanups.length) windowCleanups.pop()();
+    });
+
+    document.addEventListener('astro:page-load', () => {
+
     // --- Iconify path data (lucide) ---
     const LUCIDE = {
       play: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
@@ -866,7 +877,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       if (progressStrip) progressStrip.setAttribute('aria-valuenow', String(pct));
     }
     updateProgressUI();
-    progressStore.subscribe(updateProgressUI);
+    windowCleanups.push(progressStore.subscribe(updateProgressUI));
 
     // تسجيل الحضور من الدايرة جنب اسم المحاضرة في «محتوى المسار» — بدل مربع
     // «خلصت المحاضرة دي؟» (شيلناه 2026-10-29). stopPropagation يمنع توجيه الرابط
@@ -894,11 +905,13 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       });
     }
 
-    addEventListener('hashchange', () => {
+    const onHash = () => {
       const key = keyFromLocation();
       if (!key || key === window.__watchCurrentKey) return;
       render(key);
-    });
+    };
+    addEventListener('hashchange', onHash);
+    windowCleanups.push(() => removeEventListener('hashchange', onHash));
 
     // --- mobile content drawer (below lg only) ---
     const sidebarEl = document.getElementById('content-sidebar');
@@ -934,9 +947,11 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
       const closeDrawer = () => setDrawer(false);
       closeEl?.addEventListener('click', closeDrawer);
       backdropEl.addEventListener('click', closeDrawer);
-      addEventListener('keydown', (e) => {
+      const onEsc = (e: KeyboardEvent) => {
         if (e.key === 'Escape' && belowLg.matches) closeDrawer();
-      });
+      };
+      addEventListener('keydown', onEsc);
+      windowCleanups.push(() => removeEventListener('keydown', onEsc));
       // picking a lecture closes the drawer (mobile only matters)
       for (const row of rows) {
         row.addEventListener('click', () => {
@@ -948,6 +963,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         else resetDrawer();
       };
       belowLg.addEventListener('change', onBreakpoint);
+      windowCleanups.push(() => belowLg.removeEventListener('change', onBreakpoint));
       onBreakpoint();
     }
 
@@ -961,6 +977,7 @@ const giscusEscaped = JSON.stringify(giscusConfig).replace(/</g, '\\u003C');
         }
       });
     }
+    }); // astro:page-load — نهاية لفّ إعادة الربط
   </script>
 
   <style>

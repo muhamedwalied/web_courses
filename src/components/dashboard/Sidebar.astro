@@ -32,7 +32,7 @@ const isActive = (item: (typeof nav)[number]) =>
     aria-label="تنقّل الداشبورد"
     class="z-50 flex w-48 shrink-0 flex-col border-s border-edge/60 bg-panel/40 max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:w-64 max-lg:bg-panel max-lg:-translate-x-full max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:h-dvh lg:max-h-dvh lg:self-start"
   >
-    <div class="flex items-center gap-2.5 px-3 py-4">
+    <a href="/" class="flex items-center gap-2.5 px-3 py-4">
       <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-accent/10 text-sm font-bold text-accent ring-1 ring-accent/30">CR</span>
       <span class="flex min-w-0 flex-col leading-tight">
         <span class="truncate text-[13px] font-bold">مسارات CAT</span>
@@ -46,7 +46,7 @@ const isActive = (item: (typeof nav)[number]) =>
       >
         <Icon name="lucide:x" class="size-4" />
       </button>
-    </div>
+    </a>
 
     <nav class="mt-1 space-y-1 px-2" aria-label="أقسام الداشبورد">
       {
@@ -118,66 +118,79 @@ const isActive = (item: (typeof nav)[number]) =>
 <script>
   import { getProfile, setName, initialOf } from '../../lib/profile';
 
-  // ===== drawer الموبايل (يمين — يمتد underneath من +X) =====
-  const sidebar = document.getElementById('app-sidebar')!;
-  const backdrop = document.querySelector<HTMLElement>('[data-dash-backdrop]');
-  const CLOSED = 'max-lg:-translate-x-full'; // الـ drawer بيتزحلق من اليسار
-  const OPEN = 'max-lg:translate-x-0';
-
-  function setDrawer(open: boolean) {
-    sidebar.classList.toggle(CLOSED, !open);
-    sidebar.classList.toggle(OPEN, open);
-    backdrop?.classList.toggle('hidden', !open);
-    for (const btn of document.querySelectorAll('[data-dash-menu]')) {
-      btn.setAttribute('aria-expanded', String(open));
-    }
-  }
-  const drawerOpen = () => sidebar.classList.contains(OPEN);
-
-  for (const btn of document.querySelectorAll('[data-dash-menu]')) {
-    btn.addEventListener('click', () => setDrawer(!drawerOpen()));
-  }
-  sidebar.querySelector('[data-dash-close]')?.addEventListener('click', () => setDrawer(false));
-  backdrop?.addEventListener('click', () => setDrawer(false));
-
-  // ===== chip البروفايل + popover التعديل =====
-  const chip = sidebar.querySelector<HTMLButtonElement>('[data-profile-chip]');
-  const popover = sidebar.querySelector<HTMLElement>('[data-profile-popover]');
-  const input = sidebar.querySelector<HTMLInputElement>('[data-profile-input]');
-  const form = sidebar.querySelector<HTMLFormElement>('[data-profile-form]');
-  const nameEl = sidebar.querySelector<HTMLElement>('[data-profile-name]');
-  const avatarEl = sidebar.querySelector<HTMLElement>('[data-profile-avatar]');
-
-  function paintProfile() {
-    const { name } = getProfile();
-    if (nameEl) nameEl.textContent = name || 'مستخدم جديد';
-    if (avatarEl) avatarEl.textContent = initialOf(name) || '؟';
-  }
-  paintProfile();
-  window.addEventListener('dash:profile', paintProfile);
-
-  function setPopover(open: boolean) {
-    if (!popover || !chip) return;
-    popover.hidden = !open;
-    chip.setAttribute('aria-expanded', String(open));
-    if (open) {
-      if (input && !input.value) input.value = getProfile().name;
-      input?.focus();
-    }
-  }
-  chip?.addEventListener('click', () => setPopover(popover?.hidden ?? false));
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const value = input?.value.trim() ?? '';
-    if (!value) return;
-    setName(value);
-    setPopover(false);
+  // ===== View Transitions (2026-10-29): الموديول بيّتنفذ مرة واحدة بس في
+  // الجلسة، فالربط بيتتعاد جوه astro:page-load مع كل تنقّل داخلي،
+  // ومستمعات الـ window بتتنضف في astro:before-swap.
+  const windowCleanups: (() => void)[] = [];
+  document.addEventListener('astro:before-swap', () => {
+    while (windowCleanups.length) windowCleanups.pop()();
   });
 
-  // نفس سلوك درَاور المحتوى: Escape يقفل الأقرب المفتوح
-  addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (popover && !popover.hidden) setPopover(false);
-    else if (drawerOpen()) setDrawer(false);
+  document.addEventListener('astro:page-load', () => {
+    // ===== drawer الموبايل (شمال — بيمتد من -X) =====
+    const sidebar = document.getElementById('app-sidebar')!;
+    const backdrop = document.querySelector<HTMLElement>('[data-dash-backdrop]');
+    const CLOSED = 'max-lg:-translate-x-full'; // الـ drawer بيتزحلق من اليسار
+    const OPEN = 'max-lg:translate-x-0';
+
+    function setDrawer(open: boolean) {
+      sidebar.classList.toggle(CLOSED, !open);
+      sidebar.classList.toggle(OPEN, open);
+      backdrop?.classList.toggle('hidden', !open);
+      for (const btn of document.querySelectorAll('[data-dash-menu]')) {
+        btn.setAttribute('aria-expanded', String(open));
+      }
+    }
+    const drawerOpen = () => sidebar.classList.contains(OPEN);
+
+    for (const btn of document.querySelectorAll('[data-dash-menu]')) {
+      btn.addEventListener('click', () => setDrawer(!drawerOpen()));
+    }
+    sidebar.querySelector('[data-dash-close]')?.addEventListener('click', () => setDrawer(false));
+    backdrop?.addEventListener('click', () => setDrawer(false));
+
+    // ===== chip البروفايل + popover التعديل =====
+    const chip = sidebar.querySelector<HTMLButtonElement>('[data-profile-chip]');
+    const popover = sidebar.querySelector<HTMLElement>('[data-profile-popover]');
+    const input = sidebar.querySelector<HTMLInputElement>('[data-profile-input]');
+    const form = sidebar.querySelector<HTMLFormElement>('[data-profile-form]');
+    const nameEl = sidebar.querySelector<HTMLElement>('[data-profile-name]');
+    const avatarEl = sidebar.querySelector<HTMLElement>('[data-profile-avatar]');
+
+    function paintProfile() {
+      const { name } = getProfile();
+      if (nameEl) nameEl.textContent = name || 'مستخدم جديد';
+      if (avatarEl) avatarEl.textContent = initialOf(name) || '؟';
+    }
+    paintProfile();
+    window.addEventListener('dash:profile', paintProfile);
+    windowCleanups.push(() => window.removeEventListener('dash:profile', paintProfile));
+
+    function setPopover(open: boolean) {
+      if (!popover || !chip) return;
+      popover.hidden = !open;
+      chip.setAttribute('aria-expanded', String(open));
+      if (open) {
+        if (input && !input.value) input.value = getProfile().name;
+        input?.focus();
+      }
+    }
+    chip?.addEventListener('click', () => setPopover(popover?.hidden ?? false));
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = input?.value.trim() ?? '';
+      if (!value) return;
+      setName(value);
+      setPopover(false);
+    });
+
+    // نفس سلوك درَاور المحتوى: Escape يقفل الأقرب المفتوح
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (popover && !popover.hidden) setPopover(false);
+      else if (drawerOpen()) setDrawer(false);
+    };
+    addEventListener('keydown', onKey);
+    windowCleanups.push(() => removeEventListener('keydown', onKey));
   });
 </script>
