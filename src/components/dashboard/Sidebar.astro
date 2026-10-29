@@ -23,12 +23,13 @@ const isActive = (item: (typeof nav)[number]) =>
   <!-- خلفية الـ drawer على الموبايل — بنفس نمط drawer محتوى الكورس -->
   <div data-dash-backdrop class="fixed inset-0 z-40 hidden bg-black/50 max-lg:block" aria-hidden="true"></div>
 
-  <!-- sidebar الداشبورد: يمين (start في RTL) — 12rem ديسكتوب، drawer موبايل بيتزحلق من اليمين -->
+  <!-- sidebar الداشبورد: يمين دايمًا (start في RTL) — محصور في الشاشة مش طول الصفحة:
+       sticky top-0 + h-dvh يخلي التكملة (chip البروفايل) ظاهرة دايمًا من غير نزول لآخر الصفحة -->
   <aside
     id="app-sidebar"
     dir="rtl"
     aria-label="تنقّل الداشبورد"
-    class="z-50 flex w-48 shrink-0 flex-col border-e border-edge/60 bg-panel/40 max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:w-64 max-lg:bg-panel max-lg:translate-x-full max-lg:transition-transform max-lg:duration-300"
+    class="z-50 flex w-48 shrink-0 flex-col border-e border-edge/60 bg-panel/40 max-lg:fixed max-lg:inset-y-0 max-lg:right-0 max-lg:w-64 max-lg:bg-panel max-lg:translate-x-full max-lg:transition-transform max-lg:duration-300 lg:sticky lg:top-0 lg:h-dvh lg:max-h-dvh lg:self-start"
   >
     <div class="flex items-center gap-2.5 px-3 py-4">
       <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-accent/10 text-sm font-bold text-accent ring-1 ring-accent/30">CR</span>
