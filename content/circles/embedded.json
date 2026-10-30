@@ -3,14 +3,340 @@
   "id": "embedded",
   "name": "الأنظمة المضمنة",
   "tagline": "الأنظمة المضمنة والمتحكمات الدقيقة",
-  "description": "تعرّف على الأنظمة المضمنة: أجهزة حاسوبية تجمع بين العتاد والبرمجيات لأداء مهام محددة، من المتحكمات الدقيقة إلى الأنظمة الذكية.",
+  "description": "مسار تدريجي للأنظمة المضمنة يبدأ بلغة C وهياكل البيانات، ثم ينتقل إلى Embedded C والمتحكمات وبروتوكولات الاتصال، وينتهي بمفاهيم RTOS وFreeRTOS وبنية ARM. المدد تقديرية بحسب خارطة المصدر؛ الخطة الأسبوعية تفصّل بعض المراحل في 15 و15 و6 أسابيع.",
   "color": "#a3e635",
   "icon": "🔩",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
     "Embedded Systems/"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Embedded%20Systems",
-  "levels": []
+  "levels": [
+    {
+      "id": "beginner",
+      "name": "مبتدئ",
+      "order": 0,
+      "durationText": "10–15 أسبوعًا",
+      "goal": "ابدأ بلغة C وأساسيات البرمجة وهياكل البيانات قبل الانتقال إلى المتحكمات الدقيقة.",
+      "modules": [
+        {
+          "id": "c-fundamentals",
+          "name": "أساسيات لغة C",
+          "order": 0,
+          "topics": [
+            {
+              "id": "c-fundamentals-topic",
+              "title": "المدخل إلى لغة C والبرمجة",
+              "resources": [
+                {
+                  "title": "سلسلة C — Neso Academy",
+                  "url": "https://www.youtube.com/watch?v=rLf3jnHxSmU&list=PLBlnK6fEyqRggZZgYpPMUxdY1CYkZtARR",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح C — محمد يوسف",
+                  "url": "https://www.youtube.com/watch?v=wuZEemcTTEs&list=PLfgCIULRQavzxY-IO2sO5Vj5x7C_tjW3R",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "مرجع لغة C — W3Schools",
+                  "url": "https://www.w3schools.com/c/",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "تعرّف على أنواع البيانات والمعاملات والتحكم في تدفق البرنامج والدوال.",
+            "افهم المؤشرات وإدارة الذاكرة والسلاسل النصية والبنى والتعدادات."
+          ],
+          "practice": [
+            "نفّذ برنامجًا صغيرًا بلغة C وارفَع تمارينك إلى مستودع GitHub."
+          ]
+        },
+        {
+          "id": "git-basics",
+          "name": "Git وGitHub",
+          "order": 1,
+          "topics": [
+            {
+              "id": "git-basics-topic",
+              "title": "إدارة ملفات المشروع باستخدام Git وGitHub",
+              "resources": [
+                {
+                  "title": "أساسيات Git وGitHub — Elzero Web School",
+                  "url": "https://www.youtube.com/watch?v=ACOiGZoqC8w&list=PLDoPjvoNmBAw4eOj58MZPakHjaO3frVMF",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "تتبّع تغييرات الكود ونظّم ملفات التدريب في مستودع."
+          ]
+        },
+        {
+          "id": "data-structures",
+          "name": "هياكل البيانات والخوارزميات",
+          "order": 2,
+          "topics": [
+            {
+              "id": "data-structures-topic",
+              "title": "المصفوفات والقوائم المترابطة والمكدسات والطوابير والبحث والترتيب",
+              "resources": [
+                {
+                  "title": "سلسلة هياكل البيانات — Neso Academy",
+                  "url": "https://www.youtube.com/watch?v=xLetJpcjHS0&list=PLBlnK6fEyqRj9lld8sWIUNwlKfdUoPd1Y",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "هياكل البيانات — محمد يوسف",
+                  "url": "https://www.youtube.com/watch?v=OpIqt71NjMc&list=PLfgCIULRQavxpi-GYpkLt8_sFb2VlT6Zo&pp=iAQB",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "حل تمارين لغة C — HackerRank",
+                  "url": "https://www.hackerrank.com/domains/c",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استخدم هياكل البيانات الأساسية واختر المناسب للمشكلة.",
+            "طبّق خوارزميات البحث والترتيب الأساسية."
+          ],
+          "practice": [
+            "أنشئ مشروعًا بسيطًا مثل سجل طلاب أو نظام إدارة مكتبة."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "متوسط",
+      "order": 1,
+      "durationText": "11–15 أسبوعًا",
+      "goal": "اكتب Embedded C وتعرّف على بنية المتحكمات وتوصيل الملحقات وبروتوكولات الاتصال.",
+      "modules": [
+        {
+          "id": "embedded-c",
+          "name": "Embedded C وعملية البناء",
+          "order": 0,
+          "topics": [
+            {
+              "id": "embedded-c-topic",
+              "title": "البرمجة بلغة Embedded C والتحسين وتسلسل الإقلاع",
+              "resources": [
+                {
+                  "title": "Embedded C — محمود كريم",
+                  "url": "https://www.youtube.com/watch?v=bCSeXFRBhLg&list=PLoiqjtgvXf9cgQbnEyRpT8FmtAZHUHG2O",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "Embedded C — SM Academy",
+                  "url": "https://www.youtube.com/watch?v=5NkmXqkdJyY&list=PL_zvrXFdKgZobLRX1MuFdfCWzo5cetTTN",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "Embedded C — GeeksforGeeks",
+                  "url": "https://www.geeksforgeeks.org/embedded-c/",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "افهم خطوات الترجمة وتهيئة البرنامج وبنية المعالج والذاكرة."
+          ]
+        },
+        {
+          "id": "mcu-and-gpio",
+          "name": "المتحكمات وGPIO",
+          "order": 1,
+          "topics": [
+            {
+              "id": "mcu-and-gpio-topic",
+              "title": "بنية المتحكمات الدقيقة والتحكم في منافذ GPIO",
+              "resources": [
+                {
+                  "title": "دورة Embedded C — محمود كريم",
+                  "url": "https://www.youtube.com/watch?v=bCSeXFRBhLg&list=PLoiqjtgvXf9cgQbnEyRpT8FmtAZHUHG2O",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة AVR — وليد عيسى",
+                  "url": "https://www.youtube.com/watch?v=pWavnF7P0EQ&list=PLww54WQ2wa5qWSTU7MYqjN0jHNaWuoXUk",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "وصّل مصباحًا وزرًا ولوحة مفاتيح وشاشة LCD بالمتحكم."
+          ],
+          "practice": [
+            "نفّذ مشروع آلة حاسبة بسيطة أو نظام تسجيل دخول باستخدام الملحقات."
+          ]
+        },
+        {
+          "id": "interrupts-and-adc",
+          "name": "المقاطعات وADC والمؤقتات",
+          "order": 2,
+          "topics": [
+            {
+              "id": "interrupts-and-adc-topic",
+              "title": "المقاطعات والاستثناءات وقراءة الإشارات التناظرية والمؤقتات",
+              "resources": [
+                {
+                  "title": "دورة Embedded C — محمود كريم",
+                  "url": "https://www.youtube.com/watch?v=bCSeXFRBhLg&list=PLoiqjtgvXf9e2VJk8GWEXwECPM_7JRwkE",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استخدم المقاطعات وADC والمؤقتات للتفاعل مع الأجهزة."
+          ]
+        },
+        {
+          "id": "communication-protocols",
+          "name": "بروتوكولات الاتصال",
+          "order": 3,
+          "topics": [
+            {
+              "id": "communication-protocols-topic",
+              "title": "التواصل عبر USART وSPI وI2C",
+              "resources": [
+                {
+                  "title": "دورة Embedded C — محمود كريم",
+                  "url": "https://www.youtube.com/watch?v=bCSeXFRBhLg&list=PLoiqjtgvXf9e2VJk8GWEXwECPM_7JRwkE",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة الأنظمة المضمنة — FWD",
+                  "url": "https://drive.google.com/drive/folders/1dfWZdEl2GdaCZ7xlDE3Tmj_5uUiMa8me",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "اختر بروتوكول الاتصال المناسب ووصل حساسات أو مشغلات بالمتحكم."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "متقدم",
+      "order": 2,
+      "durationText": "8–12 أسبوعًا (الخطة الأسبوعية: 6 أسابيع)",
+      "goal": "تعرّف على أنظمة الزمن الحقيقي وFreeRTOS وبنية ARM وفق الخطة العامة للمصدر.",
+      "modules": [
+        {
+          "id": "rtos-concepts",
+          "name": "مفاهيم أنظمة الزمن الحقيقي",
+          "order": 0,
+          "topics": [
+            {
+              "id": "rtos-concepts-topic",
+              "title": "مقدمة RTOS والمهام والتواصل والتزامن والجدولة",
+              "resources": [
+                {
+                  "title": "سلسلة RTOS — أحمد رزق",
+                  "url": "https://www.youtube.com/playlist?list=PLEPINOrvANGfzN1XxxIsaJQDfjQKGE7bU",
+                  "kind": "playlist",
+                  "lang": "ar"
+                },
+                {
+                  "title": "سلسلة RTOS — DigiKey",
+                  "url": "https://www.youtube.com/watch?v=F321087yYy4&list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz",
+                  "kind": "playlist",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "افهم المهام والجدولة والتزامن وتبادل البيانات وتحليل وقت التشغيل."
+          ],
+          "practice": [
+            "نفّذ مجدول مهام صغيرًا أو تطبيقًا تدريبيًا باستخدام FreeRTOS."
+          ]
+        },
+        {
+          "id": "freertos",
+          "name": "تطبيق FreeRTOS",
+          "order": 1,
+          "topics": [
+            {
+              "id": "freertos-topic",
+              "title": "تطبيق FreeRTOS على المتحكمات الدقيقة",
+              "resources": [
+                {
+                  "title": "دورة عملية في RTOS وFreeRTOS — Udemy",
+                  "url": "https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "شرح RTOS — أحمد الديب",
+                  "url": "https://www.youtube.com/watch?v=K0X9i8r7keI&list=PLPFp2zIiTnxVI2NdZ_yl5k2ilNCZEqOfB",
+                  "kind": "playlist",
+                  "lang": "ar"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "طبّق إنشاء المهام والتواصل بينها ومزامنتها على متحكم."
+          ]
+        },
+        {
+          "id": "arm-architecture",
+          "name": "بنية ARM",
+          "order": 2,
+          "topics": [
+            {
+              "id": "arm-architecture-topic",
+              "title": "معمارية ARM ومجموعة التعليمات وThumb وSIMD",
+              "resources": [],
+              "optional": false,
+              "note": "المصدر يذكر هذه الموضوعات ضمن المستوى المتقدم، لكنه لا يحدد لها رابطًا مباشرًا في الخطة المحلية."
+            }
+          ],
+          "objectives": [
+            "تعرّف على بنية ARM ومجموعة التعليمات والميزات المتقدمة المذكورة في خارطة المصدر."
+          ]
+        }
+      ]
+    }
+  ]
 }

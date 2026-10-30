@@ -3,14 +3,793 @@
   "id": "ui",
   "name": "تصميم واجهات وتجربة المستخدم",
   "tagline": "تصميم الواجهات وتجربة المستخدم من الأساسيات إلى الاحتراف",
-  "description": "ابدأ من أساسيات تصميم الواجهات وتجربة المستخدم، وتعرّف على الفرق بينهما، ثم تابع إلى المهارات التي تساعدك على تصميم منتجات رقمية واضحة وسهلة الاستخدام.",
+  "description": "خارطة تصميم واجهات وتجربة المستخدم تبدأ بالفرق بين المجالين ومبادئ التصميم وFigma، ثم تنتقل إلى المكونات وأنظمة التصميم والنماذج الأولية والتصميم المتجاوب. تتبع تقسيم الأسبوعين والمستويين كما وردا في المصدر المحلي.",
   "color": "#2dd4bf",
   "icon": "🖌️",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
     "UI/"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/UI",
-  "levels": []
+  "levels": [
+    {
+      "id": "beginner",
+      "name": "مبتدئ",
+      "order": 0,
+      "durationText": "6 أسابيع",
+      "goal": "افهم مبادئ UI/UX وتعلّم أساسيات Figma وأنشئ مشروعك الأول.",
+      "modules": [
+        {
+          "id": "ui-ux-introduction",
+          "name": "مدخل إلى UI وUX",
+          "order": 0,
+          "topics": [
+            {
+              "id": "ui-ux-introduction-topic",
+              "title": "الفرق بين تصميم الواجهة وتجربة المستخدم",
+              "resources": [
+                {
+                  "title": "شرح الفرق بين UI وUX — عربي",
+                  "url": "https://youtu.be/KaIzzUs2BkI",
+                  "kind": "video",
+                  "lang": "ar"
+                },
+                {
+                  "title": "شرح الفرق بين UI وUX — إنجليزي",
+                  "url": "https://youtu.be/TgqeRTwZvIo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "الفرق بين UI وUX — Interaction Design Foundation",
+                  "url": "https://www.interaction-design.org/literature/article/ux-vs-ui-what-s-the-difference",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "افهم الفرق بين واجهة المستخدم وتجربة المستخدم لتحديد نطاق تعلمك."
+          ]
+        },
+        {
+          "id": "visual-principles",
+          "name": "مبادئ التصميم البصري",
+          "order": 1,
+          "topics": [
+            {
+              "id": "visual-principles-topic",
+              "title": "التباين والتوازن والتسلسل البصري ومبادئ التصميم",
+              "resources": [
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLx03_0RRvUEE8w_ipVLwBjr9glIlU9G8M&si=-I05g3FsMuQ_dkfo",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/9EPTM91TBDU?si=MOGTa_QHYdf28Gpe",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://www.nngroup.com/articles/principles-visual-design/",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/resource-library/ui-design-principles/",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "لخّص ما تعلمته عن مبادئ التصميم البصري."
+          ]
+        },
+        {
+          "id": "figma-interface",
+          "name": "واجهة Figma",
+          "order": 2,
+          "topics": [
+            {
+              "id": "figma-interface-topic",
+              "title": "التعرّف على مساحة العمل وأدوات Figma",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/i8mBt_883y8?si=FWyoAZICRDc2NS-i",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/wD629i0yBag?si=C4Jal0iwYzOAFo60",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "شاهد فيديو المهمة وطبّق خطواته داخل Figma."
+          ]
+        },
+        {
+          "id": "color-and-type",
+          "name": "الألوان والطباعة",
+          "order": 3,
+          "topics": [
+            {
+              "id": "color-and-type-topic",
+              "title": "أساسيات الألوان والطباعة في تصميم الواجهات",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/1SfKlnZxdNw?si=HyMqytYhkboVa7Dr",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/0xl67wDdOvg?si=uLERZ79Q7Qa4RgQC",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/IgcyqReaUb8?si=jgTfAkCORUDKpORd",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/3JJDVIBdUwo?si=hR84Dksvnb3F-Wxi",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://uxcel.com/blog/beginners-guide-to-color-theory",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://careerfoundry.com/en/blog/ui-design/typography-ui-design/",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/8RSXFMEt17M?si=YY-O8OgnlotNr2Wj",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ مجموعة ألوان واختيارات خط مناسبة لواجهة بسيطة."
+          ]
+        },
+        {
+          "id": "spacing-layout-grid",
+          "name": "المسافات والتخطيط والشبكات",
+          "order": 4,
+          "topics": [
+            {
+              "id": "spacing-layout-grid-topic",
+              "title": "المسافات والمحاذاة والتخطيط والشبكات",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/kr7ExgMWmAY?si=IeR4D0wE3WU5fJFx",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/gJ5SHjWMTyE?si=j-tci4eecv5TWO_f",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/nHRcr2NivzU?si=hY4TBsrDXKNX11RZ",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/rxOvJsjuGIA?si=3lGy79eCUosJDRoo",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/dBE0zuTn29k?si=X3KhcwGErRXx1yY_",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://medium.com/@uiuxzee/ultimate-spacing-guide-for-ui-designers-342f4c61bd70",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "مرجع للتطبيق العملي",
+                  "url": "https://dribbble.com/shots/25469543-Travel-Mobile-App",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "طبّق التخطيط والمسافات على تصميم تطبيق سفر للهاتف."
+          ]
+        },
+        {
+          "id": "ux-foundations",
+          "name": "أساسيات تجربة المستخدم",
+          "order": 5,
+          "topics": [
+            {
+              "id": "ux-foundations-topic",
+              "title": "ما تجربة المستخدم؟ ومبادئها الأساسية",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/3zICP8XADfs",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://www.youtube.com/playlist?list=PLTZYG7bZ1u6oHnGp4Ib3n0y-CmFQdTW6r",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دورة UI/UX — إدراك",
+                  "url": "https://www.edraak.org/en/programs/specialization/uiux-v1/",
+                  "kind": "other",
+                  "lang": "ar"
+                },
+                {
+                  "title": "دورة تجربة المستخدم — Udacity",
+                  "url": "https://www.udacity.com/course/ux-designer-nanodegree--nd578",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "لخّص أفكار قائمة تشغيل أساسيات تجربة المستخدم."
+          ]
+        },
+        {
+          "id": "first-project",
+          "name": "المشروع الأول",
+          "order": 6,
+          "topics": [
+            {
+              "id": "first-project-topic",
+              "title": "تطبيق مفاهيم المرحلة في مشروع متكامل",
+              "resources": [],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ فكرة تطبيق تحتوي على 10 شاشات على الأقل."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "متوسط",
+      "order": 1,
+      "durationText": "11 أسبوعًا",
+      "goal": "طوّر مهارات Figma وأنظمة التصميم والنماذج الأولية والتصميم المتجاوب عبر تطبيقات أسبوعية.",
+      "modules": [
+        {
+          "id": "auto-layout",
+          "name": "Auto Layout",
+          "order": 0,
+          "topics": [
+            {
+              "id": "auto-layout-topic",
+              "title": "إنشاء تخطيطات مرنة في Figma",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/VJD1SvXEXE4?si=0QpUFY2kFTmr-FY3",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/-6Cd0r3taRo?si=KX-N4hXtvLhl7oam",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/EEfqMYcCexo?si=NsuxbA1I_N2msFva",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/0_NRDUjnoPA?si=zgMczetdNm1WXOg1",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/blog/behind-the-feature-the-making-of-the-new-auto-layout/",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "مرجع للتطبيق العملي",
+                  "url": "https://dribbble.com/shots/17948091-Log-In-Screens-for-Online-Learning-Mobile-App",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "طبّق Auto Layout على شاشات تسجيل الدخول."
+          ]
+        },
+        {
+          "id": "components-variants",
+          "name": "المكوّنات والأنماط المتعددة",
+          "order": 1,
+          "topics": [
+            {
+              "id": "components-variants-topic",
+              "title": "إنشاء Components وVariants قابلة لإعادة الاستخدام",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/j55a1IFda3A?si=oilExCVAxuz2WOJE",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/eMgnfFHYTV8?si=oTwCh-7ypEbP3f9r",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/otkYZD3VJ4E?si=ye98cEaUh_6ZmHNM",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/0_NRDUjnoPA?si=9_htToAEriHZOsBK",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://www.linkedin.com/pulse/understanding-components-uxui-design-sof%C3%ADa-garc%C3%ADa-mx3if/",
+                  "kind": "article",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ مكونات للشريط العلوي والأزرار والتذييل والعناوين والبطاقات."
+          ]
+        },
+        {
+          "id": "styles",
+          "name": "الأنماط",
+          "order": 2,
+          "topics": [
+            {
+              "id": "styles-topic",
+              "title": "تنظيم الألوان والطباعة في أنماط Figma",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/78Yiblp1Ib4?si=VmivQnkV1KiVVv9o",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Figma",
+                  "url": "https://help.figma.com/hc/en-us/articles/360039238753-Styles-in-Figma",
+                  "kind": "docs",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ أنماط الألوان الأساسية والثانوية والمحايدة وأنماط الطباعة."
+          ]
+        },
+        {
+          "id": "prototyping-scroll",
+          "name": "النماذج الأولية والتمرير",
+          "order": 3,
+          "topics": [
+            {
+              "id": "prototyping-scroll-topic",
+              "title": "ربط الشاشات وإعداد التمرير الأفقي والرأسي",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/SeJ2WS0RzJg?si=rIVOOgbPtgn0YQ2s",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/ZVoZp9eNVdI?si=v-mUQ6uGz28st-3w",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/EobSNkzdN7A?si=SjotGQeqUOM_D__C",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Figma",
+                  "url": "https://help.figma.com/hc/en-us/articles/360040314193-Guide-to-prototyping-in-Figma",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "مرجع للتطبيق العملي",
+                  "url": "https://dribbble.com/shots/23936170-Travel-Mobile-App",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أضف التمرير الأفقي والرأسي إلى تصميم تطبيق السفر."
+          ]
+        },
+        {
+          "id": "design-system-fields-buttons",
+          "name": "نظام التصميم: الحقول والأزرار",
+          "order": 4,
+          "topics": [
+            {
+              "id": "design-system-fields-buttons-topic",
+              "title": "تصميم حقول الإدخال والأزرار وحالاتها المختلفة",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/_SK2L3Nns_s?si=AgocOEOKHprZ9Zay",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/4STqQw-gMtE?si=ioLNrxkHrOIuOflL",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/gvDOui1V5l4?si=K_CtpLm1PuL2eQ92",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/blog/design-systems-101-what-is-a-design-system/",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ حالات واختلافات مناسبة لحقول الإدخال والأزرار."
+          ]
+        },
+        {
+          "id": "design-system-controls",
+          "name": "نظام التصميم: عناصر الاختيار",
+          "order": 5,
+          "topics": [
+            {
+              "id": "design-system-controls-topic",
+              "title": "القوائم المنسدلة ومربعات الاختيار وأزرار الاختيار",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/MXnzu6RtHJU?si=fTg0zqgjHsFYv-u_",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/vfCAFDtENVE?si=kuE7HXh_42VtZGkd",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/qu53GgSgOak?si=ZTLhTsLiyJbgoMGR",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/blog/design-systems-101-what-is-a-design-system/",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ حالات واختلافات للقوائم ومربعات الاختيار وأزرار الاختيار."
+          ]
+        },
+        {
+          "id": "web-grid",
+          "name": "الشبكات للويب",
+          "order": 6,
+          "topics": [
+            {
+              "id": "web-grid-topic",
+              "title": "بناء تخطيطات ويب باستخدام نظام الشبكات",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/xUfiMPTz2mI?si=RJ_tH7Af0u_zPhpS",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/Puqqgs_uLi4?si=4kFuNbD6lY1k3YkE",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مقال تعليمي",
+                  "url": "https://www.uxdesigninstitute.com/blog/how-to-use-grids-in-web-design/",
+                  "kind": "article",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/6-pzw7HXimg?si=aejMdJfK20x9IXZp",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "طبّق شبكة مناسبة على تصميم صفحة ويب."
+          ]
+        },
+        {
+          "id": "responsive-design",
+          "name": "التصميم المتجاوب",
+          "order": 7,
+          "topics": [
+            {
+              "id": "responsive-design-topic",
+              "title": "تكييف الواجهة لمقاسات الشاشات المختلفة",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/g1LDcbIcqgQ?si=0DhrWSwCV1SlCh1_",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/gwiX0oASlEw?si=GmYAD0CcL_r2ApbN",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/resource-library/responsive-website-design/",
+                  "kind": "other",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "حوّل التصميم السابق إلى واجهة متجاوبة."
+          ]
+        },
+        {
+          "id": "dashboard-design",
+          "name": "تصميم لوحة التحكم",
+          "order": 8,
+          "topics": [
+            {
+              "id": "dashboard-design-topic",
+              "title": "تطبيق أنماط UX على تصميم لوحة تحكم",
+              "resources": [
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "مورد تعليمي",
+                  "url": "https://www.figma.com/resource-library/responsive-website-design/",
+                  "kind": "other",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/XgDD6Xxw-H8?si=A0Q6q0P-5cxFYeRA",
+                  "kind": "video",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "صمّم لوحة تحكم ولخّص ما تعلمته من قائمة UX."
+          ]
+        },
+        {
+          "id": "figma-variables",
+          "name": "المتغيرات في Figma",
+          "order": 9,
+          "topics": [
+            {
+              "id": "figma-variables-topic",
+              "title": "استخدام المتغيرات للقيم القابلة لإعادة الاستخدام",
+              "resources": [
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/MDS1F_S8iJ8?si=yYr32Wqynq8AveSl",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "فيديو تعليمي",
+                  "url": "https://youtu.be/a6w1_ZaVhVo?si=GsQ1JodKsy9FQsal",
+                  "kind": "video",
+                  "lang": "en"
+                },
+                {
+                  "title": "قائمة تشغيل تعليمية",
+                  "url": "https://youtube.com/playlist?list=PLtS8Ubq2bIlUWixdH_1Q2yzZh8QJSBVmT&si=1Pqj8AOZBm2DueLr",
+                  "kind": "playlist",
+                  "lang": "en"
+                },
+                {
+                  "title": "دليل Figma",
+                  "url": "https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma",
+                  "kind": "docs",
+                  "lang": "en"
+                },
+                {
+                  "title": "مرجع للتطبيق العملي",
+                  "url": "https://www.pinterest.com/pin/1011410028812407078/",
+                  "kind": "interactive",
+                  "lang": "en"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "طبّق المتغيرات على تصميمك واجمع ما تعلمته في ملف Figma."
+          ]
+        },
+        {
+          "id": "second-project",
+          "name": "المشروع الثاني",
+          "order": 10,
+          "topics": [
+            {
+              "id": "second-project-topic",
+              "title": "إنشاء مشروع يطبّق مهارات المرحلة المتوسطة",
+              "resources": [],
+              "optional": false
+            }
+          ],
+          "practice": [
+            "أنشئ فكرة تطبيق بها 16 شاشة على الأقل، واستخدم Auto Layout والمكونات والشبكات ونظام التصميم."
+          ]
+        }
+      ]
+    }
+  ]
 }

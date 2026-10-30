@@ -1,18 +1,17 @@
 # مهام تجهيز الكورسات
 
-القائمة دي للمسارات التي ما زالت حالتها `raw` وبيانات مستوياتها فارغة (`levels: []`) في ملفات `content/circles/`. المسارات الأخرى مسجلة حاليًا كـ `structured`.
+اكتمل تجهيز المسارات الأربعة التي كانت حالتها `raw` وفق المصادر المحلية المتاحة. تحولت بياناتها إلى `structured`، وأصبحت تظهر ضمن صفحات الكورسات.
 
-## الكورسات التي تحتاج تجهيزًا
+## الكورسات التي تم تجهيزها
 
-- [ ] **الأنظمة المضمنة** — `content/circles/embedded.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Embedded%20Systems)
-- [ ] **اللغة الإنجليزية** — `content/circles/english.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/English)
-- [ ] **الإعلام** — `content/circles/media.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Media)
-- [ ] **تصميم واجهات وتجربة المستخدم** — `content/circles/ui.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/UI)
+- [x] **الأنظمة المضمنة** — `content/circles/embedded.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Embedded%20Systems)
+- [x] **اللغة الإنجليزية** — `content/circles/english.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/English)
+- [x] **الإعلام** — `content/circles/media.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Media)
+- [x] **تصميم واجهات وتجربة المستخدم** — `content/circles/ui.json` · [المصدر على GitHub](https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/main/UI)
 
-## خطوات إكمال كل كورس
+## ملاحظات المصدر
 
-- [ ] مراجعة المصدر واستخراج المستويات والوحدات والدروس بترتيبها.
-- [ ] إضافة الهيكل والبيانات إلى ملف JSON المحلي وفق `content/circles.schema.json`.
-- [ ] مراجعة أسماء الدروس والوصف بالعربية، مع إبقاء أسماء التقنيات الأصلية عند الحاجة.
-- [ ] إضافة المصادر المناسبة وتحديد لغة كل مصدر.
-- [ ] التحقق من صفحة الكورس والتقدم والتنقل بعد تحويل حالته إلى `structured`.
+- خارطة الأنظمة المضمنة وتصميم UI/UX مفصلة في الملفات المحلية؛ نُقلت المراحل والوحدات والموارد والأنشطة المتاحة مع تعريب واجهة العرض.
+- مصدر الإنجليزية يصف المراحل الثلاث والمهارات والأنشطة، بينما تفاصيل الخارطة مستضافة على Notion؛ لذلك ترتبط كل مرحلة بالمصدر الأصلي ولا تدّعي عرض دروس غير موجودة في النسخة المحلية.
+- مصدر الإعلام يحدد ستة مجالات ويربط إلى خرائطها على Notion؛ سُجل كل مجال كوحدة مستقلة تحيل إلى الخارطة التفصيلية.
+- راجع ترخيص المصدر وإذن إعادة النشر قبل نشر المحتوى المنسوخ علنًا؛ ملاحظة المصدر في `content/SOURCES.json`.

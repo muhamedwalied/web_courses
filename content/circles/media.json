@@ -3,14 +3,168 @@
   "id": "media",
   "name": "الإعلام",
   "tagline": "كتابة المحتوى والرسوم المتحركة والتصوير",
-  "description": "طوّر مهاراتك الإبداعية عبر مسارات منظّمة في مجالات الإعلام، من كتابة المحتوى والرسوم المتحركة إلى التصوير.",
+  "description": "بوابة لستة مسارات إعلامية مستقلة: كتابة المحتوى، والرسوم المتحركة، والتصميم الجرافيكي، وتحرير الفيديو والإنتاج الصوتي، والتسويق، والتصوير. تفاصيل كل مسار ومصادره موجودة في خارطة Notion المرتبطة.",
   "color": "#facc15",
   "icon": "🎬",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
     "Media/"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/Media",
-  "levels": []
+  "levels": [
+    {
+      "id": "media-fields",
+      "name": "مجالات الإعلام",
+      "order": 0,
+      "durationText": "تختلف المدة حسب المجال",
+      "goal": "اختر مجالًا إبداعيًا، ثم اتبع خارطته التفصيلية من البداية حتى الاحتراف.",
+      "modules": [
+        {
+          "id": "content-writing",
+          "name": "كتابة المحتوى",
+          "order": 0,
+          "topics": [
+            {
+              "id": "content-writing-topic",
+              "title": "كتابة المحتوى",
+              "resources": [
+                {
+                  "title": "خارطة كتابة المحتوى — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        },
+        {
+          "id": "motion-graphics",
+          "name": "الرسوم المتحركة",
+          "order": 1,
+          "topics": [
+            {
+              "id": "motion-graphics-topic",
+              "title": "الرسوم المتحركة",
+              "resources": [
+                {
+                  "title": "خارطة الرسوم المتحركة — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        },
+        {
+          "id": "graphic-design",
+          "name": "التصميم الجرافيكي",
+          "order": 2,
+          "topics": [
+            {
+              "id": "graphic-design-topic",
+              "title": "التصميم الجرافيكي",
+              "resources": [
+                {
+                  "title": "خارطة التصميم الجرافيكي — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        },
+        {
+          "id": "video-and-audio",
+          "name": "تحرير الفيديو والإنتاج الصوتي",
+          "order": 3,
+          "topics": [
+            {
+              "id": "video-and-audio-topic",
+              "title": "تحرير الفيديو والإنتاج الصوتي",
+              "resources": [
+                {
+                  "title": "خارطة تحرير الفيديو والإنتاج الصوتي — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        },
+        {
+          "id": "marketing",
+          "name": "التسويق",
+          "order": 4,
+          "topics": [
+            {
+              "id": "marketing-topic",
+              "title": "التسويق",
+              "resources": [
+                {
+                  "title": "خارطة التسويق — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        },
+        {
+          "id": "photo-video",
+          "name": "التصوير الفوتوغرافي وتصوير الفيديو",
+          "order": 5,
+          "topics": [
+            {
+              "id": "photo-video-topic",
+              "title": "التصوير الفوتوغرافي وتصوير الفيديو",
+              "resources": [
+                {
+                  "title": "خارطة التصوير الفوتوغرافي وتصوير الفيديو — CAT Reloaded",
+                  "url": "https://tan-ravioli-dbf.notion.site/Media-Roadmaps-9b49272c6cc54034a0adc4853f3ecdd8?pvs=4",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "الخارطة التفصيلية لهذا المجال ضمن بوابة مسارات الإعلام على Notion."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استكشف خارطة المجال على Notion واتبع الدروس والموارد المقترحة فيها."
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -3,14 +3,117 @@
   "id": "english",
   "name": "اللغة الإنجليزية",
   "tagline": "تعلّم الإنجليزية خطوة بخطوة",
-  "description": "خطة متدرجة لتعلّم اللغة الإنجليزية، من الأساسيات إلى الطلاقة، وتشمل القواعد والمفردات والاستماع والتحدث والكتابة.",
+  "description": "خارطة تعلّم متدرجة للإنجليزية من المبتدئ إلى المتقدم، تشمل القواعد والمفردات والاستماع والتحدث والكتابة وأنشطة عملية. تفاصيل المراحل والموارد تُدار في صفحة Notion المرتبطة.",
   "color": "#f472b6",
   "icon": "🔤",
   "prereqs": [],
-  "status": "raw",
+  "status": "structured",
   "upstreamPaths": [
     "English/"
   ],
   "github": "https://github.com/CATReloaded/CATReloaded-Circles-Roadmaps/tree/2026/English",
-  "levels": []
+  "levels": [
+    {
+      "id": "beginner",
+      "name": "مبتدئ",
+      "order": 0,
+      "durationText": "حسب الخطة الأصلية",
+      "goal": "ابدأ بأساسيات اللغة الإنجليزية وابنِ عادة تعلّم منتظمة.",
+      "modules": [
+        {
+          "id": "english-foundations",
+          "name": "أساسيات الإنجليزية",
+          "order": 0,
+          "topics": [
+            {
+              "id": "english-foundations-topic",
+              "title": "القواعد والمفردات الأساسية",
+              "resources": [
+                {
+                  "title": "خارطة تعلّم الإنجليزية على Notion",
+                  "url": "https://impossible-dewberry-59d.notion.site/English-Roadmap-2025-19f8f916037280c2862efc5694e9f126?pvs=143",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "المصدر الكامل والخطة التفصيلية مستضافان على Notion ويتضمنان موارد وأنشطة وتتبّعًا للتقدم."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "ابدأ من أساسيات اللغة حسب ترتيب خارطة Notion."
+          ],
+          "practice": [
+            "سجّل تقدمك ونفّذ الأنشطة المقترحة في الخارطة."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "name": "متوسط",
+      "order": 1,
+      "durationText": "حسب الخطة الأصلية",
+      "goal": "طوّر مهارات الفهم والتواصل باستخدام الموارد والأنشطة المقترحة في الخارطة.",
+      "modules": [
+        {
+          "id": "english-practice",
+          "name": "تطوير المهارات اللغوية",
+          "order": 0,
+          "topics": [
+            {
+              "id": "english-practice-topic",
+              "title": "الاستماع والتحدث والقراءة والكتابة",
+              "resources": [
+                {
+                  "title": "خارطة تعلّم الإنجليزية على Notion",
+                  "url": "https://impossible-dewberry-59d.notion.site/English-Roadmap-2025-19f8f916037280c2862efc5694e9f126?pvs=143",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "المصدر الكامل والخطة التفصيلية مستضافان على Notion ويتضمنان موارد وأنشطة وتتبّعًا للتقدم."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "تابع المهارات والموارد والتمارين كما وردت في الخارطة التفصيلية."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "متقدم",
+      "order": 2,
+      "durationText": "حسب الخطة الأصلية",
+      "goal": "واصل التدرّب للوصول إلى طلاقة أعلى وفق المرحلة المتقدمة في المصدر.",
+      "modules": [
+        {
+          "id": "english-fluency",
+          "name": "التطبيق والطلاقة",
+          "order": 0,
+          "topics": [
+            {
+              "id": "english-fluency-topic",
+              "title": "التطبيق العملي ومتابعة التقدم",
+              "resources": [
+                {
+                  "title": "خارطة تعلّم الإنجليزية على Notion",
+                  "url": "https://impossible-dewberry-59d.notion.site/English-Roadmap-2025-19f8f916037280c2862efc5694e9f126?pvs=143",
+                  "kind": "other",
+                  "lang": "en",
+                  "note": "المصدر الكامل والخطة التفصيلية مستضافان على Notion ويتضمنان موارد وأنشطة وتتبّعًا للتقدم."
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "objectives": [
+            "استخدم أنشطة المرحلة المتقدمة وأدوات تتبّع التقدم الواردة في المصدر."
+          ]
+        }
+      ]
+    }
+  ]
 }
